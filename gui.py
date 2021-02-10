@@ -10,7 +10,7 @@ root = Tk()
 root.title("Academic Advising Tool")
 
 # frame for menu
-menu_frame = Frame(root,width=1000, height=25, bg='red')
+menu_frame = Frame(root, width=1000, height=25, bg='red')
 menu_frame.pack(side=TOP)
 
 # top frame
