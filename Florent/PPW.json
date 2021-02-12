@@ -1,19 +1,19 @@
 {
-	"Student": {
-		"Name": {
+	"student": {
+		"name": {
 			"first":null,
 			"middle":null,
 			"last":null
 		},
-		"ID Number":null,
-		"Season":{
+		"id":null,
+		"season":{
 			"Fall":false,
 			"Spring":false
 		},
-		"Year":null,
-		"Major":[],
-		"Minor":[],
-		"Classification": {
+		"year":null,
+		"major":[],
+		"minor":[],
+		"classification": {
 			"Freshman":false,
 			"Sophomore":false,
 			"Junior":false,
@@ -23,18 +23,18 @@
 			"Undergraduate":false
 		}
 	},
-	"Course": [
+	"courses": [
 		{
-			"Subject":null,
-			"Number":null,
-			"Title":null,
-			"Credit":null
+			"subject":null,
+			"number":null,
+			"title":null,
+			"credit":null
 		},
 		{
-			"Subject":null,
-			"Number":null,
-			"Title":null,
-			"Credit":null
+			"subject":null,
+			"number":null,
+			"title":null,
+			"credit":null
 		}
 	]
 }

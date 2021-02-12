@@ -15,42 +15,40 @@ with open('PPW-myInfo.json') as f:
 
 # access like python dictionary
 # name
-for name in data['Student']['Name']:
-    if data['Student']['Name'][name]:
-        print(data['Student']['Name'][name])
+for name in data['student']['name']:
+    if data['student']['name'][name]:
+        print(data['student']['name'][name])
 
 # id
-print(data['Student']['ID Number'])
+print(data['student']['id'])
 
 # season
-for season in data['Student']['Season']:
-    if data['Student']['Season'][season]:
+for season in data['student']['season']:
+    if data['student']['season'][season]:
         print(season)
 
 # year
-print(data['Student']['Year'])
+print(data['student']['year'])
 
 # major
-for major in data['Student']['Major']:
+for major in data['student']['major']:
     print(major)
 
 # minor
-for minor in data['Student']['Minor']:
+for minor in data['student']['minor']:
     print(minor)
 
 # classification
-for Cls in data['Student']['Classification']:
-    if data['Student']['Classification'][Cls]:
+for Cls in data['student']['classification']:
+    if data['student']['classification'][Cls]:
         print(Cls)
 print()
 
-# courses
-# in json file Course is an array so we need to pass
-# an index in order to access the data
-# e.g print(data['Course'][0]['Subject'])
-i = 0
-for courses in data['Course']:
-    for course in courses:
-        print(data['Course'][i][course])
-    i += 1
+# course
+# in json file 'courses' is an array so we need to
+# pass an index in order to access the data
+# e.g print(data['courses'][0]['subject'])
+for i in range(len(data['courses'])):
+    for attr in data['courses'][i]:
+        print(data['courses'][i][attr])
     print()
