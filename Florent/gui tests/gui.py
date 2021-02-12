@@ -30,7 +30,7 @@ student_info_frame = LabelFrame(rframe, text="Student Information")
 student_info_frame.place(width=425, height=90)
 
 var = StringVar()
-label = Label(student_info_frame, textvariable=var, justify=LEFT, padx=20)
+label = abel(Lstudent_info_frame, textvariable=var, justify=LEFT, padx=20)
 # concept output
 var.set(
         " "*8 + "Name : " + std_name + '\n' +
