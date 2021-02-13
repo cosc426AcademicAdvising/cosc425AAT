@@ -110,7 +110,7 @@ scrollbar.place(relx=0.155, rely=0.025, relwidth=0.015, relheight=0.4)
 
 recent_list = Listbox(frame, yscrollcommand=scrollbar.set)
 # Filling list with schedules
-for i in range(100):
+for i in range(30):
     recent_list.insert(END, "Schedule " + str(i))
 
 recent_list.place(relx=0.015, rely=0.025, relwidth=0.14, relheight=0.4)
