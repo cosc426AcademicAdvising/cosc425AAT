@@ -1,7 +1,7 @@
 import json
 
 # open and read json file
-infile = open('PPW-myInfo.json', 'r')
+infile = open('Devin/PPW-myInfo.json', 'r')
 infile_data = infile.read()
 
 # parse
@@ -15,9 +15,7 @@ with open('PPW-myInfo.json') as f:
 
 # access like python dictionary
 # name
-for name in data['student']['name']:
-    if data['student']['name'][name]:
-        print(data['student']['name'][name])
+print(data['student']['name'])
 
 # id
 print(data['student']['id'])
