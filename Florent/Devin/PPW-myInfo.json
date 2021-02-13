@@ -1,0 +1,54 @@
+{
+	"student":{
+		"name": "john wick",
+		"id":1234567,
+		"season":{
+			"Fall":false,
+			"Spring":true
+		},
+		"year":2000,
+		"major":["Computer Science"],
+		"minor":["Math"],
+		"classification":{
+			"Freshman":false,
+			"Sophomore":false,
+			"Junior":false,
+			"Senior":true,
+			"USB":false,
+			"Graduate":false,
+			"Undergraduate":true
+		}
+	},
+	"courses":[
+		{
+			"subject":"COSC",
+			"number":425,
+			"title":"Software Engineering I",
+			"credit":3
+		},
+		{
+			"subject":"MATH",
+			"number":311,
+			"title":"Differential Equations I",
+			"credit":4
+		},
+		{
+			"subject":"COSC",
+			"number":386,
+			"title":"Database Desgin and Implementation",
+			"credit":3
+		},
+		{
+			"subject":"COSC",
+			"number":422,
+			"title":"Organization of Programming Languages",
+			"credit":3
+		},
+		{
+			"subject":"GEO",
+			"number":100,
+			"title":"Introduction to Human Geography",
+			"credit":3
+		}
+	]
+}
