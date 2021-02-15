@@ -17,14 +17,14 @@ class View:
 
     def create_widgets(self):
         # frames
-        self.leftFrame = Frame(self.container, width=300, bg='blue')
-        self.topFrame = Frame(self.container, height=100, bg='red')
+        self.leftFrame = Frame(self.container, width=300)
+        self.topFrame = Frame(self.container, height=100)
         self.bottomFrame = Frame(self.container, height=500, bg='white')
 
     def setup_menuBar(self):
         self.menuBar = Menu(self.container)
         self.container.config(menu=self.menuBar)
-        # file Menu
+        # schedule Menu
         self.schedule = Menu(self.menuBar)
         self.menuBar.add_cascade(label='Schedule', menu=self.schedule)
         # dropdown
