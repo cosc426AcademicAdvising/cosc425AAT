@@ -44,15 +44,3 @@ class View:
         self.leftFrame.pack(side=LEFT, fill=Y)
         self.topFrame.pack(side=TOP, fill=X)
         self.bottomFrame.pack(side=TOP, expand=True, fill=BOTH)
-
-
-if __name__ == "__main__":
-    root = Tk()
-    root.geometry("%sx%s" % (1000, 600))
-    root.title("Academic Advising Tool")
-
-    view = View(root)
-    view.setup()
-    root.mainloop()
-
-
