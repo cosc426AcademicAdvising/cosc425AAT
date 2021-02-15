@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Computer Science",
+    "abbrev": "COSC",
+    "Department": "Henson"
+  },
+  {
+    "title": "Mathematics",
+    "abbrev": "Math",
+    "Department": "Henson"
+  },
+  {
+    "title": "Physics",
+    "abbrev": "PHYS",
+    "Department": "Henson"
+  },
+  {
+    "title": "Chemistry",
+    "abbrev": "CHEM",
+    "Department": "Henson"
+  },
+  {
+    "title": "Economics",
+    "abbrev": "ECON",
+    "Department": "Perdue"
+  },
+  {
+    "title": "Finance",
+    "abbrev": "FINN",
+    "Department": "Perdue"
+  },
+  {
+    "title": "Music Recording",
+    "abbrev": "MUSR",
+    "Department": "Fulton"
+  },
+  {
+    "title": "Music Production",
+    "abbrev": "MUSP",
+    "Department": "Fulton"
+  }
+]
