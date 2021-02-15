@@ -1,0 +1,40 @@
+{
+	"student": {
+		"name": {
+			"first":null,
+			"middle":null,
+			"last":null
+		},
+		"id":null,
+		"season":{
+			"Fall":false,
+			"Spring":false
+		},
+		"year":null,
+		"major":[],
+		"minor":[],
+		"classification": {
+			"Freshman":false,
+			"Sophomore":false,
+			"Junior":false,
+			"Senior":false,
+			"USB":false,
+			"Graduate":false,
+			"Undergraduate":false
+		}
+	},
+	"courses": [
+		{
+			"subject":null,
+			"number":null,
+			"title":null,
+			"credit":null
+		},
+		{
+			"subject":null,
+			"number":null,
+			"title":null,
+			"credit":null
+		}
+	]
+}
