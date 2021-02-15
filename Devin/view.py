@@ -1,38 +1,46 @@
-import tkinter as tk
 from tkinter import *
 
 
-# from pubsub import pub  # message passing between MVC
+def donothing():
+    print("Something happened...")
 
 
 class View:
-    def _init_(self, parent):
-        return
+    def __init__(self, master):
+        self.container = master
 
-    def setup(self):
-        # run first
+    def setup(self):    # run first
+        # methods to setup user interface
         self.create_widgets()
+        self.setup_menuBar()
         self.setup_layout()
 
     def create_widgets(self):
-        # setup frames
-        self.topFrame = Frame(self.container, borderwidth=2, highlightedbackground="black", highlightedcolor="red",
-                              highlightedthickness=1, width=500, height=600)
-        self.topFrame2 = Frame(self.container, borderwidth=2, highlightedbackground="black", highlightedcolor="red",
-                               highlightedthickness=1, width=500, height=600)
-        self.bottomFrame = Frame(self.topFrame)
-        # button
-        self.b1loadImg = tk.Button(self.topFrame2, text="Load Image", command=self.loadImg)
-        self.b2LineDetect = tk.Button(self.topFrame2, text="Line Detection", command=self.lineDetect)
-        # scale bar
+        # frames
+        self.leftFrame = Frame(self.container, width=300)
+        self.topFrame = Frame(self.container, height=100)
+        self.bottomFrame = Frame(self.container, height=500, bg='white')
 
-        # image panel
+    def setup_menuBar(self):
+        self.menuBar = Menu(self.container)
+        self.container.config(menu=self.menuBar)
+        # schedule Menu
+        self.schedule = Menu(self.menuBar)
+        self.menuBar.add_cascade(label='Schedule', menu=self.schedule)
+        # dropdown
+        self.schedule.add_command(label='New...', command=donothing)
+        self.schedule.add_command(label='Open...', command=donothing)
+        # self.schedule.add_cascade(label="Open recent...", menu=self.schedule)
+        self.schedule.add_separator()
+        self.schedule.add_command(label='Save', command=donothing)
+        self.schedule.add_command(label="Save as...", command=donothing)
+        self.schedule.add_separator()
+        self.schedule.add_command(label='Export', command=donothing)
+        self.schedule.add_command(label='Print', command=donothing)
+        # course menu
 
-    def loadImg(self):
-        print("loadImg")
-
-    def lineDetect(self):
-        print("lineDetect")
-
-    # test run
-    print("running view")
+    def setup_layout(self):
+        # frames
+        self.leftFrame.pack(side=LEFT, fill=Y)
+        self.topFrame.pack(side=TOP, fill=X)
+        self.bottomFrame.pack(side=TOP, expand=True, fill=BOTH)
