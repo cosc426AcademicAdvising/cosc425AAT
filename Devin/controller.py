@@ -11,5 +11,5 @@ class Controller:
 
         self.model = Model()
         self.view = View(self.root)
-        # self.view.setup(self)
+        self.view.setup()
         self.root.mainloop()
