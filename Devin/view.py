@@ -28,6 +28,7 @@ class View:
         self.schedule = Menu(self.menuBar)
         self.menuBar.add_cascade(label='Schedule', menu=self.schedule)
         # dropdown
+
         self.schedule.add_command(label='New...', command=donothing)
         self.schedule.add_command(label='Open...', command=donothing)
         # self.schedule.add_cascade(label="Open recent...", menu=self.schedule)
