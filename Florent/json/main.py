@@ -1,16 +1,14 @@
 import json
 
+with open('PPW1.json') as f:
+    data = json.load(f)
+'''
 # open and read json file
 infile = open('Devin/PPW-myInfo.json', 'r')
 infile_data = infile.read()
 
 # parse
 data = json.loads(infile_data)
-
-'''
-# other method
-with open('PPW-myInfo.json') as f:
-    data = json.loads(f)
 '''
 
 # access like python dictionary

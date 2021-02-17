@@ -1,10 +1,6 @@
 {
 	"student": {
-		"name": {
-			"first":null,
-			"middle":null,
-			"last":null
-		},
+		"name": null,
 		"id":null,
 		"season":{
 			"Fall":false,

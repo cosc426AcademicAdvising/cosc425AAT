@@ -12,35 +12,63 @@ class View:
     def setup(self):    # run first
         # methods to setup user interface
         self.create_widgets()
-        self.setup_menuBar()
         self.setup_layout()
+        self.setup_menuBar()
 
     def create_widgets(self):
         # frames
-        self.leftFrame = Frame(self.container, width=300)
-        self.topFrame = Frame(self.container, height=100)
-        self.bottomFrame = Frame(self.container, height=500, bg='white')
+        self.leftFrame = Frame(self.container, bg='gray')
+        self.topFrame = Frame(self.container, bg='white')
+        self.bottomFrame = Frame(self.container, bg='black')
+        # student information in top frame
+        self.studentInfoFrame = LabelFrame(self.topFrame)
+        self.studentInfoLabel = Label(self.studentInfoFrame, textvariable="Im here", fg='black', bg='white', justify=LEFT)
+
+    def setup_layout(self):
+        # frames
+        self.leftFrame.place(relwidth=0.25, relheight=1)
+        self.topFrame.place(relwidth=1, relheight=0.2, relx=0.25)
+        self.bottomFrame.place(relwidth=0.75, relheight=0.8, relx=0.25, rely=0.2)
+
+        # labels
+        self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
+        self.studentInfoLabel.pack(fill=BOTH, expand=True)
+
+        # recent schedule list on left hand side
+        self.scrollbar = Scrollbar(self.leftFrame, bg='gray')
+        self.scrollbar.place(relx=0.75, rely=0.035, relwidth=0.08, relheight=0.4)
+
+        self.recent_list = Listbox(self.leftFrame, yscrollcommand=self.scrollbar.set, highlightcolor='#8a0000', highlightthickness=4.0, selectbackground='gray', bg='#a8a8a8')
+        # Filling list with schedules ******NEEDS TO BE PUT IN MODEL CLASS******
+        for i in range(30):
+            self.recent_list.insert(END, "Schedule " + str(i))
+        # ********************************************************************
+        self.recent_list.place(relx=0.05, rely=0.035, relwidth=0.7, relheight=0.4)
+        # Connecting list and scrollbar functionality
+        self.scrollbar.config(command=self.recent_list.yview)
 
     def setup_menuBar(self):
         self.menuBar = Menu(self.container)
         self.container.config(menu=self.menuBar)
-        # schedule Menu
+        # SCHEDULE MENU
         self.schedule = Menu(self.menuBar)
         self.menuBar.add_cascade(label='Schedule', menu=self.schedule)
         # dropdown
         self.schedule.add_command(label='New...', command=donothing)
         self.schedule.add_command(label='Open...', command=donothing)
-        # self.schedule.add_cascade(label="Open recent...", menu=self.schedule)
+
+        self.recent = Menu(self.schedule)
+        self.schedule.add_cascade(label="Open recent...", menu=self.recent)
+        self.recent.add_separator()
+        self.recent.add_command(label='Clear', command=donothing)
+
         self.schedule.add_separator()
         self.schedule.add_command(label='Save', command=donothing)
         self.schedule.add_command(label="Save as...", command=donothing)
         self.schedule.add_separator()
         self.schedule.add_command(label='Export', command=donothing)
         self.schedule.add_command(label='Print', command=donothing)
-        # course menu
-
-    def setup_layout(self):
-        # frames
-        self.leftFrame.pack(side=LEFT, fill=Y)
-        self.topFrame.pack(side=TOP, fill=X)
-        self.bottomFrame.pack(side=TOP, expand=True, fill=BOTH)
+        # MAJOR MENU
+        self.major = Menu(self.menuBar)
+        self.menuBar.add_cascade(label='Major', menu=self.major)
+        # drop down
