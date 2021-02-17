@@ -23,6 +23,11 @@ class View:
         # student information in top frame
         self.studentInfoFrame = LabelFrame(self.topFrame)
         self.studentInfoLabel = Label(self.studentInfoFrame, textvariable="Im here", fg='black', bg='white', justify=LEFT)
+        # select courses in left frame
+        self.selectCourseFrame = LabelFrame(self.leftFrame)
+        self.selectCourseLabel = Label(self.selectCourseFrame, textvariable="Im here", fg='black', bg='white', justify=LEFT)
+
+        self.selectCourseEntry = Entry(self.leftFrame)
 
     def setup_layout(self):
         # frames
@@ -33,6 +38,12 @@ class View:
         # labels
         self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
         self.studentInfoLabel.pack(fill=BOTH, expand=True)
+
+        self.selectCourseFrame.place(relx=0.055, rely=0.5, relwidth=0.75, relheight=0.45)
+        self.selectCourseLabel.pack(fill=BOTH, expand=True)
+
+        # Entry box
+        self.selectCourseEntry.place(relx=0.055, rely=0.46, relwidth=0.75, relheight=0.04)
 
         # recent schedule list on left hand side
         self.scrollbar = Scrollbar(self.leftFrame, bg='gray')
