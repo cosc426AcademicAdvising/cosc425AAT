@@ -1,6 +1,6 @@
 import json
 
-with open('PPW-myInfo.json') as f:
+with open('PPW1.json') as f:
     data = json.load(f)
 '''
 # open and read json file
