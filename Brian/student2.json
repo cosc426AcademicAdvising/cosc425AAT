@@ -1,0 +1,193 @@
+[
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Freshman",
+        "Graduation year": 2020,
+        "Semester": "Fall 2016",
+        "Semester credits": 8,
+        "Total credits": 8,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Freshman",
+        "Graduation year": 2020,
+        "Semester": "Spring 2017",
+        "Semester credits": 8,
+        "Total credits": 16,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Sophomore",
+        "Graduation year": 2020,
+        "Semester": "Fall 2017",
+        "Semester credits": 8,
+        "Total credits": 24,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Sophomore",
+        "Graduation year": 2020,
+        "Semester": "Spring 2018",
+        "Semester credits": 8,
+        "Total credits": 32,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Junior",
+        "Graduation year": 2020,
+        "Semester": "Fall 2018",
+        "Semester credits": 8,
+        "Total credits": 40,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Junior",
+        "Graduation year": 2020,
+        "Semester": "Spring 2019",
+        "Semester credits": 8,
+        "Total credits": 48,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Senior",
+        "Graduation year": 2020,
+        "Semester": "Fall 2019",
+        "Semester credits": 8,
+        "Total credits": 56,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    },
+
+    {
+        "First name": "lorem",
+        "Last name": "ipsum",
+        "Student ID": 1111111,
+        "Year": "Senior",
+        "Graduation year": 2020,
+        "Semester": "Spring 2020",
+        "Semester credits": 8,
+        "Total credits": 64,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "biol"
+            },
+            {
+                "name": "chem",
+                "cred": 4,
+                "department": "Henson"
+            }
+        ]
+
+    }
+]
