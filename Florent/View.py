@@ -6,8 +6,8 @@ def donothing():
 
 
 class View:
-    def __init__(self, master):
-        self.container = master
+    def __init__(self, container):
+        self.container = container
         self.var = tk.StringVar()
 
     def setup(self):    # run first
@@ -64,9 +64,9 @@ class View:
         self.menuBar.add_cascade(label='Add Class', menu=self.addClass)
 
     def setup_layout(self):
-        # frames
-        self.leftFrame.place(relwidth=0.25, relheight=1)
-        self.rightFrame.place(relwidth=1, relheight=0.2, relx=0.25)
+            # frames
+            self.leftFrame.place(relwidth=0.5, relheight=1.0)
+            self.rightFrame.place(relwidth=0.5, relheight=1.0, relx=0.5)
 
-        # self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
-        # self.studentInfoLabel.pack(fill=tk.BOTH, expand=True)
+            # self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
+            # self.studentInfoLabel.pack(fill=tk.BOTH, expand=True)

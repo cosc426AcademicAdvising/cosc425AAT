@@ -5,10 +5,10 @@ from pubsub import pub      # pip install PyPubSub
 
 
 class Controller:
-    def __init__(self, master):
-        self.master = master
+    def __init__(self, container):
+        self.container = container
         self.model = Model()
-        self.view = View(master)
+        self.view = View(container)
         self.view.setup()
 
         # receive messages
