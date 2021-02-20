@@ -1,0 +1,3 @@
+main.py - Import json documents into the database and then query those elements inside the local database
+
+mongodb.py - Same as above but uses the publicly created database instead of the local database
