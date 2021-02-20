@@ -64,9 +64,8 @@ class View:
         self.menuBar.add_cascade(label='Add Class', menu=self.addClass)
 
     def setup_layout(self):
-            # Placing frames
+            # Placing main frames for container(main window)
             self.leftFrame.place(relwidth=0.48, relheight=0.98, rely=0.02, relx=0.01)
             self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
-
-            self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
-            self.studentInfoLabel.pack()
+            # Label Frame for student info
+            self.studentInfoFrame.place(relwidth=0.8, relheight=0.18, relx=0.1, rely=0.04)
