@@ -30,10 +30,9 @@ class View:
     def create_widgets(self):
         # frames
         self.leftFrame = tk.Frame(self.container)
-        self.topFrame = tk.Frame(self.container)
-        self.bottomFrame = tk.Frame(self.container, bg='white')
+        self.rightFrame = tk.Frame(self.container, bg='white')
         # student information in top frame
-        self.studentInfoFrame = tk.Frame(self.topFrame)
+        self.studentInfoFrame = tk.Frame(self.rightFrame)
         self.studentInfoLabel = tk.Label(self.studentInfoFrame, textvariable=self.var, fg='black', bg='white', justify=tk.LEFT)
 
     def setup_menuBar(self):
@@ -65,8 +64,7 @@ class View:
     def setup_layout(self):
         # frames
         self.leftFrame.place(relwidth=0.25, relheight=1)
-        self.topFrame.place(relwidth=1, relheight=0.2, relx=0.25)
-        self.bottomFrame.place(relwidth=0.75, relheight=0.8, relx=0.25, rely=0.2)
+        self.rightFrame.place(relwidth=1, relheight=0.2, relx=0.25)
 
         self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
         self.studentInfoLabel.pack(fill=tk.BOTH, expand=True)

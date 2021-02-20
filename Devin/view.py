@@ -11,9 +11,16 @@ class View:
 
     def setup(self):    # run first
         # methods to setup user interface
+        self.create_window()
         self.create_widgets()
         self.setup_layout()
         self.setup_menuBar()
+
+    def create_window(self):
+        self.my_str1 = StringVar()
+        self.l1 = Label(self.container, textvariable=self.my_str1)
+        self.l1.grid(row=1, column=2)
+        self.my_str1.set("Hi I am Child window")
 
     def create_widgets(self):
         # frames
