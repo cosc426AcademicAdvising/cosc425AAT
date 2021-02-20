@@ -54,5 +54,6 @@ for doc in cursor:
 #this line and the next for loop were used for debugging
 print(len(courseNumList))
 
+#prints all the entries in courseNumList, more debugging
 for x in range(len(courseNumList)):
     print(courseNumList[x])
