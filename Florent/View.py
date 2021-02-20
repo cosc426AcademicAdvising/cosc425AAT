@@ -6,8 +6,8 @@ def donothing():
 
 
 class View:
-    def __init__(self, master):
-        self.container = master
+    def __init__(self, container):
+        self.container = container
         self.var = tk.StringVar()
 
     def setup(self):    # run first
@@ -29,11 +29,10 @@ class View:
 
     def create_widgets(self):
         # frames
-        self.leftFrame = tk.Frame(self.container)
-        self.topFrame = tk.Frame(self.container)
-        self.bottomFrame = tk.Frame(self.container, bg='white')
+        self.leftFrame = tk.Frame(self.container, bg='gray')
+        self.rightFrame = tk.Frame(self.container, bg='white')
         # student information in top frame
-        self.studentInfoFrame = tk.Frame(self.topFrame)
+        self.studentInfoFrame = tk.Frame(self.rightFrame)
         self.studentInfoLabel = tk.Label(self.studentInfoFrame, textvariable=self.var, fg='black', bg='white', justify=tk.LEFT)
 
     def setup_menuBar(self):
@@ -60,13 +59,13 @@ class View:
         # MAJOR MENU
         self.major = tk.Menu(self.menuBar)
         self.menuBar.add_cascade(label='Major', menu=self.major)
-        # drop down
+        # ADD CLASS MENU
+        self.addClass = tk.Menu(self.menuBar)
+        self.menuBar.add_cascade(label='Add Class', menu=self.addClass)
 
     def setup_layout(self):
-        # frames
-        self.leftFrame.place(relwidth=0.25, relheight=1)
-        self.topFrame.place(relwidth=1, relheight=0.2, relx=0.25)
-        self.bottomFrame.place(relwidth=0.75, relheight=0.8, relx=0.25, rely=0.2)
-
-        self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
-        self.studentInfoLabel.pack(fill=tk.BOTH, expand=True)
+            # Placing main frames for container(main window)
+            self.leftFrame.place(relwidth=0.48, relheight=0.98, rely=0.02, relx=0.01)
+            self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
+            # Label Frame for student info
+            self.studentInfoFrame.place(relwidth=0.8, relheight=0.18, relx=0.1, rely=0.04)

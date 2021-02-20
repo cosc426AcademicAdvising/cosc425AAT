@@ -11,9 +11,16 @@ class View:
 
     def setup(self):    # run first
         # methods to setup user interface
+        self.create_window()
         self.create_widgets()
         self.setup_layout()
         self.setup_menuBar()
+
+    def create_window(self):
+        self.my_str1 = StringVar()
+        self.l1 = Label(self.container, textvariable=self.my_str1)
+        self.l1.grid(row=1, column=2)
+        self.my_str1.set("Hi I am Child window")
 
     def create_widgets(self):
         # frames
@@ -23,6 +30,11 @@ class View:
         # student information in top frame
         self.studentInfoFrame = LabelFrame(self.topFrame)
         self.studentInfoLabel = Label(self.studentInfoFrame, textvariable="Im here", fg='black', bg='white', justify=LEFT)
+        # select courses in left frame
+        self.selectCourseFrame = LabelFrame(self.leftFrame)
+        self.selectCourseLabel = Label(self.selectCourseFrame, textvariable="Im here", fg='black', bg='white', justify=LEFT)
+
+        self.selectCourseEntry = Entry(self.leftFrame)
 
     def setup_layout(self):
         # frames
@@ -33,6 +45,12 @@ class View:
         # labels
         self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
         self.studentInfoLabel.pack(fill=BOTH, expand=True)
+
+        self.selectCourseFrame.place(relx=0.055, rely=0.5, relwidth=0.75, relheight=0.45)
+        self.selectCourseLabel.pack(fill=BOTH, expand=True)
+
+        # Entry box
+        self.selectCourseEntry.place(relx=0.055, rely=0.46, relwidth=0.75, relheight=0.04)
 
         # recent schedule list on left hand side
         self.scrollbar = Scrollbar(self.leftFrame, bg='gray')

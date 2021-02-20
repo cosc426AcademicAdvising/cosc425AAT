@@ -1,0 +1,3 @@
+studentInfo.py fetches the courses already taken by a student with a given id number
+at the moment it only pulls the department of the first course and the number of courses taken in each semester
+will eventually fetch the credits, department, course name, and number of courses for the given student in each semester
