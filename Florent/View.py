@@ -32,8 +32,8 @@ class View:
         self.leftFrame = tk.Frame(self.container, bg='gray')
         self.rightFrame = tk.Frame(self.container, bg='white')
         # student information in top frame
-        # self.studentInfoFrame = tk.Frame(self.rightFrame)
-        # self.studentInfoLabel = tk.Label(self.studentInfoFrame, textvariable=self.var, fg='black', bg='white', justify=tk.LEFT)
+        self.studentInfoFrame = tk.Frame(self.rightFrame)
+        self.studentInfoLabel = tk.Label(self.studentInfoFrame, textvariable=self.var, fg='black', bg='white', justify=tk.LEFT)
 
     def setup_menuBar(self):
         self.menuBar = tk.Menu(self.container)
@@ -64,9 +64,9 @@ class View:
         self.menuBar.add_cascade(label='Add Class', menu=self.addClass)
 
     def setup_layout(self):
-            # frames
-            self.leftFrame.place(relwidth=0.5, relheight=1.0)
-            self.rightFrame.place(relwidth=0.5, relheight=1.0, relx=0.5)
+            # Placing frames
+            self.leftFrame.place(relwidth=0.48, relheight=0.98, rely=0.02, relx=0.01)
+            self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
 
-            # self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
-            # self.studentInfoLabel.pack(fill=tk.BOTH, expand=True)
+            self.studentInfoFrame.place(relwidth=0.4, relheight=0.7, relx=0.2, rely=0.1)
+            self.studentInfoLabel.pack()
