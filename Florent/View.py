@@ -59,7 +59,9 @@ class View:
         # MAJOR MENU
         self.major = tk.Menu(self.menuBar)
         self.menuBar.add_cascade(label='Major', menu=self.major)
-        # drop down
+        # ADD CLASS MENU
+        self.addClass = tk.Menu(self.menuBar)
+        self.menuBar.add_cascade(label='Add Class', menu=self.addClass)
 
     def setup_layout(self):
         # frames
