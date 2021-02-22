@@ -15,7 +15,6 @@ class View:
 
         self.layout()
         self.menu()
-        self.majorDropdown()
 
     # widgets declarations
     def layout(self):
@@ -25,6 +24,8 @@ class View:
         self.studentInfoFrame = Frame(self.rightFrame, highlightbackground='gray', highlightthickness=1)
 
         self.set_layout()
+        self.majorDropdown()
+        self.minorDropdown()
 
     # widgets positioning
     def set_layout(self):
@@ -65,6 +66,13 @@ class View:
         schedule.add_command(label='Print', command=self.printSchedule)
 
     def majorDropdown(self):
+        majorsList = ['Computer Science', 'Math', 'Business']
+        self.major = StringVar()
+        self.major.set(majorsList[1])
+        self.major = OptionMenu(self.rightFrame, self.major, *majorsList)
+        self.major.pack()
+
+    def minorDropdown(self):
         majorsList = ['Computer Science', 'Math', 'Business']
         self.major = StringVar()
         self.major.set(majorsList[1])
