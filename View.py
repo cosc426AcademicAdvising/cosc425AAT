@@ -48,20 +48,41 @@ class View:
 
     # schedule menu dropdown
     def scheduleMenu(self, schedule):
-        schedule.add_command(label='New...', command=donothing)
-        schedule.add_command(label='Open...', command=donothing)
+        schedule.add_command(label='New...', command=self.newSchedule)
+        schedule.add_command(label='Open...', command=self.openSchedule)
 
         recent = Menu(schedule)
         schedule.add_cascade(label="Open recent...", menu=recent)
         recent.add_separator()
-        recent.add_command(label='Clear', command=donothing)
+        recent.add_command(label='Clear', command=self.openRecentSchedule)
 
         schedule.add_separator()
-        schedule.add_command(label='Save', command=donothing)
-        schedule.add_command(label="Save as...", command=donothing)
+        schedule.add_command(label='Save', command=self.saveSchedule)
+        schedule.add_command(label="Save as...", command=self.saveAsSchedule)
         schedule.add_separator()
-        schedule.add_command(label='Export', command=donothing)
-        schedule.add_command(label='Print', command=donothing)
+        schedule.add_command(label='Export', command=self.exportSchedule)
+        schedule.add_command(label='Print', command=self.printSchedule)
+
+    def newSchedule(self):
+        pub.sendMessage("New Menu Dropdown Pressed")
+
+    def openSchedule(self):
+        print("Open schedule")
+
+    def openRecentSchedule(self):
+        print("Open schedule")
+
+    def saveSchedule(self):
+        print("Saved schedule")
+
+    def saveAsSchedule(self):
+        print("Save schedule as..")
+
+    def exportSchedule(self):
+        print("Export schedule")
+
+    def printSchedule(self):
+        print("Print scedule")
 
     def majorMenu(self, major):
         return
