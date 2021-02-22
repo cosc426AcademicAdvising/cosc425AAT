@@ -15,6 +15,7 @@ class View:
 
         self.layout()
         self.menu()
+        self.majorDropdown()
 
     # widgets declarations
     def layout(self):
@@ -62,6 +63,13 @@ class View:
         schedule.add_separator()
         schedule.add_command(label='Export', command=self.exportSchedule)
         schedule.add_command(label='Print', command=self.printSchedule)
+
+    def majorDropdown(self):
+        majorsList = ['Computer Science', 'Math', 'Business']
+        self.major = StringVar()
+        self.major.set(majorsList[1])
+        self.major = OptionMenu(self.rightFrame, self.major, *majorsList)
+        self.major.pack()
 
     def newSchedule(self):
         pub.sendMessage("New Menu Dropdown Pressed")
