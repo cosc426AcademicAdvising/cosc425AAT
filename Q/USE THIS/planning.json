@@ -1,0 +1,22 @@
+[
+  {
+    "Student ID": 1234567,
+    "Semester ID": "F2019",
+    "Status": "Undergraduate",
+    "Year": "Junior",
+    "Courses": [
+      {
+        "cred": 4,
+        "department": "Henson",
+        "name": "cosc 425",
+        "semester": "Fall 2019"
+      },
+      {
+        "cred": 4,
+        "department": "Henson",
+        "name": "cosc 350",
+        "semester": "Fall 2019"
+      }
+    ]
+  }
+]

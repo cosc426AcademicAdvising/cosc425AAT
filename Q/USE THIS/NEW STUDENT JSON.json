@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Quincy Dennis",
+    "s_id": 1234567,
+    "major": "Computer Science",
+    "minor": "None",
+    "status": "Undergraduate",
+    "year": "Junior",
+    "credits": 80,
+    "sem_id": "Spring 2021",
+    "advisor_mail": "advisor@mail.com",
+    "course_taken": [
+      {
+        "course_id": "COSC 320",
+        "grade": "Pass",
+        "credits": 4,
+        "repeat": 0
+      },
+      {
+        "course_id": "MATH 210",
+        "grade": "Fail",
+        "credits": 4,
+        "repeat": 2
+      }
+    ],
+    "taking_course": [
+      {
+        "course_id": "COSC 425"
+      },
+      {
+        "course_id": "MATH 360"
+      }
+    ]
+  }
+]

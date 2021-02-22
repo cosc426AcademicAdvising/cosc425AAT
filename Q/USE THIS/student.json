@@ -1,0 +1,52 @@
+[
+    {
+        "First name": "Florent",
+        "Last name": "Dondjeu",
+        "Student ID": 1234567,
+        "Year": "Junior",
+        "Status": "Undergraduate",
+        "Major": "Computer Science",
+        "Minor": "Math",
+        "Graduation year": 2020,
+        "Courses": [
+            {
+                "cred": 4,
+                "department": "devilbiss",
+                "name": "math 210",
+                "Semester": "Fall 2016"
+            },
+            {
+                "name": "cosc 120",
+                "cred": 4,
+                "department": "Henson",
+                "Semester": "Spring 2017"
+            },
+            {
+                "name": "cosc 220",
+                "cred": 4,
+                "department": "Henson",
+                "Semester": "Fall 2017"
+            },
+            {
+                "name": "math 306",
+                "cred": 4,
+                "department": "Henson",
+                "Semester": "Spring 2018"
+            },
+            {
+                "name": "cosc 320",
+                "cred": 4,
+                "department": "Henson",
+                "Semester": "Fall 2018"
+            },
+            {
+                "name": "cosc 386",
+                "cred": 4,
+                "department": "Henson",
+                "Semester": "Spring 2019"
+            }
+        ]
+
+    }
+
+]
