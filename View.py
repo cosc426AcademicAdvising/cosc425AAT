@@ -129,9 +129,9 @@ class View:
         menu.add_cascade(label='Schedule', menu=schedule)
         self.scheduleMenu(schedule)
 
-        major = Menu(menu)
-        menu.add_cascade(label='Load', menu=major)
-        self.majorMenu(major)
+        load = Menu(menu)
+        menu.add_cascade(label='Load', menu=load)
+        self.majorMenu(load)
 
     # schedule menu dropdown
     def scheduleMenu(self, schedule):
