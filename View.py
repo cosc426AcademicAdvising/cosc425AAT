@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from pubsub import pub
+import tkinter.font as TkFont
 
 
 def donothing():
@@ -13,6 +14,10 @@ class View:
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
 
+        # fonts
+        self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
+        self.TNR = TkFont.Font(family='Times')
+
         self.layout()
         self.menu()
 
@@ -24,15 +29,95 @@ class View:
         self.studentInfoFrame = Frame(self.rightFrame, highlightbackground='gray', highlightthickness=1)
 
         self.set_layout()
-        self.majorDropdown()
-        self.minorDropdown()
+        self.PlanningWorksheet_layout()
 
     # widgets positioning
     def set_layout(self):
         self.leftFrame.place(relwidth=0.48, relheight=0.98, relx=0.01, rely=0.02)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
 
-        self.studentInfoFrame.place(relwidth=0.8, relheight=0.18, relx=0.1, rely=0.04)
+    def PlanningWorksheet_layout(self):
+        # *** title ***
+        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet",
+                                       anchor=CENTER, font=self.TNR20)
+        ProgPlanTitle.pack(side=TOP)
+
+        # **** student name ****
+        nameFrame = Frame(self.rightFrame,)
+        nameLabel = Label(nameFrame, text='Name:')
+        nameEntry = ttk.Entry(nameFrame)
+
+        nameFrame.place(rely=0.05, relx=0.05)
+        nameLabel.pack(side=LEFT)
+        nameEntry.pack()
+
+        # **** student id ****
+        idFrame = Frame(self.rightFrame,)
+        idLabel = Label(idFrame, text='ID Number:')
+        idEntry = ttk.Entry(idFrame)
+
+        idFrame.place(rely=0.05, relx=0.5)
+        idLabel.pack(side=LEFT)
+        idEntry.pack()
+
+        # **** season ****
+        seasonFrame = Frame(self.rightFrame,)
+        seasonLabel = Label(seasonFrame, text='Registering for:')
+        summerCkBt = ttk.Checkbutton(seasonFrame, text='Summer')
+        fallCkBt = ttk.Checkbutton(seasonFrame, text='Fall')
+        winterCkBt = ttk.Checkbutton(seasonFrame, text='Winter')
+        springCkBt = ttk.Checkbutton(seasonFrame, text='Spring')
+
+        seasonFrame.place(y=85, x=30, width=550)
+        seasonLabel.pack(side=LEFT)
+        summerCkBt.place(x=120)
+        fallCkBt.place(x=220)
+        winterCkBt.place(x=300)
+        springCkBt.place(x=400)
+
+        # **** major & minor ****
+        majorFrame = Frame(self.rightFrame)
+        majorFrame.place(y=130, x=30, width=450)
+
+        majorLabel = Label(majorFrame, text='Major(s): ')
+
+        majorsList = ['-', 'Computer Science', 'Math', 'Business']
+        majorVar = StringVar()
+        majorVar.set(majorsList[0])
+        # use listbox instead because you can have more than one major
+        majorMenu = ttk.OptionMenu(majorFrame, majorVar, *majorsList)
+        majorLabel.pack(side=LEFT)
+        majorMenu.pack(side=LEFT)
+
+        minorLabel = Label(majorFrame, text='Minor(s): ')
+
+        minorsList = ['-' , 'Computer Science', 'Math', 'Business']
+        minorVar = StringVar()
+        minorVar.set(minorsList[0])
+        # use listbox instead because you can have more than one minor
+        minorMenu = ttk.OptionMenu(majorFrame, minorVar, *minorsList)
+        minorMenu.pack(side=RIGHT)
+        minorLabel.pack(side=RIGHT)
+
+        # **** credits ****
+        credFrame = Frame(self.rightFrame,)
+        credFrame.place(y=170, x=30, width=450)
+
+        credLabel1 = Label(credFrame, text='Earned:')
+        earncred = ttk.Entry(credFrame, width=3)
+        credLabel2 = Label(credFrame, text='credits')
+
+        credLabel1.pack(side=LEFT)
+        earncred.pack(side=LEFT)
+        credLabel2.pack(side=LEFT)
+
+        credLabel3 = Label(credFrame, text='Currently Enrolled in')
+        enrollcred = ttk.Entry(credFrame, width=3)
+        credLabel4 = Label(credFrame, text='credits')
+
+        credLabel4.pack(side=RIGHT)
+        enrollcred.pack(side=RIGHT)
+        credLabel3.pack(side=RIGHT)
 
     # menus declaration
     # each menu should have it own function where its drop down are declared
@@ -45,7 +130,7 @@ class View:
         self.scheduleMenu(schedule)
 
         major = Menu(menu)
-        menu.add_cascade(label='Major', menu=major)
+        menu.add_cascade(label='Load', menu=major)
         self.majorMenu(major)
 
     # schedule menu dropdown
