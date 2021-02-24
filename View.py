@@ -4,6 +4,7 @@ from pubsub import pub
 import tkinter.font as TkFont
 
 
+
 def donothing():
     print("Something happened...")
 
@@ -118,6 +119,32 @@ class View:
         credLabel4.pack(side=RIGHT)
         enrollcred.pack(side=RIGHT)
         credLabel3.pack(side=RIGHT)
+
+        # **** Course table titles for cols ****
+        courseTableFrameTitle = Frame(self.rightFrame, )
+        courseTableFrameTitle.place(rely=0.27, relx=0.05)
+
+        courseNumLabel = Label(courseTableFrameTitle, text='       Course Number                   Course Title '
+                                                           '                          '
+                                                           'Credit Hours                      Gen Ed Group')
+        # courseTitleLabel = Label(courseTableFrameTitle, text='Course Title', padx=0.5, pady=0.01)
+        # courseCreditHrLabel = Label(courseTableFrameTitle, text='Credit Hours', padx=0.5, pady=0.01)
+        # courseGenEdGrpLabel = Label(courseTableFrameTitle, text='Gen Ed Group', padx=0.5, pady=0.01)
+
+        courseNumLabel.pack(side=LEFT)
+        # courseTitleLabel.pack(side=LEFT, padx=0.5, pady=0.01)
+        # courseCreditHrLabel.pack(side=LEFT, padx=0.5, pady=0.01)
+        # courseGenEdGrpLabel.pack(side=LEFT, padx=0.5, pady=0.01)
+
+        # **** Course table for Course number****
+        courseTableFrame = Frame(self.rightFrame, )
+        courseTableFrame.place(rely=0.3, relx=0.05)
+
+        for i in range (12):
+            for j in range (4):
+                courseNumEntry = (Entry(courseTableFrame, bd=3))
+                courseNumEntry.grid(row=i, column=j)
+                # courseNumEntry.insert(END, courseNumLabelArr[i][j])
 
     # menus declaration
     # each menu should have it own function where its drop down are declared
