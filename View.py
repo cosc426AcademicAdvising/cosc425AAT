@@ -41,15 +41,15 @@ class View:
     def PlanningWorksheet_layout(self):
         # *** title ***
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet",
-                                       anchor=CENTER, font=self.TNR20)
-        ProgPlanTitle.pack(side=TOP)
+                                       anchor=CENTER, font="Arial")
+        ProgPlanTitle.place(rely=0.035, relx=0.35)
 
         # **** student name ****
         nameFrame = Frame(self.rightFrame,)
         nameLabel = Label(nameFrame, text='Name:')
         nameEntry = ttk.Entry(nameFrame)
 
-        nameFrame.place(rely=0.05, relx=0.05)
+        nameFrame.place(rely=0.1, relx=0.12)
         nameLabel.pack(side=LEFT)
         nameEntry.pack()
 
@@ -58,7 +58,7 @@ class View:
         idLabel = Label(idFrame, text='ID Number:')
         idEntry = ttk.Entry(idFrame)
 
-        idFrame.place(rely=0.05, relx=0.5)
+        idFrame.place(rely=0.1, relx=0.5)
         idLabel.pack(side=LEFT)
         idEntry.pack()
 
@@ -70,16 +70,16 @@ class View:
         winterCkBt = ttk.Checkbutton(seasonFrame, text='Winter')
         springCkBt = ttk.Checkbutton(seasonFrame, text='Spring')
 
-        seasonFrame.place(y=85, x=30, width=550)
+        seasonFrame.place(y=135, x=106, width=550)
         seasonLabel.pack(side=LEFT)
-        summerCkBt.place(x=120)
-        fallCkBt.place(x=220)
-        winterCkBt.place(x=300)
-        springCkBt.place(x=400)
+        summerCkBt.place(x=130)
+        fallCkBt.place(x=230)
+        winterCkBt.place(x=310)
+        springCkBt.place(x=410)
 
         # **** major & minor ****
         majorFrame = Frame(self.rightFrame)
-        majorFrame.place(y=130, x=30, width=450)
+        majorFrame.place(y=180, x=106, width=450)
 
         majorLabel = Label(majorFrame, text='Major(s): ')
 
@@ -103,7 +103,7 @@ class View:
 
         # **** credits ****
         credFrame = Frame(self.rightFrame,)
-        credFrame.place(y=170, x=30, width=450)
+        credFrame.place(y=230, x=106, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
         earncred = ttk.Entry(credFrame, width=3)
@@ -123,11 +123,11 @@ class View:
 
         # **** Course table titles for cols ****
         courseTableFrameTitle = Frame(self.rightFrame, )
-        courseTableFrameTitle.place(rely=0.27, relx=0.05)
+        courseTableFrameTitle.place(rely=0.37, relx=0.12)
 
-        courseNumLabel = Label(courseTableFrameTitle, text='       Course Number                   Course Title '
-                                                           '                          '
-                                                           'Credit Hours                      Gen Ed Group')
+        courseNumLabel = Label(courseTableFrameTitle, text='Course Number              Course Title '
+                                                           '                        '
+                                                           'Credit Hours                    Gen Ed Group')
         # courseTitleLabel = Label(courseTableFrameTitle, text='Course Title', padx=0.5, pady=0.01)
         # courseCreditHrLabel = Label(courseTableFrameTitle, text='Credit Hours', padx=0.5, pady=0.01)
         # courseGenEdGrpLabel = Label(courseTableFrameTitle, text='Gen Ed Group', padx=0.5, pady=0.01)
@@ -139,13 +139,17 @@ class View:
 
         # **** Course table for Course number****
         courseTableFrame = Frame(self.rightFrame, )
-        courseTableFrame.place(rely=0.3, relx=0.05)
+        courseTableFrame.place(rely=0.4, relx=0.12)
 
-        for i in range (12):
+        for i in range (7):
             for j in range (4):
-                courseNumEntry = (Entry(courseTableFrame, bd=3))
-                courseNumEntry.grid(row=i, column=j)
-                # courseNumEntry.insert(END, courseNumLabelArr[i][j])
+                if j==0:
+                    courseNumEntry = (Entry(courseTableFrame, bd=3, width=12))
+                    courseNumEntry.grid(row=i, column=j)
+                else:
+                    courseNumEntry = (Entry(courseTableFrame, bd=3))
+                    courseNumEntry.grid(row=i, column=j)
+                    # courseNumEntry.insert(END, courseNumLabelArr[i][j])
 
     # menus declaration
     # each menu should have it own function where its drop down are declared
