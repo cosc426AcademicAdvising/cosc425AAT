@@ -83,7 +83,7 @@ class View:
         idLabel.pack(side=LEFT)
         self.idEntry.pack()
 
-        # **** season ****
+        # **** season ****                                  TODO radio button
         seasonFrame = Frame(self.rightFrame,)
         seasonLabel = Label(seasonFrame, text='Registering for:')
         summerCkBt = ttk.Checkbutton(seasonFrame, text='Summer')
@@ -104,21 +104,18 @@ class View:
 
         majorLabel = Label(majorFrame, text='Major(s): ')
 
-        majorsList = funct.listAllMajors()
-
+        majorsList = funct.listAllMajors()     #  from functionss.py
         majorVar = StringVar()
         majorVar.set(majorsList[0])
-        # use listbox instead because you can have more than one major
         majorMenu = ttk.OptionMenu(majorFrame, majorVar, *majorsList)
         majorLabel.pack(side=LEFT)
         majorMenu.pack(side=LEFT)
 
         minorLabel = Label(majorFrame, text='Minor(s): ')
 
-        minorsList = funct.listAllMinors()
+        minorsList = funct.listAllMinors()      # from functionss.py
         minorVar = StringVar()
         minorVar.set(minorsList[0])
-        # use listbox instead because you can have more than one minor
         minorMenu = ttk.OptionMenu(majorFrame, minorVar, *minorsList)
         minorMenu.pack(side=RIGHT)
         minorLabel.pack(side=RIGHT)
@@ -128,19 +125,19 @@ class View:
         credFrame.place(y=230, x=106, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
-        earncred = ttk.Entry(credFrame, width=3)
+        self.earncred = ttk.Entry(credFrame, width=3)
         credLabel2 = Label(credFrame, text='credits')
 
         credLabel1.pack(side=LEFT)
-        earncred.pack(side=LEFT)
+        self.earncred.pack(side=LEFT)
         credLabel2.pack(side=LEFT)
 
         credLabel3 = Label(credFrame, text='Currently Enrolled in')
-        enrollcred = ttk.Entry(credFrame, width=3)
+        self.enrollcred = ttk.Entry(credFrame, width=3)
         credLabel4 = Label(credFrame, text='credits')
 
         credLabel4.pack(side=RIGHT)
-        enrollcred.pack(side=RIGHT)
+        self.enrollcred.pack(side=RIGHT)
         credLabel3.pack(side=RIGHT)
 
         # **** Course table titles for cols ****
@@ -149,7 +146,7 @@ class View:
 
         courseNumLabel = Label(courseTableFrameTitle, text='Course Number              Course Title '
                                                            '                        '
-                                                           'Credit Hours                    Gen Ed Group')
+                                                           'Credit Hours                    Gen Ed Group/Elective')
         # courseTitleLabel = Label(courseTableFrameTitle, text='Course Title', padx=0.5, pady=0.01)
         # courseCreditHrLabel = Label(courseTableFrameTitle, text='Credit Hours', padx=0.5, pady=0.01)
         # courseGenEdGrpLabel = Label(courseTableFrameTitle, text='Gen Ed Group', padx=0.5, pady=0.01)
@@ -160,18 +157,45 @@ class View:
         # courseGenEdGrpLabel.pack(side=LEFT, padx=0.5, pady=0.01)
 
         # **** Course table for Course number****
-        courseTableFrame = Frame(self.rightFrame, )
-        courseTableFrame.place(rely=0.4, relx=0.12)
+        self.courseTableFrame = Frame(self.rightFrame, )
+        self.courseTableFrame.place(rely=0.4, relx=0.12)
 
-        for i in range (7):
-            for j in range (4):
-                if j==0:
-                    courseNumEntry = (Entry(courseTableFrame, bd=3, width=12))
-                    courseNumEntry.grid(row=i, column=j)
-                else:
-                    courseNumEntry = (Entry(courseTableFrame, bd=3))
-                    courseNumEntry.grid(row=i, column=j)
+        #for i in range (7):
+            #for j in range (4):
+                #if j==0:
+                    #self.courseNumEntry = (Entry(courseTableFrame, bd=3, width=12))
+                    #self.courseNumEntry.grid(row=i, column=j)
+                #else:
+                    #self.courseNumEntry = (Entry(courseTableFrame, bd=3))
+                    #self.courseNumEntry.grid(row=i, column=j)
                     # courseNumEntry.insert(END, courseNumLabelArr[i][j])
+
+    def populatePPW(self, arg1, arg2, arg3, arg4):    # py dict, total cred, 2d course array, course size
+        # delete what was previously there then insert
+        self.nameEntry.delete(0, END)
+        self.nameEntry.insert(END, arg1['student']['name'])
+
+        self.idEntry.delete(0, END)
+        self.idEntry.insert(END, arg1['student']['id'])
+
+        self.enrollcred.delete(0, END)
+        self.enrollcred.insert(END, arg2)
+
+        # table
+        for i in range (arg4):
+            for j in range (4):
+                if j == 0:
+                    courseEntry = (Entry(self.courseTableFrame, bd=3, width=12))
+                    courseEntry.grid(row=i, column=j)
+                    courseEntry.insert(END, arg3[i][j])
+                elif j == 2:
+                    courseEntry = (Entry(self.courseTableFrame, bd=3, width=3))
+                    courseEntry.grid(row=i, column=j)
+                    courseEntry.insert(END, arg3[i][j])
+                else:
+                    courseEntry = (Entry(self.courseTableFrame, bd=3))
+                    courseEntry.grid(row=i, column=j)
+                    courseEntry.insert(END, arg3[i][j])
 
     # menus declaration
     # each menu should have it own function where its drop down are declared
@@ -184,8 +208,12 @@ class View:
         self.scheduleMenu(schedule)
 
         load = Menu(menu)
-        menu.add_cascade(label='Load', menu=load)
-        self.majorMenu(load)
+        menu.add_cascade(label='View', menu=load)
+        self.loadMenu(load)
+
+        DB = Menu(menu)
+        menu.add_cascade(label='Update DB', menu=DB)
+        self.DataBaseMenu(DB)
 
     # schedule menu dropdown
     def scheduleMenu(self, schedule):
@@ -204,19 +232,21 @@ class View:
         schedule.add_command(label='Export', command=self.exportSchedule)
         schedule.add_command(label='Print', command=self.printSchedule)
 
-    def majorDropdown(self):
-        majorsList = ['Computer Science', 'Math', 'Business']
-        self.major = StringVar()
-        self.major.set(majorsList[1])
-        self.major = OptionMenu(self.rightFrame, self.major, *majorsList)
-        self.major.pack()
+    # load menu drop down
+    def loadMenu(self, major):
+        major.add_command(label='Four Year Plan')
+        major.add_command(label='Course Taken List')
+        major.add_separator()
+        major.add_command(label='Major Checklist')
+        major.add_command(label='Minor Checklist')
 
-    def minorDropdown(self):
-        majorsList = ['Computer Science', 'Math', 'Business']
-        self.major = StringVar()
-        self.major.set(majorsList[1])
-        self.major = OptionMenu(self.rightFrame, self.major, *majorsList)
-        self.major.pack()
+    # data base menu dropdown
+    def DataBaseMenu(self, DB):
+        DB.add_command(label='Current Semester Course')
+        DB.add_separator()
+        DB.add_command(label='Add/Remove a Department')
+        DB.add_command(label='Add/remove a Major')
+        DB.add_command(label='Add/Remove a minor')
 
     def newSchedule(self):
         pub.sendMessage("New Menu Dropdown Pressed")
@@ -237,7 +267,4 @@ class View:
         print("Export schedule")
 
     def printSchedule(self):
-        print("Print scedule")
-
-    def majorMenu(self, major):
-        return
+        print("Print schedule")

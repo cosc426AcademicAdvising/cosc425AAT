@@ -31,21 +31,22 @@ class Model:
         path = askopenfilename(
             initialdir="./",
             filetypes=[("JSON File", "*.json"), ("All Files", ".")],
-            title="Choose a Student Schedule file"
-        )
+            title="Choose a Student Schedule file")
 
         if len(path) > 0:
-            print(path)
+            # print(path)
             with open(path) as f:
                 data = json.load(f)
         else:
             return
 
-        student_info = [
-            data['student']['name'],
-            data['student']['id']
-        ]
 
-        for i in student_info:
-            print(i)
-        pub.sendMessage("PPW_information", arg1=student_info)
+        numbCourses = len(data['courses'])
+        cred = 0
+        courses = []
+        for c in data['courses']:
+            cNumb = c['dep'] + " " + str(c['numb'])
+            courses.append((cNumb, c['title'], c['credit'], c['extra']))
+            cred += c['credit']
+
+        pub.sendMessage("PPW_information", arg1=data, arg2=cred, arg3=courses, arg4=numbCourses)

@@ -3,40 +3,36 @@
 		"name": "John Wick",
 		"id":1234567,
 		"season":{
+			"Summer": false,
 			"Fall":false,
+			"Winter": false,
 			"Spring":true
 		},
 		"year":2021,
 		"major":["Computer Science"],
-		"minor":["Math"],
-		"classification":{
-			"Freshman":false,
-			"Sophomore":false,
-			"Junior":false,
-			"Senior":true,
-			"USB":false,
-			"Graduate":false,
-			"Undergraduate":true
-		}
+		"minor":["Math"]
 	},
 	"courses":[
 		{
-			"subject":"COSC",
-			"number":425,
+			"dep":"COSC",
+			"numb":425,
 			"title":"Software Engineering I",
-			"credit":3
+			"credit":3,
+			"extra": "major"
 		},
 		{
-			"subject":"COSC",
-			"number":386,
-			"title":"Database Desgin and Implementation",
-			"credit":3
+			"dep":"COSC",
+			"numb":386,
+			"title":"Database Design and Implementation",
+			"credit":3,
+			"extra": "major"
 		},
 		{
-			"subject":"GEO",
-			"number":100,
+			"dep":"GEO",
+			"numb":100,
 			"title":"Introduction to Human Geography",
-			"credit":3
+			"credit":3,
+			"extra": "elect"
 		}
 	]
 }

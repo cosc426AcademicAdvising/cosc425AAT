@@ -18,7 +18,7 @@ class Controller:
 
         # for populating planning worksheet
         pub.subscribe(self.openPPW,"request_PPW")
-        pub.subscribe(self.fillInfo,"PPW_information")
+        pub.subscribe(self.view.populatePPW,"PPW_information")
 
     def newSchedule(self):
         self.schedule = Toplevel()
@@ -30,13 +30,6 @@ class Controller:
     def openPPW(self):
         self.model.openJson()
 
-    def fillInfo(self, arg1):
-        # delete what was previously there then insert
-        self.view.nameEntry.delete(0,END)
-        self.view.nameEntry.insert(END, arg1[0])
-
-        self.view.idEntry.delete(0,END)
-        self.view.idEntry.insert(END, arg1[1])
 
 
 
