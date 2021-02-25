@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
-from pubsub import pub      # pip install PyPubSub
+from pubsub import pub 	# pip install PyPubSub
+import functionss as funct
 import tkinter.font as TkFont
 
 from PIL import ImageTk,Image  # pip install pillow
@@ -103,7 +104,7 @@ class View:
 
         majorLabel = Label(majorFrame, text='Major(s): ')
 
-        majorsList = ['-', 'Computer Science', 'Math', 'Business']
+        majorsList = funct.listAllMajors()
         majorVar = StringVar()
         majorVar.set(majorsList[0])
         # use listbox instead because you can have more than one major
@@ -113,7 +114,7 @@ class View:
 
         minorLabel = Label(majorFrame, text='Minor(s): ')
 
-        minorsList = ['-' , 'Computer Science', 'Math', 'Business']
+        minorsList = funct.listAllMinors()
         minorVar = StringVar()
         minorVar.set(minorsList[0])
         # use listbox instead because you can have more than one minor
