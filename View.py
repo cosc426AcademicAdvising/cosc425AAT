@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from pubsub import pub 	# pip install PyPubSub
-import functionss as funct
+# import functionss as funct
 import tkinter.font as TkFont
 
 from PIL import ImageTk,Image  # pip install pillow
@@ -13,10 +13,13 @@ def donothing():
 
 
 class View:
-    def __init__(self, master):
+    def __init__(self, master, majorL, minorL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
+
+        self.majorsList = majorL
+        self.minorsList = minorL
 
         # fonts
         self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
@@ -104,19 +107,19 @@ class View:
 
         majorLabel = Label(majorFrame, text='Major(s): ')
 
-        majorsList = funct.listAllMajors()     #  from functionss.py
+        #majorsList = funct.listAllMajors()     #  from functionss.py
         majorVar = StringVar()
-        majorVar.set(majorsList[0])
-        majorMenu = ttk.OptionMenu(majorFrame, majorVar, *majorsList)
+        majorVar.set(self.majorsList[0])
+        majorMenu = ttk.OptionMenu(majorFrame, majorVar, *self.majorsList)
         majorLabel.pack(side=LEFT)
         majorMenu.pack(side=LEFT)
 
         minorLabel = Label(majorFrame, text='Minor(s): ')
 
-        minorsList = funct.listAllMinors()      # from functionss.py
+        #minorsList = funct.listAllMinors()      # from functionss.py
         minorVar = StringVar()
-        minorVar.set(minorsList[0])
-        minorMenu = ttk.OptionMenu(majorFrame, minorVar, *minorsList)
+        minorVar.set(self.minorsList[0])
+        minorMenu = ttk.OptionMenu(majorFrame, minorVar, *self.minorsList)
         minorMenu.pack(side=RIGHT)
         minorLabel.pack(side=RIGHT)
 

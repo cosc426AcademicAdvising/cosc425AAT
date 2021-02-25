@@ -7,8 +7,8 @@ from pubsub import pub
 
 class Controller:
     def __init__(self, master):
-        self.view = View(master)
         self.model = Model()
+        self.view = View(master, self.model.listAllMajors(), self.model.listAllMinors())
 
         #self.newSchedule(master)
         # pub.subscribe(pub.sendMessage("New Window", master), "New Menu Dropdown Pressed")
