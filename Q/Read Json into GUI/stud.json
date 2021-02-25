@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Bob Robert",
+    "s_id": 7654321,
+    "major": "Computer Science",
+    "minor": "None",
+    "status": "Undergraduate",
+    "year": "Sophmore",
+    "credits": 55,
+    "sem_id": "Spring 2021",
+    "advisor_mail": "advisor@mail.com",
+    "taking_course": [
+      {
+        "course_num": "200",
+        "course_title": "COSC",
+        "course_cred": 4,
+        "course_genED": "2A"
+      },
+      {
+        "course_num": "370",
+        "course_title": "COSC",
+        "course_cred": 4,
+        "course_genED": "4B"
+      },
+      {
+        "course_num": "119",
+        "course_title": "COSC",
+        "course_cred": 3,
+        "course_genED": "1A"
+      },
+      {
+        "course_num": "210",
+        "course_title": "MATH",
+        "course_cred": 4,
+        "course_genED": "3C"
+      }
+    ],
+    "course_taken": [
+      {
+        "course_id": "FINN 200",
+        "grade": "Pass",
+        "credits": 4,
+        "repeat": 0
+      },
+      {
+        "course_id": "ECON 211",
+        "grade": "Pass",
+        "credits": 4,
+        "repeat": 2
+      }
+    ]
+
+  }
+]
