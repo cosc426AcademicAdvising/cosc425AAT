@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import ttk
-from pubsub import pub
+from pubsub import pub      # pip install PyPubSub
 import tkinter.font as TkFont
+
+from PIL import ImageTk,Image  # pip install pillow
 
 
 
@@ -30,12 +32,31 @@ class View:
         self.studentInfoFrame = Frame(self.rightFrame, highlightbackground='gray', highlightthickness=1)
 
         self.set_layout()
+        self.FourYearPlan()
         self.PlanningWorksheet_layout()
 
     # widgets positioning
     def set_layout(self):
         self.leftFrame.place(relwidth=0.48, relheight=0.98, relx=0.01, rely=0.02)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
+
+    def FourYearPlan(self):
+        self.image = Image.open("CS4YrPlan.png")
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.img_copy = self.image.copy()
+
+        self.background = Label(self.leftFrame, image=self.background_image)
+        self.background.pack(fill=BOTH, expand=YES)
+        self.background.bind('<Configure>', self._resize_image)
+
+    def _resize_image(self, event):
+        new_width = event.width
+        new_height = event.height
+
+        self.image = self.img_copy.resize((new_width, new_height))
+
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background.configure(image=self.background_image)
 
     def PlanningWorksheet_layout(self):
         # *** title ***
