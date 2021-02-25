@@ -102,24 +102,24 @@ class View:
         springCkBt.place(x=410)
 
         # **** major & minor ****
-        majorFrame = Frame(self.rightFrame)
-        majorFrame.place(y=180, x=106, width=450)
+        careerFrame = Frame(self.rightFrame)
+        careerFrame.place(y=180, x=106, width=450)
 
-        majorLabel = Label(majorFrame, text='Major(s): ')
+        majorLabel = Label(careerFrame, text='Major(s): ')
 
         #majorsList = funct.listAllMajors()     #  from functionss.py
         majorVar = StringVar()
         majorVar.set(self.majorsList[0])
-        majorMenu = ttk.OptionMenu(majorFrame, majorVar, *self.majorsList)
+        majorMenu = ttk.OptionMenu(careerFrame, majorVar, *self.majorsList)
         majorLabel.pack(side=LEFT)
         majorMenu.pack(side=LEFT)
 
-        minorLabel = Label(majorFrame, text='Minor(s): ')
+        minorLabel = Label(careerFrame, text='Minor(s): ')
 
         #minorsList = funct.listAllMinors()      # from functionss.py
         minorVar = StringVar()
         minorVar.set(self.minorsList[0])
-        minorMenu = ttk.OptionMenu(majorFrame, minorVar, *self.minorsList)
+        minorMenu = ttk.OptionMenu(careerFrame, minorVar, *self.minorsList)
         minorMenu.pack(side=RIGHT)
         minorLabel.pack(side=RIGHT)
 
