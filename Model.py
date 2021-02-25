@@ -40,13 +40,10 @@ class Model:
         else:
             return
 
-
-        numbCourses = len(data['courses'])
+        numbCourses = len(data['taking_course'])
         cred = 0
         courses = []
-        for c in data['courses']:
-            cNumb = c['dep'] + " " + str(c['numb'])
-            courses.append((cNumb, c['title'], c['credit'], c['extra']))
-            cred += c['credit']
-
+        for c in data['taking_course']:
+            courses.append((c['course_id'], c['course_title'], c['course_cred'], c['course_genED']))
+            cred += c['course_cred']
         pub.sendMessage("PPW_information", arg1=data, arg2=cred, arg3=courses, arg4=numbCourses)

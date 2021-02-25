@@ -176,10 +176,13 @@ class View:
     def populatePPW(self, arg1, arg2, arg3, arg4):    # py dict, total cred, 2d course array, course size
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
-        self.nameEntry.insert(END, arg1['student']['name'])
+        self.nameEntry.insert(END, arg1['name'])
 
         self.idEntry.delete(0, END)
-        self.idEntry.insert(END, arg1['student']['id'])
+        self.idEntry.insert(END, arg1['s_id'])
+
+        self.earncred.delete(0, END)
+        self.earncred.insert(END, arg1['credits'])
 
         self.enrollcred.delete(0, END)
         self.enrollcred.insert(END, arg2)
@@ -188,15 +191,15 @@ class View:
         for i in range (arg4):
             for j in range (4):
                 if j == 0:
-                    courseEntry = (Entry(self.courseTableFrame, bd=3, width=12))
+                    courseEntry = Entry(self.courseTableFrame, bd=3, width=20)
                     courseEntry.grid(row=i, column=j)
                     courseEntry.insert(END, arg3[i][j])
                 elif j == 2:
-                    courseEntry = (Entry(self.courseTableFrame, bd=3, width=3))
+                    courseEntry = Entry(self.courseTableFrame, bd=3, width=20)
                     courseEntry.grid(row=i, column=j)
                     courseEntry.insert(END, arg3[i][j])
                 else:
-                    courseEntry = (Entry(self.courseTableFrame, bd=3))
+                    courseEntry = Entry(self.courseTableFrame, bd=3, width=20)
                     courseEntry.grid(row=i, column=j)
                     courseEntry.insert(END, arg3[i][j])
 
