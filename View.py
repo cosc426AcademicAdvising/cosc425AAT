@@ -68,20 +68,20 @@ class View:
         # **** student name ****
         nameFrame = Frame(self.rightFrame,)
         nameLabel = Label(nameFrame, text='Name:')
-        nameEntry = ttk.Entry(nameFrame)
+        self.nameEntry = ttk.Entry(nameFrame)
 
         nameFrame.place(rely=0.1, relx=0.12)
         nameLabel.pack(side=LEFT)
-        nameEntry.pack()
+        self.nameEntry.pack()
 
         # **** student id ****
         idFrame = Frame(self.rightFrame,)
         idLabel = Label(idFrame, text='ID Number:')
-        idEntry = ttk.Entry(idFrame)
+        self.idEntry = ttk.Entry(idFrame)
 
         idFrame.place(rely=0.1, relx=0.5)
         idLabel.pack(side=LEFT)
-        idEntry.pack()
+        self.idEntry.pack()
 
         # **** season ****
         seasonFrame = Frame(self.rightFrame,)
@@ -105,6 +105,7 @@ class View:
         majorLabel = Label(majorFrame, text='Major(s): ')
 
         majorsList = funct.listAllMajors()
+
         majorVar = StringVar()
         majorVar.set(majorsList[0])
         # use listbox instead because you can have more than one major
@@ -221,7 +222,7 @@ class View:
         pub.sendMessage("New Menu Dropdown Pressed")
 
     def openSchedule(self):
-        print("Open schedule")
+        pub.sendMessage("request_PPW")
 
     def openRecentSchedule(self):
         print("Open schedule")
