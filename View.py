@@ -58,8 +58,8 @@ class View:
 
     def PlanningWorksheet_layout(self):
         # ============================ title ============================
-        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER, font="Arial")
-        ProgPlanTitle.place(rely=0.035, relx=0.35)
+        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER, font=('Helvetica', 19))
+        ProgPlanTitle.place(rely=0.035, relx=0.30)
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame,)
@@ -82,25 +82,23 @@ class View:
         self.idEntry.pack()
 
         # ============================ season ============================           TODO radio button
-        seasonFrame = Frame(self.rightFrame,)
-        seasonFrame.place(y=135, x=106, width=550)
-
+        seasonFrame = Frame(self.rightFrame, )
         seasonLabel = Label(seasonFrame, text='Registering for:')
+        fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', value=1)
+        summerRadioBtn = ttk.Radiobutton(seasonFrame, text='Summer', value=2)
+        springRadioBtn = ttk.Radiobutton(seasonFrame, text='Spring', value=3)
+        winterRadioBtn = ttk.Radiobutton(seasonFrame, text='Winter', value=4)
+
+        seasonFrame.place(y=140, x=153, width=550)
         seasonLabel.pack(side=LEFT)
-
-        summerCkBt = ttk.Checkbutton(seasonFrame, text='Summer')
-        fallCkBt = ttk.Checkbutton(seasonFrame, text='Fall')
-        winterCkBt = ttk.Checkbutton(seasonFrame, text='Winter')
-        springCkBt = ttk.Checkbutton(seasonFrame, text='Spring')
-
-        summerCkBt.place(x=130)
-        fallCkBt.place(x=230)
-        winterCkBt.place(x=310)
-        springCkBt.place(x=410)
+        fallRadioBtn.place(x=130)
+        winterRadioBtn.place(x=210)
+        springRadioBtn.place(x=310)
+        summerRadioBtn.place(x=410)
 
         # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
-        careerFrame.place(y=180, x=106, width=450)
+        careerFrame.place(y=180, x=153, width=450)
 
         majorLabel = Label(careerFrame, text='Major(s): ')
         majorLabel.pack(side=LEFT)
@@ -121,7 +119,7 @@ class View:
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame,)
-        credFrame.place(y=230, x=106, width=450)
+        credFrame.place(y=230, x=153, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
         self.earnCredEntry = ttk.Entry(credFrame, width=3, state=DISABLED)

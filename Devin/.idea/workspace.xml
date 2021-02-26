@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Major list dropdown">
+    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Reformatting Planning Sheet and Radio Buttons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
@@ -23,7 +23,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Model.py" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Devin/View.py" />
   </component>
   <component name="RunManager" selected="Python.Controller">
     <configuration name="Controller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -133,7 +133,21 @@
       <option name="project" value="LOCAL" />
       <updated>1614134625833</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Reformatting Planning Sheet and Radio Buttons">
+      <created>1614373713103</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1614373713103</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Reformatting Planning Sheet and Radio Buttons">
+      <created>1614373718853</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1614373718853</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Getting files" />
     <MESSAGE value="Major list dropdown" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major list dropdown" />
+    <MESSAGE value="Reformatting Planning Sheet and Radio Buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformatting Planning Sheet and Radio Buttons" />
   </component>
 </project>
