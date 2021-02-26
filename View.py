@@ -1,11 +1,9 @@
 from tkinter import *
 from tkinter import ttk
 from pubsub import pub 	# pip install PyPubSub
-# import functionss as funct
 import tkinter.font as TkFont
-
 from PIL import ImageTk,Image  # pip install pillow
-
+# import functionss as funct
 
 
 def donothing():
@@ -21,28 +19,24 @@ class View:
         self.majorsList = majorL
         self.minorsList = minorL
 
-        # fonts
         self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
         self.TNR = TkFont.Font(family='Times')
+
+        self.courseRow = 5
+        self.courseCol = 4
 
         self.layout()
         self.menu()
 
-    # widgets declarations
     def layout(self):
         self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
+        self.leftFrame.place(relwidth=0.48, relheight=0.98, relx=0.01, rely=0.02)
+
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
+        self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
 
-        self.studentInfoFrame = Frame(self.rightFrame, highlightbackground='gray', highlightthickness=1)
-
-        self.set_layout()
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
-
-    # widgets positioning
-    def set_layout(self):
-        self.leftFrame.place(relwidth=0.48, relheight=0.98, relx=0.01, rely=0.02)
-        self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
 
     def FourYearPlan(self):
         self.image = Image.open("CS4YrPlan.png")
@@ -63,88 +57,90 @@ class View:
         self.background.configure(image=self.background_image)
 
     def PlanningWorksheet_layout(self):
-        # *** title ***
-        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet",
-                                       anchor=CENTER, font="Arial")
+        # ============================ title ============================
+        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER, font="Arial")
         ProgPlanTitle.place(rely=0.035, relx=0.35)
 
-        # **** student name ****
+        # ============================ student name ============================
         nameFrame = Frame(self.rightFrame,)
-        nameLabel = Label(nameFrame, text='Name:')
-        self.nameEntry = ttk.Entry(nameFrame)
-
         nameFrame.place(rely=0.1, relx=0.12)
+
+        nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
+
+        self.nameEntry = ttk.Entry(nameFrame)
         self.nameEntry.pack()
 
-        # **** student id ****
+        # ============================ student id ============================
         idFrame = Frame(self.rightFrame,)
-        idLabel = Label(idFrame, text='ID Number:')
-        self.idEntry = ttk.Entry(idFrame)
-
         idFrame.place(rely=0.1, relx=0.5)
+
+        idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
+
+        self.idEntry = ttk.Entry(idFrame)
         self.idEntry.pack()
 
-        # **** season ****                                  TODO radio button
+        # ============================ season ============================           TODO radio button
         seasonFrame = Frame(self.rightFrame,)
+        seasonFrame.place(y=135, x=106, width=550)
+
         seasonLabel = Label(seasonFrame, text='Registering for:')
+        seasonLabel.pack(side=LEFT)
+
         summerCkBt = ttk.Checkbutton(seasonFrame, text='Summer')
         fallCkBt = ttk.Checkbutton(seasonFrame, text='Fall')
         winterCkBt = ttk.Checkbutton(seasonFrame, text='Winter')
         springCkBt = ttk.Checkbutton(seasonFrame, text='Spring')
 
-        seasonFrame.place(y=135, x=106, width=550)
-        seasonLabel.pack(side=LEFT)
         summerCkBt.place(x=130)
         fallCkBt.place(x=230)
         winterCkBt.place(x=310)
         springCkBt.place(x=410)
 
-        # **** major & minor ****
+        # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
         careerFrame.place(y=180, x=106, width=450)
 
         majorLabel = Label(careerFrame, text='Major(s): ')
+        majorLabel.pack(side=LEFT)
 
-        #majorsList = funct.listAllMajors()     #  from functionss.py
         majorVar = StringVar()
         majorVar.set(self.majorsList[0])
         majorMenu = ttk.OptionMenu(careerFrame, majorVar, *self.majorsList)
-        majorLabel.pack(side=LEFT)
         majorMenu.pack(side=LEFT)
 
-        minorLabel = Label(careerFrame, text='Minor(s): ')
 
-        #minorsList = funct.listAllMinors()      # from functionss.py
         minorVar = StringVar()
         minorVar.set(self.minorsList[0])
         minorMenu = ttk.OptionMenu(careerFrame, minorVar, *self.minorsList)
         minorMenu.pack(side=RIGHT)
+
+        minorLabel = Label(careerFrame, text='Minor(s): ')
         minorLabel.pack(side=RIGHT)
 
-        # **** credits ****
+        # ============================ credits ============================
         credFrame = Frame(self.rightFrame,)
         credFrame.place(y=230, x=106, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
-        self.earncred = ttk.Entry(credFrame, width=3)
+        self.earnCredEntry = ttk.Entry(credFrame, width=3)
         credLabel2 = Label(credFrame, text='credits')
 
         credLabel1.pack(side=LEFT)
-        self.earncred.pack(side=LEFT)
+        self.earnCredEntry.pack(side=LEFT)
         credLabel2.pack(side=LEFT)
 
         credLabel3 = Label(credFrame, text='Currently Enrolled in')
-        self.enrollcred = ttk.Entry(credFrame, width=3)
+        self.enrollCredEntry = ttk.Entry(credFrame, width=3)
         credLabel4 = Label(credFrame, text='credits')
 
         credLabel4.pack(side=RIGHT)
-        self.enrollcred.pack(side=RIGHT)
+        self.enrollCredEntry.pack(side=RIGHT)
         credLabel3.pack(side=RIGHT)
 
-        # **** Course table titles for cols ****
-        courseTableFrameTitle = Frame(self.rightFrame, )
+        # ============================ Course table ============================
+        courseTableFrameTitle = Frame(self.rightFrame)
         courseTableFrameTitle.place(rely=0.37, relx=0.12)
 
         courseNumLabel = Label(courseTableFrameTitle, text='Course Number              Course Title '
@@ -159,21 +155,17 @@ class View:
         # courseCreditHrLabel.pack(side=LEFT, padx=0.5, pady=0.01)
         # courseGenEdGrpLabel.pack(side=LEFT, padx=0.5, pady=0.01)
 
-        # **** Course table for Course number****
         self.courseTableFrame = Frame(self.rightFrame, )
         self.courseTableFrame.place(rely=0.4, relx=0.12)
 
-        #for i in range (7):
-            #for j in range (4):
-                #if j==0:
-                    #self.courseNumEntry = (Entry(courseTableFrame, bd=3, width=12))
-                    #self.courseNumEntry.grid(row=i, column=j)
-                #else:
-                    #self.courseNumEntry = (Entry(courseTableFrame, bd=3))
-                    #self.courseNumEntry.grid(row=i, column=j)
-                    # courseNumEntry.insert(END, courseNumLabelArr[i][j])
+        self.courseEntry = [[]]
+        for i in range(self.courseRow):
+            self.courseEntry.append([])
+            for j in range(self.courseCol):
+                self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=12))
+                self.courseEntry[i][j].grid(row=i, column=j)
 
-    def populatePPW(self, arg1, arg2, arg3, arg4):    # py dict, total cred, 2d course array, course size
+    def populatePPW(self, arg1, arg2, arg3, arg4):    # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
         self.nameEntry.insert(END, arg1['name'])
@@ -181,30 +173,19 @@ class View:
         self.idEntry.delete(0, END)
         self.idEntry.insert(END, arg1['s_id'])
 
-        self.earncred.delete(0, END)
-        self.earncred.insert(END, arg1['credits'])
+        self.earnCredEntry['state'] = NORMAL
+        self.earnCredEntry.delete(0, END)
+        self.earnCredEntry.insert(END, arg1['credits'])
+        self.earnCredEntry['state'] = 'readonly'
 
-        self.enrollcred.delete(0, END)
-        self.enrollcred.insert(END, arg2)
+        self.enrollCredEntry.delete(0, END)
+        self.enrollCredEntry.insert(END, arg2)
 
-        # table
         for i in range (arg4):
-            for j in range (4):
-                if j == 0:
-                    courseEntry = Entry(self.courseTableFrame, bd=3, width=20)
-                    courseEntry.grid(row=i, column=j)
-                    courseEntry.insert(END, arg3[i][j])
-                elif j == 2:
-                    courseEntry = Entry(self.courseTableFrame, bd=3, width=20)
-                    courseEntry.grid(row=i, column=j)
-                    courseEntry.insert(END, arg3[i][j])
-                else:
-                    courseEntry = Entry(self.courseTableFrame, bd=3, width=20)
-                    courseEntry.grid(row=i, column=j)
-                    courseEntry.insert(END, arg3[i][j])
+            for j in range (self.courseCol):
+                self.courseEntry[i][j].insert(END, arg3[i][j])
 
     # menus declaration
-    # each menu should have it own function where its drop down are declared
     def menu(self):
         menu = Menu(self.mainwin)
         self.mainwin.config(menu=menu)

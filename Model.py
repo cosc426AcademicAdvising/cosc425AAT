@@ -1,7 +1,6 @@
 from tkinter.filedialog import askopenfilename
 import json
 from pubsub import pub      # pip install PyPubSub
-
 import pymongo
 
 client = pymongo.MongoClient("mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -34,7 +33,6 @@ class Model:
             title="Choose a Student Schedule file")
 
         if len(path) > 0:
-            # print(path)
             with open(path) as f:
                 data = json.load(f)
         else:
