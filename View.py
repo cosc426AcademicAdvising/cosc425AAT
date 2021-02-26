@@ -124,7 +124,7 @@ class View:
         credFrame.place(y=230, x=106, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
-        self.earnCredEntry = ttk.Entry(credFrame, width=3)
+        self.earnCredEntry = ttk.Entry(credFrame, width=3, state=DISABLED)
         credLabel2 = Label(credFrame, text='credits')
 
         credLabel1.pack(side=LEFT)
