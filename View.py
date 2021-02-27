@@ -165,6 +165,13 @@ class View:
                 self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=12))
                 self.courseEntry[i][j].grid(row=i, column=j)
 
+        # ====================== memo ========================
+        memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
+        memoFrame.place(relx=0.25, rely= 0.8, relwidth=0.5, relheight=0.125)
+
+        memoEntry = Text(memoFrame)
+        memoEntry.pack(expand=TRUE)
+
     def populatePPW(self, arg1, arg2, arg3, arg4):    # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
