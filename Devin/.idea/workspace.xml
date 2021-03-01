@@ -3,15 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Positioning Backup course table">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
-    <list id="76e66400-ad74-474a-8863-86f0bb5de2c2" name="Revert &quot;changed bd functions and backup course table&quot;" comment="Revert &quot;changed bd functions and backup course table&quot;&#10;&#10;This reverts commit 9e112dc2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="quincden &lt;78387066+quincden@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1ooOcHdYy8DDlZBmYkOTgWDTh3m" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -23,6 +29,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="last_opened_file_path" value="$USER_HOME$/Devin/Model.py" />
   </component>
   <component name="RunManager" selected="Python.Controller">
@@ -39,6 +46,27 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Controller.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -71,6 +99,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Controller" />
+        <item itemvalue="Python.Model" />
         <item itemvalue="Python.View" />
       </list>
     </recent_temporary>
@@ -168,7 +197,28 @@
       <option name="project" value="LOCAL" />
       <updated>1614638355548</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Positioning Table">
+      <created>1614638370535</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1614638370535</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Positioning Backup course table">
+      <created>1614638613869</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1614638613869</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Updated for new json format&#10;&#10;Load backup courses and memo">
+      <created>1614638687459</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1614638687459</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -198,8 +248,9 @@
     <MESSAGE value="Major list dropdown" />
     <MESSAGE value="Reformatted and Radio Buttons" />
     <MESSAGE value="Reformatting Planning Sheet and Radio Buttons" />
-    <MESSAGE value="Positioning Backup course table" />
     <MESSAGE value="Positioning Table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Positioning Table" />
+    <MESSAGE value="Positioning Backup course table" />
+    <MESSAGE value="Updated for new json format&#10;&#10;Load backup courses and memo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated for new json format&#10;&#10;Load backup courses and memo" />
   </component>
 </project>

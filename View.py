@@ -137,36 +137,56 @@ class View:
         self.enrollCredEntry.pack(side=RIGHT)
         credLabel3.pack(side=RIGHT)
 
+        # ====================== Enrollment Date ========================
+
+        enrlDateFrame = ttk.Frame(self.rightFrame)
+        enrlDateFrame.place(relx=0.25, rely=0.3)
+
+        enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
+        enrlDate.pack(side=LEFT)
+
+        self.enrlDateEntry = ttk.Entry(enrlDateFrame)
+        self.enrlDateEntry.pack()
+
         # ============================ Course table ============================
-        courseTableFrameTitle = Frame(self.rightFrame)
-        courseTableFrameTitle.place(rely=0.37, relx=0.12)
-
-        courseNumLabel = Label(courseTableFrameTitle, text='Course Number              Course Title '
-                                                           '                        '
-                                                           'Credit Hours                    Gen Ed Group/Elective')
-        # courseTitleLabel = Label(courseTableFrameTitle, text='Course Title', padx=0.5, pady=0.01)
-        # courseCreditHrLabel = Label(courseTableFrameTitle, text='Credit Hours', padx=0.5, pady=0.01)
-        # courseGenEdGrpLabel = Label(courseTableFrameTitle, text='Gen Ed Group', padx=0.5, pady=0.01)
-
-        courseNumLabel.pack(side=LEFT)
-        # courseTitleLabel.pack(side=LEFT, padx=0.5, pady=0.01)
-        # courseCreditHrLabel.pack(side=LEFT, padx=0.5, pady=0.01)
-        # courseGenEdGrpLabel.pack(side=LEFT, padx=0.5, pady=0.01)
 
         self.courseTableFrame = Frame(self.rightFrame, )
-        self.courseTableFrame.place(rely=0.4, relx=0.12)
+        self.courseTableFrame.place(rely=0.35, relx=0.12)
 
         self.courseEntry = [[]]
         for i in range(self.courseRow):
             self.courseEntry.append([])
             for j in range(self.courseCol):
-                self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=20))
-                self.courseEntry[i][j].grid(row=i, column=j)
+                if i == 0 and j == 0:
+                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, selectborderwidth=3 , width=20))
+                    self.courseEntry[i][j].grid(row=i, column=j)
+                    self.courseEntry[i][j].insert(0, "Course Number")
+                elif i == 0 and j == 1:
+                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, width=20))
+                    self.courseEntry[i][j].grid(row=i, column=j)
+                    self.courseEntry[i][j].insert(0, "Course Title")
+                elif i == 0 and j == 2:
+                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, width=20))
+                    self.courseEntry[i][j].grid(row=i, column=j)
+                    self.courseEntry[i][j].insert(0, "Credit Hours")
+                elif i == 0 and j == 3:
+                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, width=20))
+                    self.courseEntry[i][j].grid(row=i, column=j)
+                    self.courseEntry[i][j].insert(0, "Gen Ed Group/Elective")
+                else:
+                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=20))
+                    self.courseEntry[i][j].grid(row=i, column=j)
 
         # ===================== backup course ===================
 
+        nameFrame = Frame(self.rightFrame, )
+        nameFrame.place(rely=0.53, relx=0.45)
+
+        nameLabel = Label(nameFrame, text='Back-up Courses')
+        nameLabel.pack(side=LEFT)
+
         self.backupCourseFrame = Frame(self.rightFrame)
-        self.backupCourseFrame.pack(side=BOTTOM)
+        self.backupCourseFrame.place(rely=0.55, relx=0.12)
 
         self.backupCourseEntry = [[]]
         for i in range(2):
@@ -177,7 +197,7 @@ class View:
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.place(relx=0.25, rely= 0.8, relwidth=0.5, relheight=0.125)
+        memoFrame.place(relx=0.25, rely=0.7, relwidth=0.5, relheight=0.125)
 
         self.memoEntry = Text(memoFrame)
         self.memoEntry.pack(expand=TRUE)
@@ -203,8 +223,8 @@ class View:
 
         for i in range (arg4):
             for j in range (self.courseCol):
-                self.courseEntry[i][j].delete(0, END)
-                self.courseEntry[i][j].insert(END, arg3[i][j])
+                self.courseEntry[i+1][j].delete(0, END)
+                self.courseEntry[i+1][j].insert(END, arg3[i][j])
 
         for i in range (2):
             for j in range (self.courseCol):
