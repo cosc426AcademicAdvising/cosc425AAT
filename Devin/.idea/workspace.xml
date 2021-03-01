@@ -147,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614373718853</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Reformatted and Radio Buttons">
+      <created>1614374493258</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1614374493258</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -166,6 +173,7 @@
     <MESSAGE value="Getting files" />
     <MESSAGE value="Major list dropdown" />
     <MESSAGE value="Reformatting Planning Sheet and Radio Buttons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformatting Planning Sheet and Radio Buttons" />
+    <MESSAGE value="Reformatted and Radio Buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformatted and Radio Buttons" />
   </component>
 </project>
