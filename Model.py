@@ -41,7 +41,13 @@ class Model:
         numbCourses = len(data['taking_course'])
         cred = 0
         courses = []
+        backup = []
         for c in data['taking_course']:
-            courses.append((c['course_id'], c['course_title'], c['course_cred'], c['course_genED']))
-            cred += c['course_cred']
-        pub.sendMessage("PPW_information", arg1=data, arg2=cred, arg3=courses, arg4=numbCourses)
+            courses.append((c['id'], c['title'], c['cred'], c['genED']))
+            cred += c['cred']
+
+        for c in data['backup_course']:
+            backup.append((c['id'], c['title'], c['cred'], c['genED']))
+
+        pub.sendMessage("PPW_information", arg1=data, arg2=cred, arg3=courses, arg4=numbCourses, arg5=backup)
+
