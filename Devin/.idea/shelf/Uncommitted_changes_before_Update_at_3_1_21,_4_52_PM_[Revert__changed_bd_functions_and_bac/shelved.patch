@@ -1,0 +1,80 @@
+Index: ../.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"c3afb585-7f39-4a8c-a877-221e8ed35f28\" name=\"Default Changelist\" comment=\"memo box\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Model.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Model.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/View.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/View.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitSEFilterConfiguration\">\n    <file-type-list>\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\n      <filtered-out-file-type name=\"TAG\" />\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\n    </file-type-list>\n  </component>\n  <component name=\"ProjectId\" id=\"1oMl1pYJEeOWR5zT3h9IUIku2Zh\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\n    <property name=\"recentsLimit\" value=\"1\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"Errors\" />\n  </component>\n  <component name=\"PyConsoleOptionsProvider\">\n    <option name=\"myPythonConsoleState\">\n      <console-settings module-name=\"cosc425AAT\" is-module-sdk=\"true\">\n        <option name=\"myUseModuleSdk\" value=\"true\" />\n        <option name=\"myModuleName\" value=\"cosc425AAT\" />\n      </console-settings>\n    </option>\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$\" />\n      <recent name=\"$PROJECT_DIR$/Florent/gui tests\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/Florent/Devin\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"Controller\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"cosc425AAT\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Controller.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.Controller\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"c3afb585-7f39-4a8c-a877-221e8ed35f28\" name=\"Default Changelist\" comment=\"\" />\n      <created>1613104128996</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1613104128996</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"removed bg colors\">\n      <created>1613405387072</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1613405387072</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"reworked layout, menu for 'open recent'. TODO: MVC and file browser\">\n      <created>1613428018531</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1613428018531</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"...\">\n      <created>1613882825650</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1613882825650</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"fixed course entry table and revised code\">\n      <created>1614370949770</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1614370949770</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"revised code\">\n      <created>1614371298603</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1614371298603</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"memo box\">\n      <created>1614441228793</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1614441228793</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State>\n              <option name=\"FILTERS\">\n                <map>\n                  <entry key=\"branch\">\n                    <value>\n                      <list>\n                        <option value=\"origin/main\" />\n                      </list>\n                    </value>\n                  </entry>\n                </map>\n              </option>\n            </State>\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"removed bg colors\" />\n    <MESSAGE value=\"reworked layout, menu for 'open recent'. TODO: MVC and file browser\" />\n    <MESSAGE value=\"...\" />\n    <MESSAGE value=\"fixed course entry table and revised code\" />\n    <MESSAGE value=\"revised code\" />\n    <MESSAGE value=\"memo box\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"memo box\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.idea/workspace.xml b/../.idea/workspace.xml
+--- a/../.idea/workspace.xml	
++++ b/../.idea/workspace.xml	
+@@ -1,9 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="memo box">
++    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="revised code">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -133,14 +132,7 @@
+       <option name="project" value="LOCAL" />
+       <updated>1614371298603</updated>
+     </task>
+-    <task id="LOCAL-00006" summary="memo box">
+-      <created>1614441228793</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1614441228793</updated>
+-    </task>
+-    <option name="localTasksCounter" value="7" />
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -173,7 +165,6 @@
+     <MESSAGE value="..." />
+     <MESSAGE value="fixed course entry table and revised code" />
+     <MESSAGE value="revised code" />
+-    <MESSAGE value="memo box" />
+-    <option name="LAST_COMMIT_MESSAGE" value="memo box" />
++    <option name="LAST_COMMIT_MESSAGE" value="revised code" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: ../Model.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from tkinter.filedialog import askopenfilename\nimport json\nfrom pubsub import pub      # pip install PyPubSub\nimport pymongo\n\nclient = pymongo.MongoClient(\"mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority\")\ndb = client['COSC425AAT']\n\nclass Model:\n    def __init__(self):\n        return\n\n    def listAllMajors(self):\n        myCol = db.get_collection('Department')\n        obj = myCol.find({'Plan Type': 'Major'})\n        majors = []\n        for i in obj:\n            majors.append(i['Acad Plan'])\n        return majors\n\n    def listAllMinors(self):\n        myCol = db.get_collection('Department')\n        obj = myCol.find({'Plan Type': 'Minor'})\n        minors = []\n        for i in obj:\n            minors.append(i['Acad Plan'])\n        return minors\n\n    def openJson(self):\n        path = askopenfilename(\n            initialdir=\"./\",\n            filetypes=[(\"JSON File\", \"*.json\"), (\"All Files\", \".\")],\n            title=\"Choose a Student Schedule file\")\n\n        if len(path) > 0:\n            with open(path) as f:\n                data = json.load(f)\n        else:\n            return\n\n        numbCourses = len(data['taking_course'])\n        cred = 0\n        courses = []\n        for c in data['taking_course']:\n            courses.append((c['course_id'], c['course_title'], c['course_cred'], c['course_genED']))\n            cred += c['course_cred']\n        pub.sendMessage(\"PPW_information\", arg1=data, arg2=cred, arg3=courses, arg4=numbCourses)\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Model.py b/../Model.py
+--- a/../Model.py	
++++ b/../Model.py	
+@@ -12,18 +12,18 @@
+ 
+     def listAllMajors(self):
+         myCol = db.get_collection('Department')
+-        obj = myCol.find({'Plan Type': 'Major'})
++        obj = myCol.find({'Plan Type': 'MAJ'})
+         majors = []
+         for i in obj:
+-            majors.append(i['Acad Plan'])
++            majors.append(i['Descr'])
+         return majors
+ 
+     def listAllMinors(self):
+         myCol = db.get_collection('Department')
+-        obj = myCol.find({'Plan Type': 'Minor'})
++        obj = myCol.find({'Plan Type': 'MIN'})
+         minors = []
+         for i in obj:
+-            minors.append(i['Acad Plan'])
++            minors.append(i['Descr'])
+         return minors
+ 
+     def openJson(self):
