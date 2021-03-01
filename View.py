@@ -81,7 +81,7 @@ class View:
         self.idEntry = ttk.Entry(idFrame)
         self.idEntry.pack()
 
-        # ============================ season ============================
+        # ============================ season ============================           TODO radio button
         seasonFrame = Frame(self.rightFrame, )
         seasonLabel = Label(seasonFrame, text='Registering for:')
         fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', value=1)
@@ -160,13 +160,13 @@ class View:
         for i in range(self.courseRow):
             self.courseEntry.append([])
             for j in range(self.courseCol):
-                self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=12))
+                self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=20))
                 self.courseEntry[i][j].grid(row=i, column=j)
 
         # ===================== backup course ===================
 
         self.backupCourseFrame = Frame(self.rightFrame)
-        self.backupCourseFrame.pack(side=BOTTOM)                                #  TODO
+        self.backupCourseFrame.pack(side=BOTTOM)
 
         self.backupCourseEntry = [[]]
         for i in range(2):
@@ -175,25 +175,14 @@ class View:
                 self.backupCourseEntry[i].append(Entry(self.backupCourseFrame, bd=3, width=20))
                 self.backupCourseEntry[i][j].grid(row=i, column=j)
 
-
-        # ====================== Enrollment Date ========================
-        enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.place(relx=0.25, rely=0.3)
-
-        enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
-        enrlDate.pack(side=LEFT)
-
-        self.enrlDateEntry = ttk.Entry(enrlDateFrame)
-        self.enrlDateEntry.pack()
-
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.place(relx=0.25, rely=0.8, relwidth=0.5, relheight=0.125)
+        memoFrame.place(relx=0.25, rely= 0.8, relwidth=0.5, relheight=0.125)
 
-        memoEntry = Text(memoFrame)
-        memoEntry.pack(expand=TRUE)
+        self.memoEntry = Text(memoFrame)
+        self.memoEntry.pack(expand=TRUE)
 
-    def populatePPW(self, arg1, arg2, arg3, arg4):    # (py dict, total cred, 2d course array, course size)
+    def populatePPW(self, arg1, arg2, arg3, arg4, arg5):    # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
         self.nameEntry.insert(END, arg1['name'])
@@ -209,9 +198,18 @@ class View:
         self.enrollCredEntry.delete(0, END)
         self.enrollCredEntry.insert(END, arg2)
 
+        self.memoEntry.delete('1.0', 'end')
+        self.memoEntry.insert('1.0', arg1['memo'])
+
         for i in range (arg4):
             for j in range (self.courseCol):
+                self.courseEntry[i][j].delete(0, END)
                 self.courseEntry[i][j].insert(END, arg3[i][j])
+
+        for i in range (2):
+            for j in range (self.courseCol):
+                self.backupCourseEntry[i][j].delete(0, END)
+                self.backupCourseEntry[i][j].insert(END, arg5[i][j])
 
     # menus declaration
     def menu(self):
