@@ -12,18 +12,18 @@ class Model:
 
     def listAllMajors(self):
         myCol = db.get_collection('Department')
-        obj = myCol.find({'Plan Type': 'MAJ'})
+        obj = myCol.find({'Plan Type': 'Major'})
         majors = []
         for i in obj:
-            majors.append(i['Descr'])
+            majors.append(i['Acad Plan'])
         return majors
 
     def listAllMinors(self):
         myCol = db.get_collection('Department')
-        obj = myCol.find({'Plan Type': 'MIN'})
+        obj = myCol.find({'Plan Type': 'Minor'})
         minors = []
         for i in obj:
-            minors.append(i['Descr'])
+            minors.append(i['Acad Plan'])
         return minors
 
     def openJson(self):

@@ -160,8 +160,20 @@ class View:
         for i in range(self.courseRow):
             self.courseEntry.append([])
             for j in range(self.courseCol):
-                self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=12))
+                self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=20))
                 self.courseEntry[i][j].grid(row=i, column=j)
+
+        # ===================== backup course ===================
+
+        self.backupCourseFrame = Frame(self.rightFrame)
+        # self.backupCourseFrame.pack(side=BOTTOM)                                #  TODO
+
+        self.backupCourseEntry = [[]]
+        for i in range(2):
+            self.backupCourseEntry.append([])
+            for j in range(self.courseCol):
+                self.backupCourseEntry[i].append(Entry(self.backupCourseFrame, bd=3, width=20))
+                self.backupCourseEntry[i][j].grid(row=i, column=j)
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
