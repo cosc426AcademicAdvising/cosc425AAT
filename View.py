@@ -81,7 +81,7 @@ class View:
         self.idEntry = ttk.Entry(idFrame)
         self.idEntry.pack()
 
-        # ============================ season ============================
+        # ============================ season ============================           TODO radio button
         seasonFrame = Frame(self.rightFrame, )
         seasonLabel = Label(seasonFrame, text='Registering for:')
         fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', value=1)
@@ -163,20 +163,9 @@ class View:
                 self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=12))
                 self.courseEntry[i][j].grid(row=i, column=j)
 
-
-        # ====================== Enrollment Date ========================
-        enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.place(relx=0.25, rely=0.3)
-
-        enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
-        enrlDate.pack(side=LEFT)
-
-        self.enrlDateEntry = ttk.Entry(enrlDateFrame)
-        self.enrlDateEntry.pack()
-
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.place(relx=0.25, rely=0.8, relwidth=0.5, relheight=0.125)
+        memoFrame.place(relx=0.25, rely= 0.8, relwidth=0.5, relheight=0.125)
 
         memoEntry = Text(memoFrame)
         memoEntry.pack(expand=TRUE)

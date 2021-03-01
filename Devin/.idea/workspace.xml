@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Reformatting Planning Sheet and Radio Buttons">
+    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Positioning Backup course table">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614374493258</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Reformatting Planning Sheet and Radio Buttons">
+      <created>1614634080019</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1614634080019</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,8 +181,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Getting files" />
     <MESSAGE value="Major list dropdown" />
-    <MESSAGE value="Reformatting Planning Sheet and Radio Buttons" />
     <MESSAGE value="Reformatted and Radio Buttons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformatted and Radio Buttons" />
+    <MESSAGE value="Reformatting Planning Sheet and Radio Buttons" />
+    <MESSAGE value="Positioning Backup course table" />
+    <option name="LAST_COMMIT_MESSAGE" value="Positioning Backup course table" />
   </component>
 </project>
