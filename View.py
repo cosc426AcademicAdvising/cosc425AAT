@@ -119,7 +119,7 @@ class View:
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame,)
-        credFrame.place(y=230, x=153, width=450)
+        credFrame.place(y=215, x=153, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
         self.earnCredEntry = ttk.Entry(credFrame, width=3, state=DISABLED)
@@ -140,7 +140,7 @@ class View:
         # ====================== Enrollment Date ========================
 
         enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.place(relx=0.25, rely=0.3)
+        enrlDateFrame.place(relx=0.3, rely=0.3)
 
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
@@ -217,6 +217,9 @@ class View:
 
         self.enrollCredEntry.delete(0, END)
         self.enrollCredEntry.insert(END, arg2)
+
+        self.enrlDateEntry.delete(0, END)
+        self.enrlDateEntry.insert(END, arg1['enrll'])
 
         self.memoEntry.delete('1.0', 'end')
         self.memoEntry.insert('1.0', arg1['memo'])
