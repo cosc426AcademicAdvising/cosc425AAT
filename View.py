@@ -1,8 +1,11 @@
 from tkinter import *
 from tkinter import ttk
-from pubsub import pub 	# pip install PyPubSub
+from ttkthemes import ThemedTk
+from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
-from PIL import ImageTk,Image  # pip install pillow
+from PIL import ImageTk, Image  # pip install pillow
+
+
 # import functionss as funct
 
 
@@ -58,11 +61,12 @@ class View:
 
     def PlanningWorksheet_layout(self):
         # ============================ title ============================
-        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER, font=('Helvetica', 19))
+        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
+                                  font=('Helvetica', 19))
         ProgPlanTitle.place(rely=0.035, relx=0.30)
 
         # ============================ student name ============================
-        nameFrame = Frame(self.rightFrame,)
+        nameFrame = Frame(self.rightFrame, )
         nameFrame.place(rely=0.1, relx=0.12)
 
         nameLabel = Label(nameFrame, text='Name:')
@@ -72,7 +76,7 @@ class View:
         self.nameEntry.pack()
 
         # ============================ student id ============================
-        idFrame = Frame(self.rightFrame,)
+        idFrame = Frame(self.rightFrame, )
         idFrame.place(rely=0.1, relx=0.5)
 
         idLabel = Label(idFrame, text='ID Number:')
@@ -89,16 +93,16 @@ class View:
         springRadioBtn = ttk.Radiobutton(seasonFrame, text='Spring', value=3)
         winterRadioBtn = ttk.Radiobutton(seasonFrame, text='Winter', value=4)
 
-        seasonFrame.place(y=140, x=153, width=550)
+        seasonFrame.place(rely=.140, relx=.153, width=550)
         seasonLabel.pack(side=LEFT)
-        fallRadioBtn.place(x=130)
-        winterRadioBtn.place(x=210)
-        springRadioBtn.place(x=310)
-        summerRadioBtn.place(x=410)
+        fallRadioBtn.place(relx=.200)
+        winterRadioBtn.place(relx=.310)
+        springRadioBtn.place(relx=.440)
+        summerRadioBtn.place(relx=.570)
 
         # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
-        careerFrame.place(y=180, x=153, width=450)
+        careerFrame.place(rely=.180, relx=.153, width=450)
 
         majorLabel = Label(careerFrame, text='Major(s): ')
         majorLabel.pack(side=LEFT)
@@ -107,7 +111,6 @@ class View:
         majorVar.set(self.majorsList[0])
         majorMenu = ttk.OptionMenu(careerFrame, majorVar, *self.majorsList)
         majorMenu.pack(side=LEFT)
-
 
         minorVar = StringVar()
         minorVar.set(self.minorsList[0])
@@ -118,8 +121,8 @@ class View:
         minorLabel.pack(side=RIGHT)
 
         # ============================ credits ============================
-        credFrame = Frame(self.rightFrame,)
-        credFrame.place(y=215, x=153, width=450)
+        credFrame = Frame(self.rightFrame, )
+        credFrame.place(rely=.23, relx=.153, width=450)
 
         credLabel1 = Label(credFrame, text='Earned:')
         self.earnCredEntry = ttk.Entry(credFrame, width=3, state=DISABLED)
@@ -158,7 +161,7 @@ class View:
             self.courseEntry.append([])
             for j in range(self.courseCol):
                 if i == 0 and j == 0:
-                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, selectborderwidth=3 , width=20))
+                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, selectborderwidth=3, width=20))
                     self.courseEntry[i][j].grid(row=i, column=j)
                     self.courseEntry[i][j].insert(0, "Course Number")
                 elif i == 0 and j == 1:
@@ -202,7 +205,7 @@ class View:
         self.memoEntry = Text(memoFrame)
         self.memoEntry.pack(expand=TRUE)
 
-    def populatePPW(self, arg1, arg2, arg3, arg4, arg5):    # (py dict, total cred, 2d course array, course size)
+    def populatePPW(self, arg1, arg2, arg3, arg4, arg5):  # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
         self.nameEntry.insert(END, arg1['name'])
@@ -224,13 +227,13 @@ class View:
         self.memoEntry.delete('1.0', 'end')
         self.memoEntry.insert('1.0', arg1['memo'])
 
-        for i in range (arg4):
-            for j in range (self.courseCol):
-                self.courseEntry[i+1][j].delete(0, END)
-                self.courseEntry[i+1][j].insert(END, arg3[i][j])
+        for i in range(arg4):
+            for j in range(self.courseCol):
+                self.courseEntry[i + 1][j].delete(0, END)
+                self.courseEntry[i + 1][j].insert(END, arg3[i][j])
 
-        for i in range (2):
-            for j in range (self.courseCol):
+        for i in range(2):
+            for j in range(self.courseCol):
                 self.backupCourseEntry[i][j].delete(0, END)
                 self.backupCourseEntry[i][j].insert(END, arg5[i][j])
 
@@ -250,6 +253,23 @@ class View:
         DB = Menu(menu)
         menu.add_cascade(label='Update DB', menu=DB)
         self.DataBaseMenu(DB)
+
+        theme = Menu(menu)
+        menu.add_cascade(label='Themes', menu=theme)
+        self.themeMenu(theme)
+
+    # schedule menu dropdown
+    def themeMenu(self, theme):
+        #s = ThemedTk(self.mainwin)
+        '''
+        def lightMode(s):
+            s.set_theme("plastik")
+
+        def darkMode(s):
+            s.set_theme("black")
+        '''
+        #theme.add_command(label='Light Mode', command=)
+        theme.add_command(label='Dark Mode')
 
     # schedule menu dropdown
     def scheduleMenu(self, schedule):

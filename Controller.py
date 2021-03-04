@@ -2,6 +2,7 @@ from View import View
 from Model import Model
 
 from tkinter import *
+from tkinter import ttk
 from pubsub import pub
 
 
