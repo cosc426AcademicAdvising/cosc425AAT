@@ -31,7 +31,7 @@ def genEdGrp(grp):
 # returns true if the student with the given id has taken the course matching the given subject and number
 # false otherwise
 def studSrch(sub, num, id):
-    # todo: fix numcourses iteration, currently gives
+    # todo: fix numclasses index out of bounds error
     classList = []
     str = sub + " " + num
     numclasses = []
@@ -39,13 +39,11 @@ def studSrch(sub, num, id):
     query["s_id"] = int(id)
     pipeline = [
         {
-            # removes entries that don't have a student id matching sid from the aggregation
             "$match": {
                 "s_id": int(id)
             }
         },
         {
-            # projects a new field called numcourses which stores the size of the 'courses' dictionary in the JSON file
             u"$project": {
                 u"numCourses": {
                     u"$cond": {
@@ -65,15 +63,18 @@ def studSrch(sub, num, id):
     cnum = stud.aggregate(
     pipeline,
     allowDiskUse = False
-)   # classList.append(int('{0}'.format(i['numCourses'])))
+)
     for i in cnum:
         numclasses.append(int('{0}'.format(i['numCourses'])))
-    n = 0
+    numIter = 0
     for x in curs:
-        print(numclasses[n])
-        if (x["course_taken"][numclasses[n]]["course_id"] == str):
-            return True
-        n += 1
+        n = 0
+        # print(numclasses[n])
+        while (n < numclasses[numIter]):
+            if (x["course_taken"][numclasses[numIter] - n]["course_id"] == str):
+                return True
+            n += 1
+        numIter += 1
     return False
 
 # returns a list of all courses with the same requisite group as sub + num
@@ -88,13 +89,23 @@ def req(sub, num):
     for i in curs:
         reqid = "{0}".format(i["Rq Group"])
         reqList.append("{0}".format(i["RQ Descr(Descrlong)"]))
-    print(reqid)
     q2 = {}
     q2["Rq Group"] = reqid
     curs2 = cat.find(q2)
     for x in curs2:
         reqList.append("{0}{1}".format(x["Subject"], x["Catalog"]) + " {0}".format(x["Long Title"]))
     return reqList
+
+def delStud(id):
+    query = {}
+    query["s_id"] = int(id)
+    info = stud.delete_many(query)
+    if (info.deleted_count == 1):
+        return "one entry deleted"
+    elif (info.deleted_count == 0):
+        return "no matches found, deleted 0 entries"
+    else:
+        return (str(info.deleted_count) + " entries deleted")
 
 #sample input below
 mylist = genEd("ART", "3AC")
@@ -108,3 +119,5 @@ print(mylist2)
 
 mylist3 = req("COSC", " 320")
 print(mylist3)
+
+print(delStud(7654321))
