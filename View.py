@@ -1,10 +1,9 @@
 from tkinter import *
 from tkinter import ttk
-from ttkthemes import ThemedTk
+# from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
 from PIL import ImageTk, Image  # pip install pillow
-
 
 # import functionss as funct
 
@@ -37,6 +36,8 @@ class View:
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
+        #self.rightFrame.columnconfigure(50, pad=50)
+        #self.rightFrame.rowconfigure(1, weight=1)
 
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
@@ -60,14 +61,28 @@ class View:
         self.background.configure(image=self.background_image)
 
     def PlanningWorksheet_layout(self):
+        # outer most blank frames left & right
+        blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
+        blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
+
+        h = 22
+        blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
+        blank4 = Frame(self.rightFrame, height=h).grid(row=3, column=0, columnspan=5) # before seasons
+        blank5 = Frame(self.rightFrame, height=h).grid(row=5, column=0, columnspan=5) # before major minor
+        blank6 = Frame(self.rightFrame, height=h).grid(row=7, column=0, columnspan=5) # before cred frame
+        blank7 = Frame(self.rightFrame, height=h).grid(row=9, column=0, columnspan=5) # before enrollment date
+        blank8 = Frame(self.rightFrame, height=h).grid(row=11, column=0, columnspan=5) # before table
+        blank9 = Frame(self.rightFrame, height=h).grid(row=25, column=0, columnspan=5)  # before memo
+
+
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.place(rely=0.035, relx=0.30)
+        ProgPlanTitle.grid(row=0, column=2, columnspan=2)
 
         # ============================ student name ============================
-        nameFrame = Frame(self.rightFrame, )
-        nameFrame.place(rely=0.1, relx=0.12)
+        nameFrame = Frame(self.rightFrame)
+        nameFrame.grid(row=2, column=1, columnspan=2)
 
         nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
@@ -76,134 +91,143 @@ class View:
         self.nameEntry.pack()
 
         # ============================ student id ============================
-        idFrame = Frame(self.rightFrame, )
-        idFrame.place(rely=0.1, relx=0.5)
+        idFrame = Frame(self.rightFrame)
+        idFrame.grid(row=2, column=3, columnspan=2)
 
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
 
-        self.idEntry = ttk.Entry(idFrame)
+        self.idEntry = ttk.Entry(idFrame, width=8)
         self.idEntry.pack()
 
         # ============================ season ============================           TODO radio button
+        self.seasonVar = StringVar()
+
         seasonFrame = Frame(self.rightFrame, )
         seasonLabel = Label(seasonFrame, text='Registering for:')
-        fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', value=1)
-        summerRadioBtn = ttk.Radiobutton(seasonFrame, text='Summer', value=2)
-        springRadioBtn = ttk.Radiobutton(seasonFrame, text='Spring', value=3)
-        winterRadioBtn = ttk.Radiobutton(seasonFrame, text='Winter', value=4)
+        fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', variable=self.seasonVar, value='Fall')
+        summerRadioBtn = ttk.Radiobutton(seasonFrame, text='Summer', variable=self.seasonVar, value='Summer')
+        springRadioBtn = ttk.Radiobutton(seasonFrame, text='Spring', variable=self.seasonVar, value='Spring')
+        winterRadioBtn = ttk.Radiobutton(seasonFrame, text='Winter', variable=self.seasonVar, value='Winter')
 
-        seasonFrame.place(rely=.140, relx=.153, width=550)
-        seasonLabel.pack(side=LEFT)
-        fallRadioBtn.place(relx=.200)
-        winterRadioBtn.place(relx=.310)
-        springRadioBtn.place(relx=.440)
-        summerRadioBtn.place(relx=.570)
+        seasonFrame.grid(row=4, column=1, columnspan=4)
+        seasonLabel.grid(row=0, column=0, padx=10)
+        fallRadioBtn.grid(row=0, column=1, padx=10)
+        winterRadioBtn.grid(row=0, column=2, padx=10)
+        springRadioBtn.grid(row=0, column=3, padx=10)
+        summerRadioBtn.grid(row=0, column=4)
 
         # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
-        careerFrame.place(rely=.180, relx=.153, width=450)
+        careerFrame.grid(row=6, column=1, columnspan=4)
 
         majorLabel = Label(careerFrame, text='Major(s): ')
-        majorLabel.pack(side=LEFT)
+        majorLabel.grid(row=0, column=0)
 
         majorVar = StringVar()
         majorVar.set(self.majorsList[0])
         majorMenu = ttk.OptionMenu(careerFrame, majorVar, *self.majorsList)
-        majorMenu.pack(side=LEFT)
+        majorMenu.grid(row=0, column=1)
+
+        mblank = Frame(careerFrame, width=75).grid(row=0, column=2)
 
         minorVar = StringVar()
         minorVar.set(self.minorsList[0])
         minorMenu = ttk.OptionMenu(careerFrame, minorVar, *self.minorsList)
-        minorMenu.pack(side=RIGHT)
+        minorMenu.grid(row=0, column=4)
 
         minorLabel = Label(careerFrame, text='Minor(s): ')
-        minorLabel.pack(side=RIGHT)
+        minorLabel.grid(row=0, column=3)
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame, )
-        credFrame.place(rely=.23, relx=.153, width=450)
+        credFrame.grid(row=8, column=1, columnspan=4)
 
         credLabel1 = Label(credFrame, text='Earned:')
-        self.earnCredEntry = ttk.Entry(credFrame, width=3, state=DISABLED)
+        self.earnCredEntry = ttk.Entry(credFrame, width=3, justify=CENTER, state=DISABLED)
         credLabel2 = Label(credFrame, text='credits')
 
-        credLabel1.pack(side=LEFT)
-        self.earnCredEntry.pack(side=LEFT)
-        credLabel2.pack(side=LEFT)
+        credLabel1.grid(row=0, column=0)
+        self.earnCredEntry.grid(row=0, column=1)
+        credLabel2.grid(row=0, column=2)
+
+        cblank = Frame(credFrame, width=130).grid(row=0, column=3)
 
         credLabel3 = Label(credFrame, text='Currently Enrolled in')
-        self.enrollCredEntry = ttk.Entry(credFrame, width=3)
+        self.enrollCredEntry = ttk.Entry(credFrame, width=3, justify=CENTER)
         credLabel4 = Label(credFrame, text='credits')
 
-        credLabel4.pack(side=RIGHT)
-        self.enrollCredEntry.pack(side=RIGHT)
-        credLabel3.pack(side=RIGHT)
+        credLabel4.grid(row=0, column=4)
+        self.enrollCredEntry.grid(row=0, column=5)
+        credLabel3.grid(row=0, column=6)
 
         # ====================== Enrollment Date ========================
-
         enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.place(relx=0.3, rely=0.3)
+        enrlDateFrame.grid(row=10, column=2, columnspan=2)
 
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
 
-        self.enrlDateEntry = ttk.Entry(enrlDateFrame)
+        self.enrlDateEntry = ttk.Entry(enrlDateFrame, width=5)
         self.enrlDateEntry.pack()
 
         # ============================ Course table ============================
+        courseTableFrame = Frame(self.rightFrame, )
+        courseTableFrame.grid(row=12, column=1, columnspan=4, rowspan=8)
 
-        self.courseTableFrame = Frame(self.rightFrame, )
-        self.courseTableFrame.place(rely=0.35, relx=0.12)
+        label1 = Label(courseTableFrame, text="Course #").grid(row=0, column=0)
+        label2 = Label(courseTableFrame, text="Title").grid(row=0, column=1)
+        label3 = Label(courseTableFrame, text="Cred. Hr").grid(row=0, column=2)
+        label4 = Label(courseTableFrame, text="Gen ed/Elect").grid(row=0, column=3)
 
         self.courseEntry = [[]]
         for i in range(self.courseRow):
             self.courseEntry.append([])
             for j in range(self.courseCol):
-                if i == 0 and j == 0:
-                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, selectborderwidth=3, width=20))
-                    self.courseEntry[i][j].grid(row=i, column=j)
-                    self.courseEntry[i][j].insert(0, "Course Number")
-                elif i == 0 and j == 1:
-                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, width=20))
-                    self.courseEntry[i][j].grid(row=i, column=j)
-                    self.courseEntry[i][j].insert(0, "Course Title")
-                elif i == 0 and j == 2:
-                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, width=20))
-                    self.courseEntry[i][j].grid(row=i, column=j)
-                    self.courseEntry[i][j].insert(0, "Credit Hours")
-                elif i == 0 and j == 3:
-                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=6, width=20))
-                    self.courseEntry[i][j].grid(row=i, column=j)
-                    self.courseEntry[i][j].insert(0, "Gen Ed Group/Elective")
+                if j == 0:
+                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=10, justify=CENTER))
+                    self.courseEntry[i][j].grid(row=i+1, column=j)
+                elif j == 2:
+                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=5, justify=CENTER))
+                    self.courseEntry[i][j].grid(row=i+1, column=j)
+                elif j == 3:
+                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=10, justify=CENTER))
+                    self.courseEntry[i][j].grid(row=i+1, column=j)
                 else:
-                    self.courseEntry[i].append(Entry(self.courseTableFrame, bd=3, width=20))
-                    self.courseEntry[i][j].grid(row=i, column=j)
+                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=25, justify=CENTER))
+                    self.courseEntry[i][j].grid(row=i+1, column=j)
 
         # ===================== backup course ===================
+        backupCourseFrame = Frame(self.rightFrame)
+        backupCourseFrame.grid(row=20, column=1, columnspan=4, rowspan=3)
 
-        nameFrame = Frame(self.rightFrame, )
-        nameFrame.place(rely=0.53, relx=0.45)
-
-        nameLabel = Label(nameFrame, text='Back-up Courses')
-        nameLabel.pack(side=LEFT)
-
-        self.backupCourseFrame = Frame(self.rightFrame)
-        self.backupCourseFrame.place(rely=0.55, relx=0.12)
+        label5 = Label(backupCourseFrame, text="Back-up Courses").grid(row=0, column=1, columnspan=2)
 
         self.backupCourseEntry = [[]]
         for i in range(2):
             self.backupCourseEntry.append([])
             for j in range(self.courseCol):
-                self.backupCourseEntry[i].append(Entry(self.backupCourseFrame, bd=3, width=20))
-                self.backupCourseEntry[i][j].grid(row=i, column=j)
+                if j == 0:
+                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=10, justify=CENTER))
+                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
+                elif j == 2:
+                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=5, justify=CENTER))
+                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
+                elif j == 3:
+                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=10, justify=CENTER))
+                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
+                else:
+                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=25, justify=CENTER))
+                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.place(relx=0.25, rely=0.7, relwidth=0.5, relheight=0.125)
+        memoFrame.grid(row=26, column=2, columnspan=2)
+        #memoFrame.columnconfigure(1, weight=1)
+        #memoFrame.rowconfigure(1, weight=1)
 
-        self.memoEntry = Text(memoFrame)
-        self.memoEntry.pack(expand=TRUE)
+        self.memoEntry = Text(memoFrame, width=50, height=5)
+        self.memoEntry.pack()
 
     def populatePPW(self, arg1, arg2, arg3, arg4, arg5):  # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
@@ -212,6 +236,8 @@ class View:
 
         self.idEntry.delete(0, END)
         self.idEntry.insert(END, arg1['s_id'])
+
+        self.seasonVar.set(arg1['registering_for'])
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.delete(0, END)
@@ -229,8 +255,8 @@ class View:
 
         for i in range(arg4):
             for j in range(self.courseCol):
-                self.courseEntry[i + 1][j].delete(0, END)
-                self.courseEntry[i + 1][j].insert(END, arg3[i][j])
+                self.courseEntry[i][j].delete(0, END)
+                self.courseEntry[i][j].insert(END, arg3[i][j])
 
         for i in range(2):
             for j in range(self.courseCol):
@@ -258,7 +284,6 @@ class View:
         menu.add_cascade(label='Themes', menu=theme)
         self.themeMenu(theme)
 
-    # schedule menu dropdown
     def themeMenu(self, theme):
         #s = ThemedTk(self.mainwin)
         '''
@@ -305,7 +330,28 @@ class View:
         DB.add_command(label='Add/Remove a minor')
 
     def newSchedule(self):
-        pub.sendMessage("New Menu Dropdown Pressed")
+        # pub.sendMessage("New Menu Dropdown Pressed")
+        self.nameEntry.delete(0, END)
+        self.idEntry.delete(0, END)
+        self.seasonVar.set('')
+
+        self.earnCredEntry['state'] = NORMAL
+        self.earnCredEntry.delete(0, END)
+        self.earnCredEntry['state'] = 'readonly'
+
+        self.enrollCredEntry.delete(0, END)
+
+        self.enrlDateEntry.delete(0, END)
+
+        self.memoEntry.delete('1.0', 'end')
+
+        for i in range(self.courseRow):
+            for j in range(self.courseCol):
+                self.courseEntry[i][j].delete(0, END)
+
+        for i in range(2):
+            for j in range(self.courseCol):
+                self.backupCourseEntry[i][j].delete(0, END)
 
     def openSchedule(self):
         pub.sendMessage("request_PPW")
