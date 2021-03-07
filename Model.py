@@ -31,9 +31,9 @@ class Model:
         obj = myCol.find_one({'$and': [{'Subject': subject}, {'Catalog': catalog}]})
         print(obj['RQ Descr(Descrlong)'])
 
-    sub = input("Enter subject")
-    cat = input("Enter catalog")
-    getPreReq(sub, cat)
+    #sub = input("Enter subject")
+    #cat = input("Enter catalog")
+    #getPreReq(sub, cat)
 
     def openJson(self):
         path = askopenfilename(

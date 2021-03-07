@@ -43,13 +43,61 @@ class View:
         self.PlanningWorksheet_layout()
 
     def FourYearPlan(self):
-        self.image = Image.open("CS4YrPlan.png")
-        self.background_image = ImageTk.PhotoImage(self.image)
-        self.img_copy = self.image.copy()
+        # outer most blank frames left & right
+        if self.mainwin.winfo_screenwidth() == 1920:
+            blank1 = Frame(self.leftFrame, width=self.mainwin.winfo_screenwidth() / 10).grid(column=0, row=0,
+                                                                                              rowspan=30,
+                                                                                              sticky=(N, E, S, W))
+            blank2 = Frame(self.leftFrame, width=self.mainwin.winfo_screenwidth() / 10).grid(column=5, row=0,
+                                                                                              rowspan=30,
+                                                                                              sticky=(N, E, S, W))
+        elif self.mainwin.winfo_screenwidth() == 1600:
+            blank1 = Frame(self.leftFrame, width=160).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
+            blank2 = Frame(self.leftFrame, width=160).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
+        else:
+            blank1 = Frame(self.leftFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
+            blank2 = Frame(self.leftFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
-        self.background = Label(self.leftFrame, image=self.background_image)
-        self.background.pack(fill=BOTH, expand=YES)
-        self.background.bind('<Configure>', self._resize_image)
+        h = 22
+        blank3 = Frame(self.leftFrame, height=h).grid(row=1, column=0, columnspan=5)  # before name id
+        blank4 = Frame(self.leftFrame, height=h).grid(row=3, column=0, columnspan=5)  # before seasons
+        blank5 = Frame(self.leftFrame, height=h).grid(row=5, column=0, columnspan=5)  # before major minor
+        blank6 = Frame(self.leftFrame, height=h).grid(row=7, column=0, columnspan=5)  # before cred frame
+        blank7 = Frame(self.leftFrame, height=h).grid(row=9, column=0, columnspan=5)  # before enrollment date
+        blank8 = Frame(self.leftFrame, height=h).grid(row=11, column=0, columnspan=5)  # before table
+        blank9 = Frame(self.leftFrame, height=h).grid(row=25, column=0, columnspan=5)  # before memo
+
+        # ============================ title ============================
+        FourYearTitle = ttk.Label(self.leftFrame, text="Computer Science", anchor=CENTER,
+                                  font=('Helvetica', 19))
+        FourYearTitle.grid(row=2, column=0, columnspan=2)
+
+        # ============================ Student Name ============================
+        nameFrame = Frame(self.leftFrame)
+        nameFrame.grid(row=4, column=1, columnspan=2)
+
+        nameLabel = Label(nameFrame, text='Name:')
+        nameLabel.pack(side=LEFT)
+
+        self.nameEntry = ttk.Entry(nameFrame)
+        self.nameEntry.pack()
+
+        # ============================ Student ID ============================
+        idFrame = Frame(self.leftFrame)
+        idFrame.grid(row=4, column=4, columnspan=2)
+
+        idLabel = Label(idFrame, text='ID Number:')
+        idLabel.pack(side=LEFT)
+
+        self.idEntry = ttk.Entry(idFrame, width=8)
+        self.idEntry.pack()
+
+        # ============================ Year Tables ============================
+        self.semesterFrame = Frame(self.leftFrame, )
+        self.semesterFrame.grid(row=10, column=0, columnspan=4, rowspan=8)
+        self.createTable()
+
+
 
     def _resize_image(self, event):
         new_width = event.width
@@ -62,8 +110,15 @@ class View:
 
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
-        blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
-        blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
+        if self.mainwin.winfo_screenwidth() == 1920:
+            blank1 = Frame(self.rightFrame, width=self.mainwin.winfo_screenwidth()/10).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
+            blank2 = Frame(self.rightFrame, width=self.mainwin.winfo_screenwidth()/10).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
+        elif self.mainwin.winfo_screenwidth() == 1600:
+            blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
+            blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+        else:
+            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
+            blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
         h = 22
         blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
@@ -355,6 +410,24 @@ class View:
 
     def openSchedule(self):
         pub.sendMessage("request_PPW")
+
+    def createTable(self):
+        self.semesterEntry = [[]]
+        for i in range(4):
+            self.semesterEntry.append([])
+            for j in range(3):
+                if j == 0:
+                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=10, justify=CENTER))
+                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                elif j == 1:
+                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=15, justify=CENTER))
+                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                elif j == 2:
+                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=5, justify=CENTER))
+                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                else:
+                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=5, justify=CENTER))
+                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
 
     def openRecentSchedule(self):
         print("Open schedule")
