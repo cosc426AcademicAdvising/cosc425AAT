@@ -20,3 +20,8 @@ def listAllMinors():
         minors.append(i['Descr'])
     return minors
 
+def getPreReq(subject, catalog):
+    myCol = db.get_collection('Course')
+    obj = myCol.find({'Subject': subject}, {'Catalog': catalog})
+    for i in obj:
+        print(i)

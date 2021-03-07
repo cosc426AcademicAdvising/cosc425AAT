@@ -14,13 +14,15 @@
     "memo": "Are there any other courses you recommend that I take instead?",
     "course_taken": [
       {
-        "id": "FINN 200",
+        "subject": "FINN",
+        "catalog": "200",
         "grade": "Pass",
         "credits": 4,
         "repeat": 0
       },
       {
-        "id": "ECON 211",
+        "subject": "ECON",
+        "catalog": "211",
         "grade": "Pass",
         "credits": 4,
         "repeat": 2
@@ -28,25 +30,29 @@
     ],
     "taking_course": [
       {
-        "id": "COSC 220",
+        "subject": "COSC",
+        "catalog": "220",
         "title": "Computer Science II",
         "cred": 4,
         "genED": "Major"
       },
       {
-        "id": "COSC 370",
+        "subject": "COSC",
+        "catalog": "370",
         "title": "Computer Networks",
         "cred": 4,
         "genED": "Elective"
       },
       {
-        "id": "COSC 119",
+        "subject": "COSC",
+        "catalog": "117",
         "title": "Web Development",
         "cred": 3,
         "genED": "Elective"
       },
       {
-        "id": "MATH 210",
+        "subject": "MATH",
+        "catalog": "210",
         "title": "Discrete Math",
         "cred": 4,
         "genED": "Major"
@@ -54,13 +60,15 @@
     ],
     "backup_course":[
       {
-        "id": "COSC 250",
+        "subject": "COSC",
+        "catalog": "250",
         "title": "Micro-Computer",
         "cred": 4,
         "genED": "Major"
       },
       {
-        "id": "COSC 117",
+        "subject": "COSC",
+        "catalog": "117",
         "title": "Programming Fundamentals",
         "cred": 4,
         "genED": "Major"
