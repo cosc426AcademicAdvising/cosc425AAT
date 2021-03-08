@@ -113,7 +113,7 @@ class View:
         blank1 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
         blank2 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
-        h = 22
+        h = self.rightFrame.winfo_height() * .028
         blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
         blank4 = Frame(self.rightFrame, height=h).grid(row=3, column=0, columnspan=5) # before seasons
         blank5 = Frame(self.rightFrame, height=h).grid(row=5, column=0, columnspan=5) # before major minor
