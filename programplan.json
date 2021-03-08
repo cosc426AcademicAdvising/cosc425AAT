@@ -6,42 +6,50 @@
   "four_year": [
     {
       "semester": "Fall 2019",
-      "title": "COSC 117",
+      "subject": "COSC",
+      "catalog": "117",
       "cred": 4
     },
     {
       "semester": "Fall 2019",
-      "title": "Math 150",
+      "subject": "MATH",
+      "catalog": "150",
       "cred": 4
     },
     {
       "semester": "Spring 2020",
-      "title": "COSC 120",
+      "subject": "COSC",
+      "catalog": "120",
       "cred": 4
     },
     {
       "semester": "Spring 2020",
-      "title": "Math 210",
+      "subject": "MATH",
+      "catalog": "210",
       "cred": 4
     },
     {
       "semester": "Fall 2020",
-      "title": "COSC 320",
+      "subject": "COSC",
+      "catalog": "320",
       "cred": 4
     },
     {
       "semester": "Fall 2020",
-      "title": "Math 360",
+      "subject": "MATH",
+      "catalog": "360",
       "cred": 4
     },
     {
       "semester": "Spring 2021",
-      "title": "COSC 425",
+      "subject": "COSC",
+      "catalog": "425",
       "cred": 4
     },
     {
       "semester": "Spring 2021",
-      "title": "COSC 362",
+      "subject": "COSC",
+      "catalog": "362",
       "cred": 4
     }
   ]
