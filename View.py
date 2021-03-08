@@ -17,6 +17,7 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
+        self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
         self.majorsList = majorL
         self.minorsList = minorL
@@ -24,7 +25,7 @@ class View:
         self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
         self.TNR = TkFont.Font(family='Times')
 
-        self.courseRow = 5
+        self.courseRow = 6
         self.courseCol = 4
 
         self.layout()
@@ -36,8 +37,6 @@ class View:
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
-        #self.rightFrame.columnconfigure(50, pad=50)
-        #self.rightFrame.rowconfigure(1, weight=1)
 
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
@@ -97,19 +96,9 @@ class View:
         self.semesterFrame.grid(row=10, column=0, columnspan=4, rowspan=8)
         self.createTable()
 
-
-
-    def _resize_image(self, event):
-        new_width = event.width
-        new_height = event.height
-
-        self.image = self.img_copy.resize((new_width, new_height))
-
-        self.background_image = ImageTk.PhotoImage(self.image)
-        self.background.configure(image=self.background_image)
-
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
+        ''''
         if self.mainwin.winfo_screenwidth() == 1920:
             blank1 = Frame(self.rightFrame, width=self.mainwin.winfo_screenwidth()/10).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
             blank2 = Frame(self.rightFrame, width=self.mainwin.winfo_screenwidth()/10).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
@@ -119,6 +108,10 @@ class View:
         else:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
             blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
+        '''
+        self.rightFrame.update()
+        blank1 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
+        blank2 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
         h = 22
         blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
