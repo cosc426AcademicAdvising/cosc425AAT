@@ -29,7 +29,7 @@ class Controller:
         # Need to send information from database to this new window
 
     def openPPW(self):
-        self.model.getStudent("Bob Robert", 7654321)
+        self.model.getStudent("Bob Robert", "7654321")
 
 
 

@@ -179,9 +179,9 @@ class View:
 
         mblank = Frame(careerFrame, width=75).grid(row=0, column=2)
 
-        minorVar = StringVar()
-        minorVar.set(self.minorsList[0])
-        minorMenu = ttk.OptionMenu(careerFrame, minorVar, *self.minorsList)
+        self.minorVar = StringVar()
+        self.minorVar.set(self.minorsList[0])
+        minorMenu = ttk.OptionMenu(careerFrame, self.minorVar, *self.minorsList)
         minorMenu.grid(row=0, column=4)
 
         minorLabel = Label(careerFrame, text='Minor(s): ')
@@ -287,7 +287,19 @@ class View:
 
         self.seasonVar.set(arg1['registering_for'])
 
-        self.majorVar.set(self.majorsList[0])
+        cnt = len(self.majorsList)
+        index = 0
+        for i in range(cnt):
+            if arg1['major'] == self.majorsList[i]:
+                index = i
+        self.majorVar.set(self.majorsList[index])
+
+        cnt = len(self.minorsList)
+        index = 0
+        for i in range(cnt):
+            if arg1['minor'] == self.minorsList[i]:
+                index = i
+        self.minorVar.set(self.minorsList[index])
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.delete(0, END)
