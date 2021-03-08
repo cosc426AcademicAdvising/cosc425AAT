@@ -3,7 +3,7 @@ from tkinter import ttk
 # from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
-from PIL import ImageTk, Image  # pip install pillow
+# from PIL import ImageTk, Image  # pip install pillow
 
 # import functionss as funct
 
@@ -402,7 +402,26 @@ class View:
                 self.backupCourseEntry[i][j].delete(0, END)
 
     def openSchedule(self):
-        pub.sendMessage("request_PPW")
+        # pub.sendMessage("request_PPW")
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for")
+        t.resizable(width=FALSE, height=FALSE)
+
+        label1 = Label(t, text='Student').grid(row=0, column=1)
+        label2 = Label(t, text='Name').grid(row=1, column=0)
+        label3 = Label(t, text='ID').grid(row=2, column=0)
+
+        nameE = Entry(t)
+        nameE.grid(row=1, column=1)
+
+        idE = Entry(t)
+        idE.grid(row=2, column=1)
+
+        searchB = Button(t, text='search', command=lambda: self.searchButton(t, nameE.get(), idE.get())).grid(row=3, column=1)
+
+    def searchButton(self, t, e1, e2):
+        pub.sendMessage("PPW", arg1=e1, arg2=e2)
+        t.destroy()
 
     def createTable(self):
         self.semesterEntry = [[]]
