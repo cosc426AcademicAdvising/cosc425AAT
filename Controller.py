@@ -11,10 +11,6 @@ class Controller:
         self.model = Model()
         self.view = View(master, self.model.listAllMajors(), self.model.listAllMinors())
 
-        #self.newSchedule(master)
-        # pub.subscribe(pub.sendMessage("New Window", master), "New Menu Dropdown Pressed")
-        # pub.subscribe(newSchedule, "New Window")
-
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 
         # for populating planning worksheet
@@ -28,10 +24,9 @@ class Controller:
         self.schedule.title("Insert Person Name Here")
         # Need to send information from database to this new window
 
-    def openPPW(self):
-        self.model.getStudent("Bob Robert", "7654321")
-
-
+    def openPPW(self, name, id):
+        # self.model.getStudent("Bob Robert", "7654321")
+        self.model.getStudent(name, id)
 
 
 if __name__=="__main__":

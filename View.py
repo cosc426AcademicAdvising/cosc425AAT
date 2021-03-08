@@ -433,8 +433,9 @@ class View:
 
         searchB = Button(t, text='search', command=lambda: self.searchButton(t, nameE.get(), idE.get())).grid(row=3, column=1)
 
-    def searchButton(self, t, e1, e2):
-        pub.sendMessage("PPW", arg1=e1, arg2=e2)
+    # helper function for openSchedule()
+    def searchButton(self, t, name, id):
+        pub.sendMessage("request_PPW", name=name, id=id)
         t.destroy()
 
     def createTable(self):
