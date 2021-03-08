@@ -172,9 +172,9 @@ class View:
         majorLabel = Label(careerFrame, text='Major(s): ')
         majorLabel.grid(row=0, column=0)
 
-        majorVar = StringVar()
-        majorVar.set(self.majorsList[0])
-        majorMenu = ttk.OptionMenu(careerFrame, majorVar, *self.majorsList)
+        self.majorVar = StringVar()
+        self.majorVar.set(self.majorsList[0])
+        majorMenu = ttk.OptionMenu(careerFrame, self.majorVar, *self.majorsList)
         majorMenu.grid(row=0, column=1)
 
         mblank = Frame(careerFrame, width=75).grid(row=0, column=2)
@@ -286,6 +286,8 @@ class View:
         self.idEntry.insert(END, arg1['s_id'])
 
         self.seasonVar.set(arg1['registering_for'])
+
+        self.majorVar.set(self.majorsList[0])
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.delete(0, END)
