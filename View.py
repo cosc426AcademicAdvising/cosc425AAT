@@ -3,7 +3,7 @@ from tkinter import ttk
 # from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
-from PIL import ImageTk, Image  # pip install pillow
+# from PIL import ImageTk, Image  # pip install pillow
 
 
 # import functionss as funct
@@ -182,16 +182,16 @@ class View:
         majorLabel = Label(careerFrame, text='Major(s): ')
         majorLabel.grid(row=0, column=0)
 
-        majorVar = StringVar()
-        majorVar.set(self.majorsList[0])
-        majorMenu = ttk.OptionMenu(careerFrame, majorVar, *self.majorsList)
+        self.majorVar = StringVar()
+        self.majorVar.set(self.majorsList[0])
+        majorMenu = ttk.OptionMenu(careerFrame, self.majorVar, *self.majorsList)
         majorMenu.grid(row=0, column=1)
 
         mblank = Frame(careerFrame, width=75).grid(row=0, column=2)
 
-        minorVar = StringVar()
-        minorVar.set(self.minorsList[0])
-        minorMenu = ttk.OptionMenu(careerFrame, minorVar, *self.minorsList)
+        self.minorVar = StringVar()
+        self.minorVar.set(self.minorsList[0])
+        minorMenu = ttk.OptionMenu(careerFrame, self.minorVar, *self.minorsList)
         minorMenu.grid(row=0, column=4)
 
         minorLabel = Label(careerFrame, text='Minor(s): ')
@@ -296,6 +296,20 @@ class View:
         self.idEntry.insert(END, arg1['s_id'])
 
         self.seasonVar.set(arg1['registering_for'])
+
+        cnt = len(self.majorsList)
+        index = 0
+        for i in range(cnt):
+            if arg1['major'] == self.majorsList[i]:
+                index = i
+        self.majorVar.set(self.majorsList[index])
+
+        cnt = len(self.minorsList)
+        index = 0
+        for i in range(cnt):
+            if arg1['minor'] == self.minorsList[i]:
+                index = i
+        self.minorVar.set(self.minorsList[index])
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.delete(0, END)
@@ -412,7 +426,27 @@ class View:
                 self.backupCourseEntry[i][j].delete(0, END)
 
     def openSchedule(self):
-        pub.sendMessage("request_PPW")
+        # pub.sendMessage("request_PPW")
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for")
+        t.resizable(width=FALSE, height=FALSE)
+
+        label1 = Label(t, text='Student').grid(row=0, column=1)
+        label2 = Label(t, text='Name').grid(row=1, column=0)
+        label3 = Label(t, text='ID').grid(row=2, column=0)
+
+        nameE = Entry(t)
+        nameE.grid(row=1, column=1)
+
+        idE = Entry(t)
+        idE.grid(row=2, column=1)
+
+        searchB = Button(t, text='search', command=lambda: self.searchButton(t, nameE.get(), idE.get())).grid(row=3, column=1)
+
+    # helper function for openSchedule()
+    def searchButton(self, t, name, id):
+        pub.sendMessage("request_PPW", name=name, id=id)
+        t.destroy()
 
     def createTable(self):
         self.semesterEntry = [[]]

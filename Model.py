@@ -31,6 +31,27 @@ class Model:
         obj = myCol.find_one({'$and': [{'Subject': subject}, {'Catalog': catalog}]})
         print(obj['RQ Descr(Descrlong)'])
 
+    def getStudent(self, sname, sid):
+        myCol = db.get_collection('Student')
+        obj2 = myCol.aggregate([{u"$project": {u"count": {u"$size": u"$course_taken"}}}])
+        for i in obj2:
+            cnt = int(i['count'])
+        obj = myCol.find_one({'$and': [{'name': sname}, {'s_id': sid}]})
+        numbCourses = cnt
+        cred = 0
+        courses = []
+        backup = []
+        for c in obj['taking_course']:
+            courseID = [c['subject'], c['catalog']]
+            courses.append((courseID, c['title'], c['cred'], c['genED']))
+            cred += c['cred']
+
+        for c in obj['backup_course']:
+            courseID = [c['subject'], c['catalog']]
+            backup.append((courseID, c['title'], c['cred'], c['genED']))
+
+        pub.sendMessage("PPW_information", arg1=obj, arg2=cred, arg3=courses, arg4=numbCourses, arg5=backup)
+
     #sub = input("Enter subject")
     #cat = input("Enter catalog")
     #getPreReq(sub, cat)
