@@ -25,6 +25,7 @@ class Model:
         for i in obj:
             minors.append(i['Acad Plan'])
         return minors
+
     # Displays what prereqs are necessary for a subject + catalog
     def getPreReq(subject, catalog):
         myCol = db.get_collection('Course')
@@ -42,12 +43,12 @@ class Model:
         courses = []
         backup = []
         for c in obj['taking_course']:
-            courseID = [c['subject'], c['catalog']]
+            courseID = c['subject'] + " " + c['catalog']
             courses.append((courseID, c['title'], c['cred'], c['genED']))
             cred += c['cred']
 
         for c in obj['backup_course']:
-            courseID = [c['subject'], c['catalog']]
+            courseID = c['subject']+ " " +c['catalog']
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
         pub.sendMessage("PPW_information", arg1=obj, arg2=cred, arg3=courses, arg4=numbCourses, arg5=backup)

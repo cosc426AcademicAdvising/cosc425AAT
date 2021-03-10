@@ -18,6 +18,7 @@ class View:
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
         self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
         self.majorsList = majorL
         self.minorsList = minorL
@@ -37,6 +38,7 @@ class View:
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
+        # self.rightFrame.rowconfigure(1, weight=1)
 
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
@@ -110,8 +112,8 @@ class View:
             blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
         '''
         self.rightFrame.update()
-        blank1 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
-        blank2 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
+        blank1 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=0, row=0, rowspan=18, sticky=(N, E, S, W))
+        blank2 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=5, row=0, rowspan=18, sticky=(N, E, S, W))
 
         h = self.rightFrame.winfo_height() * .028
         blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
@@ -120,7 +122,7 @@ class View:
         blank6 = Frame(self.rightFrame, height=h).grid(row=7, column=0, columnspan=5) # before cred frame
         blank7 = Frame(self.rightFrame, height=h).grid(row=9, column=0, columnspan=5) # before enrollment date
         blank8 = Frame(self.rightFrame, height=h).grid(row=11, column=0, columnspan=5) # before table
-        blank9 = Frame(self.rightFrame, height=h).grid(row=25, column=0, columnspan=5)  # before memo
+        # blank9 = Frame(self.rightFrame, height=h).grid(row=14, column=0, columnspan=5)  # before memo
 
 
         # ============================ title ============================
@@ -221,58 +223,48 @@ class View:
 
         # ============================ Course table ============================
         courseTableFrame = Frame(self.rightFrame, )
-        courseTableFrame.grid(row=12, column=1, columnspan=4, rowspan=8)
+        courseTableFrame.grid(row=12, column=1, columnspan=4)
 
-        label1 = Label(courseTableFrame, text="Course #").grid(row=0, column=0)
-        label2 = Label(courseTableFrame, text="Title").grid(row=0, column=1)
-        label3 = Label(courseTableFrame, text="Cred. Hr").grid(row=0, column=2)
-        label4 = Label(courseTableFrame, text="Gen ed/Elect").grid(row=0, column=3)
+        self.rightFrame.rowconfigure(12, weight=5, minsize=30)
 
-        self.courseEntry = [[]]
-        for i in range(self.courseRow):
-            self.courseEntry.append([])
-            for j in range(self.courseCol):
-                if j == 0:
-                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=10, justify=CENTER))
-                    self.courseEntry[i][j].grid(row=i+1, column=j)
-                elif j == 2:
-                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=5, justify=CENTER))
-                    self.courseEntry[i][j].grid(row=i+1, column=j)
-                elif j == 3:
-                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=10, justify=CENTER))
-                    self.courseEntry[i][j].grid(row=i+1, column=j)
-                else:
-                    self.courseEntry[i].append(Entry(courseTableFrame, bd=3, width=25, justify=CENTER))
-                    self.courseEntry[i][j].grid(row=i+1, column=j)
+        self.courseTree = ttk.Treeview(courseTableFrame)
+        self.courseTree.pack()
+
+        self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
+
+        self.courseTree.column("#0", width=0, stretch=NO)
+        self.courseTree.column("course#", anchor=CENTER, width=100)
+        self.courseTree.column("title", anchor=W, width=200)
+        self.courseTree.column("cred", anchor=CENTER, width=100)
+        self.courseTree.column("gen/elect", anchor=CENTER, width=100)
+
+        self.courseTree.heading("course#", text='Course Number', anchor=CENTER)
+        self.courseTree.heading("title", text='Title', anchor=CENTER)
+        self.courseTree.heading("cred", text='Credit Hours', anchor=CENTER)
+        self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
         # ===================== backup course ===================
         backupCourseFrame = Frame(self.rightFrame)
-        backupCourseFrame.grid(row=20, column=1, columnspan=4, rowspan=3)
+        backupCourseFrame.grid(row=13, column=1, columnspan=4)
 
-        label5 = Label(backupCourseFrame, text="Back-up Courses").grid(row=0, column=1, columnspan=2)
+        self.rightFrame.rowconfigure(13, weight=10)
 
-        self.backupCourseEntry = [[]]
-        for i in range(2):
-            self.backupCourseEntry.append([])
-            for j in range(self.courseCol):
-                if j == 0:
-                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=10, justify=CENTER))
-                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
-                elif j == 2:
-                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=5, justify=CENTER))
-                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
-                elif j == 3:
-                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=10, justify=CENTER))
-                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
-                else:
-                    self.backupCourseEntry[i].append(Entry(backupCourseFrame, bd=3, width=25, justify=CENTER))
-                    self.backupCourseEntry[i][j].grid(row=i+1, column=j)
+        backuplabel = Label(backupCourseFrame, text="Back-up Courses").pack(anchor=CENTER)
+
+        self.backupCourseTree = ttk.Treeview(backupCourseFrame)
+        self.backupCourseTree.pack()
+
+        self.backupCourseTree['columns'] = ("course#", "title", "cred", "gen/elect")
+
+        self.backupCourseTree.column("#0", width=0, stretch=NO)
+        self.backupCourseTree.column("course#", anchor=CENTER, width=100)
+        self.backupCourseTree.column("title", anchor=W, width=200)
+        self.backupCourseTree.column("cred", anchor=CENTER, width=100)
+        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=100)
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.grid(row=26, column=2, columnspan=2)
-        #memoFrame.columnconfigure(1, weight=1)
-        #memoFrame.rowconfigure(1, weight=1)
+        memoFrame.grid(row=15, column=2, columnspan=2)
 
         self.memoEntry = Text(memoFrame, width=50, height=5)
         self.memoEntry.pack()
@@ -315,15 +307,15 @@ class View:
         self.memoEntry.delete('1.0', 'end')
         self.memoEntry.insert('1.0', arg1['memo'])
 
-        for i in range(arg4):
-            for j in range(self.courseCol):
-                self.courseEntry[i][j].delete(0, END)
-                self.courseEntry[i][j].insert(END, arg3[i][j])
+        c_counter = 0
+        for c in arg3:
+            self.courseTree.insert(parent='', index='end', iid=c_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            c_counter += 1
 
-        for i in range(2):
-            for j in range(self.courseCol):
-                self.backupCourseEntry[i][j].delete(0, END)
-                self.backupCourseEntry[i][j].insert(END, arg5[i][j])
+        c_counter = 0
+        for c in arg5:
+            self.backupCourseTree.insert(parent='', index='end', iid=c_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            c_counter += 1
 
     # menus declaration
     def menu(self):
