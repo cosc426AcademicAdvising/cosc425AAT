@@ -27,9 +27,6 @@ class View:
         self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
         self.TNR = TkFont.Font(family='Times')
 
-        self.courseRow = 6
-        self.courseCol = 4
-
         self.layout()
         self.menu()
 
@@ -134,7 +131,7 @@ class View:
         blank6 = Frame(self.rightFrame, height=h).grid(row=7, column=0, columnspan=5) # before cred frame
         blank7 = Frame(self.rightFrame, height=h).grid(row=9, column=0, columnspan=5) # before enrollment date
         blank8 = Frame(self.rightFrame, height=h).grid(row=11, column=0, columnspan=5) # before table
-        # blank9 = Frame(self.rightFrame, height=h).grid(row=14, column=0, columnspan=5)  # before memo
+        blank9 = Frame(self.rightFrame, height=h).grid(row=14, column=0, columnspan=5)  # before memo
 
 
         # ============================ title ============================
@@ -162,7 +159,7 @@ class View:
         self.idEntry = ttk.Entry(idFrame, width=8)
         self.idEntry.pack()
 
-        # ============================ season ============================           TODO radio button
+        # ============================ season ============================
         self.seasonVar = StringVar()
 
         seasonFrame = Frame(self.rightFrame, )
@@ -237,20 +234,18 @@ class View:
         courseTableFrame = Frame(self.rightFrame, )
         courseTableFrame.grid(row=12, column=1, columnspan=4)
 
-        self.rightFrame.rowconfigure(12, weight=5, minsize=30)
-
-        self.courseTree = ttk.Treeview(courseTableFrame)
+        self.courseTree = ttk.Treeview(courseTableFrame, height=7) # TIP: height is number of rows
         self.courseTree.pack()
 
         self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
 
-        self.courseTree.column("#0", width=0, stretch=NO)
-        self.courseTree.column("course#", anchor=CENTER, width=100)
+        self.courseTree.column("#0", width=0, stretch=NO)   # important
+        self.courseTree.column("course#", anchor=CENTER, width=100) # anchor for the data in the column
         self.courseTree.column("title", anchor=W, width=200)
         self.courseTree.column("cred", anchor=CENTER, width=100)
         self.courseTree.column("gen/elect", anchor=CENTER, width=100)
 
-        self.courseTree.heading("course#", text='Course Number', anchor=CENTER)
+        self.courseTree.heading("course#", text='Course Number', anchor=CENTER) # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
         self.courseTree.heading("cred", text='Credit Hours', anchor=CENTER)
         self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
@@ -259,11 +254,9 @@ class View:
         backupCourseFrame = Frame(self.rightFrame)
         backupCourseFrame.grid(row=13, column=1, columnspan=4)
 
-        self.rightFrame.rowconfigure(13, weight=10)
-
         backuplabel = Label(backupCourseFrame, text="Back-up Courses").pack(anchor=CENTER)
 
-        self.backupCourseTree = ttk.Treeview(backupCourseFrame)
+        self.backupCourseTree = ttk.Treeview(backupCourseFrame, height=2)
         self.backupCourseTree.pack()
 
         self.backupCourseTree['columns'] = ("course#", "title", "cred", "gen/elect")
@@ -320,6 +313,7 @@ class View:
         self.memoEntry.insert('1.0', arg1['memo'])
 
         c_counter = 0
+        # when inserting 'iid' needs to be different
         for c in arg3:
             self.courseTree.insert(parent='', index='end', iid=c_counter, text="", values=(c[0],c[1],c[2],c[3]))
             c_counter += 1
@@ -411,6 +405,7 @@ class View:
 
         self.memoEntry.delete('1.0', 'end')
 
+        ''''                                                            TODO clear Treeview
         for i in range(self.courseRow):
             for j in range(self.courseCol):
                 self.courseEntry[i][j].delete(0, END)
@@ -418,6 +413,7 @@ class View:
         for i in range(2):
             for j in range(self.courseCol):
                 self.backupCourseEntry[i][j].delete(0, END)
+        '''
 
     def openSchedule(self):
         # pub.sendMessage("request_PPW")
