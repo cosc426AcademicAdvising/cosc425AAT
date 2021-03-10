@@ -54,8 +54,6 @@ class Model:
 
     def getFourYearLayout(sname, sid):
         myCol = db.get_collection('FourYear')
-        # abc = myCol.find_one({'name': sname})
-        # print(abc)
         crsList = []
         obj = myCol.distinct('four_year.semester', {'id': sid})
         for i in obj:
@@ -64,6 +62,7 @@ class Model:
 
         fourList = []
         # For loop to iterate through all entries within the distinct list for comparison
+        # Length of course list is number of distinct semesters for a certain student
         for x in range(len(crsList)):
             # aggregate pipeline
             pipe = myCol.aggregate([
@@ -82,7 +81,9 @@ class Model:
                     '$group': {'_id': '$four_year.semester',
                                'sub': {'$push': '$four_year.subject'},
                                'cat': {'$push': '$four_year.catalog'},
+                               'tit': {'$push': '$four_year.title'},
                                'crd': {'$push': '$four_year.cred'},
+                               # Number of courses within the semester
                                'count': {'$sum': 1}
                                }
                 },
@@ -93,19 +94,21 @@ class Model:
             for i in pipe:
                 val = i['count']
                 for j in range(val):
-                    str = [i['_id'], i['sub'][j], i['cat'][j], i['crd'][j]]
+                    str = [i['_id'], i['sub'][j], i['cat'][j], i['tit'][j], i['crd'][j]]
                     fourList.append(str)
 
-        # for i in range(len(newwList)):
-        #    print(newwList[i])
-
+        #How to access the elements within the list
+        # 0 - Semester  1 - Subject  2 - Catalog  3 - Title  4 - Credits
+        '''
         print('\n\n')
         for j in range(len(crsList)):
             print(crsList[j])
             for i in range(len(fourList)):
                 if fourList[i][0] == crsList[j]:
-                    print(fourList[i][1], fourList[i][2], fourList[i][3])
+                    print(fourList[i][1], fourList[i][2], fourList[i][3], fourList[i][4])
             print('\n')
+        '''
+        return fourList;
 
     def openJson(self):
         path = askopenfilename(
