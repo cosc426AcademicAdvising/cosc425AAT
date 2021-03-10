@@ -52,9 +52,60 @@ class Model:
 
         pub.sendMessage("PPW_information", arg1=obj, arg2=cred, arg3=courses, arg4=numbCourses, arg5=backup)
 
-    #sub = input("Enter subject")
-    #cat = input("Enter catalog")
-    #getPreReq(sub, cat)
+    def getFourYearLayout(sname, sid):
+        myCol = db.get_collection('FourYear')
+        # abc = myCol.find_one({'name': sname})
+        # print(abc)
+        crsList = []
+        obj = myCol.distinct('four_year.semester', {'id': sid})
+        for i in obj:
+            crsList.append(i)
+        print(crsList)
+
+        fourList = []
+        # For loop to iterate through all entries within the distinct list for comparison
+        for x in range(len(crsList)):
+            # aggregate pipeline
+            pipe = myCol.aggregate([
+                {
+                    # unwind array for individual comparisons
+                    '$unwind': '$four_year'
+                },
+                {
+                    # match the semester with the distinct semester list
+                    '$match': {'four_year.semester': crsList[x],
+                               'id': sid,
+                               'name': sname}
+                },
+                {
+                    # group all values to a new object and get a count for total number of courses within
+                    '$group': {'_id': '$four_year.semester',
+                               'sub': {'$push': '$four_year.subject'},
+                               'cat': {'$push': '$four_year.catalog'},
+                               'crd': {'$push': '$four_year.cred'},
+                               'count': {'$sum': 1}
+                               }
+                },
+
+            ])
+            # Outputs all objects returned by pipeline aggregate and appends them to a list
+            # Through a double for loop iterating through the object and number of courses
+            for i in pipe:
+                val = i['count']
+                for j in range(val):
+                    str = [i['_id'], i['sub'][j], i['cat'][j], i['crd'][j]]
+                    fourList.append(str)
+
+        # for i in range(len(newwList)):
+        #    print(newwList[i])
+
+        print('\n\n')
+        for j in range(len(crsList)):
+            print(crsList[j])
+            for i in range(len(fourList)):
+                if fourList[i][0] == crsList[j]:
+                    print(fourList[i][1], fourList[i][2], fourList[i][3])
+            print('\n')
 
     def openJson(self):
         path = askopenfilename(
