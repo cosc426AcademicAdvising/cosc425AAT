@@ -5,6 +5,7 @@ from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
 # from PIL import ImageTk, Image  # pip install pillow
 
+
 # import functionss as funct
 
 
@@ -44,6 +45,7 @@ class View:
         self.PlanningWorksheet_layout()
 
     def FourYearPlan(self):
+        '''
         # outer most blank frames left & right
         if self.mainwin.winfo_screenwidth() == 1920:
             blank1 = Frame(self.leftFrame, width=self.mainwin.winfo_screenwidth() / 10).grid(column=0, row=0,
@@ -60,13 +62,11 @@ class View:
             blank2 = Frame(self.leftFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
         h = 22
-        blank3 = Frame(self.leftFrame, height=h).grid(row=1, column=0, columnspan=5)  # before name id
-        blank4 = Frame(self.leftFrame, height=h).grid(row=3, column=0, columnspan=5)  # before seasons
-        blank5 = Frame(self.leftFrame, height=h).grid(row=5, column=0, columnspan=5)  # before major minor
-        blank6 = Frame(self.leftFrame, height=h).grid(row=7, column=0, columnspan=5)  # before cred frame
-        blank7 = Frame(self.leftFrame, height=h).grid(row=9, column=0, columnspan=5)  # before enrollment date
-        blank8 = Frame(self.leftFrame, height=h).grid(row=11, column=0, columnspan=5)  # before table
-        blank9 = Frame(self.leftFrame, height=h).grid(row=25, column=0, columnspan=5)  # before memo
+        '''
+        for i in range(30):
+            for j in range(30):
+                blank = Frame(self.leftFrame).grid(row=i, column=j)
+
 
         # ============================ title ============================
         FourYearTitle = ttk.Label(self.leftFrame, text="Computer Science", anchor=CENTER,
@@ -94,23 +94,35 @@ class View:
         self.idEntry.pack()
 
         # ============================ Year Tables ============================
-        self.semesterFrame = Frame(self.leftFrame, )
-        self.semesterFrame.grid(row=10, column=0, columnspan=4, rowspan=8)
-        self.createTable()
+        self.semesterFrame = Frame(self.leftFrame, highlightbackground='gray')
+        self.semesterFrame.grid(row=15, column=1, rowspan=10, columnspan=1)
+        self.createTable("Semester 1: ", 5, 0)
+        self.createTable("Semester 2: ", 11, 10)
+        # self.createTable("Semester 3: ", 10, 0)
+        # self.createTable("Semester 4: ", 10, 8)
 
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
-        ''''
-        if self.mainwin.winfo_screenwidth() == 1920:
-            blank1 = Frame(self.rightFrame, width=self.mainwin.winfo_screenwidth()/10).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
-            blank2 = Frame(self.rightFrame, width=self.mainwin.winfo_screenwidth()/10).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
-        elif self.mainwin.winfo_screenwidth() == 1600:
+        width = self.mainwin.winfo_screenwidth()
+        height = self.mainwin.winfo_screenheight()
+        AspectRatio = width/height
+
+        if AspectRatio == 16/10:
+            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
+            blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
+        elif AspectRatio == 16/9:
+            blank1 = Frame(self.rightFrame, width=190).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
+            blank2 = Frame(self.rightFrame, width=190).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+        elif AspectRatio == 4/3:
+            blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
+            blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+        elif AspectRatio == 3/2:
             blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
             blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
         else:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
             blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
-        '''
+
         self.rightFrame.update()
         blank1 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=0, row=0, rowspan=18, sticky=(N, E, S, W))
         blank2 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=5, row=0, rowspan=18, sticky=(N, E, S, W))
@@ -430,23 +442,26 @@ class View:
         pub.sendMessage("request_PPW", name=name, id=id)
         t.destroy()
 
-    def createTable(self):
+    def createTable(self, semester, row, col):
+        label1 = Label(self.semesterFrame, text=semester).grid(row=row, column=col)
+
+
         self.semesterEntry = [[]]
         for i in range(4):
             self.semesterEntry.append([])
             for j in range(3):
                 if j == 0:
                     self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=10, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
                 elif j == 1:
                     self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=15, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
                 elif j == 2:
                     self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=5, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
                 else:
                     self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=5, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=i + 1, column=j)
+                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
 
     def openRecentSchedule(self):
         print("Open schedule")

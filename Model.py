@@ -53,9 +53,63 @@ class Model:
 
         pub.sendMessage("PPW_information", arg1=obj, arg2=cred, arg3=courses, arg4=numbCourses, arg5=backup)
 
-    #sub = input("Enter subject")
-    #cat = input("Enter catalog")
-    #getPreReq(sub, cat)
+    def getFourYearLayout(sname, sid):
+        myCol = db.get_collection('FourYear')
+        crsList = []
+        obj = myCol.distinct('four_year.semester', {'id': sid})
+        for i in obj:
+            crsList.append(i)
+        print(crsList)
+
+        fourList = []
+        # For loop to iterate through all entries within the distinct list for comparison
+        # Length of course list is number of distinct semesters for a certain student
+        for x in range(len(crsList)):
+            # aggregate pipeline
+            pipe = myCol.aggregate([
+                {
+                    # unwind array for individual comparisons
+                    '$unwind': '$four_year'
+                },
+                {
+                    # match the semester with the distinct semester list
+                    '$match': {'four_year.semester': crsList[x],
+                               'id': sid,
+                               'name': sname}
+                },
+                {
+                    # group all values to a new object and get a count for total number of courses within
+                    '$group': {'_id': '$four_year.semester',
+                               'sub': {'$push': '$four_year.subject'},
+                               'cat': {'$push': '$four_year.catalog'},
+                               'tit': {'$push': '$four_year.title'},
+                               'crd': {'$push': '$four_year.cred'},
+                               # Number of courses within the semester
+                               'count': {'$sum': 1}
+                               }
+                },
+
+            ])
+            # Outputs all objects returned by pipeline aggregate and appends them to a list
+            # Through a double for loop iterating through the object and number of courses
+            for i in pipe:
+                val = i['count']
+                for j in range(val):
+                    str = [i['_id'], i['sub'][j], i['cat'][j], i['tit'][j], i['crd'][j]]
+                    fourList.append(str)
+
+        #How to access the elements within the list
+        # 0 - Semester  1 - Subject  2 - Catalog  3 - Title  4 - Credits
+        '''
+        print('\n\n')
+        for j in range(len(crsList)):
+            print(crsList[j])
+            for i in range(len(fourList)):
+                if fourList[i][0] == crsList[j]:
+                    print(fourList[i][1], fourList[i][2], fourList[i][3], fourList[i][4])
+            print('\n')
+        '''
+        return fourList;
 
     def openJson(self):
         path = askopenfilename(
