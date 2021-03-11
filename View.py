@@ -415,28 +415,42 @@ class View:
     def openSchedule(self):
         # pub.sendMessage("request_PPW")
         t = Toplevel(self.mainwin)
-        t.wm_title("Search for")
+        t.wm_title("Search for Student")
+        t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
 
-        label1 = Label(t, text='Student').grid(row=0, column=1)
-        label2 = Label(t, text='Name').grid(row=1, column=0)
-        label3 = Label(t, text='ID').grid(row=2, column=0)
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP,anchor='w', padx=20, pady=10)
 
-        hint = StringVar()
-        hint.set("John Doe - (first last)")
+        idFrame = Frame(t)
+        idFrame.pack(side=TOP, anchor='w', padx=20)
 
-        nameE = ttk.Entry(t, textvariable=hint)
-        nameE.grid(row=1, column=1)
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
-        idE = ttk.Entry(t)
-        idE.grid(row=2, column=1)
+        label2 = Label(nameFrame, text='First name:').pack(side=LEFT)
+        fnameE = ttk.Entry(nameFrame, width=10)
+        fnameE.pack(side=LEFT)
 
-        searchB = Button(t, text='search', command=lambda: self.searchButton(t, nameE.get(), idE.get())).grid(row=3, column=1)
+        lnameE = ttk.Entry(nameFrame, width=15)
+        lnameE.pack(side=RIGHT)
+        label3 = Label(nameFrame, text='Last name:').pack(side=RIGHT)
+
+        label3 = Label(idFrame, text='Student Id:').pack(side=LEFT)
+        idE = ttk.Entry(idFrame, width=10)
+        idE.pack(side=LEFT)
+
+        searchB = Button(butFrame, text='Search')
+        searchB.pack()
+
+        searchB['command'] = lambda: self.searchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
+
 
     # helper function for openSchedule()
     def searchButton(self, t, name, id):
-        pub.sendMessage("request_PPW", name=name, id=id)
-        t.destroy()
+        if name != "" and id != "":
+            pub.sendMessage("request_PPW", name=name, id=id)
+            t.destroy()
 
     def createTable(self, semester, row, col):
         label1 = Label(self.semesterFrame, text=semester).grid(row=row, column=col)
