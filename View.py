@@ -121,9 +121,6 @@ class View:
             blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
         self.rightFrame.update()
-        blank1 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=0, row=0, rowspan=18, sticky=(N, E, S, W))
-        blank2 = Frame(self.rightFrame, width=self.rightFrame.winfo_width() * .08).grid(column=5, row=0, rowspan=18, sticky=(N, E, S, W))
-
         h = self.rightFrame.winfo_height() * .028
         blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
         blank4 = Frame(self.rightFrame, height=h).grid(row=3, column=0, columnspan=5) # before seasons
@@ -425,10 +422,13 @@ class View:
         label2 = Label(t, text='Name').grid(row=1, column=0)
         label3 = Label(t, text='ID').grid(row=2, column=0)
 
-        nameE = Entry(t)
+        hint = StringVar()
+        hint.set("John Doe - (first last)")
+
+        nameE = ttk.Entry(t, textvariable=hint)
         nameE.grid(row=1, column=1)
 
-        idE = Entry(t)
+        idE = ttk.Entry(t)
         idE.grid(row=2, column=1)
 
         searchB = Button(t, text='search', command=lambda: self.searchButton(t, nameE.get(), idE.get())).grid(row=3, column=1)
