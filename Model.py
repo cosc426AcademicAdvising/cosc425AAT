@@ -29,12 +29,15 @@ class Model:
     # Get a course by searching for subject and catalog
     def getCoursebySubCat(self, sub, cat):
         myCol = db.get_collection('Course')
-        obj = myCol.find({'$and': [{'subject': sub}, {'catalog': cat}]})
-        # Use print(obj['subject'] = subject)
-        # obj['catalog'] = catalog number
-        # obj[Long Title] = course title
-        # obj['Allowd Unt'] = credits
-        return obj
+        spacer = " "
+        newCat = spacer + cat
+        obj = myCol.find_one({'$and': [{'Subject': sub}, {'Catalog': newCat}]})
+        courseInfo = []
+        courseInfo.append(obj['Subject'])
+        courseInfo.append(obj['Catalog'])
+        courseInfo.append(obj['Long Title'])
+        courseInfo.append(obj['Allowd Unt'])
+        return courseInfo
 
     # Displays what prereqs are necessary for a subject + catalog
     def getPreReq(subject, catalog):
