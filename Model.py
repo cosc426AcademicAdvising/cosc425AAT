@@ -26,6 +26,16 @@ class Model:
             minors.append(i['Acad Plan'])
         return minors
 
+    # Get a course by searching for subject and catalog
+    def getCoursebySubCat(self, sub, cat):
+        myCol = db.get_collection('Course')
+        obj = myCol.find({'$and': [{'subject': sub}, {'catalog': cat}]})
+        # Use print(obj['subject'] = subject)
+        # obj['catalog'] = catalog number
+        # obj[Long Title] = course title
+        # obj['Allowd Unt'] = credits
+        return obj
+
     # Displays what prereqs are necessary for a subject + catalog
     def getPreReq(subject, catalog):
         myCol = db.get_collection('Course')
