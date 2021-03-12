@@ -1,5 +1,6 @@
 {
   "name": "",
+  "email": "",
   "id": "",
   "date": "",
   "policies": "• Refer to the SU catalog for approved prerequisites and General Education courses.\n• All graduates must have a minimum of 120 credits.\n• All graduates must have a minimum of 30 credits of 300/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n• Students must have a minimum cumulative GPA of 2.0 for graduation.\n• Students must complete at least 30 credit hours by direct classroom instruction and/or laboratory experience.\n• Students must take 30 of the last 37 credit hours at SU.\n• Bold courses are foundation courses and are required for courses later in the sequence.",
@@ -145,28 +146,81 @@
       "cred": 4
     },
     {
+      "semester": "Year 3 Semester 2",
       "subject": "IIIB",
       "catalog": "",
       "title": "GEN ED. Social Science Course",
       "cred": 4
     },
     {
+      "semester": "Year 3 Semester 2",
       "subject": "IIIC",
-      "catalog": "GEN ED. Social Science/Humanities Course",
-      "title": "Calulus II",
+      "catalog": "",
+      "title": "GEN ED. Social Science/Humanities course",
       "cred": 4
     },
     {
-      "subject": "ENGL",
+      "semester": "Year 3 Semester 2",
+      "subject": "COSC",
       "catalog": "XXX",
-      "title": "GEN ED. IB Literature Course",
+      "title": "Upper Level COSC elective*(2 of 3)",
       "cred": 4
     },
     {
-      "subject": "HIST",
+      "semester": "Year 3 Semester 2",
+      "subject": "COSC",
       "catalog": "XXX",
-      "title": "GEN ED.IIB History Course",
+      "title": "Upper Level COSC elective*(3 of 3)",
       "cred": 4
     },
-
+        {
+      "semester": "Year 4 Semester 1",
+      "subject": "COSC",
+      "catalog": "425",
+      "title": "Software Engineering",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 1",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 1",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "COSC",
+      "catalog": "426",
+      "title": "Software Engineering II",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "COSC",
+      "catalog": "450",
+      "title": "Operating Systems",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    }
+  ]
 }
