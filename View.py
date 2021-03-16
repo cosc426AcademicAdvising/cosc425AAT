@@ -44,35 +44,57 @@ class View:
     def FourYearPlan(self):
         '''
         # outer most blank frames left & right
-        if self.mainwin.winfo_screenwidth() == 1920:
-            blank1 = Frame(self.leftFrame, width=self.mainwin.winfo_screenwidth() / 10).grid(column=0, row=0,
-                                                                                              rowspan=30,
-                                                                                              sticky=(N, E, S, W))
-            blank2 = Frame(self.leftFrame, width=self.mainwin.winfo_screenwidth() / 10).grid(column=5, row=0,
-                                                                                              rowspan=30,
-                                                                                              sticky=(N, E, S, W))
-        elif self.mainwin.winfo_screenwidth() == 1600:
-            blank1 = Frame(self.leftFrame, width=160).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
-            blank2 = Frame(self.leftFrame, width=160).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
+        width = self.mainwin.winfo_screenwidth()
+        height = self.mainwin.winfo_screenheight()
+        AspectRatio = width/height
+
+        if AspectRatio == 16/10:
+            blank1 = Frame(self.leftFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
+            blank2 = Frame(self.leftFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
+        elif AspectRatio == 16/9:
+            blank1 = Frame(self.leftFrame, width=190).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
+            blank2 = Frame(self.leftFrame, width=190).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+        elif AspectRatio == 4/3:
+            blank1 = Frame(self.leftFrame, width=200).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
+            blank2 = Frame(self.leftFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+        elif AspectRatio == 3/2:
+            blank1 = Frame(self.leftFrame, width=160).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
+            blank2 = Frame(self.leftFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
         else:
             blank1 = Frame(self.leftFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
             blank2 = Frame(self.leftFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
 
-        h = 22
-        '''
-        for i in range(30):
-            for j in range(30):
-                blank = Frame(self.leftFrame).grid(row=i, column=j)
+        self.leftFrame.update()
+        h = self.leftFrame.winfo_height() * .028
+        blank3 = Frame(self.leftFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
+        blank4 = Frame(self.leftFrame, height=h).grid(row=3, column=0, columnspan=5) # before seasons
+        blank5 = Frame(self.leftFrame, height=h).grid(row=5, column=0, columnspan=5) # before major minor
+        blank6 = Frame(self.leftFrame, height=h).grid(row=7, column=0, columnspan=5) # before cred frame
+        blank7 = Frame(self.leftFrame, height=h).grid(row=9, column=0, columnspan=5) # before enrollment date
+        blank8 = Frame(self.leftFrame, height=h).grid(row=11, column=0, columnspan=5) # before table
+        blank9 = Frame(self.leftFrame, height=h).grid(row=14, column=0, columnspan=5)  # before memo
 
+        '''
+        # ============================ Scroll Bar ============================
+        self.canvas = Canvas(self.leftFrame)
+        self.canvas.pack(side=LEFT, fill="both", expand=True)
+
+        self.scrollbar = Scrollbar(self.leftFrame, orient="vertical")
+        self.scrollbar.pack(side=RIGHT, fill=Y)
+
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        self.canvas.bind('<Configure>', lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+        self.innerLeftFrame = Frame(self.canvas)
+        self.canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW)
 
         # ============================ title ============================
-        FourYearTitle = ttk.Label(self.leftFrame, text="Computer Science", anchor=CENTER,
+        ProgPlanTitle = ttk.Label(self.innerLeftFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        FourYearTitle.grid(row=2, column=0, columnspan=2)
+        ProgPlanTitle.place(x=300, y=30)
 
-        # ============================ Student Name ============================
-        nameFrame = Frame(self.leftFrame)
-        nameFrame.grid(row=4, column=1, columnspan=2)
+        # ============================ student name ============================
+        nameFrame = Frame(self.innerLeftFrame)
+        nameFrame.place(x=210, y=100)
 
         nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
@@ -80,9 +102,9 @@ class View:
         self.nameEntry = ttk.Entry(nameFrame)
         self.nameEntry.pack()
 
-        # ============================ Student ID ============================
-        idFrame = Frame(self.leftFrame)
-        idFrame.grid(row=4, column=4, columnspan=2)
+        # ============================ student id ============================
+        idFrame = Frame(self.innerLeftFrame)
+        idFrame.place(x= 510, y= 100)
 
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
@@ -91,12 +113,12 @@ class View:
         self.idEntry.pack()
 
         # ============================ Year Tables ============================
-        self.semesterFrame = Frame(self.leftFrame, highlightbackground='gray')
-        self.semesterFrame.grid(row=15, column=1, rowspan=10, columnspan=1)
-        self.createTable("Semester 1: ", 5, 0)
-        self.createTable("Semester 2: ", 11, 10)
-        # self.createTable("Semester 3: ", 10, 0)
-        # self.createTable("Semester 4: ", 10, 8)
+        self.createTable("Semester 1: ", 45, 200)
+        self.createTable("Semester 2: ", 475, 200)
+        self.createTable("Semester 3: ", 45, 450)
+        self.createTable("Semester 4: ", 475, 450)
+        self.createTable("Semester 5: ", 45, 700)
+        self.createTable("Semester 6: ", 475, 700)
 
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
@@ -134,7 +156,7 @@ class View:
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.grid(row=0, column=2, columnspan=2)
+        ProgPlanTitle.grid(row=0, column=2, columnspan=3)
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame)
@@ -452,26 +474,22 @@ class View:
             pub.sendMessage("request_PPW", name=name, id=id)
             t.destroy()
 
-    def createTable(self, semester, row, col):
-        label1 = Label(self.semesterFrame, text=semester).grid(row=row, column=col)
+    def createTable(self, semester, x, y):
+        label1 = Label(self.innerLeftFrame, text=semester,font=('Helvetica', 15)).place(x= x, y= y-25)
 
+        self.semesterTree = ttk.Treeview(self.innerLeftFrame, height=7)  # TIP: height is number of rows
+        self.semesterTree.place(x= x, y= y)
 
-        self.semesterEntry = [[]]
-        for i in range(4):
-            self.semesterEntry.append([])
-            for j in range(3):
-                if j == 0:
-                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=10, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
-                elif j == 1:
-                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=15, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
-                elif j == 2:
-                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=5, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
-                else:
-                    self.semesterEntry[i].append(Entry(self.semesterFrame, bd=3, width=5, justify=CENTER))
-                    self.semesterEntry[i][j].grid(row=row + i, column=j + col)
+        self.semesterTree['columns'] = ("course#", "title", "cred")
+
+        self.semesterTree.column("#0", width=0, stretch=NO)  # important
+        self.semesterTree.column("course#", anchor=CENTER, width=120)  # anchor for the data in the column
+        self.semesterTree.column("title", anchor=W, width=180)
+        self.semesterTree.column("cred", anchor=CENTER, width=100)
+
+        self.semesterTree.heading("course#", text='Course Number', anchor=CENTER)  # anchor for the title of the column
+        self.semesterTree.heading("title", text='Title', anchor=CENTER)
+        self.semesterTree.heading("cred", text='Credit Hours', anchor=CENTER)
 
     def openRecentSchedule(self):
         print("Open schedule")
