@@ -322,17 +322,52 @@ class View:
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
+        # =============== inner functions =================
+
+        def courseSearch(e):
+            course = entry.get()
+            if len(course) > 7:
+                # print(course)
+                if len(course.split()[1]) == 3:
+                    addCourseB2(course)
+                else:
+                    self.resultVar.set("")
+            else:
+                self.resultVar.set("")
+
+        def addCourseB2(courseNumb):
+            if courseNumb != "":
+                pub.sendMessage("request_course#", sub=courseNumb.split()[0], cat=courseNumb.split()[1])
+                self.resultVar.set(self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
+                                   self.addCourseSearchResult[2] + " " * 3 +
+                                   self.addCourseSearchResult[3])
+
+        def addCourseB3(gen):
+            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                   values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
+                                           self.addCourseSearchResult[2],
+                                           int(float(self.addCourseSearchResult[3])),
+                                           gen.get()))
+            self.courseTree_counter += 1
+            gen.delete(0, END)
+
+            prevcred = self.enrollCredVar.get()
+            self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
+
         # =========== for search ===================
+
         f1 = Frame(t)
         f1.pack(anchor=CENTER, pady=5)
 
         l1 = Label(f1, text="Course Number:").pack(side=LEFT)
-        entry = ttk.Entry(f1, width=10)
+        entry = ttk.Entry(f1, width=10, justify=CENTER)
         entry.pack(side=LEFT)
 
-        sbutton =Button(f1, text="Search")
-        sbutton.pack(side=LEFT)
-        sbutton['command'] = lambda: self.addCourseB2(entry.get())
+        entry.bind('<KeyRelease>', courseSearch) # for auto search
+
+        # sbutton =Button(f1, text="Search")
+        # sbutton.pack(side=LEFT)
+        # sbutton['command'] = lambda: addCourseB2(entry.get())
 
         # =============== for results =================
         rf = Frame(t)
@@ -352,29 +387,8 @@ class View:
         genEntry = ttk.Entry(gf)
         genEntry.pack(side=TOP)
 
-        addbutton = Button(gf, text="Add", command=lambda: self.addCourseB3(genEntry))
+        addbutton = Button(gf, text="Add", command=lambda: addCourseB3(genEntry))
         addbutton.pack(side=TOP)
-
-    # addCourseButton helper function 1
-    def addCourseB2(self, courseNumb):
-        if courseNumb != "":
-            pub.sendMessage("request_course#", sub=courseNumb.split()[0], cat=courseNumb.split()[1])
-            self.resultVar.set( self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " "*3 +
-                                self.addCourseSearchResult[2] + " "*3 +
-                                self.addCourseSearchResult[3])
-
-    # addCourseButton helper function 2
-    def addCourseB3(self, gen):
-        self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                               values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
-                                       self.addCourseSearchResult[2],
-                                       int(float(self.addCourseSearchResult[3])),
-                                       gen.get() ))
-        self.courseTree_counter += 1
-        gen.delete(0, END)
-
-        prevcred = self.enrollCredVar.get()
-        self.enrollCredVar.set( prevcred + int( float(self.addCourseSearchResult[3]) ) )
 
     def delCourseButton(self):
         for course in self.courseTree.selection():

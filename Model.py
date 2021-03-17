@@ -113,16 +113,8 @@ class Model:
 
         #How to access the elements within the list
         # 0 - Semester  1 - Subject  2 - Catalog  3 - Title  4 - Credits
-        '''
-        print('\n\n')
-        for j in range(len(crsList)):
-            print(crsList[j])
-            for i in range(len(fourList)):
-                if fourList[i][0] == crsList[j]:
-                    print(fourList[i][1], fourList[i][2], fourList[i][3], fourList[i][4])
-            print('\n')
-        '''
-        return fourList;
+
+        return fourList
 
     def openJson(self):
         path = askopenfilename(
