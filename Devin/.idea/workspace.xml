@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Positioning Backup course table">
+    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Implemented a majority of Four year Plan">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
@@ -303,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615949462988</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Implemented a majority of Four year Plan">
+      <created>1615964814004</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1615964814004</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -336,6 +343,7 @@
     <MESSAGE value="Positioning Table" />
     <MESSAGE value="Updated for new json format&#10;&#10;Load backup courses and memo" />
     <MESSAGE value="Positioning Backup course table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Positioning Backup course table" />
+    <MESSAGE value="Implemented a majority of Four year Plan" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented a majority of Four year Plan" />
   </component>
 </project>

@@ -18,8 +18,8 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
-        self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
-        self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        # self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        # self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
         self.majorsList = majorL
         self.minorsList = minorL
@@ -37,12 +37,12 @@ class View:
 
     def layout(self):
         self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
+        self.leftFrame.pack(expand=1)
         self.leftFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
-        #self.leftFrame.pack(side=LEFT)
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
+        self.rightFrame.pack(expand=1)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
-        # self.rightFrame.rowconfigure(1, weight=1)
 
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
@@ -50,49 +50,50 @@ class View:
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
         canvas = Canvas(self.leftFrame)
-        canvas.pack(side=LEFT, fill=BOTH, expand=True)
+        canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
-        scrollbar = Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
+        scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
 
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
         self.innerLeftFrame = Frame(canvas)
+        self.innerLeftFrame.pack(expand=1)
         canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW)
 
         # ============================ title ============================
         ProgPlanTitleFrame=Frame(self.innerLeftFrame, width=900, height=50)
-        ProgPlanTitleFrame.pack()
+        ProgPlanTitleFrame.pack(expand=1)
 
         ProgPlanTitle = ttk.Label(ProgPlanTitleFrame, text="Four Year Plan", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.pack()
+        ProgPlanTitle.pack(expand=1)
         ProgPlanTitle.place(x=360, y=20)
 
         # ============================ Student Name and ID ============================
 
         nameIDFrame = Frame(self.innerLeftFrame, width=900, height=50)
-        nameIDFrame.pack()
+        nameIDFrame.pack(expand=1)
 
         nameLabel = Label(nameIDFrame, text='Name:')
-        nameLabel.pack(side=LEFT)
+        nameLabel.pack(side=LEFT, expand=1)
         nameLabel.place(x=180, y=20)
 
         self.nameEntry = ttk.Entry(nameIDFrame)
-        self.nameEntry.pack(side=LEFT)
+        self.nameEntry.pack(side=LEFT, expand=1)
         self.nameEntry.place(x=230, y=20)
 
         idLabel = Label(nameIDFrame, text='ID Number:')
-        idLabel.pack(side= RIGHT)
+        idLabel.pack(side= RIGHT, expand=1)
         idLabel.place(x=490, y=20)
 
         self.idEntry = ttk.Entry(nameIDFrame, width=8)
-        self.idEntry.pack(side=RIGHT)
+        self.idEntry.pack(side=RIGHT, expand=1)
         self.idEntry.place(x=570, y=20)
 
         # ============================ Semester Tables ============================
         self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=3000)
-        self.semesterFrame.pack()
+        self.semesterFrame.pack(expand=1)
 
         y=50
         self.createTable("Semester 1: ", 30, y)
@@ -565,10 +566,11 @@ class View:
     def createTable(self, semester, x, y):
 
         semesterLabel = Label(self.semesterFrame, text=semester, font=('Helvetica', 15))
-        semesterLabel.pack()
+        semesterLabel.pack(expand=1)
         semesterLabel.place(x=x, y=y-25)
 
         self.semesterTree = ttk.Treeview(self.semesterFrame, height=7)  # TIP: height is number of rows
+        self.semesterTree.pack(expand=1)
         self.semesterTree.place(x=x, y=y)
 
         self.semesterTree['columns'] = ("course#", "title", "cred")
