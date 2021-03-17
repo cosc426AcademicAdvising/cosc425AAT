@@ -77,7 +77,7 @@ class View:
 
         nameLabel = Label(nameIDFrame, text='Name:')
         nameLabel.pack(side=LEFT, expand=1)
-        nameLabel.place(x=180, y=20)
+        nameLabel.place(x=181, y=20)
 
         self.nameEntry = ttk.Entry(nameIDFrame)
         self.nameEntry.pack(side=LEFT, expand=1)
