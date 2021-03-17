@@ -37,7 +37,8 @@ class View:
 
     def layout(self):
         self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
-        self.leftFrame.place(relwidth=0.48, relheight=0.98, relx=0.01, rely=0.02)
+        self.leftFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        #self.leftFrame.pack(side=LEFT)
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
@@ -48,50 +49,70 @@ class View:
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
+        canvas = Canvas(self.leftFrame)
+        canvas.pack(side=LEFT, fill=BOTH, expand=True)
 
-        self.canvas = Canvas(self.leftFrame)
-        self.canvas.pack(side=LEFT, fill="both", expand=True)
+        scrollbar = Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
+        scrollbar.pack(side=RIGHT, fill=Y)
 
-        self.scrollbar = Scrollbar(self.leftFrame, orient="vertical")
-        self.scrollbar.pack(side=RIGHT, fill=Y)
-
-        self.canvas.configure(yscrollcommand=self.scrollbar.set)
-        self.canvas.bind('<Configure>', lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
-        self.innerLeftFrame = Frame(self.canvas)
-        self.canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        self.innerLeftFrame = Frame(canvas)
+        canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW)
 
         # ============================ title ============================
-        ProgPlanTitle = ttk.Label(self.innerLeftFrame, text="Program Planning Worksheet", anchor=CENTER,
+        ProgPlanTitleFrame=Frame(self.innerLeftFrame, width=900, height=50)
+        ProgPlanTitleFrame.pack()
+
+        ProgPlanTitle = ttk.Label(ProgPlanTitleFrame, text="Four Year Plan", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.place(x=300, y=30)
+        ProgPlanTitle.pack()
+        ProgPlanTitle.place(x=360, y=20)
 
-        # ============================ student name ============================
-        nameFrame = Frame(self.innerLeftFrame)
-        nameFrame.place(x=210, y=100)
+        # ============================ Student Name and ID ============================
 
-        nameLabel = Label(nameFrame, text='Name:')
+        nameIDFrame = Frame(self.innerLeftFrame, width=900, height=50)
+        nameIDFrame.pack()
+
+        nameLabel = Label(nameIDFrame, text='Name:')
         nameLabel.pack(side=LEFT)
+        nameLabel.place(x=180, y=20)
 
-        self.nameEntry = ttk.Entry(nameFrame)
-        self.nameEntry.pack()
+        self.nameEntry = ttk.Entry(nameIDFrame)
+        self.nameEntry.pack(side=LEFT)
+        self.nameEntry.place(x=230, y=20)
 
-        # ============================ student id ============================
-        idFrame = Frame(self.innerLeftFrame)
-        idFrame.place(x= 510, y= 100)
+        idLabel = Label(nameIDFrame, text='ID Number:')
+        idLabel.pack(side= RIGHT)
+        idLabel.place(x=490, y=20)
 
-        idLabel = Label(idFrame, text='ID Number:')
-        idLabel.pack(side=LEFT)
+        self.idEntry = ttk.Entry(nameIDFrame, width=8)
+        self.idEntry.pack(side=RIGHT)
+        self.idEntry.place(x=570, y=20)
 
-        self.idEntry = ttk.Entry(idFrame, width=8)
-        self.idEntry.pack()
+        # ============================ Semester Tables ============================
+        self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=3000)
+        self.semesterFrame.pack()
 
-        # ============================ Year Tables ============================
-        self.createTable("Semester 1: ", 45, 200)
-        self.createTable("Semester 2: ", 475, 200)
-        self.createTable("Semester 3: ", 45, 450)
-        self.createTable("Semester 4: ", 475, 450)
-        self.createTable("Semester 5: ", 45, 700)
-        self.createTable("Semester 6: ", 475, 700)
+        y=50
+        self.createTable("Semester 1: ", 30, y)
+        self.createTable("Semester 2: ", 470, y)
+        y = y + 220
+        self.createTable("Semester 3: ", 30, y)
+        self.createTable("Semester 4: ", 470, y)
+        y = y + 220
+        self.createTable("Semester 5: ", 30, y)
+        self.createTable("Semester 6: ", 470, y)
+        y = y + 220
+        self.createTable("Semester 7: ", 30, y)
+        self.createTable("Semester 8: ", 470, y)
+        y = y + 220
+
+        # ============================ Semester Tables ============================
+        addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
+        addSemesterBtn.pack()
+        addSemesterBtn.place(x=120, y=950)
+        addSemesterBtn['command'] = lambda: self.createSemesterBtn(y)
 
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
@@ -542,10 +563,13 @@ class View:
             t.destroy()
 
     def createTable(self, semester, x, y):
-        label1 = Label(self.innerLeftFrame, text=semester,font=('Helvetica', 15)).place(x= x, y= y-25)
 
-        self.semesterTree = ttk.Treeview(self.innerLeftFrame, height=7)  # TIP: height is number of rows
-        self.semesterTree.place(x= x, y= y)
+        semesterLabel = Label(self.semesterFrame, text=semester, font=('Helvetica', 15))
+        semesterLabel.pack()
+        semesterLabel.place(x=x, y=y-25)
+
+        self.semesterTree = ttk.Treeview(self.semesterFrame, height=7)  # TIP: height is number of rows
+        self.semesterTree.place(x=x, y=y)
 
         self.semesterTree['columns'] = ("course#", "title", "cred")
 
@@ -557,6 +581,9 @@ class View:
         self.semesterTree.heading("course#", text='Course Number', anchor=CENTER)  # anchor for the title of the column
         self.semesterTree.heading("title", text='Title', anchor=CENTER)
         self.semesterTree.heading("cred", text='Credit Hours', anchor=CENTER)
+
+    def createSemesterBtn(self, y):
+        self.createTable("Extra Semester", 30, y)
 
     def openRecentSchedule(self):
         print("Open schedule")
