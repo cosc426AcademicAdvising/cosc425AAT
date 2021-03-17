@@ -170,7 +170,7 @@ class View:
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
 
-        self.idEntry = ttk.Entry(idFrame, width=8)
+        self.idEntry = ttk.Entry(idFrame, width=8, justify=CENTER)
         self.idEntry.pack()
 
         # ============================ season ============================
@@ -242,7 +242,7 @@ class View:
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
 
-        self.enrlDateEntry = ttk.Entry(enrlDateFrame, width=5)
+        self.enrlDateEntry = ttk.Entry(enrlDateFrame, width=8, justify=CENTER)
         self.enrlDateEntry.pack()
 
         # ============================ Course table ============================
@@ -255,14 +255,14 @@ class View:
         self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
 
         self.courseTree.column("#0", width=0, stretch=NO)   # important
-        self.courseTree.column("course#", anchor=CENTER, width=100) # anchor for the data in the column
-        self.courseTree.column("title", anchor=W, width=200)
-        self.courseTree.column("cred", anchor=CENTER, width=100)
+        self.courseTree.column("course#", anchor=CENTER, width=80) # anchor for the data in the column
+        self.courseTree.column("title", anchor=CENTER, width=295)
+        self.courseTree.column("cred", anchor=CENTER, width=25)
         self.courseTree.column("gen/elect", anchor=CENTER, width=100)
 
-        self.courseTree.heading("course#", text='Course Number', anchor=CENTER) # anchor for the title of the column
+        self.courseTree.heading("course#", text='Course#', anchor=CENTER) # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
-        self.courseTree.heading("cred", text='Credit Hours', anchor=CENTER)
+        self.courseTree.heading("cred", text='CH', anchor=CENTER)
         self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
         # ===================== backup course ===================
@@ -277,10 +277,15 @@ class View:
         self.backupCourseTree['columns'] = ("course#", "title", "cred", "gen/elect")
 
         self.backupCourseTree.column("#0", width=0, stretch=NO)
-        self.backupCourseTree.column("course#", anchor=CENTER, width=100)
-        self.backupCourseTree.column("title", anchor=W, width=200)
-        self.backupCourseTree.column("cred", anchor=CENTER, width=100)
+        self.backupCourseTree.column("course#", anchor=CENTER, width=80)
+        self.backupCourseTree.column("title", anchor=CENTER, width=295)
+        self.backupCourseTree.column("cred", anchor=CENTER, width=25)
         self.backupCourseTree.column("gen/elect", anchor=CENTER, width=100)
+
+        self.backupCourseTree.heading("course#", text='Course#', anchor=CENTER)  # anchor for the title of the column
+        self.backupCourseTree.heading("title", text='Title', anchor=CENTER)
+        self.backupCourseTree.heading("cred", text='CH', anchor=CENTER)
+        self.backupCourseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
@@ -364,7 +369,7 @@ class View:
         self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
                                values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                        self.addCourseSearchResult[2],
-                                       self.addCourseSearchResult[3],
+                                       int(float(self.addCourseSearchResult[3])),
                                        gen.get() ))
         self.courseTree_counter += 1
         gen.delete(0, END)
@@ -423,6 +428,15 @@ class View:
 
         self.memoEntry.delete('1.0', 'end')
         self.memoEntry.insert('1.0', arg1['memo'])
+
+        # clear tree views
+        for course in self.courseTree.get_children():
+            self.courseTree.delete(course)
+        self.courseTree_counter = 0
+
+        for course in self.backupCourseTree.get_children():
+            self.backupCourseTree.delete(course)
+        self.backupCourseTree_counter = 0
 
         # when inserting 'iid' needs to be different
         for c in arg3:
@@ -560,6 +574,7 @@ class View:
     # helper function for openSchedule()
     def OPSsearchButton(self, t, name, id):
         if name != "" and id != "":
+            # self.newSchedule()  # clear filled in widgets if any
             pub.sendMessage("request_PPW", name=name, id=id)
             t.destroy()
 
