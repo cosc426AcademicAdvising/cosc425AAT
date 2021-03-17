@@ -27,6 +27,11 @@ class View:
         self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
         self.TNR = TkFont.Font(family='Times')
 
+        self.courseTree_counter = 0
+        self.backupCourseTree_counter = 0
+
+        self.addCourseSearchResult = []
+
         self.layout()
         self.menu()
 
@@ -200,7 +205,8 @@ class View:
         cblank = Frame(credFrame, width=130).grid(row=0, column=3)
 
         credLabel3 = Label(credFrame, text='Currently Enrolled in')
-        self.enrollCredEntry = ttk.Entry(credFrame, width=3, justify=CENTER)
+        self.enrollCredVar = IntVar()
+        self.enrollCredEntry = ttk.Entry(credFrame, width=3, textvariable=self.enrollCredVar, justify=CENTER)
         credLabel4 = Label(credFrame, text='credits')
 
         credLabel4.grid(row=0, column=4)
@@ -261,6 +267,102 @@ class View:
         self.memoEntry = Text(memoFrame, width=50, height=5)
         self.memoEntry.pack()
 
+        # ===================== add remove course ==================
+        coursebuttonFrame = Frame(self.rightFrame)
+        # courseLabelFrame.grid(row=17, column=1, columnspan=3)
+        coursebuttonFrame.grid(row=12, column=5, padx=20)
+
+        addcoursebutton = ttk.Button(coursebuttonFrame, text="Add", command=self.addCourseButton)
+        addcoursebutton.pack(side=TOP)
+
+        rmcoursebutton = ttk.Button(coursebuttonFrame, text="Remove", command=self.delCourseButton)
+        rmcoursebutton.pack(side=BOTTOM)
+
+        # backup course
+        bcoursebuttonFrame = Frame(self.rightFrame)
+        bcoursebuttonFrame.grid(row=13, column=5, padx=20)
+
+        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add")
+        addbackupbutton.pack(side=TOP)
+
+        rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.delBackupCourseButton)
+        rmbackupbutton.pack(side=TOP)
+
+    def addCourseButton(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Course")
+        t.geometry("450x125")
+        t.resizable(width=FALSE, height=FALSE)
+
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        # =========== for search ===================
+        f1 = Frame(t)
+        f1.pack(anchor=CENTER, pady=5)
+
+        l1 = Label(f1, text="Course Number:").pack(side=LEFT)
+        entry = ttk.Entry(f1, width=10)
+        entry.pack(side=LEFT)
+
+        sbutton =Button(f1, text="Search")
+        sbutton.pack(side=LEFT)
+        sbutton['command'] = lambda: self.addCourseB2(entry.get())
+
+        # =============== for results =================
+        rf = Frame(t)
+        rf.pack(anchor=CENTER)
+
+        self.resultVar = StringVar()
+
+        resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry.pack(side=TOP)
+
+        # =============== add to tree view ================
+        gf = Frame(t)
+        gf.pack(anchor=CENTER)
+
+        l2 = Label(gf, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
+
+        genEntry = ttk.Entry(gf)
+        genEntry.pack(side=TOP)
+
+        addbutton = Button(gf, text="Add", command=lambda: self.addCourseB3(genEntry))
+        addbutton.pack(side=TOP)
+
+    # addCourseButton helper function 1
+    def addCourseB2(self, courseNumb):
+        if courseNumb != "":
+            pub.sendMessage("request_course#", sub=courseNumb.split()[0], cat=courseNumb.split()[1])
+            self.resultVar.set( self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " "*3 +
+                                self.addCourseSearchResult[2] + " "*3 +
+                                self.addCourseSearchResult[3])
+
+    # addCourseButton helper function 2
+    def addCourseB3(self, gen):
+        self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                               values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
+                                       self.addCourseSearchResult[2],
+                                       self.addCourseSearchResult[3],
+                                       gen.get() ))
+        self.courseTree_counter += 1
+        gen.delete(0, END)
+
+        prevcred = self.enrollCredVar.get()
+        self.enrollCredVar.set( prevcred + int( float(self.addCourseSearchResult[3]) ) )
+
+    def delCourseButton(self):
+        for course in self.courseTree.selection():
+            prevcred = self.enrollCredVar.get()
+            self.enrollCredVar.set(prevcred -  int(float(self.courseTree.item(course)['values'][2])) )
+
+            self.courseTree.delete(course)
+            self.courseTree_counter -= 1
+
+    def delBackupCourseButton(self):
+        for course in self.backupCourseTree.selection():
+            self.backupCourseTree.delete(course)
+            self.backupCourseTree_counter -= 1
+
     def populatePPW(self, arg1, arg2, arg3, arg4, arg5):  # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
@@ -290,8 +392,9 @@ class View:
         self.earnCredEntry.insert(END, arg1['credits'])
         self.earnCredEntry['state'] = 'readonly'
 
-        self.enrollCredEntry.delete(0, END)
-        self.enrollCredEntry.insert(END, arg2)
+        self.enrollCredVar.set(arg2)
+        #self.enrollCredEntry.delete(0, END)
+        #self.enrollCredEntry.insert(END, arg2)
 
         self.enrlDateEntry.delete(0, END)
         self.enrlDateEntry.insert(END, arg1['enrll'])
@@ -299,16 +402,14 @@ class View:
         self.memoEntry.delete('1.0', 'end')
         self.memoEntry.insert('1.0', arg1['memo'])
 
-        c_counter = 0
         # when inserting 'iid' needs to be different
         for c in arg3:
-            self.courseTree.insert(parent='', index='end', iid=c_counter, text="", values=(c[0],c[1],c[2],c[3]))
-            c_counter += 1
+            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            self.courseTree_counter += 1
 
-        c_counter = 0
         for c in arg5:
-            self.backupCourseTree.insert(parent='', index='end', iid=c_counter, text="", values=(c[0],c[1],c[2],c[3]))
-            c_counter += 1
+            self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            self.backupCourseTree_counter += 1
 
     # menus declaration
     def menu(self):
@@ -392,22 +493,21 @@ class View:
 
         self.memoEntry.delete('1.0', 'end')
 
-        ''''                                                            TODO clear Treeview
-        for i in range(self.courseRow):
-            for j in range(self.courseCol):
-                self.courseEntry[i][j].delete(0, END)
+        for course in self.courseTree.get_children():
+            self.courseTree.delete(course)
+        self.courseTree_counter = 0
 
-        for i in range(2):
-            for j in range(self.courseCol):
-                self.backupCourseEntry[i][j].delete(0, END)
-        '''
+        for course in self.backupCourseTree.get_children():
+            self.backupCourseTree.delete(course)
+        self.backupCourseTree_counter = 0
 
     def openSchedule(self):
-        # pub.sendMessage("request_PPW")
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Student")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
+
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         nameFrame = Frame(t)
         nameFrame.pack(side=TOP,anchor='w', padx=20, pady=10)
@@ -433,11 +533,10 @@ class View:
         searchB = Button(butFrame, text='Search')
         searchB.pack()
 
-        searchB['command'] = lambda: self.searchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
-
+        searchB['command'] = lambda: self.OPSsearchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
 
     # helper function for openSchedule()
-    def searchButton(self, t, name, id):
+    def OPSsearchButton(self, t, name, id):
         if name != "" and id != "":
             pub.sendMessage("request_PPW", name=name, id=id)
             t.destroy()

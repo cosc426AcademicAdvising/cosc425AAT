@@ -16,6 +16,7 @@ class Controller:
         # for populating planning worksheet
         pub.subscribe(self.openPPW,"request_PPW")
         pub.subscribe(self.view.populatePPW,"PPW_information")
+        pub.subscribe(self.addCourse, "request_course#")
 
     def newSchedule(self):
         self.schedule = Toplevel()
@@ -28,6 +29,8 @@ class Controller:
         # self.model.getStudent("Bob Robert", "7654321")
         self.model.getStudent(name, id)
 
+    def addCourse(self, sub, cat):
+        self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat) )
 
 if __name__=="__main__":
     root = Tk()
