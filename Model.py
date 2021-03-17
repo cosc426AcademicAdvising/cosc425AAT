@@ -150,4 +150,3 @@ class Model:
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
         pub.sendMessage("PPW_information", arg1=data, arg2=cred, arg3=courses, arg4=numbCourses, arg5=backup)
-

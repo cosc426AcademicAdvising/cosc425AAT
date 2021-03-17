@@ -42,40 +42,8 @@ class View:
         self.PlanningWorksheet_layout()
 
     def FourYearPlan(self):
-        '''
-        # outer most blank frames left & right
-        width = self.mainwin.winfo_screenwidth()
-        height = self.mainwin.winfo_screenheight()
-        AspectRatio = width/height
-
-        if AspectRatio == 16/10:
-            blank1 = Frame(self.leftFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
-            blank2 = Frame(self.leftFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
-        elif AspectRatio == 16/9:
-            blank1 = Frame(self.leftFrame, width=190).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
-            blank2 = Frame(self.leftFrame, width=190).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
-        elif AspectRatio == 4/3:
-            blank1 = Frame(self.leftFrame, width=200).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
-            blank2 = Frame(self.leftFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
-        elif AspectRatio == 3/2:
-            blank1 = Frame(self.leftFrame, width=160).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
-            blank2 = Frame(self.leftFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
-        else:
-            blank1 = Frame(self.leftFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
-            blank2 = Frame(self.leftFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
-
-        self.leftFrame.update()
-        h = self.leftFrame.winfo_height() * .028
-        blank3 = Frame(self.leftFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
-        blank4 = Frame(self.leftFrame, height=h).grid(row=3, column=0, columnspan=5) # before seasons
-        blank5 = Frame(self.leftFrame, height=h).grid(row=5, column=0, columnspan=5) # before major minor
-        blank6 = Frame(self.leftFrame, height=h).grid(row=7, column=0, columnspan=5) # before cred frame
-        blank7 = Frame(self.leftFrame, height=h).grid(row=9, column=0, columnspan=5) # before enrollment date
-        blank8 = Frame(self.leftFrame, height=h).grid(row=11, column=0, columnspan=5) # before table
-        blank9 = Frame(self.leftFrame, height=h).grid(row=14, column=0, columnspan=5)  # before memo
-
-        '''
         # ============================ Scroll Bar ============================
+
         self.canvas = Canvas(self.leftFrame)
         self.canvas.pack(side=LEFT, fill="both", expand=True)
 
