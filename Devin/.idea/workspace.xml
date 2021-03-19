@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Implemented a majority of Four year Plan">
-      <change beforePath="$PROJECT_DIR$/../Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="GUI layout changes and populating FYP">
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -325,7 +323,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616014803830</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="GUI layout changes and populating FYP">
+      <created>1616114589948</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1616114589948</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -360,6 +365,7 @@
     <MESSAGE value="Positioning Backup course table" />
     <MESSAGE value="Implemented a majority of Four year Plan" />
     <MESSAGE value="ttk Scrollbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="ttk Scrollbar" />
+    <MESSAGE value="GUI layout changes and populating FYP" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI layout changes and populating FYP" />
   </component>
 </project>

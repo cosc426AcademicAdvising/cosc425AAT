@@ -120,10 +120,11 @@ class View:
         semTable.append(self.createTable("Spring 2024", 455, y))
 
         # when inserting 'iid' needs to be different
+        '''
         for c in arg3:
             semTable[0].self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
             self.courseTree_counter += 1
-
+        '''
 
         # ============================ Add Semester Table Button ============================
         addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
