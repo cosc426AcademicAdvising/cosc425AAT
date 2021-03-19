@@ -33,6 +33,8 @@ class View:
         self.addCourseSearchResult = []
         self.resultVar = StringVar() # for add course button
 
+        self.counter= 0
+
         self.layout()
         self.menu()
 
@@ -106,26 +108,26 @@ class View:
         self.policyMemoEntry.pack()
 
         # ============================ Semester Tables ============================
-        self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=3000)
+        self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=2000)
         self.semesterFrame.pack(expand=1)
 
         self.yearCounter=1
         self.semesterCounter=1
-        y=50
-
+        self.yPos=50
         semTable = []
-        semTable.append(self.createTable("Fall 2020", 15, y))
-        semTable.append(self.createTable("Spring 2021", 455, y))
-        y = y + 220
-        semTable.append(self.createTable("Fall 2021", 15, y))
-        semTable.append(self.createTable("Spring 2022", 455, y))
-        y = y + 220
-        semTable.append(self.createTable("Fall 2022", 15, y))
-        semTable.append(self.createTable("Spring 2023", 455, y))
-        y = y + 220
-        semTable.append(self.createTable("Fall 2023", 15, y))
-        semTable.append(self.createTable("Spring 2024", 455, y))
 
+        semTable.append(self.createTable("Fall 2020", 15, self.yPos))
+        semTable.append(self.createTable("Spring 2021", 455, self.yPos))
+        self.yPos = self.yPos + 220
+        semTable.append(self.createTable("Fall 2021", 15, self.yPos))
+        semTable.append(self.createTable("Spring 2022", 455, self.yPos))
+        self.yPos = self.yPos + 220
+        semTable.append(self.createTable("Fall 2022", 15, self.yPos))
+        semTable.append(self.createTable("Spring 2023", 455, self.yPos))
+        self.yPos = self.yPos + 220
+        semTable.append(self.createTable("Fall 2023", 15, self.yPos))
+        semTable.append(self.createTable("Spring 2024", 455, self.yPos))
+        self.yPos = self.yPos + 220
         # when inserting 'iid' needs to be different
         '''
         for c in arg3:
@@ -134,10 +136,10 @@ class View:
         '''
 
         # ============================ Add Semester Table Button ============================
-        addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
-        addSemesterBtn.pack()
-        addSemesterBtn.place(x=120, y=950)
-        addSemesterBtn['command'] = lambda: self.createSemesterBtn("Spring 2400", y)
+        self.addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
+        self.addSemesterBtn.pack()
+        self.addSemesterBtn.place(x=120, y=950)
+        self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester")
 
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
@@ -725,8 +727,17 @@ class View:
         self.semesterTree.heading("cred", text='Crd. Hr.', anchor=CENTER)
         # self.semesterTree.heading("taken", text='Cls. Taken', anchor=CENTER)
 
-    def createSemesterBtn(self, semester, y):
-        self.createTable(semester, 45, y)
+    def createSemesterBtn(self, semester):
+        if self.counter == 1:
+            self.createTable(semester, 455, self.yPos)
+            self.yPos = self.yPos + 220
+            self.addSemesterBtn.place(x=15, y=self.yPos)
+            self.counter=0
+        else:
+            self.createTable(semester, 15, self.yPos)
+            self.addSemesterBtn.place(x=455, y=self.yPos)
+            self.counter=1
+
 
     def openRecentSchedule(self):
         print("Open schedule")
