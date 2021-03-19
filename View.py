@@ -47,14 +47,15 @@ class View:
         self.rightFrame.pack(expand=1)
         self.rightFrame.place(relwidth=0.48, relheight=0.91, relx=0.5, rely=0.02)
 
-        self.courseListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
-        self.courseListFrame.pack(expand=1)
-        self.courseListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        self.courseTakenListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
+        self.courseTakenListFrame.pack(expand=1)
+        self.courseTakenListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
 
-        self.courseListFrame.place_forget() # hide frame
+        self.courseTakenListFrame.place_forget() # hide frame
 
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
+        self.courseTakenList_layout()
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
@@ -565,6 +566,49 @@ class View:
         self.policyMemoEntry.delete('1.0', 'end')
         self.policyMemoEntry.insert('1.0', arg1['memo'])
 
+    def courseTakenList_layout(self):
+
+        label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
+        label.pack(anchor=CENTER, side=TOP, pady=20)
+
+        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree")
+        self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
+
+        # self.courseTakenListTree['columns'] = ("course")
+
+        self.courseTakenListTree.column("#0")
+
+        # self.courseTakenListTree.column("course", anchor=W)
+        # self.courseTakenListTree.heading("course", text="Course", anchor=W)
+
+        ''''
+        self.courseTakenListTree.insert(parent='', index='end', iid=0, text="", values=("COSC"))
+        self.courseTakenListTree.insert(parent='', index='end', iid=1, text="", values=("ENGL"))
+        self.courseTakenListTree.insert(parent='', index='end', iid=2, text="", values=("HIST"))
+
+        self.courseTakenListTree.insert(parent='0', index='0', iid=50, text="", values=("COSC117"))
+        self.courseTakenListTree.insert(parent='0', index='0', iid=51, text="", values=("COSC120"))
+        self.courseTakenListTree.insert(parent='0', index='0', iid=52, text="", values=("COSC220"))
+
+        self.courseTakenListTree.insert(parent='1', index='0', iid=53, text="", values=("ENGL103"))
+
+        self.courseTakenListTree.insert(parent='2', index='0', iid=54, text="", values=("HIST101"))
+        self.courseTakenListTree.insert(parent='2', index='0', iid=55, text="", values=("HIST103"))
+        '''
+
+        self.courseTakenListTree.insert(parent='', index='end', iid=0, text="COSC")
+        self.courseTakenListTree.insert(parent='', index='end', iid=1, text="ENGL")
+        self.courseTakenListTree.insert(parent='', index='end', iid=2, text="HIST")
+
+        self.courseTakenListTree.insert(parent='0', index='0', iid=50, text="COSC 117 PROGRAMMING FUNDAMENTALS")
+        self.courseTakenListTree.insert(parent='0', index='1', iid=51, text="COSC 120 COMPUTER SCIENCE I")
+        self.courseTakenListTree.insert(parent='0', index='2', iid=52, text="COSC 220 COMPUTER SCIENCE II")
+
+        self.courseTakenListTree.insert(parent='1', index='0', iid=53, text="ENGL 103 ADVANCED COMPOSITION")
+
+        self.courseTakenListTree.insert(parent='2', index='0', iid=54, text="HIST 101 WORLD CIVILIZATION")
+        self.courseTakenListTree.insert(parent='2', index='1', iid=55, text="HIST 103 ")
+
 
     # menus declaration
     def menu(self):
@@ -695,12 +739,12 @@ class View:
         searchB['command'] = lambda: openScheduleSearchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
 
     def showFourYearPlan(self):
-        self.courseListFrame.place_forget()
+        self.courseTakenListFrame.place_forget()
         self.leftFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
 
     def showCourseTakenList(self):
         self.leftFrame.place_forget()
-        self.courseListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        self.courseTakenListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
 
     def createTable(self, semester, x, y):
         if self.semesterCounter % 2 != 0:
