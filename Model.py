@@ -108,8 +108,9 @@ class Model:
             # All below represnt the second array initializer which corresponds to individual information for a course
             # [0] = The first value indicates which semester the course is for
             # [1] = The subject of the course
-            # [2] = The title of the course
-            # [3] = The number of credits for the course
+            # [2] = The catalog of the course
+            # [3] = The title of the course
+            # [4] = The number of credits for the course
 
             # [0, 'ENGL', '103', 'Composition and Research', '4']    Example output for fourList[0][2]
 
