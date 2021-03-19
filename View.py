@@ -31,6 +31,7 @@ class View:
         self.backupCourseTree_counter = 0
 
         self.addCourseSearchResult = []
+        self.resultVar = StringVar()
 
         self.layout()
         self.menu()
@@ -309,7 +310,7 @@ class View:
         bcoursebuttonFrame = Frame(self.rightFrame)
         bcoursebuttonFrame.grid(row=13, column=5, padx=20)
 
-        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add")
+        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add", command=self.addBackupCourseButton)
         addbackupbutton.pack(side=TOP)
 
         rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.delBackupCourseButton)
@@ -374,8 +375,6 @@ class View:
         rf = Frame(t)
         rf.pack(anchor=CENTER)
 
-        self.resultVar = StringVar()
-
         resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
@@ -398,6 +397,75 @@ class View:
 
             self.courseTree.delete(course)
             self.courseTree_counter -= 1
+
+    def addBackupCourseButton(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Backup Course")
+        t.geometry("450x125")
+        t.resizable(width=FALSE, height=FALSE)
+
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        # =============== inner functions =================
+
+        def courseSearch(e):
+            course = entry.get()
+            if len(course) > 7:
+                if len(course.split()[1]) == 3:
+                    addCourseB2(course)
+                else:
+                    self.resultVar.set("")
+            else:
+                self.resultVar.set("")
+
+        def addCourseB2(courseNumb):
+            if courseNumb != "":
+                pub.sendMessage("request_course#", sub=courseNumb.split()[0], cat=courseNumb.split()[1])
+                self.resultVar.set(self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
+                                   self.addCourseSearchResult[2] + " " * 3 +
+                                   self.addCourseSearchResult[3])
+
+        def addCourseB3(gen):
+            self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
+                                   values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
+                                           self.addCourseSearchResult[2],
+                                           int(float(self.addCourseSearchResult[3])),
+                                           gen.get()))
+            self.backupCourseTree_counter += 1
+            gen.delete(0, END)
+
+            prevcred = self.enrollCredVar.get()
+            self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
+
+        # =========== for search ===================
+
+        f1 = Frame(t)
+        f1.pack(anchor=CENTER, pady=5)
+
+        l1 = Label(f1, text="Course Number:").pack(side=LEFT)
+        entry = ttk.Entry(f1, width=10, justify=CENTER)
+        entry.pack(side=LEFT)
+
+        entry.bind('<KeyRelease>', courseSearch) # for auto search
+
+        # =============== for results =================
+        rf = Frame(t)
+        rf.pack(anchor=CENTER)
+
+        resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry.pack(side=TOP)
+
+        # =============== add to tree view ================
+        gf = Frame(t)
+        gf.pack(anchor=CENTER)
+
+        l2 = Label(gf, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
+
+        genEntry = ttk.Entry(gf)
+        genEntry.pack(side=TOP)
+
+        addbutton = Button(gf, text="Add", command=lambda: addCourseB3(genEntry))
+        addbutton.pack(side=TOP)
 
     def delBackupCourseButton(self):
         for course in self.backupCourseTree.selection():
