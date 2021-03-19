@@ -1,6 +1,6 @@
 from json import *
 
-targetFile = 'nursing.json'
+targetFile = 'philosophy.json'
 
 def wr(data, fname = targetFile):
     with open(fname, 'w') as f:
@@ -35,6 +35,7 @@ while True:
         print("editing semester {}".format(x))
         continue
     elif (i == "prev"):
+        print("editing semester {}".format(x))
         x -= 1
         continue
     else:
