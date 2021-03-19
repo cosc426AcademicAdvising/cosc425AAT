@@ -498,7 +498,7 @@ class View:
             self.backupCourseTree.delete(course)
             self.backupCourseTree_counter -= 1
 
-    def populatePPW(self, arg1, arg2, arg3, arg4, arg5):  # (py dict, total cred, 2d course array, course size)
+    def populatePPW(self, arg1, arg2, arg3, arg4, arg5, arg6):  # (py dict, total cred, 2d course array, course size)
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
         self.nameEntry.insert(END, arg1['name'])
