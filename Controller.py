@@ -18,6 +18,9 @@ class Controller:
         pub.subscribe(self.view.populatePPW,"PPW_information")
         pub.subscribe(self.addCourse, "request_course#")
 
+        # for populating Four Year Plan
+        # pub.subscribe(self.view.populateFYP, "FYP_information")
+
     def newSchedule(self):
         self.schedule = Toplevel()
         self.schedule.geometry('1000x600')

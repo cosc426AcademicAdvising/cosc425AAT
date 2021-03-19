@@ -18,8 +18,8 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
-        # self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
-        # self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
         self.majorsList = majorL
         self.minorsList = minorL
@@ -80,41 +80,58 @@ class View:
         nameLabel.pack(side=LEFT, expand=1)
         nameLabel.place(x=181, y=20)
 
-        self.nameEntry = ttk.Entry(nameIDFrame)
-        self.nameEntry.pack(side=LEFT, expand=1)
-        self.nameEntry.place(x=230, y=20)
+        self.name2Entry = ttk.Entry(nameIDFrame)
+        self.name2Entry.pack(side=LEFT, expand=1)
+        self.name2Entry.place(x=230, y=20)
 
         idLabel = Label(nameIDFrame, text='ID Number:')
         idLabel.pack(side= RIGHT, expand=1)
         idLabel.place(x=490, y=20)
 
-        self.idEntry = ttk.Entry(nameIDFrame, width=8)
-        self.idEntry.pack(side=RIGHT, expand=1)
-        self.idEntry.place(x=570, y=20)
+        self.id2Entry = ttk.Entry(nameIDFrame, width=8)
+        self.id2Entry.pack(side=RIGHT, expand=1)
+        self.id2Entry.place(x=570, y=20)
+
+        # ====================== memo ========================
+        policyFrame = ttk.LabelFrame(self.innerLeftFrame, height=200, width=700, text='University Policy:')
+        policyFrame.pack()
+
+        self.policyMemoEntry = Text(policyFrame, width=90, height=10)
+        self.policyMemoEntry.pack()
 
         # ============================ Semester Tables ============================
         self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=3000)
         self.semesterFrame.pack(expand=1)
 
+        self.yearCounter=1
+        self.semesterCounter=1
         y=50
-        self.createTable("Semester 1: ", 30, y)
-        self.createTable("Semester 2: ", 470, y)
-        y = y + 220
-        self.createTable("Semester 3: ", 30, y)
-        self.createTable("Semester 4: ", 470, y)
-        y = y + 220
-        self.createTable("Semester 5: ", 30, y)
-        self.createTable("Semester 6: ", 470, y)
-        y = y + 220
-        self.createTable("Semester 7: ", 30, y)
-        self.createTable("Semester 8: ", 470, y)
-        y = y + 220
 
-        # ============================ Semester Tables ============================
+        semTable = []
+        semTable.append(self.createTable("Fall 2020", 15, y))
+        semTable.append(self.createTable("Spring 2021", 455, y))
+        y = y + 220
+        semTable.append(self.createTable("Fall 2021", 15, y))
+        semTable.append(self.createTable("Spring 2022", 455, y))
+        y = y + 220
+        semTable.append(self.createTable("Fall 2022", 15, y))
+        semTable.append(self.createTable("Spring 2023", 455, y))
+        y = y + 220
+        semTable.append(self.createTable("Fall 2023", 15, y))
+        semTable.append(self.createTable("Spring 2024", 455, y))
+
+        # when inserting 'iid' needs to be different
+        '''
+        for c in arg3:
+            semTable[0].self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            self.courseTree_counter += 1
+        '''
+
+        # ============================ Add Semester Table Button ============================
         addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
         addSemesterBtn.pack()
         addSemesterBtn.place(x=120, y=950)
-        addSemesterBtn['command'] = lambda: self.createSemesterBtn(y)
+        addSemesterBtn['command'] = lambda: self.createSemesterBtn("Spring 2400", y)
 
     def PlanningWorksheet_layout(self):
         # outer most blank frames left & right
@@ -529,6 +546,18 @@ class View:
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
             self.backupCourseTree_counter += 1
 
+    def populateFYP(self, arg1):
+        # delete what was previously there then insert
+        self.name2Entry.delete(0, END)
+        self.name2Entry.insert(END, arg1['name'])
+
+        self.id2Entry.delete(0, END)
+        self.id2Entry.insert(END, arg1['s_id'])
+
+        self.policyMemoEntry.delete('1.0', 'end')
+        self.policyMemoEntry.insert('1.0', arg1['memo'])
+
+
     # menus declaration
     def menu(self):
         menu = Menu(self.mainwin)
@@ -555,7 +584,6 @@ class View:
         '''
         def lightMode(s):
             s.set_theme("plastik")
-
         def darkMode(s):
             s.set_theme("black")
         '''
@@ -661,6 +689,8 @@ class View:
             t.destroy()
 
     def createTable(self, semester, x, y):
+        if self.semesterCounter % 2 != 0:
+            self.yearCounter += 1
 
         semesterLabel = Label(self.semesterFrame, text=semester, font=('Helvetica', 15))
         semesterLabel.pack(expand=1)
@@ -673,16 +703,18 @@ class View:
         self.semesterTree['columns'] = ("course#", "title", "cred")
 
         self.semesterTree.column("#0", width=0, stretch=NO)  # important
-        self.semesterTree.column("course#", anchor=CENTER, width=120)  # anchor for the data in the column
-        self.semesterTree.column("title", anchor=W, width=180)
-        self.semesterTree.column("cred", anchor=CENTER, width=100)
+        self.semesterTree.column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
+        self.semesterTree.column("title", anchor=W, width=295)
+        self.semesterTree.column("cred", anchor=CENTER, width=62)
+        # self.semesterTree.column("taken", anchor=CENTER, width=30)
 
-        self.semesterTree.heading("course#", text='Course Number', anchor=CENTER)  # anchor for the title of the column
+        self.semesterTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.semesterTree.heading("title", text='Title', anchor=CENTER)
-        self.semesterTree.heading("cred", text='Credit Hours', anchor=CENTER)
+        self.semesterTree.heading("cred", text='Crd. Hr.', anchor=CENTER)
+        # self.semesterTree.heading("taken", text='Cls. Taken', anchor=CENTER)
 
-    def createSemesterBtn(self, y):
-        self.createTable("Extra Semester", 30, y)
+    def createSemesterBtn(self, semester, y):
+        self.createTable(semester, 45, y)
 
     def openRecentSchedule(self):
         print("Open schedule")
