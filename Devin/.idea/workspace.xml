@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Implemented a majority of Four year Plan">
+      <change beforePath="$PROJECT_DIR$/../Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
@@ -37,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Controller.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jsonAppend.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.Controller">
@@ -310,7 +311,21 @@
       <option name="project" value="LOCAL" />
       <updated>1615964814004</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="ttk Scrollbar">
+      <created>1616014758814</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1616014758814</updated>
+    </task>
+    <task id="LOCAL-00025" summary="ttk Scrollbar">
+      <created>1616014803830</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1616014803830</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -344,6 +359,7 @@
     <MESSAGE value="Updated for new json format&#10;&#10;Load backup courses and memo" />
     <MESSAGE value="Positioning Backup course table" />
     <MESSAGE value="Implemented a majority of Four year Plan" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented a majority of Four year Plan" />
+    <MESSAGE value="ttk Scrollbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="ttk Scrollbar" />
   </component>
 </project>
