@@ -31,7 +31,7 @@ class View:
         self.backupCourseTree_counter = 0
 
         self.addCourseSearchResult = []
-        self.resultVar = StringVar()
+        self.resultVar = StringVar() # for add course button
 
         self.layout()
         self.menu()
@@ -43,7 +43,13 @@ class View:
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.pack(expand=1)
-        self.rightFrame.place(relwidth=0.48, relheight=0.98, relx=0.5, rely=0.02)
+        self.rightFrame.place(relwidth=0.48, relheight=0.91, relx=0.5, rely=0.02)
+
+        self.courseListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
+        self.courseListFrame.pack(expand=1)
+        self.courseListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+
+        self.courseListFrame.place_forget() # hide frame
 
         self.FourYearPlan()
         self.PlanningWorksheet_layout()
@@ -140,20 +146,20 @@ class View:
         AspectRatio = width/height
 
         if AspectRatio == 16/10:
-            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N,E,S,W))
-            blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N,E,S,W))
+            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N,E,S,W))
+            #blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=15, sticky=(N,E,S,W))
         elif AspectRatio == 16/9:
-            blank1 = Frame(self.rightFrame, width=190).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
-            blank2 = Frame(self.rightFrame, width=190).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+            blank1 = Frame(self.rightFrame, width=190).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
+            #blank2 = Frame(self.rightFrame, width=190).grid(column=5, row=0, rowspan=15,sticky=(N, E, S, W))
         elif AspectRatio == 4/3:
-            blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
-            blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+            blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
+            #blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=15,sticky=(N, E, S, W))
         elif AspectRatio == 3/2:
-            blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0,rowspan=30,sticky=(N, E, S, W))
-            blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=30,sticky=(N, E, S, W))
+            blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
+            #blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=15,sticky=(N, E, S, W))
         else:
-            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=30, sticky=(N, E, S, W))
-            blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=30, sticky=(N, E, S, W))
+            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
+            #blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=15, sticky=(N, E, S, W))
 
         self.rightFrame.update()
         h = self.rightFrame.winfo_height() * .028
@@ -560,7 +566,7 @@ class View:
 
     # menus declaration
     def menu(self):
-        menu = Menu(self.mainwin)
+        menu = Menu(self.mainwin, tearoff=0)
         self.mainwin.config(menu=menu)
 
         schedule = Menu(menu)
@@ -609,8 +615,8 @@ class View:
 
     # load menu drop down
     def loadMenu(self, major):
-        major.add_command(label='Four Year Plan')
-        major.add_command(label='Course Taken List')
+        major.add_command(label='Four Year Plan', command=self.showFourYearPlan)
+        major.add_command(label='Course Taken List', command=self.showCourseTakenList)
         major.add_separator()
         major.add_command(label='Major Checklist')
         major.add_command(label='Minor Checklist')
@@ -655,6 +661,11 @@ class View:
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
+        def openScheduleSearchButton(t, name, id):
+            if name != "" and id != "":
+                pub.sendMessage("request_PPW", name=name, id=id)
+                t.destroy()
+
         nameFrame = Frame(t)
         nameFrame.pack(side=TOP,anchor='w', padx=20, pady=10)
 
@@ -679,14 +690,15 @@ class View:
         searchB = Button(butFrame, text='Search')
         searchB.pack()
 
-        searchB['command'] = lambda: self.OPSsearchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
+        searchB['command'] = lambda: openScheduleSearchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
 
-    # helper function for openSchedule()
-    def OPSsearchButton(self, t, name, id):
-        if name != "" and id != "":
-            # self.newSchedule()  # clear filled in widgets if any
-            pub.sendMessage("request_PPW", name=name, id=id)
-            t.destroy()
+    def showFourYearPlan(self):
+        self.courseListFrame.place_forget()
+        self.leftFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+
+    def showCourseTakenList(self):
+        self.leftFrame.place_forget()
+        self.courseListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
 
     def createTable(self, semester, x, y):
         if self.semesterCounter % 2 != 0:
