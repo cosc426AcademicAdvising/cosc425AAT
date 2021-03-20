@@ -736,7 +736,7 @@ class View:
         searchB = Button(butFrame, text='Search')
         searchB.pack()
 
-        searchB['command'] = lambda: openScheduleSearchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
+        searchB['command'] = lambda: openScheduleSearchButton(t, str(fnameE.get() + " " + lnameE.get()), int(idE.get()))
 
     def showFourYearPlan(self):
         self.courseTakenListFrame.place_forget()
