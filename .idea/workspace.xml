@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="can hide/show 4 year plan frame and course taken list frame">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="started working on course taken list ideal format">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
@@ -244,7 +244,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616168724605</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="started working on course taken list ideal format">
+      <created>1616185431592</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1616185431592</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -293,6 +300,7 @@
     <MESSAGE value="implemented auto search for add button" />
     <MESSAGE value="implemented auto search for add button for backup courses" />
     <MESSAGE value="can hide/show 4 year plan frame and course taken list frame" />
-    <option name="LAST_COMMIT_MESSAGE" value="can hide/show 4 year plan frame and course taken list frame" />
+    <MESSAGE value="started working on course taken list ideal format" />
+    <option name="LAST_COMMIT_MESSAGE" value="started working on course taken list ideal format" />
   </component>
 </project>
