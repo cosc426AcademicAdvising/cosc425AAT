@@ -45,6 +45,11 @@ class Model:
         obj = myCol.find_one({'$and': [{'Subject': subject}, {'Catalog': catalog}]})
         print(obj['RQ Descr(Descrlong)'])
 
+    def getCatalogs(self):
+        myCol = db.get_collection('Catalog')
+        obj = myCol.distinct('Subject')
+        return obj
+
     def getStudent(self, sname, sid):
         myCol = db.get_collection('Student')
         obj2 = myCol.aggregate([{u"$project": {u"count": {u"$size": u"$course_taken"}}}])
