@@ -50,7 +50,7 @@ class Model:
         obj2 = myCol.aggregate([{u"$project": {u"count": {u"$size": u"$course_taken"}}}])
         for i in obj2:
             cnt = int(i['count'])
-        obj = myCol.find_one({'$and': [{'name': sname}, {'s_id': sid}]})
+        obj = myCol.find_one({'$and': [{'name': str(sname)}, {'s_id': int(sid)}]})
         numbCourses = cnt
         cred = 0
         courses = []
