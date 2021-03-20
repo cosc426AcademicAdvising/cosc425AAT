@@ -45,7 +45,7 @@ class Model:
         obj = myCol.find_one({'$and': [{'Subject': subject}, {'Catalog': catalog}]})
         print(obj['RQ Descr(Descrlong)'])
 
-    def getCatalogs(self):
+    def getSubjects(self):
         myCol = db.get_collection('Catalog')
         obj = myCol.distinct('Subject')
         return obj
