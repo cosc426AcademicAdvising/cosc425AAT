@@ -104,7 +104,7 @@ class Model:
                         courseList.append(resl)  # Appends that string to a course list
                     except IndexError as c:
                         ctotal = ctotal  # Last none index error course number is stored
-                print(ctotal)
+                #print(ctotal)
                 fourList.append(courseList)  # Appends the course list to the four year plan list
 
             # First array initializer corresponds to which semester you are viewing course for

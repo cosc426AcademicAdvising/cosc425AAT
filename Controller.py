@@ -9,7 +9,7 @@ from pubsub import pub
 class Controller:
     def __init__(self, master):
         self.model = Model()
-        self.view = View(master, self.model.listAllMajors(), self.model.listAllMinors())
+        self.view = View(master, self.model.listAllMajors(), self.model.listAllMinors(), self.model.getSubjects())
 
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 

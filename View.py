@@ -14,7 +14,7 @@ def donothing():
 
 
 class View:
-    def __init__(self, master, majorL, minorL):
+    def __init__(self, master, majorL, minorL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
@@ -23,13 +23,14 @@ class View:
 
         self.majorsList = majorL
         self.minorsList = minorL
+        self.subjectsList = subjectL
 
         self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
         self.TNR = TkFont.Font(family='Times')
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
-
+        self.courseTakenList_counter = 0
         self.addCourseSearchResult = []
         self.resultVar = StringVar() # for add course button
 
@@ -503,7 +504,7 @@ class View:
     def populatePPW(self, arg1, arg2, arg3, arg4, arg5, arg6):  # (py dict, total cred, 2d course array, course size)
 
         self.FourYearCourses.clear()
-        self.FourYearCourses = list(arg6)
+        self.FourYearCourses = arg6
 
         # delete what was previously there then insert
         self.nameEntry.delete(0, END)
@@ -561,6 +562,8 @@ class View:
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
             self.backupCourseTree_counter += 1
 
+        self.courseTakenList_fill()
+
     def populateFYP(self, arg1):
         # delete what was previously there then insert
         self.name2Entry.delete(0, END)
@@ -577,32 +580,25 @@ class View:
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
 
-        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree")
+        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38)
         self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
-
-        # self.courseTakenListTree['columns'] = ("course")
 
         self.courseTakenListTree.column("#0")
 
-        # self.courseTakenListTree.column("course", anchor=W)
-        # self.courseTakenListTree.heading("course", text="Course", anchor=W)
+        for subj in self.subjectsList:
+            self.courseTakenListTree.insert(parent='', index='end', iid=self.courseTakenList_counter, text=str(subj))
+            self.courseTakenList_counter += 1
 
     def courseTakenList_fill(self):
-        '''
-                self.courseTakenListTree.insert(parent='', index='end', iid=0, text="COSC")
-                self.courseTakenListTree.insert(parent='', index='end', iid=1, text="ENGL")
-                self.courseTakenListTree.insert(parent='', index='end', iid=2, text="HIST")
+        for sem in self.FourYearCourses:
+            for course in sem:
+                for id in self.courseTakenListTree.get_children():
+                    if course[1] == self.courseTakenListTree.item(id)['text']:
+                        name = str(course[1] + " " + course[2] + "\t" + course[3])
+                        self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
+                        self.courseTakenList_counter += 1
 
-                self.courseTakenListTree.insert(parent='0', index='0', iid=50, text="COSC 117 PROGRAMMING FUNDAMENTALS")
-                self.courseTakenListTree.insert(parent='0', index='1', iid=51, text="COSC 120 COMPUTER SCIENCE I")
-                self.courseTakenListTree.insert(parent='0', index='2', iid=52, text="COSC 220 COMPUTER SCIENCE II")
-
-                self.courseTakenListTree.insert(parent='1', index='0', iid=53, text="ENGL 103 ADVANCED COMPOSITION")
-
-                self.courseTakenListTree.insert(parent='2', index='0', iid=54, text="HIST 101 WORLD CIVILIZATION")
-                self.courseTakenListTree.insert(parent='2', index='1', iid=55, text="HIST 103 ")
-        '''
-
+        # todo delete rows without children
 
     # menus declaration
     def menu(self):
@@ -701,9 +697,9 @@ class View:
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-        def openScheduleSearchButton(t, name, id):
+        def openScheduleSearchButton(name, id):
             if name != "" and id != "":
-                pub.sendMessage("request_PPW", name=name, id=id)
+                pub.sendMessage("request_PPW", name=name, id=int(id))
                 t.destroy()
 
         nameFrame = Frame(t)
@@ -730,7 +726,7 @@ class View:
         searchB = Button(butFrame, text='Search')
         searchB.pack()
 
-        searchB['command'] = lambda: openScheduleSearchButton(t, fnameE.get() + " " + lnameE.get(), idE.get())
+        searchB['command'] = lambda: openScheduleSearchButton(fnameE.get() + " " + lnameE.get(), idE.get())
 
     def showFourYearPlan(self):
         self.courseTakenListFrame.place_forget()
