@@ -75,7 +75,7 @@ class Model:
             # Gets total number of semesters through error handling
             for j in range(15):  # Max of 15 possible semesters taken
                 stri = "semester_"  # Append which semester to string
-                stri = stri + sem;
+                stri = stri + sem
                 try:  # Error checks is semester is out of range
                     (i[stri])  # Sets the total to the currently viewed semester
                     total = int(sem)
