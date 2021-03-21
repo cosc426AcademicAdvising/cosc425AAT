@@ -181,7 +181,7 @@ class View:
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.grid(row=0, column=2, columnspan=3)
+        ProgPlanTitle.grid(row=0, column=2, columnspan=3, pady=8)
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame)
@@ -502,7 +502,6 @@ class View:
             self.backupCourseTree_counter -= 1
 
     def populatePPW(self, arg1, arg2, arg3, arg4, arg5, arg6):  # (py dict, total cred, 2d course array, course size)
-
         self.FourYearCourses.clear()
         self.FourYearCourses = arg6
 
@@ -562,6 +561,7 @@ class View:
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
             self.backupCourseTree_counter += 1
 
+        self.courseTakenList_reset()
         self.courseTakenList_fill()
 
     def populateFYP(self, arg1):
@@ -576,7 +576,6 @@ class View:
         self.policyMemoEntry.insert('1.0', arg1['memo'])
 
     def courseTakenList_layout(self):
-
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
 
@@ -584,6 +583,15 @@ class View:
         self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
 
         self.courseTakenListTree.column("#0")
+
+        for subj in self.subjectsList:
+            self.courseTakenListTree.insert(parent='', index='end', iid=self.courseTakenList_counter, text=str(subj))
+            self.courseTakenList_counter += 1
+
+    def courseTakenList_reset(self):
+        for subj in self.courseTakenListTree.get_children():
+            self.courseTakenListTree.delete(subj)
+        self.courseTakenList_counter = 0
 
         for subj in self.subjectsList:
             self.courseTakenListTree.insert(parent='', index='end', iid=self.courseTakenList_counter, text=str(subj))
@@ -598,7 +606,10 @@ class View:
                         self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
                         self.courseTakenList_counter += 1
 
-        # todo delete rows without children
+        for id in self.courseTakenListTree.get_children():
+            if not self.courseTakenListTree.get_children(id):
+                self.courseTakenListTree.delete(id)
+
 
     # menus declaration
     def menu(self):
@@ -688,6 +699,8 @@ class View:
         for course in self.backupCourseTree.get_children():
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
+
+        self.courseTakenList_reset()
 
     def openSchedule(self):
         t = Toplevel(self.mainwin)
