@@ -291,7 +291,7 @@ class View:
         self.courseTree.column("cred", anchor=CENTER, width=25)
         self.courseTree.column("gen/elect", anchor=CENTER, width=100)
 
-        self.courseTree.heading("course#", text='Course#', anchor=CENTER) # anchor for the title of the column
+        self.courseTree.heading("course#", text='Course #', anchor=CENTER) # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
         self.courseTree.heading("cred", text='CH', anchor=CENTER)
         self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
@@ -313,7 +313,7 @@ class View:
         self.backupCourseTree.column("cred", anchor=CENTER, width=25)
         self.backupCourseTree.column("gen/elect", anchor=CENTER, width=100)
 
-        self.backupCourseTree.heading("course#", text='Course#', anchor=CENTER)  # anchor for the title of the column
+        self.backupCourseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.backupCourseTree.heading("title", text='Title', anchor=CENTER)
         self.backupCourseTree.heading("cred", text='CH', anchor=CENTER)
         self.backupCourseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
@@ -558,7 +558,7 @@ class View:
         label.pack(anchor=CENTER, side=TOP, pady=20)
 
         self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38, style="mystyle.Treeview")
-        self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
+        # self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
 
         self.courseTakenListTree.column("#0")
 
@@ -567,6 +567,7 @@ class View:
             self.courseTakenList_counter += 1
 
     def courseTakenList_reset(self):
+        self.courseTakenListTree.pack_forget()
         for subj in self.courseTakenListTree.get_children():
             self.courseTakenListTree.delete(subj)
         self.courseTakenList_counter = 0
@@ -577,11 +578,13 @@ class View:
 
     def courseTakenList_fill(self):
         self.courseTakenList_reset()
+        self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
+
         for sem in self.fourYearCourses:
             for course in sem:
                 for id in self.courseTakenListTree.get_children():
                     if course[1] == self.courseTakenListTree.item(id)['text']:
-                        name = str(course[1] + " " + course[2] + "\t" + course[3])
+                        name = str(course[1] + " " + course[2] + " "*5 + course[3])
                         self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
                         self.courseTakenList_counter += 1
 
