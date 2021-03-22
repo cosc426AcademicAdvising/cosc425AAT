@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 # from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
-import tkinter.font as TkFont
+# import tkinter.font as TkFont
 # from PIL import ImageTk, Image  # pip install pillow
 
 
@@ -25,8 +25,9 @@ class View:
         self.minorsList = minorL
         self.subjectsList = subjectL
 
-        self.TNR20 = TkFont.Font(family='Times', size='20', weight='bold')
-        self.TNR = TkFont.Font(family='Times')
+        self.TVstyle = ttk.Style()
+        self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 12))
+        self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 12))
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
@@ -34,12 +35,12 @@ class View:
         self.addCourseSearchResult = []
         self.resultVar = StringVar() # for add course button
 
-        self.FourYearCourses = []
+        self.fourYearCourses = []
 
         self.counter= 0
 
         self.layout()
-        self.menu()
+        self.menuBar()
 
     def layout(self):
         self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
@@ -57,7 +58,7 @@ class View:
         self.courseTakenListFrame.place_forget() # hide frame
 
         self.FourYearPlan()
-        self.PlanningWorksheet_layout()
+        self.planningWorksheet_layout()
         self.courseTakenList_layout()
 
     def FourYearPlan(self):
@@ -145,7 +146,7 @@ class View:
         self.addSemesterBtn.place(x=120, y=950)
         self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester")
 
-    def PlanningWorksheet_layout(self):
+    def planningWorksheet_layout(self):
         # outer most blank frames left & right
         width = self.mainwin.winfo_screenwidth()
         height = self.mainwin.winfo_screenheight()
@@ -276,10 +277,10 @@ class View:
         self.enrlDateEntry.pack()
 
         # ============================ Course table ============================
-        courseTableFrame = Frame(self.rightFrame, )
+        courseTableFrame = Frame(self.rightFrame)
         courseTableFrame.grid(row=12, column=1, columnspan=4)
 
-        self.courseTree = ttk.Treeview(courseTableFrame, height=7) # TIP: height is number of rows
+        self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview") # TIP: height is number of rows
         self.courseTree.pack()
 
         self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
@@ -301,7 +302,7 @@ class View:
 
         backuplabel = Label(backupCourseFrame, text="Back-up Courses").pack(anchor=CENTER)
 
-        self.backupCourseTree = ttk.Treeview(backupCourseFrame, height=2)
+        self.backupCourseTree = ttk.Treeview(backupCourseFrame, height=2, style="mystyle.Treeview")
         self.backupCourseTree.pack()
 
         self.backupCourseTree['columns'] = ("course#", "title", "cred", "gen/elect")
@@ -329,23 +330,23 @@ class View:
         # courseLabelFrame.grid(row=17, column=1, columnspan=3)
         coursebuttonFrame.grid(row=12, column=5, padx=20)
 
-        addcoursebutton = ttk.Button(coursebuttonFrame, text="Add", command=self.addCourseButton)
+        addcoursebutton = ttk.Button(coursebuttonFrame, text="Add", command=self.planningWorksheet_addCourseButton)
         addcoursebutton.pack(side=TOP)
 
-        rmcoursebutton = ttk.Button(coursebuttonFrame, text="Remove", command=self.delCourseButton)
+        rmcoursebutton = ttk.Button(coursebuttonFrame, text="Remove", command=self.planningWorksheet_delCourseButton)
         rmcoursebutton.pack(side=BOTTOM)
 
         # backup course
         bcoursebuttonFrame = Frame(self.rightFrame)
         bcoursebuttonFrame.grid(row=13, column=5, padx=20)
 
-        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add", command=self.addBackupCourseButton)
+        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add", command=self.planningWorksheet_addBackupCourseButton)
         addbackupbutton.pack(side=TOP)
 
-        rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.delBackupCourseButton)
+        rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.planningWorksheet_delBackupCourseButton)
         rmbackupbutton.pack(side=TOP)
 
-    def addCourseButton(self):
+    def planningWorksheet_addCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Course")
         t.geometry("450x125")
@@ -353,39 +354,31 @@ class View:
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-        # =============== inner functions =================
-
         def courseSearch(e):
             course = entry.get()
             if len(course) > 7:
-                # print(course)
                 if len(course.split()[1]) == 3:
-                    addCourseB2(course)
+                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
+                    self.resultVar.set(
+                        self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
+                        self.addCourseSearchResult[2] + " " * 3 +
+                        self.addCourseSearchResult[3])
                 else:
                     self.resultVar.set("")
             else:
                 self.resultVar.set("")
 
-        def addCourseB2(courseNumb):
-            if courseNumb != "":
-                pub.sendMessage("request_course#", sub=courseNumb.split()[0], cat=courseNumb.split()[1])
-                self.resultVar.set(self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
-                                   self.addCourseSearchResult[2] + " " * 3 +
-                                   self.addCourseSearchResult[3])
-
-        def addCourseB3(gen):
+        def addCourse():
             self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
                                    values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                            self.addCourseSearchResult[2],
                                            int(float(self.addCourseSearchResult[3])),
-                                           gen.get()))
+                                           genEntry.get()))
             self.courseTree_counter += 1
-            gen.delete(0, END)
+            genEntry.delete(0, END)
 
             prevcred = self.enrollCredVar.get()
             self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
-
-        # =========== for search ===================
 
         f1 = Frame(t)
         f1.pack(anchor=CENTER, pady=5)
@@ -400,15 +393,13 @@ class View:
         # sbutton.pack(side=LEFT)
         # sbutton['command'] = lambda: addCourseB2(entry.get())
 
-        # =============== for results =================
-        rf = Frame(t)
+        rf = Frame(t)   # result frame
         rf.pack(anchor=CENTER)
 
         resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
-        # =============== add to tree view ================
-        gf = Frame(t)
+        gf = Frame(t)   # gen frame
         gf.pack(anchor=CENTER)
 
         l2 = Label(gf, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
@@ -416,10 +407,10 @@ class View:
         genEntry = ttk.Entry(gf)
         genEntry.pack(side=TOP)
 
-        addbutton = Button(gf, text="Add", command=lambda: addCourseB3(genEntry))
-        addbutton.pack(side=TOP)
+        addButton = Button(gf, text="Add", command=addCourse)
+        addButton.pack(side=TOP)
 
-    def delCourseButton(self):
+    def planningWorksheet_delCourseButton(self):
         for course in self.courseTree.selection():
             prevcred = self.enrollCredVar.get()
             self.enrollCredVar.set(prevcred -  int(float(self.courseTree.item(course)['values'][2])) )
@@ -427,7 +418,7 @@ class View:
             self.courseTree.delete(course)
             self.courseTree_counter -= 1
 
-    def addBackupCourseButton(self):
+    def planningWorksheet_addBackupCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Backup Course")
         t.geometry("450x125")
@@ -435,38 +426,30 @@ class View:
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-        # =============== inner functions =================
-
         def courseSearch(e):
             course = entry.get()
             if len(course) > 7:
                 if len(course.split()[1]) == 3:
-                    addCourseB2(course)
+                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
+                    self.resultVar.set(self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
+                                       self.addCourseSearchResult[2] + " " * 3 +
+                                       self.addCourseSearchResult[3])
                 else:
                     self.resultVar.set("")
             else:
                 self.resultVar.set("")
 
-        def addCourseB2(courseNumb):
-            if courseNumb != "":
-                pub.sendMessage("request_course#", sub=courseNumb.split()[0], cat=courseNumb.split()[1])
-                self.resultVar.set(self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
-                                   self.addCourseSearchResult[2] + " " * 3 +
-                                   self.addCourseSearchResult[3])
-
-        def addCourseB3(gen):
+        def addCourse():
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
                                    values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                            self.addCourseSearchResult[2],
                                            int(float(self.addCourseSearchResult[3])),
-                                           gen.get()))
+                                           genEntry.get()))
             self.backupCourseTree_counter += 1
-            gen.delete(0, END)
+            genEntry.delete(0, END)
 
             prevcred = self.enrollCredVar.get()
             self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
-
-        # =========== for search ===================
 
         f1 = Frame(t)
         f1.pack(anchor=CENTER, pady=5)
@@ -477,15 +460,13 @@ class View:
 
         entry.bind('<KeyRelease>', courseSearch) # for auto search
 
-        # =============== for results =================
-        rf = Frame(t)
+        rf = Frame(t)   # result frame
         rf.pack(anchor=CENTER)
 
         resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
-        # =============== add to tree view ================
-        gf = Frame(t)
+        gf = Frame(t)   # gen frame
         gf.pack(anchor=CENTER)
 
         l2 = Label(gf, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
@@ -493,57 +474,28 @@ class View:
         genEntry = ttk.Entry(gf)
         genEntry.pack(side=TOP)
 
-        addbutton = Button(gf, text="Add", command=lambda: addCourseB3(genEntry))
-        addbutton.pack(side=TOP)
+        addButton = Button(gf, text="Add", command=addCourse)
+        addButton.pack(side=TOP)
 
-    def delBackupCourseButton(self):
+    def planningWorksheet_delBackupCourseButton(self):
         for course in self.backupCourseTree.selection():
             self.backupCourseTree.delete(course)
             self.backupCourseTree_counter -= 1
 
-    def populatePPW(self, arg1, arg2, arg3, arg4, arg5, arg6):  # (py dict, total cred, 2d course array, course size)
-        self.FourYearCourses.clear()
-        self.FourYearCourses = arg6
-
-        # delete what was previously there then insert
+    def planningWorksheet_reset(self):
+        self.fourYearCourses.clear()
         self.nameEntry.delete(0, END)
-        self.nameEntry.insert(END, arg1['name'])
-
         self.idEntry.delete(0, END)
-        self.idEntry.insert(END, arg1['s_id'])
 
-        self.seasonVar.set(arg1['registering_for'])
-
-        cnt = len(self.majorsList)
-        index = 0
-        for i in range(cnt):
-            if arg1['major'] == self.majorsList[i]:
-                index = i
-        self.majorVar.set(self.majorsList[index])
-
-        cnt = len(self.minorsList)
-        index = 0
-        for i in range(cnt):
-            if arg1['minor'] == self.minorsList[i]:
-                index = i
-        self.minorVar.set(self.minorsList[index])
+        self.enrollCredVar.set(0)
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.delete(0, END)
-        self.earnCredEntry.insert(END, arg1['credits'])
         self.earnCredEntry['state'] = 'readonly'
 
-        self.enrollCredVar.set(arg2)
-        #self.enrollCredEntry.delete(0, END)
-        #self.enrollCredEntry.insert(END, arg2)
-
         self.enrlDateEntry.delete(0, END)
-        self.enrlDateEntry.insert(END, arg1['enrll'])
-
         self.memoEntry.delete('1.0', 'end')
-        self.memoEntry.insert('1.0', arg1['memo'])
 
-        # clear tree views
         for course in self.courseTree.get_children():
             self.courseTree.delete(course)
         self.courseTree_counter = 0
@@ -552,16 +504,42 @@ class View:
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
 
-        # when inserting 'iid' needs to be different
-        for c in arg3:
+    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist):  # (py dict, total cred, 2d course array, course size) fyp - four year plan
+        # clear data in widgets
+        self.planningWorksheet_reset()
+
+        self.fourYearCourses = courseHist
+        self.nameEntry.insert(END, obj['name'])
+        self.idEntry.insert(END, obj['s_id'])
+        self.seasonVar.set(obj['registering_for'])
+
+        '''
+        for i in range( len(self.majorsList) ):
+            if obj['major'] == self.majorsList[i]:
+                self.majorVar.set(self.majorsList[i])
+
+        for i in range( len(self.minorsList) ):
+            if obj['minor'] == self.minorsList[i]:
+                self.minorVar.set(self.minorsList[i])
+        '''
+
+        self.earnCredEntry['state'] = NORMAL
+        self.earnCredEntry.insert(END, obj['credits'])
+        self.earnCredEntry['state'] = 'readonly'
+
+        self.enrollCredVar.set(tcred)
+
+        self.enrlDateEntry.insert(END, obj['enrll'])
+        self.memoEntry.insert('1.0', obj['memo'])
+
+        for c in courses:
             self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
             self.courseTree_counter += 1
 
-        for c in arg5:
+        for c in bcourses:
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
             self.backupCourseTree_counter += 1
 
-        self.courseTakenList_reset()
         self.courseTakenList_fill()
 
     def populateFYP(self, arg1):
@@ -579,7 +557,7 @@ class View:
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
 
-        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38)
+        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38, style="mystyle.Treeview")
         self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
 
         self.courseTakenListTree.column("#0")
@@ -598,7 +576,8 @@ class View:
             self.courseTakenList_counter += 1
 
     def courseTakenList_fill(self):
-        for sem in self.FourYearCourses:
+        self.courseTakenList_reset()
+        for sem in self.fourYearCourses:
             for course in sem:
                 for id in self.courseTakenListTree.get_children():
                     if course[1] == self.courseTakenListTree.item(id)['text']:
@@ -610,9 +589,7 @@ class View:
             if not self.courseTakenListTree.get_children(id):
                 self.courseTakenListTree.delete(id)
 
-
-    # menus declaration
-    def menu(self):
+    def menuBar(self):
         menu = Menu(self.mainwin, tearoff=0)
         self.mainwin.config(menu=menu)
 
@@ -632,17 +609,6 @@ class View:
         menu.add_cascade(label='Themes', menu=theme)
         self.themeMenu(theme)
 
-    def themeMenu(self, theme):
-        #s = ThemedTk(self.mainwin)
-        '''
-        def lightMode(s):
-            s.set_theme("plastik")
-        def darkMode(s):
-            s.set_theme("black")
-        '''
-        #theme.add_command(label='Light Mode', command=)
-        theme.add_command(label='Dark Mode')
-
     # schedule menu dropdown
     def scheduleMenu(self, schedule):
         schedule.add_command(label='New...', command=self.newSchedule)
@@ -660,46 +626,8 @@ class View:
         schedule.add_command(label='Export', command=self.exportSchedule)
         schedule.add_command(label='Print', command=self.printSchedule)
 
-    # load menu drop down
-    def loadMenu(self, major):
-        major.add_command(label='Four Year Plan', command=self.showFourYearPlan)
-        major.add_command(label='Course Taken List', command=self.showCourseTakenList)
-        major.add_separator()
-        major.add_command(label='Major Checklist')
-        major.add_command(label='Minor Checklist')
-
-    # data base menu dropdown
-    def DataBaseMenu(self, DB):
-        DB.add_command(label='Current Semester Course')
-        DB.add_separator()
-        DB.add_command(label='Add/Remove a Department')
-        DB.add_command(label='Add/remove a Major')
-        DB.add_command(label='Add/Remove a minor')
-
     def newSchedule(self):
-        # pub.sendMessage("New Menu Dropdown Pressed")
-        self.nameEntry.delete(0, END)
-        self.idEntry.delete(0, END)
-        self.seasonVar.set('')
-
-        self.earnCredEntry['state'] = NORMAL
-        self.earnCredEntry.delete(0, END)
-        self.earnCredEntry['state'] = 'readonly'
-
-        self.enrollCredEntry.delete(0, END)
-
-        self.enrlDateEntry.delete(0, END)
-
-        self.memoEntry.delete('1.0', 'end')
-
-        for course in self.courseTree.get_children():
-            self.courseTree.delete(course)
-        self.courseTree_counter = 0
-
-        for course in self.backupCourseTree.get_children():
-            self.backupCourseTree.delete(course)
-        self.backupCourseTree_counter = 0
-
+        self.planningWorksheet_reset()
         self.courseTakenList_reset()
 
     def openSchedule(self):
@@ -710,7 +638,9 @@ class View:
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-        def openScheduleSearchButton(name, id):
+        def openScheduleSearchButton():
+            name = fnameE.get() + " " + lnameE.get()
+            id = idE.get()
             if name != "" and id != "":
                 pub.sendMessage("request_PPW", name=name, id=int(id))
                 t.destroy()
@@ -736,10 +666,30 @@ class View:
         idE = ttk.Entry(idFrame, width=10)
         idE.pack(side=LEFT)
 
-        searchB = Button(butFrame, text='Search')
+        searchB = Button(butFrame, text='Search', command=openScheduleSearchButton)
         searchB.pack()
 
-        searchB['command'] = lambda: openScheduleSearchButton(fnameE.get() + " " + lnameE.get(), idE.get())
+    def openRecentSchedule(self):
+        print("Open schedule")
+
+    def saveSchedule(self):
+        print("Saved schedule")
+
+    def saveAsSchedule(self):
+        print("Save schedule as..")
+
+    def exportSchedule(self):
+        print("Export schedule")
+
+    def printSchedule(self):
+        print("Print schedule")
+
+    def loadMenu(self, major):
+        major.add_command(label='Four Year Plan', command=self.showFourYearPlan)
+        major.add_command(label='Course Taken List', command=self.showCourseTakenList)
+        major.add_separator()
+        major.add_command(label='Major Checklist')
+        major.add_command(label='Minor Checklist')
 
     def showFourYearPlan(self):
         self.courseTakenListFrame.place_forget()
@@ -748,6 +698,25 @@ class View:
     def showCourseTakenList(self):
         self.leftFrame.place_forget()
         self.courseTakenListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+
+    # data base menu dropdown
+    def DataBaseMenu(self, DB):
+        DB.add_command(label='Current Semester Course')
+        DB.add_separator()
+        DB.add_command(label='Add/Remove a Department')
+        DB.add_command(label='Add/remove a Major')
+        DB.add_command(label='Add/Remove a minor')
+
+    def themeMenu(self, theme):
+        #s = ThemedTk(self.mainwin)
+        '''
+        def lightMode(s):
+            s.set_theme("plastik")
+        def darkMode(s):
+            s.set_theme("black")
+        '''
+        #theme.add_command(label='Light Mode', command=)
+        theme.add_command(label='Dark Mode')
 
     def createTable(self, semester, x, y):
         if self.semesterCounter % 2 != 0:
@@ -784,19 +753,3 @@ class View:
             self.createTable(semester, 15, self.yPos)
             self.addSemesterBtn.place(x=455, y=self.yPos)
             self.counter=1
-
-
-    def openRecentSchedule(self):
-        print("Open schedule")
-
-    def saveSchedule(self):
-        print("Saved schedule")
-
-    def saveAsSchedule(self):
-        print("Save schedule as..")
-
-    def exportSchedule(self):
-        print("Export schedule")
-
-    def printSchedule(self):
-        print("Print schedule")

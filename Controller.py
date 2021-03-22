@@ -1,8 +1,7 @@
 from View import View
 from Model import Model
-
 from tkinter import *
-from tkinter import ttk
+# from tkinter import ttk
 from pubsub import pub
 
 
@@ -14,8 +13,8 @@ class Controller:
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 
         # for populating planning worksheet
-        pub.subscribe(self.openPPW,"request_PPW")
-        pub.subscribe(self.view.populatePPW,"PPW_information")
+        pub.subscribe(self.planningWorksheet_open,"request_PPW")
+        pub.subscribe(self.view.planningWorksheet_fill,"PPW_information")
         pub.subscribe(self.addCourse, "request_course#")
 
         # for populating Four Year Plan
@@ -28,7 +27,7 @@ class Controller:
         self.schedule.title("Insert Person Name Here")
         # Need to send information from database to this new window
 
-    def openPPW(self, name, id):
+    def planningWorksheet_open(self, name, id):
         # self.model.getStudent("Bob Robert", "7654321")
         self.model.getStudent(name, id)
 
