@@ -68,9 +68,11 @@ class View:
 
         scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.place(relwidth=0.022, relheight=0.98, relx=0.98, rely=0.00)
 
         scrollbar2 = ttk.Scrollbar(self.leftFrame, orient=HORIZONTAL, command=canvas.xview)
         scrollbar2.pack(side=BOTTOM, fill=X)
+        scrollbar2.place(relwidth=0.98, relheight=0.022, relx=0.00, rely=0.98)
 
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.configure(xscrollcommand=scrollbar2.set)
@@ -556,17 +558,18 @@ class View:
                 index+=1
                 self.semTableTree_counter = 0
                 for course in sem:
-                        print(courseHist)
-                        self.semTable[index].insert(parent='', index='end', text="",
-                                               values=(course[1] + " " + course[2], course[3], course[4]))
-                        print(course[1] + " " + course[2] + "\t" + course[3] + " " + course[4])
+                        # print(course)
+                        #self.semTable[index].insert(parent='', index='end', iid=self.semTableTree_counter, text="",
+                         #                      values=(course[1] + " " + course[2], course[3], course[4]))
+                        # print(course[1] + " " + course[2] + "\t" + course[3] + " " + course[4])
                         self.semTableTree_counter += 1
 
 
 
 
-        self.policyMemoEntry.delete('1.0', 'end')
-        self.policyMemoEntry.insert('1.0', courseHist['policies'])
+        #self.policyMemoEntry.delete('1.0', 'end')
+        #self.policyMemoEntry.insert('1.0', courseHist[obj[]])
+        print(courseHist[0])
 
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))

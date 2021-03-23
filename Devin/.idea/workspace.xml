@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="GUI layout changes">
-      <change beforePath="$PROJECT_DIR$/../Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -340,7 +338,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616116033357</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Partial Implementaion for poulating FYP">
+      <created>1616534841015</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1616534841015</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -377,6 +382,7 @@
     <MESSAGE value="ttk Scrollbar" />
     <MESSAGE value="GUI layout changes and populating FYP" />
     <MESSAGE value="GUI layout changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI layout changes" />
+    <MESSAGE value="Partial Implementaion for poulating FYP" />
+    <option name="LAST_COMMIT_MESSAGE" value="Partial Implementaion for poulating FYP" />
   </component>
 </project>
