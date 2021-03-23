@@ -120,6 +120,7 @@ class Model:
             # [0, 'ENGL', '103', 'Composition and Research', '4']    Example output for fourList[0][2]
 
         pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=fourList)
+        pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
     def getFourYearLayout(sname, sid):
         myCol = db.get_collection('FourYear')

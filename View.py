@@ -37,7 +37,7 @@ class View:
 
         self.fourYearCourses = []
 
-        self.counter= 0
+        self.counter = 0
 
         self.layout()
         self.menuBar()
@@ -69,7 +69,11 @@ class View:
         scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
 
+        scrollbar2 = ttk.Scrollbar(self.leftFrame, orient=HORIZONTAL, command=canvas.xview)
+        scrollbar2.pack(side=BOTTOM, fill=X)
+
         canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.configure(xscrollcommand=scrollbar2.set)
         canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
         self.innerLeftFrame = Frame(canvas)
         self.innerLeftFrame.pack(expand=1)
@@ -117,22 +121,17 @@ class View:
         self.semesterFrame.pack(expand=1)
 
         self.yearCounter=1
-        self.semesterCounter=1
+        self.semesterCounter=0
         self.yPos=50
-        semTable = []
+        self.semLabel = []
+        self.semTable = []
 
-        semTable.append(self.createTable("Fall 2020", 15, self.yPos))
-        semTable.append(self.createTable("Spring 2021", 455, self.yPos))
-        self.yPos = self.yPos + 220
-        semTable.append(self.createTable("Fall 2021", 15, self.yPos))
-        semTable.append(self.createTable("Spring 2022", 455, self.yPos))
-        self.yPos = self.yPos + 220
-        semTable.append(self.createTable("Fall 2022", 15, self.yPos))
-        semTable.append(self.createTable("Spring 2023", 455, self.yPos))
-        self.yPos = self.yPos + 220
-        semTable.append(self.createTable("Fall 2023", 15, self.yPos))
-        semTable.append(self.createTable("Spring 2024", 455, self.yPos))
-        self.yPos = self.yPos + 220
+        for i in range(8):
+            if self.semesterCounter % 2 == 0:
+                self.semTable.append(self.createTable("Fall 2020", 15, self.yPos))
+            else:
+                self.semTable.append(self.createTable("Spring 2021", 455, self.yPos))
+
         # when inserting 'iid' needs to be different
         '''
         for c in arg3:
@@ -542,16 +541,32 @@ class View:
 
         self.courseTakenList_fill()
 
-    def populateFYP(self, arg1):
+    def fourYearPlan_fill(self, obj, courseHist):
+        self.semTableTree_counter = 0
+
         # delete what was previously there then insert
         self.name2Entry.delete(0, END)
-        self.name2Entry.insert(END, arg1['name'])
+        self.name2Entry.insert(END, obj['name'])
 
         self.id2Entry.delete(0, END)
-        self.id2Entry.insert(END, arg1['s_id'])
+        self.id2Entry.insert(END, obj['s_id'])
+
+        index = -1
+        for sem in self.fourYearCourses:
+                index+=1
+                self.semTableTree_counter = 0
+                for course in sem:
+                        print(courseHist)
+                        self.semTable[index].insert(parent='', index='end', text="",
+                                               values=(course[1] + " " + course[2], course[3], course[4]))
+                        print(course[1] + " " + course[2] + "\t" + course[3] + " " + course[4])
+                        self.semTableTree_counter += 1
+
+
+
 
         self.policyMemoEntry.delete('1.0', 'end')
-        self.policyMemoEntry.insert('1.0', arg1['memo'])
+        self.policyMemoEntry.insert('1.0', courseHist['policies'])
 
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
@@ -646,6 +661,7 @@ class View:
             id = idE.get()
             if name != "" and id != "":
                 pub.sendMessage("request_PPW", name=name, id=int(id))
+                pub.sendMessage("request_FYP", name=name, id=int(id))
                 t.destroy()
 
         nameFrame = Frame(t)
@@ -722,37 +738,41 @@ class View:
         theme.add_command(label='Dark Mode')
 
     def createTable(self, semester, x, y):
-        if self.semesterCounter % 2 != 0:
-            self.yearCounter += 1
+            enfOfArray = len(self.semTable)
+            endOfSemLabel = len(self.semLabel)
 
-        semesterLabel = Label(self.semesterFrame, text=semester, font=('Helvetica', 15))
-        semesterLabel.pack(expand=1)
-        semesterLabel.place(x=x, y=y-25)
+            self.semLabel.append(Label(self.semesterFrame, text=semester, font=('Helvetica', 15)))
+            self.semLabel[endOfSemLabel].pack(expand=1)
 
-        self.semesterTree = ttk.Treeview(self.semesterFrame, height=7)  # TIP: height is number of rows
-        self.semesterTree.pack(expand=1)
-        self.semesterTree.place(x=x, y=y)
+            self.semTable.append(ttk.Treeview(self.semesterFrame, height=7))
 
-        self.semesterTree['columns'] = ("course#", "title", "cred")
+            if self.semesterCounter % 2 == 0:
+                self.semTable[enfOfArray].pack(expand=1)
+                self.semTable[enfOfArray].place(x=15, y=self.yPos)
+                self.semLabel[endOfSemLabel].place(x=15, y=self.yPos - 25)
+            else:
+                self.semTable[enfOfArray].pack(expand=1)
+                self.semTable[enfOfArray].place(x=455, y=self.yPos)
+                self.semLabel[endOfSemLabel].place(x=455, y=self.yPos - 25)
+                self.yPos += 220
+            self.semesterCounter += 1
 
-        self.semesterTree.column("#0", width=0, stretch=NO)  # important
-        self.semesterTree.column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
-        self.semesterTree.column("title", anchor=W, width=295)
-        self.semesterTree.column("cred", anchor=CENTER, width=62)
-        # self.semesterTree.column("taken", anchor=CENTER, width=30)
 
-        self.semesterTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
-        self.semesterTree.heading("title", text='Title', anchor=CENTER)
-        self.semesterTree.heading("cred", text='Crd. Hr.', anchor=CENTER)
-        # self.semesterTree.heading("taken", text='Cls. Taken', anchor=CENTER)
+            self.semTable[enfOfArray]['columns']= ("course#", "title", "cred")
+            self.semTable[enfOfArray].column("#0", width=0, stretch=NO)  # important
+            self.semTable[enfOfArray].column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
+            self.semTable[enfOfArray].column("title", anchor=W, width=295)
+            self.semTable[enfOfArray].column("cred", anchor=CENTER, width=62)
+            # self.semesterTree.column("taken", anchor=CENTER, width=30)
+
+            self.semTable[enfOfArray].heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
+            self.semTable[enfOfArray].heading("title", text='Title', anchor=CENTER)
+            self.semTable[enfOfArray].heading("cred", text='Crd. Hr.', anchor=CENTER)
 
     def createSemesterBtn(self, semester):
-        if self.counter == 1:
-            self.createTable(semester, 455, self.yPos)
-            self.yPos = self.yPos + 220
-            self.addSemesterBtn.place(x=15, y=self.yPos)
-            self.counter=0
-        else:
+        if self.semesterCounter % 2 == 0:
             self.createTable(semester, 15, self.yPos)
             self.addSemesterBtn.place(x=455, y=self.yPos)
-            self.counter=1
+        else:
+            self.createTable(semester, 455, self.yPos)
+            self.addSemesterBtn.place(x=15, y=self.yPos)

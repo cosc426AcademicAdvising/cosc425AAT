@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="GUI layout changes">
+      <change beforePath="$PROJECT_DIR$/../Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +39,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jsonAppend.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Controller.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.Controller">
@@ -126,8 +128,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Controller" />
       <item itemvalue="Python.Controller (1)" />
+      <item itemvalue="Python.Controller" />
       <item itemvalue="Python.Model" />
       <item itemvalue="Python.View" />
     </list>

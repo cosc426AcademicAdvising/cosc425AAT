@@ -18,7 +18,8 @@ class Controller:
         pub.subscribe(self.addCourse, "request_course#")
 
         # for populating Four Year Plan
-        # pub.subscribe(self.view.populateFYP, "FYP_information")
+        pub.subscribe(self.fourYearPlan_open, "request_FYP")
+        pub.subscribe(self.view.fourYearPlan_fill, "FYP_information")
 
     def newSchedule(self):
         self.schedule = Toplevel()
@@ -27,12 +28,16 @@ class Controller:
         self.schedule.title("Insert Person Name Here")
         # Need to send information from database to this new window
 
+    def fourYearPlan_open(self, name, id):
+        # self.model.getStudent("Bob Robert", "7654321")
+        self.model.getStudent(name, id)
+
     def planningWorksheet_open(self, name, id):
         # self.model.getStudent("Bob Robert", "7654321")
         self.model.getStudent(name, id)
 
     def addCourse(self, sub, cat):
-        self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat) )
+        self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat))
 
 if __name__=="__main__":
     root = Tk()
