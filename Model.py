@@ -40,8 +40,6 @@ class Model:
             obj = myCol.find({"$and": [{"School": schools[j], "Plan Type": "Major"}]})
             for i in obj:
                 majList.append([i['Acad Plan'], i["School"]])
-        for i in range(len(majList)):
-            print(majList[i])
         return majList
 
     def getMinorsbySchool(self, schools):
@@ -51,8 +49,6 @@ class Model:
             obj = myCol.find({"$and": [{"School": schools[j], "Plan Type": "Minor"}]})
             for i in obj:
                 minList.append([i['Acad Plan'], i["School"]])
-        for i in range(len(minList)):
-            print(minList[i])
         return minList
 
     # Get a course by searching for subject and catalog
