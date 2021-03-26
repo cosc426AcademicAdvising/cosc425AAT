@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="renamed/moved functions, renamed some variables, fix enrollCred traceback call error">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="course taken list hidden when no information is provided">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
@@ -279,7 +279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616428624225</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="course taken list hidden when no information is provided">
+      <created>1616448124850</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1616448124850</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,7 +314,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="reworked layout, menu for 'open recent'. TODO: MVC and file browser" />
     <MESSAGE value="..." />
     <MESSAGE value="fixed course entry table and revised code" />
     <MESSAGE value="revised code" />
@@ -332,6 +338,7 @@
     <MESSAGE value="course taken list implemented, need to filter out subjects not used" />
     <MESSAGE value="course taken list finalized" />
     <MESSAGE value="renamed/moved functions, renamed some variables, fix enrollCred traceback call error" />
-    <option name="LAST_COMMIT_MESSAGE" value="renamed/moved functions, renamed some variables, fix enrollCred traceback call error" />
+    <MESSAGE value="course taken list hidden when no information is provided" />
+    <option name="LAST_COMMIT_MESSAGE" value="course taken list hidden when no information is provided" />
   </component>
 </project>

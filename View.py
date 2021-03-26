@@ -45,15 +45,15 @@ class View:
     def layout(self):
         self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.leftFrame.pack(expand=1)
-        self.leftFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        self.leftFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
 
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.pack(expand=1)
-        self.rightFrame.place(relwidth=0.48, relheight=0.91, relx=0.5, rely=0.02)
+        self.rightFrame.place(relwidth=0.40, relheight=0.91, relx=0.6, rely=0.02)
 
         self.courseTakenListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.courseTakenListFrame.pack(expand=1)
-        self.courseTakenListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        self.courseTakenListFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
 
         self.courseTakenListFrame.place_forget() # hide frame
 
@@ -157,39 +157,25 @@ class View:
 
         if AspectRatio == 16/10:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N,E,S,W))
-            #blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=15, sticky=(N,E,S,W))
         elif AspectRatio == 16/9:
             blank1 = Frame(self.rightFrame, width=190).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
-            #blank2 = Frame(self.rightFrame, width=190).grid(column=5, row=0, rowspan=15,sticky=(N, E, S, W))
         elif AspectRatio == 4/3:
             blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
-            #blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=15,sticky=(N, E, S, W))
         elif AspectRatio == 3/2:
             blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
-            #blank2 = Frame(self.rightFrame, width=160).grid(column=5, row=0, rowspan=15,sticky=(N, E, S, W))
         else:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
-            #blank2 = Frame(self.rightFrame, width=50).grid(column=5, row=0, rowspan=15, sticky=(N, E, S, W))
 
-        self.rightFrame.update()
-        h = self.rightFrame.winfo_height() * .028
-        blank3 = Frame(self.rightFrame, height=h).grid(row=1, column=0, columnspan=5) # before name id
-        blank4 = Frame(self.rightFrame, height=h).grid(row=3, column=0, columnspan=5) # before seasons
-        blank5 = Frame(self.rightFrame, height=h).grid(row=5, column=0, columnspan=5) # before major minor
-        blank6 = Frame(self.rightFrame, height=h).grid(row=7, column=0, columnspan=5) # before cred frame
-        blank7 = Frame(self.rightFrame, height=h).grid(row=9, column=0, columnspan=5) # before enrollment date
-        blank8 = Frame(self.rightFrame, height=h).grid(row=11, column=0, columnspan=5) # before table
-        blank9 = Frame(self.rightFrame, height=h).grid(row=14, column=0, columnspan=5)  # before memo
-
+        pad = 12 # pady value for most frames below
 
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.grid(row=0, column=2, columnspan=3, pady=8)
+        ProgPlanTitle.grid(row=0, column=1, columnspan=3, pady=pad)
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame)
-        nameFrame.grid(row=2, column=1, columnspan=2)
+        nameFrame.grid(row=2, column=1, columnspan=2, pady=pad)
 
         nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
@@ -199,7 +185,7 @@ class View:
 
         # ============================ student id ============================
         idFrame = Frame(self.rightFrame)
-        idFrame.grid(row=2, column=3, columnspan=2)
+        idFrame.grid(row=2, column=3, columnspan=2, pady=pad)
 
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
@@ -210,14 +196,15 @@ class View:
         # ============================ season ============================
         self.seasonVar = StringVar()
 
-        seasonFrame = Frame(self.rightFrame, )
+        seasonFrame = Frame(self.rightFrame)
+        seasonFrame.grid(row=4, column=1, columnspan=4, pady=pad)
+
         seasonLabel = Label(seasonFrame, text='Registering for:')
         fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', variable=self.seasonVar, value='Fall')
         summerRadioBtn = ttk.Radiobutton(seasonFrame, text='Summer', variable=self.seasonVar, value='Summer')
         springRadioBtn = ttk.Radiobutton(seasonFrame, text='Spring', variable=self.seasonVar, value='Spring')
         winterRadioBtn = ttk.Radiobutton(seasonFrame, text='Winter', variable=self.seasonVar, value='Winter')
 
-        seasonFrame.grid(row=4, column=1, columnspan=4)
         seasonLabel.grid(row=0, column=0, padx=10)
         fallRadioBtn.grid(row=0, column=1, padx=10)
         winterRadioBtn.grid(row=0, column=2, padx=10)
@@ -226,8 +213,28 @@ class View:
 
         # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
-        careerFrame.grid(row=6, column=1, columnspan=4)
+        careerFrame.grid(row=6, column=1, columnspan=4, pady=pad)
 
+        depLabel = Label(careerFrame, text="Department")
+        majorLabel = Label(careerFrame, text="Major")
+        minorLabel = Label(careerFrame, text="Minor")
+
+        depLabel.grid(row=0, column=0)
+        majorLabel.grid(row=0, column=2)
+        minorLabel.grid(row=0, column=3)
+
+        comboboxWidth = 10
+        self.depCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
+        self.majorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
+        self.minorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
+
+        self.depCbox.grid(row=1, column=0)
+        self.majorCbox.grid(row=1, column=2)
+        self.minorCbox.grid(row=1, column=3)
+
+        filler = Label(careerFrame).grid(column=1, row=0, rowspan=2, padx=18)
+
+        ''''
         majorLabel = Label(careerFrame, text='Major(s): ')
         majorLabel.grid(row=0, column=0)
 
@@ -236,8 +243,6 @@ class View:
         majorMenu = ttk.OptionMenu(careerFrame, self.majorVar, *self.majorsList)
         majorMenu.grid(row=0, column=1)
 
-        mblank = Frame(careerFrame, width=75).grid(row=0, column=2)
-
         self.minorVar = StringVar()
         self.minorVar.set(self.minorsList[0])
         minorMenu = ttk.OptionMenu(careerFrame, self.minorVar, *self.minorsList)
@@ -245,10 +250,11 @@ class View:
 
         minorLabel = Label(careerFrame, text='Minor(s): ')
         minorLabel.grid(row=0, column=3)
+        '''
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame, )
-        credFrame.grid(row=8, column=1, columnspan=4)
+        credFrame.grid(row=8, column=1, columnspan=4, pady=pad)
 
         credLabel1 = Label(credFrame, text='Earned:')
         self.earnCredEntry = ttk.Entry(credFrame, width=3, justify=CENTER, state=DISABLED)
@@ -271,7 +277,7 @@ class View:
 
         # ====================== Enrollment Date ========================
         enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.grid(row=10, column=2, columnspan=2)
+        enrlDateFrame.grid(row=10, column=2, columnspan=2, pady=pad)
 
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
@@ -281,7 +287,7 @@ class View:
 
         # ============================ Course table ============================
         courseTableFrame = Frame(self.rightFrame)
-        courseTableFrame.grid(row=12, column=1, columnspan=4)
+        courseTableFrame.grid(row=12, column=1, columnspan=4, pady=pad)
 
         self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview") # TIP: height is number of rows
         self.courseTree.pack()
@@ -301,7 +307,7 @@ class View:
 
         # ===================== backup course ===================
         backupCourseFrame = Frame(self.rightFrame)
-        backupCourseFrame.grid(row=13, column=1, columnspan=4)
+        backupCourseFrame.grid(row=14, column=1, columnspan=4, pady=pad)
 
         backuplabel = Label(backupCourseFrame, text="Back-up Courses").pack(anchor=CENTER)
 
@@ -323,7 +329,7 @@ class View:
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.grid(row=15, column=2, columnspan=2)
+        memoFrame.grid(row=16, column=2, columnspan=2, pady=pad)
 
         self.memoEntry = Text(memoFrame, width=50, height=5)
         self.memoEntry.pack()
@@ -331,23 +337,23 @@ class View:
         # ===================== add remove course ==================
         coursebuttonFrame = Frame(self.rightFrame)
         # courseLabelFrame.grid(row=17, column=1, columnspan=3)
-        coursebuttonFrame.grid(row=12, column=5, padx=20)
+        coursebuttonFrame.grid(row=13, column=2, columnspan=2)
 
         addcoursebutton = ttk.Button(coursebuttonFrame, text="Add", command=self.planningWorksheet_addCourseButton)
-        addcoursebutton.pack(side=TOP)
+        addcoursebutton.pack(side=LEFT)
 
         rmcoursebutton = ttk.Button(coursebuttonFrame, text="Remove", command=self.planningWorksheet_delCourseButton)
-        rmcoursebutton.pack(side=BOTTOM)
+        rmcoursebutton.pack(side=RIGHT)
 
         # backup course
         bcoursebuttonFrame = Frame(self.rightFrame)
-        bcoursebuttonFrame.grid(row=13, column=5, padx=20)
+        bcoursebuttonFrame.grid(row=15, column=2, columnspan=2)
 
         addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add", command=self.planningWorksheet_addBackupCourseButton)
-        addbackupbutton.pack(side=TOP)
+        addbackupbutton.pack(side=LEFT)
 
         rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.planningWorksheet_delBackupCourseButton)
-        rmbackupbutton.pack(side=TOP)
+        rmbackupbutton.pack(side=RIGHT)
 
     def planningWorksheet_addCourseButton(self):
         t = Toplevel(self.mainwin)
@@ -391,10 +397,6 @@ class View:
         entry.pack(side=LEFT)
 
         entry.bind('<KeyRelease>', courseSearch) # for auto search
-
-        # sbutton =Button(f1, text="Search")
-        # sbutton.pack(side=LEFT)
-        # sbutton['command'] = lambda: addCourseB2(entry.get())
 
         rf = Frame(t)   # result frame
         rf.pack(anchor=CENTER)
@@ -713,11 +715,11 @@ class View:
 
     def showFourYearPlan(self):
         self.courseTakenListFrame.place_forget()
-        self.leftFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        self.leftFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
 
     def showCourseTakenList(self):
         self.leftFrame.place_forget()
-        self.courseTakenListFrame.place(relwidth=0.48, relheight=0.91, relx=0.01, rely=0.02)
+        self.courseTakenListFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
 
     # data base menu dropdown
     def DataBaseMenu(self, DB):
