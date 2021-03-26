@@ -83,6 +83,7 @@ class Model:
         cred = 0
         courses = []
         backup = []
+        taken = []
         for c in obj['taking_course']:
             courseID = c['subject'] + " " + c['catalog']
             courses.append((courseID, c['title'], c['cred'], c['genED']))
@@ -92,58 +93,53 @@ class Model:
             courseID = c['subject']+ " " +c['catalog']
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
+        for c in obj['course_taken']:
+            courseID = c['subject'] + " " + c['catlog']
+            taken.append((courseID, c['title'], c['cred'], c['genED']))
+
+        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken)
+        #pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
+
+    def getFourYear(self, major):
         courseList = []  # course list
         fourList = []  # four year plan list (return value)
         sem = "1"  # Keeps track of which semester in database
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
 
-        for i in obj['four_year']:
+        myCol = db.get_collection('FourYear')
+        i = myCol.find_one({'major': major})
 
-            # Gets total number of semesters through error handling
-            for j in range(15):  # Max of 15 possible semesters taken
-                stri = "semester_"  # Append which semester to string
-                stri = stri + sem
-                try:  # Error checks is semester is out of range
-                    (i[stri])  # Sets the total to the currently viewed semester
-                    total = int(sem)
-                except KeyError as b:
-                    total = total  # Last none KeyError semester is stored
-                sem = str(int(sem) + 1)
-            # print(total)
+        # Gets total number of semesters through error handling
+        for j in range(15):  # Max of 15 possible semesters taken
+            stri = "semester_"  # Append which semester to string
+            stri = stri + sem
+            try:  # Error checks is semester is out of range
+                (i[stri])  # Sets the total to the currently viewed semester
+                total = int(sem)
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
+        # print(total)
 
-            for k in range(total):  # Iterates through each semester from previously calculated value
-                stri = "semester_"  # Appends which semester to a string
-                stri = stri + str(k + 1)
-                # Gets total number of courses through error handling
-                courseList = []
-                for l in range(8):  # Max of 8 possible courses taken during any given semester
+        for k in range(total):  # Iterates through each semester from previously calculated value
+            stri = "semester_"  # Appends which semester to a string
+            stri = stri + str(k + 1)
+            # Gets total number of courses through error handling
+            courseList = []
+            for l in range(8):  # Max of 8 possible courses taken during any given semester
 
-                    try:  # Checks for Array index error
-                        (obj['four_year'][0][stri][l])
-                        ctotal = l + 1  # Sets total number of courses to currently viewed course
-                        resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
-                                i[stri][l]['credits']]  # Creates a string value of each objects within array
-                        courseList.append(resl)  # Appends that string to a course list
-                    except IndexError as c:
-                        ctotal = ctotal  # Last none index error course number is stored
-                #print(ctotal)
-                fourList.append(courseList)  # Appends the course list to the four year plan list
-
-            # First array initializer corresponds to which semester you are viewing course for
-            # Ex.  fourList[0][1]  =  The first semester and the second course the took that semester
-
-            # All below represnt the second array initializer which corresponds to individual information for a course
-            # [0] = The first value indicates which semester the course is for
-            # [1] = The subject of the course
-            # [2] = The catalog of the course
-            # [3] = The title of the course
-            # [4] = The number of credits for the course
-
-            # [0, 'ENGL', '103', 'Composition and Research', '4']    Example output for fourList[0][2]
-
-        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=fourList)
-        #pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
+                try:  # Checks for Array index error
+                    (i[stri][l])
+                    ctotal = l + 1  # Sets total number of courses to currently viewed course
+                    resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
+                            i[stri][l]['credits']]  # Creates a string value of each objects within array
+                    courseList.append(resl)  # Appends that string to a course list
+                except IndexError as c:
+                    ctotal = ctotal  # Last none index error course number is stored
+            # print(ctotal)
+            fourList.append(courseList)
+        return fourList
 
     def getFourYearLayout(sname, sid):
         myCol = db.get_collection('FourYear')
