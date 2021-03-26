@@ -36,19 +36,17 @@ class Model:
     def getMajorsbySchool(self, schools):
         majList = []
         myCol = db.get_collection("Department")
-        for j in range(len(schools)):
-            obj = myCol.find({"$and": [{"School": schools[j], "Plan Type": "Major"}]})
-            for i in obj:
-                majList.append([i['Acad Plan'], i["School"]])
+        obj = myCol.find({"$and": [{"School": schools, "Plan Type": "Major"}]})
+        for i in obj:
+            majList.append(i['Acad Plan'])
         return majList
 
     def getMinorsbySchool(self, schools):
         minList = []
         myCol = db.get_collection("Department")
-        for j in range(len(schools)):
-            obj = myCol.find({"$and": [{"School": schools[j], "Plan Type": "Minor"}]})
-            for i in obj:
-                minList.append([i['Acad Plan'], i["School"]])
+        obj = myCol.find({"$and": [{"School": schools, "Plan Type": "Minor"}]})
+        for i in obj:
+            minList.append(i['Acad Plan'])
         return minList
 
     # Get a course by searching for subject and catalog
