@@ -14,16 +14,20 @@ def donothing():
 
 
 class View:
-    def __init__(self, master, majorL, minorL, subjectL):
+    def __init__(self, master, depL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
         self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
         self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
-        self.majorsList = majorL
-        self.minorsList = minorL
+        self.depList = depL
         self.subjectsList = subjectL
+        self.majorList = []
+        self.minorList = []
+
+        # self.majorsList = majorL
+        # self.minorsList = minorL
 
         self.TVstyle = ttk.Style()
         self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 12))
@@ -224,33 +228,16 @@ class View:
         minorLabel.grid(row=0, column=3)
 
         comboboxWidth = 10
-        self.depCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
+        self.depCbox = ttk.Combobox(careerFrame, width=comboboxWidth, value=self.depList)
         self.majorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
         self.minorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
 
         self.depCbox.grid(row=1, column=0)
+        filler = Label(careerFrame).grid(column=1, row=0, rowspan=2, padx=18)
         self.majorCbox.grid(row=1, column=2)
         self.minorCbox.grid(row=1, column=3)
 
-        filler = Label(careerFrame).grid(column=1, row=0, rowspan=2, padx=18)
-
-        ''''
-        majorLabel = Label(careerFrame, text='Major(s): ')
-        majorLabel.grid(row=0, column=0)
-
-        self.majorVar = StringVar()
-        self.majorVar.set(self.majorsList[0])
-        majorMenu = ttk.OptionMenu(careerFrame, self.majorVar, *self.majorsList)
-        majorMenu.grid(row=0, column=1)
-
-        self.minorVar = StringVar()
-        self.minorVar.set(self.minorsList[0])
-        minorMenu = ttk.OptionMenu(careerFrame, self.minorVar, *self.minorsList)
-        minorMenu.grid(row=0, column=4)
-
-        minorLabel = Label(careerFrame, text='Minor(s): ')
-        minorLabel.grid(row=0, column=3)
-        '''
+        self.depCbox.bind("<<ComboboxSelected>>", self.getMajorMinor)
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame, )
@@ -354,6 +341,11 @@ class View:
 
         rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.planningWorksheet_delBackupCourseButton)
         rmbackupbutton.pack(side=RIGHT)
+
+    def getMajorMinor(self, e):
+        pub.sendMessage("request_major_minor", dep=self.depCbox.get() )
+        self.majorCbox['value'] = self.majorList
+        self.minorCbox['value'] = self.minorList
 
     def planningWorksheet_addCourseButton(self):
         t = Toplevel(self.mainwin)

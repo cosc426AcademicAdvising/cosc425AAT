@@ -8,7 +8,7 @@ from pubsub import pub
 class Controller:
     def __init__(self, master):
         self.model = Model()
-        self.view = View(master, self.model.listAllMajors(), self.model.listAllMinors(), self.model.getSubjects())
+        self.view = View(master, self.model.getSchools(), self.model.getSubjects())
 
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 
@@ -20,6 +20,9 @@ class Controller:
         # for populating Four Year Plan
         # pub.subscribe(self.fourYearPlan_open, "request_FYP")
         pub.subscribe(self.view.fourYearPlan_fill, "PPW_information")
+
+        # for specific mojor and minor under a department
+        pub.subscribe(self.setMajorMinor, "request_major_minor")
 
     def newSchedule(self):
         self.schedule = Toplevel()
@@ -38,6 +41,10 @@ class Controller:
 
     def addCourse(self, sub, cat):
         self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat))
+
+    def setMajorMinor(self, dep):
+        self.view.majorList = list( self.model.getMajorsbySchool(dep) )
+        self.view.minorList = list( self.model.getMinorsbySchool(dep) )
 
 if __name__=="__main__":
     root = Tk()
