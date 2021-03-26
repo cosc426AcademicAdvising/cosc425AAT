@@ -119,7 +119,7 @@ class View:
         self.policyMemoEntry.pack()
 
         # ============================ Semester Tables ============================
-        self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=2000)
+        self.semesterFrame = Frame(self.innerLeftFrame, width=900, height=1375)
         self.semesterFrame.pack(expand=1)
 
         self.yearCounter=1
@@ -560,7 +560,6 @@ class View:
 
         for sem in self.fourYearCourses:
             for course in sem:
-                        print(course)
                         self.semTable[index].insert(parent='', index='end', iid=self.semTableTree_counter,
                                              values=(course[1] + " " + course[2], course[3], course[4]))
                         self.semTableTree_counter += 1
@@ -756,7 +755,7 @@ class View:
                 self.semTable[endOfArray].pack(expand=1)
                 self.semTable[endOfArray].place(x=455, y=self.yPos)
                 self.semLabel[endOfSemLabel].place(x=455, y=self.yPos - 25)
-                self.yPos += 220
+                self.yPos += 190
             self.semesterCounter += 1
 
 
