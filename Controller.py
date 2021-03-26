@@ -18,8 +18,8 @@ class Controller:
         pub.subscribe(self.addCourse, "request_course#")
 
         # for populating Four Year Plan
-        pub.subscribe(self.fourYearPlan_open, "request_FYP")
-        pub.subscribe(self.view.fourYearPlan_fill, "FYP_information")
+        # pub.subscribe(self.fourYearPlan_open, "request_FYP")
+        pub.subscribe(self.view.fourYearPlan_fill, "PPW_information")
 
     def newSchedule(self):
         self.schedule = Toplevel()

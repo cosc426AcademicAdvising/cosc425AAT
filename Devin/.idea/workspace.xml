@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="GUI layout changes">
+      <change beforePath="$PROJECT_DIR$/../Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_17_21,_3_05_AM_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_17_21__3_05_AM__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Controller.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CS4YrPlan.png" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.Controller">
@@ -345,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616534841015</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Horizontal Scrollbar">
+      <created>1616542231783</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1616542231783</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -383,6 +394,7 @@
     <MESSAGE value="GUI layout changes and populating FYP" />
     <MESSAGE value="GUI layout changes" />
     <MESSAGE value="Partial Implementaion for poulating FYP" />
-    <option name="LAST_COMMIT_MESSAGE" value="Partial Implementaion for poulating FYP" />
+    <MESSAGE value="Horizontal Scrollbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Horizontal Scrollbar" />
   </component>
 </project>
