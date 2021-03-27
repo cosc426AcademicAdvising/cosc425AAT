@@ -39,7 +39,7 @@ class View:
         self.addCourseSearchResult = []
         self.resultVar = StringVar() # for add course button
 
-        self.fourYearCourses = []
+        self.courseHist = []
 
         self.counter = 0
 
@@ -480,7 +480,7 @@ class View:
             self.backupCourseTree_counter -= 1
 
     def planningWorksheet_reset(self):
-        self.fourYearCourses.clear()
+        self.courseHist.clear()
         self.nameEntry.delete(0, END)
         self.idEntry.delete(0, END)
 
@@ -505,20 +505,14 @@ class View:
         # clear data in widgets
         self.planningWorksheet_reset()
 
-        self.fourYearCourses = courseHist
+        self.courseHist = courseHist
         self.nameEntry.insert(END, obj['name'])
         self.idEntry.insert(END, obj['s_id'])
         self.seasonVar.set(obj['registering_for'])
 
-        '''
-        for i in range( len(self.majorsList) ):
-            if obj['major'] == self.majorsList[i]:
-                self.majorVar.set(self.majorsList[i])
-
-        for i in range( len(self.minorsList) ):
-            if obj['minor'] == self.minorsList[i]:
-                self.minorVar.set(self.minorsList[i])
-        '''
+        self.depCbox.set(obj['dept'])
+        self.getMajorMinor(0)
+        #                                                                                                               todo
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.insert(END, obj['credits'])
@@ -552,12 +546,14 @@ class View:
         index = 0
         self.semTableTree_counter = 0
 
-        for sem in self.fourYearCourses:
+        ''''
+        for sem in self.courseHist:
             for course in sem:
                         self.semTable[index].insert(parent='', index='end', iid=self.semTableTree_counter,
                                              values=(course[1] + " " + course[2], course[3], course[4]))
                         self.semTableTree_counter += 1
             index += 1
+        '''
 
         # self.policyMemoEntry.delete('1.0', 'end')
         # self.policyMemoEntry.insert('1.0', courseHist[obj['policies']])
@@ -590,17 +586,18 @@ class View:
         self.courseTakenList_reset()
         self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
 
-        for sem in self.fourYearCourses:
-            print(sem)
-                #for id in self.courseTakenListTree.get_children():
-                    #if course[1] == self.courseTakenListTree.item(id)['text']:
-                        #name = str(course[1] + " " + course[2] + " "*5 + course[3])
-                        #self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
-                        #self.courseTakenList_counter += 1
+        for course in self.courseHist:
+            # print(course)
+            for id in self.courseTakenListTree.get_children():
+                # print(self.courseTakenListTree.item(id)['text'])
+                if course[0] == self.courseTakenListTree.item(id)['text']:  # comparing subjects
+                    name = str(course[0] + " " + course[1] + " "*5 + course[2])
+                    self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
+                    self.courseTakenList_counter += 1
 
-        #for id in self.courseTakenListTree.get_children():
-            #if not self.courseTakenListTree.get_children(id):
-                #self.courseTakenListTree.delete(id)
+        for id in self.courseTakenListTree.get_children():
+            if not self.courseTakenListTree.get_children(id):
+                self.courseTakenListTree.delete(id)
 
     def menuBar(self):
         menu = Menu(self.mainwin, tearoff=0)
@@ -687,7 +684,22 @@ class View:
         print("Open schedule")
 
     def saveSchedule(self):
-        print("Saved schedule")
+        courses, bcourses = [], []
+        for id in self.courseTree.get_children():
+            courses.append(self.courseTree.item(id)['values'])
+        for id in self.backupCourseTree.get_children():
+            bcourses.append(self.backupCourseTree.item(id)['values'])
+
+        pydict = {
+            "name": self.nameEntry.get(),
+            "s_id": self.idEntry.get(),
+            "dept": self.depCbox.get(),
+            "major": self.majorCbox.get(),
+            "minor": self.minorCbox.get(),
+            "taking_course": courses,
+            "backup_course": bcourses
+        }
+        pub.sendMessage("save_schedule", obj=pydict)
 
     def saveAsSchedule(self):
         print("Save schedule as..")

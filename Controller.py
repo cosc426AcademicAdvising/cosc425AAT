@@ -4,7 +4,6 @@ from tkinter import *
 # from tkinter import ttk
 from pubsub import pub
 
-
 class Controller:
     def __init__(self, master):
         self.model = Model()
@@ -23,6 +22,9 @@ class Controller:
 
         # for specific mojor and minor under a department
         pub.subscribe(self.setMajorMinor, "request_major_minor")
+
+        # for saving info from program planning sheet
+        pub.subscribe(self.saveSchedule, "save_schedule")
 
     def newSchedule(self):
         self.schedule = Toplevel()
@@ -45,6 +47,9 @@ class Controller:
     def setMajorMinor(self, dep):
         self.view.majorList = list( self.model.getMajorsbySchool(dep) )
         self.view.minorList = list( self.model.getMinorsbySchool(dep) )
+
+    def saveSchedule(self, obj):
+        print("From controller: ", obj)
 
 if __name__=="__main__":
     root = Tk()
