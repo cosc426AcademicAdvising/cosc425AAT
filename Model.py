@@ -92,8 +92,7 @@ class Model:
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
         for c in obj['course_taken']:
-            courseID = c['subject'] + " " + c['catalog']
-            taken.append((courseID, c['title'], c['cred'], c['genED']))
+            taken.append((c['subject'], c['catalog'], c['title'], c['cred'], c['genED']))
 
         pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken)
         #pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
