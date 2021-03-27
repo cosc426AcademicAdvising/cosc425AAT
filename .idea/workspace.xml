@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="rezized layout and positioned combobox for careerFrame.">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="department, major and minor combobox functional">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -294,7 +294,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616739114328</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="department, major and minor combobox functional">
+      <created>1616788919657</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1616788919657</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -322,7 +329,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed course entry table and revised code" />
     <MESSAGE value="revised code" />
     <MESSAGE value="memo box" />
     <MESSAGE value="changed bd functions and backup course table" />
@@ -347,6 +353,7 @@
     <MESSAGE value="renamed/moved functions, renamed some variables, fix enrollCred traceback call error" />
     <MESSAGE value="course taken list hidden when no information is provided" />
     <MESSAGE value="rezized layout and positioned combobox for careerFrame." />
-    <option name="LAST_COMMIT_MESSAGE" value="rezized layout and positioned combobox for careerFrame." />
+    <MESSAGE value="department, major and minor combobox functional" />
+    <option name="LAST_COMMIT_MESSAGE" value="department, major and minor combobox functional" />
   </component>
 </project>

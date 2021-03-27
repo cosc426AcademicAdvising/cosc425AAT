@@ -591,16 +591,16 @@ class View:
         self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
 
         for sem in self.fourYearCourses:
-            for course in sem:
-                for id in self.courseTakenListTree.get_children():
-                    if course[1] == self.courseTakenListTree.item(id)['text']:
-                        name = str(course[1] + " " + course[2] + " "*5 + course[3])
-                        self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
-                        self.courseTakenList_counter += 1
+            print(sem)
+                #for id in self.courseTakenListTree.get_children():
+                    #if course[1] == self.courseTakenListTree.item(id)['text']:
+                        #name = str(course[1] + " " + course[2] + " "*5 + course[3])
+                        #self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
+                        #self.courseTakenList_counter += 1
 
-        for id in self.courseTakenListTree.get_children():
-            if not self.courseTakenListTree.get_children(id):
-                self.courseTakenListTree.delete(id)
+        #for id in self.courseTakenListTree.get_children():
+            #if not self.courseTakenListTree.get_children(id):
+                #self.courseTakenListTree.delete(id)
 
     def menuBar(self):
         menu = Menu(self.mainwin, tearoff=0)

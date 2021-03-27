@@ -18,8 +18,6 @@ class Model:
             majors.append(i['Acad Plan'])
         return majors
 
-
-
     def listAllMinors(self):
         myCol = db.get_collection('Department')
         obj = myCol.find({'Plan Type': 'Minor'})
@@ -94,7 +92,7 @@ class Model:
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
         for c in obj['course_taken']:
-            courseID = c['subject'] + " " + c['catlog']
+            courseID = c['subject'] + " " + c['catalog']
             taken.append((courseID, c['title'], c['cred'], c['genED']))
 
         pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken)
