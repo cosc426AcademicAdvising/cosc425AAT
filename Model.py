@@ -94,7 +94,9 @@ class Model:
         for c in obj['course_taken']:
             taken.append((c['subject'], c['catalog'], c['title'], c['cred'], c['genED']))
 
-        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken)
+        fourList = self.getFourYear(obj['major'])
+
+        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken, fourYear=fourList)
         #pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
     def updateStudent(self, obj):
@@ -183,6 +185,8 @@ class Model:
         myCol = db.get_collection('FourYear')
         i = myCol.find_one({'major': major})
 
+        fourList.append(i['policies'])
+
         # Gets total number of semesters through error handling
         for j in range(15):  # Max of 15 possible semesters taken
             stri = "semester_"  # Append which semester to string
@@ -212,56 +216,6 @@ class Model:
                     ctotal = ctotal  # Last none index error course number is stored
             # print(ctotal)
             fourList.append(courseList)
-        return fourList
-
-    def getFourYearLayout(sname, sid):
-        myCol = db.get_collection('FourYear')
-        crsList = []
-        obj = myCol.distinct('four_year.semester', {'id': sid})
-        for i in obj:
-            crsList.append(i)
-        print(crsList)
-
-        fourList = []
-        # For loop to iterate through all entries within the distinct list for comparison
-        # Length of course list is number of distinct semesters for a certain student
-        for x in range(len(crsList)):
-            # aggregate pipeline
-            pipe = myCol.aggregate([
-                {
-                    # unwind array for individual comparisons
-                    '$unwind': '$four_year'
-                },
-                {
-                    # match the semester with the distinct semester list
-                    '$match': {'four_year.semester': crsList[x],
-                               'id': sid,
-                               'name': sname}
-                },
-                {
-                    # group all values to a new object and get a count for total number of courses within
-                    '$group': {'_id': '$four_year.semester',
-                               'sub': {'$push': '$four_year.subject'},
-                               'cat': {'$push': '$four_year.catalog'},
-                               'tit': {'$push': '$four_year.title'},
-                               'crd': {'$push': '$four_year.cred'},
-                               # Number of courses within the semester
-                               'count': {'$sum': 1}
-                               }
-                },
-
-            ])
-            # Outputs all objects returned by pipeline aggregate and appends them to a list
-            # Through a double for loop iterating through the object and number of courses
-            for i in pipe:
-                val = i['count']
-                for j in range(val):
-                    str = [i['_id'], i['sub'][j], i['cat'][j], i['tit'][j], i['crd'][j]]
-                    fourList.append(str)
-
-        #How to access the elements within the list
-        # 0 - Semester  1 - Subject  2 - Catalog  3 - Title  4 - Credits
-
         return fourList
 
     def openJson(self):
