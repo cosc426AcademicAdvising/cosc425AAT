@@ -49,7 +49,7 @@ class Controller:
         self.view.minorList = list( self.model.getMinorsbySchool(dep) )
 
     def saveSchedule(self, obj):
-        print("From controller: ", obj)
+        self.model.updateStudent(obj)
 
 if __name__=="__main__":
     root = Tk()
