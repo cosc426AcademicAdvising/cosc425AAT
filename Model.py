@@ -73,15 +73,15 @@ class Model:
 
     def getStudent(self, sname, sid):
         myCol = db.get_collection('Student')
-        obj2 = myCol.aggregate([{u"$project": {u"count": {u"$size": u"$course_taken"}}}])
-        for i in obj2:
-            cnt = int(i['count'])
+        #obj2 = myCol.aggregate([{u"$project": {u"count": {u"$size": u"$course_taken"}}}])
+        #for i in obj2:
+        #    cnt = int(i['count'])
         obj = myCol.find_one({'$and': [{'name': str(sname)}, {'s_id': int(sid)}]})
-        numbCourses = cnt
+        numbCourses = 0
         cred = 0
         courses = []
         backup = []
-        taken = []
+        fourList = []
         for c in obj['taking_course']:
             courseID = c['subject'] + " " + c['catalog']
             courses.append((courseID, c['title'], c['cred'], c['genED']))
@@ -91,12 +91,48 @@ class Model:
             courseID = c['subject']+ " " +c['catalog']
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
-        for c in obj['course_taken']:
-            taken.append((c['subject'], c['catalog'], c['title'], c['cred'], c['genED'], c['grade']))
+        courseHist = []  # four year plan list (return value)
+        sem = "1"  # Keeps track of which semester in database
+        total = 0  # Total number of semesters
+        ctotal = 0  # Total number of courses in a semester
+
+        myCol = db.get_collection('Student')
+
+        # Gets total number of semesters through error handling
+        for j in range(15):  # Max of 15 possible semesters taken
+            stri = "semester_"  # Append which semester to string
+            stri = stri + sem
+            try:  # Error checks is semester is out of range
+                (obj['course_taken'][0][stri])  # Sets the total to the currently viewed semester
+                total = int(sem)
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
+        # print(total)
+
+        for k in range(total):  # Iterates through each semester from previously calculated value
+            stri = "semester_"  # Appends which semester to a string
+            stri = stri + str(k + 1)
+            # Gets total number of courses through error handling
+            courseList = []
+            for l in range(8):  # Max of 8 possible courses taken during any given semester
+
+                try:  # Checks for Array index error
+                    (obj['course_taken'][0][stri][l])
+                    ctotal = l + 1  # Sets total number of courses to currently viewed course
+                    resl = [k, obj['course_taken'][0][stri][l]['subject'], obj['course_taken'][0][stri][l]['catalog'],
+                            obj['course_taken'][0][stri][l]['title'],
+                            obj['course_taken'][0][stri][l]['credits'], obj['course_taken'][0][stri][l]['grade']]  # Creates a string value of each objects within array
+                    courseList.append(resl)  # Appends that string to a course list
+                    numbCourses = numbCourses + 1
+                except IndexError as d:
+                    ctotal = ctotal  # Last none index error course number is stored
+            # print(ctotal)
+            courseHist.append(courseList)
 
         fourList = self.getFourYear(obj['major'])
 
-        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken, fourYear=fourList, policies=self.getPolicies(obj['major']))
+        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=courseHist, fourYear=fourList, policies=self.getPolicies(obj['major']))
 
     def updateStudent(self, obj):
         myCol = db.get_collection('Student')
