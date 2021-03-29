@@ -44,9 +44,9 @@ class Controller:
     def addCourse(self, sub, cat):
         self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat))
 
-    def setMajorMinor(self, dep):
-        self.view.majorList = list( self.model.getMajorsbySchool(dep) )
-        self.view.minorList = list( self.model.getMinorsbySchool(dep) )
+    def setMajorMinor(self, sch):
+        self.view.majorList = list( self.model.getMajorsbySchool(sch) )
+        self.view.minorList = list( self.model.getMinorsbySchool(sch) )
 
     def saveSchedule(self, obj):
         self.model.updateStudent(obj)

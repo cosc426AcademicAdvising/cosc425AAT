@@ -14,14 +14,14 @@ def donothing():
 
 
 class View:
-    def __init__(self, master, depL, subjectL):
+    def __init__(self, master, schL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
         self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
         self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
-        self.depList = depL
+        self.schList = schL
         self.subjectsList = subjectL
         self.majorList = []
         self.minorList = []
@@ -219,25 +219,25 @@ class View:
         careerFrame = Frame(self.rightFrame)
         careerFrame.grid(row=6, column=1, columnspan=4, pady=pad)
 
-        depLabel = Label(careerFrame, text="Department")
+        schLabel = Label(careerFrame, text="School")
         majorLabel = Label(careerFrame, text="Major")
         minorLabel = Label(careerFrame, text="Minor")
 
-        depLabel.grid(row=0, column=0)
+        schLabel.grid(row=0, column=0)
         majorLabel.grid(row=0, column=2)
         minorLabel.grid(row=0, column=3)
 
         comboboxWidth = 10
-        self.depCbox = ttk.Combobox(careerFrame, width=comboboxWidth, value=self.depList)
+        self.schCbox = ttk.Combobox(careerFrame, width=comboboxWidth, value=self.schList)
         self.majorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
         self.minorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
 
-        self.depCbox.grid(row=1, column=0)
+        self.schCbox.grid(row=1, column=0)
         filler = Label(careerFrame).grid(column=1, row=0, rowspan=2, padx=18)
         self.majorCbox.grid(row=1, column=2)
         self.minorCbox.grid(row=1, column=3)
 
-        self.depCbox.bind("<<ComboboxSelected>>", self.getMajorMinor)
+        self.schCbox.bind("<<ComboboxSelected>>", self.getMajorMinor)
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame, )
@@ -343,7 +343,7 @@ class View:
         rmbackupbutton.pack(side=RIGHT)
 
     def getMajorMinor(self, e):
-        pub.sendMessage("request_major_minor", dep=self.depCbox.get() )
+        pub.sendMessage("request_major_minor", sch=self.schCbox.get() )
         self.majorCbox['value'] = self.majorList
         self.minorCbox['value'] = self.minorList
 
@@ -510,9 +510,12 @@ class View:
         self.idEntry.insert(END, obj['s_id'])
         self.seasonVar.set(obj['registering_for'])
 
-        self.depCbox.set(obj['dept'])
-        self.getMajorMinor(0)
-        #                                                                                                               todo
+        self.schCbox.set(obj['dept'])
+        self.getMajorMinor(0) # zero is just for filler since the function is called with binding
+
+        self.majorCbox.set(obj['major'])
+        print(obj['major'])
+        self.majorCbox.set(obj['minor'])
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.insert(END, obj['credits'])
@@ -562,8 +565,9 @@ class View:
 
         self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38, style="mystyle.Treeview")
         # self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
-
+        self.courseTakenListTree['columns'] = ("grade")
         self.courseTakenListTree.column("#0")
+        self.courseTakenListTree.column("grade")
 
         for subj in self.subjectsList:
             self.courseTakenListTree.insert(parent='', index='end', iid=self.courseTakenList_counter, text=str(subj))
@@ -589,7 +593,7 @@ class View:
                 # print(self.courseTakenListTree.item(id)['text'])
                 if course[0] == self.courseTakenListTree.item(id)['text']:  # comparing subjects
                     name = str(course[0] + " " + course[1] + " "*5 + course[2])
-                    self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name)
+                    self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name, values=(course[5]))
                     self.courseTakenList_counter += 1
 
         for id in self.courseTakenListTree.get_children():
@@ -690,7 +694,7 @@ class View:
         pydict = {
             "name": self.nameEntry.get(),
             "s_id": self.idEntry.get(),
-            "dept": self.depCbox.get(),
+            "dept": self.schCbox.get(),
             "major": self.majorCbox.get(),
             "minor": self.minorCbox.get(),
             "taking_course": courses,
