@@ -92,7 +92,7 @@ class Model:
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
         for c in obj['course_taken']:
-            taken.append((c['subject'], c['catalog'], c['title'], c['cred'], c['genED']))
+            taken.append((c['subject'], c['catalog'], c['title'], c['cred'], c['genED'], c['grade']))
 
         fourList = self.getFourYear(obj['major'])
 
