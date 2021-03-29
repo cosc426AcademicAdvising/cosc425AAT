@@ -96,8 +96,7 @@ class Model:
 
         fourList = self.getFourYear(obj['major'])
 
-        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken, fourYear=fourList)
-        #pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
+        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, bcourses=backup, courseHist=taken, fourYear=fourList, policies=self.getPolicies(obj['major']))
 
     def updateStudent(self, obj):
         myCol = db.get_collection('Student')
@@ -175,6 +174,11 @@ class Model:
                                  'backup_course': {'subject': 'null'}
                              }})
 
+    def getPolicies(self, major):
+        myCol = db.get_collection('FourYear')
+        i = myCol.find_one({'major': major})
+        return i['policies']
+
     def getFourYear(self, major):
         courseList = []  # course list
         fourList = []  # four year plan list (return value)
@@ -185,7 +189,7 @@ class Model:
         myCol = db.get_collection('FourYear')
         i = myCol.find_one({'major': major})
 
-        fourList.append(i['policies'])
+        #fourList.append(i['policies'])
 
         # Gets total number of semesters through error handling
         for j in range(15):  # Max of 15 possible semesters taken

@@ -501,7 +501,7 @@ class View:
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
 
-    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist, fourYear):  # (py dict, total cred, 2d course array, course size) fyp - four year plan
+    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist, fourYear, policies):  # (py dict, total cred, 2d course array, course size) fyp - four year plan
         # clear data in widgets
         self.planningWorksheet_reset()
 
@@ -533,7 +533,7 @@ class View:
 
         self.courseTakenList_fill()
 
-    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist, fourYear):
+    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist, fourYear, policies):
         self.semTableTree_counter = 0
 
         # delete what was previously there then insert
@@ -546,18 +546,15 @@ class View:
         index = 0
         self.semTableTree_counter = 0
 
-        ''''
-        for sem in self.courseHist:
+        for sem in fourYear:
             for course in sem:
                         self.semTable[index].insert(parent='', index='end', iid=self.semTableTree_counter,
                                              values=(course[1] + " " + course[2], course[3], course[4]))
                         self.semTableTree_counter += 1
             index += 1
-        '''
 
-        # self.policyMemoEntry.delete('1.0', 'end')
-        # self.policyMemoEntry.insert('1.0', courseHist[obj['policies']])
-        # print(courseHist[0])
+        self.policyMemoEntry.delete('1.0', 'end')
+        self.policyMemoEntry.insert('1.0', policies)
 
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
