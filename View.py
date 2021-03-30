@@ -514,7 +514,7 @@ class View:
         self.getMajorMinor(0) # zero is just for filler since the function is called with binding
 
         self.majorCbox.set(obj['major'])
-        self.majorCbox.set(obj['minor'])
+        self.minorCbox.set(obj['minor'])
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.insert(END, obj['credits'])
