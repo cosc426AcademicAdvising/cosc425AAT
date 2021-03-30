@@ -514,7 +514,6 @@ class View:
         self.getMajorMinor(0) # zero is just for filler since the function is called with binding
 
         self.majorCbox.set(obj['major'])
-        print(obj['major'])
         self.majorCbox.set(obj['minor'])
 
         self.earnCredEntry['state'] = NORMAL
@@ -587,14 +586,13 @@ class View:
         self.courseTakenList_reset()
         self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
 
-        for course in self.courseHist:
-            # print(course)
-            for id in self.courseTakenListTree.get_children():
-                # print(self.courseTakenListTree.item(id)['text'])
-                if course[0] == self.courseTakenListTree.item(id)['text']:  # comparing subjects
-                    name = str(course[0] + " " + course[1] + " "*5 + course[2])
-                    self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name, values=(course[5]))
-                    self.courseTakenList_counter += 1
+        for sem in self.courseHist:
+            for course in sem:
+                for id in self.courseTakenListTree.get_children():
+                    if course[1] == self.courseTakenListTree.item(id)['text']:  # comparing subjects
+                        name = str(course[1] + " " + course[2] + " "*5 + course[3])
+                        self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name, values=(course[5]))
+                        self.courseTakenList_counter += 1
 
         for id in self.courseTakenListTree.get_children():
             if not self.courseTakenListTree.get_children(id):
@@ -622,17 +620,10 @@ class View:
 
     # schedule menu dropdown
     def scheduleMenu(self, schedule):
-        schedule.add_command(label='New...', command=self.newSchedule)
+        schedule.add_command(label='New', command=self.newSchedule)
         schedule.add_command(label='Open...', command=self.openSchedule)
-
-        recent = Menu(schedule)
-        schedule.add_cascade(label="Open recent...", menu=recent)
-        recent.add_separator()
-        recent.add_command(label='Clear', command=self.openRecentSchedule)
-
         schedule.add_separator()
         schedule.add_command(label='Save', command=self.saveSchedule)
-        schedule.add_command(label="Save as...", command=self.saveAsSchedule)
         schedule.add_separator()
         schedule.add_command(label='Export', command=self.exportSchedule)
         schedule.add_command(label='Print', command=self.printSchedule)
@@ -681,9 +672,6 @@ class View:
         searchB = Button(butFrame, text='Search', command=openScheduleSearchButton)
         searchB.pack()
 
-    def openRecentSchedule(self):
-        print("Open schedule")
-
     def saveSchedule(self):
         courses, bcourses = [], []
         for id in self.courseTree.get_children():
@@ -701,9 +689,6 @@ class View:
             "backup_course": bcourses
         }
         pub.sendMessage("save_schedule", obj=pydict)
-
-    def saveAsSchedule(self):
-        print("Save schedule as..")
 
     def exportSchedule(self):
         print("Export schedule")

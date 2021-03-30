@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="fixed course taken list and save menu button now bundles data to be sent to model class">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="changed department label to school, added grade column to course taken list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -315,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616884691789</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="changed department label to school, added grade column to course taken list">
+      <created>1617052596841</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1617052596841</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -343,7 +349,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed bd functions and backup course table" />
     <MESSAGE value="used grid to do layout, radiobutton work and new schedule clear entries" />
     <MESSAGE value="fixed window size" />
     <MESSAGE value="optimal spacing between widgets in rightFrame" />
@@ -368,14 +373,15 @@
     <MESSAGE value="department, major and minor combobox functional" />
     <MESSAGE value="reworking on course taken list due to db changes" />
     <MESSAGE value="fixed course taken list and save menu button now bundles data to be sent to model class" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed course taken list and save menu button now bundles data to be sent to model class" />
+    <MESSAGE value="changed department label to school, added grade column to course taken list" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed department label to school, added grade column to course taken list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/View.py</url>
-          <line>514</line>
+          <line>515</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
