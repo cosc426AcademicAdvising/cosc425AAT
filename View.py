@@ -558,6 +558,21 @@ class View:
         self.policyMemoEntry.delete('1.0', 'end')
         self.policyMemoEntry.insert('1.0', policies)
 
+    def FYP_reset(self):
+        self.courseHist.clear()
+        self.name2Entry.delete(0, END)
+        self.id2Entry.delete(0, END)
+
+        self.policyMemoEntry.delete('1.0', 'end')
+        index = 0
+        length = len(self.semTable)
+
+        while(index < len(self.semTable)):
+            for course in self.semTable[index].get_children():
+                self.semTable[index].delete(course)
+                self.semTableTree_counter += 1
+            index += 1
+
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
@@ -630,6 +645,7 @@ class View:
 
     def newSchedule(self):
         self.planningWorksheet_reset()
+        self.FYP_reset()
         self.courseTakenList_reset()
 
     def openSchedule(self):
