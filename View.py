@@ -715,7 +715,7 @@ class View:
     def DataBaseMenu(self, DB):
         DB.add_command(label='Current Semester Course')
         DB.add_separator()
-        DB.add_command(label='Add/Remove a Department')
+        DB.add_command(label='Add/Remove a School')
         DB.add_command(label='Add/remove a Major')
         DB.add_command(label='Add/Remove a minor')
 
