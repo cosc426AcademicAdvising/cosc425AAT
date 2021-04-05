@@ -634,7 +634,7 @@ class View:
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
 
-    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist, fourYear, policies):  # (py dict, total cred, 2d course array, course size) fyp - four year plan
+    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):  # (py dict, total cred, 2d course array, course size) fyp - four year plan
         # clear data in widgets
         self.planningWorksheet_reset()
 
@@ -671,7 +671,7 @@ class View:
 
         self.courseTakenList_fill()
 
-    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, bcourses, courseHist, fourYear, policies):
+    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):
         self.semTableTree_counter = 0
 
         # delete what was previously there then insert

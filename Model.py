@@ -113,6 +113,8 @@ class Model:
         cred = 0
         courses = []
         backup = []
+        majList = []
+        minList = []
         for c in obj['taking_course']:
             courseID = c['subject'] + " " + c['catalog']
             courses.append((courseID, c['title'], c['cred'], c['genED']))
@@ -122,44 +124,60 @@ class Model:
             courseID = c['subject'] + " " + c['catalog']
             backup.append((courseID, c['title'], c['cred'], c['genED']))
 
+        for c in (obj['major']):
+            majList.append(c['title'])
+
+        for c in (obj['minor']):
+            minList.append(c['title'])
+
         courseList = []  # course list
         fourList = []  # four year plan list (return value)
         sem = "1"  # Keeps track of which semester in database
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
 
-        for i in obj['four_year']:
+        courseHist = []  # four year plan list (return value)
+        sem = "1"  # Keeps track of which semester in database
+        total = 0  # Total number of semesters
+        ctotal = 0  # Total number of courses in a semester
 
-            # Gets total number of semesters through error handling
-            for j in range(15):  # Max of 15 possible semesters taken
-                stri = "semester_"  # Append which semester to string
-                stri = stri + sem
-                try:  # Error checks is semester is out of range
-                    (i[stri])  # Sets the total to the currently viewed semester
-                    total = int(sem)
-                except KeyError as b:
-                    total = total  # Last none KeyError semester is stored
-                sem = str(int(sem) + 1)
-            # print(total)
 
-            for k in range(total):  # Iterates through each semester from previously calculated value
-                stri = "semester_"  # Appends which semester to a string
-                stri = stri + str(k + 1)
-                # Gets total number of courses through error handling
-                courseList = []
-                for l in range(8):  # Max of 8 possible courses taken during any given semester
+        # Gets total number of semesters through error handling
+        for j in range(15):  # Max of 15 possible semesters taken
+            stri = "semester_"  # Append which semester to string
+            stri = stri + sem
+            try:  # Error checks is semester is out of range
+                (obj['course_taken'][0][stri])  # Sets the total to the currently viewed semester
+                total = int(sem)
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
+        # print(total)
 
-                    try:  # Checks for Array index error
-                        (obj['four_year'][0][stri][l])
-                        ctotal = l + 1  # Sets total number of courses to currently viewed course
-                        resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
-                                i[stri][l]['credits']]  # Creates a string value of each objects within array
-                        courseList.append(resl)  # Appends that string to a course list
-                    except IndexError as c:
-                        ctotal = ctotal  # Last none index error course number is stored
-                # print(ctotal)
-                fourList.append(courseList)  # Appends the course list to the four year plan list
+        for k in range(total):  # Iterates through each semester from previously calculated value
+            stri = "semester_"  # Appends which semester to a string
+            stri = stri + str(k + 1)
+            # Gets total number of courses through error handling
+            courseList = []
+            for l in range(8):  # Max of 8 possible courses taken during any given semester
 
+                try:  # Checks for Array index error
+                    (obj['course_taken'][0][stri][l])
+                    ctotal = l + 1  # Sets total number of courses to currently viewed course
+                    resl = [k, obj['course_taken'][0][stri][l]['subject'], obj['course_taken'][0][stri][l]['catalog'],
+                            obj['course_taken'][0][stri][l]['title'],
+                            obj['course_taken'][0][stri][l]['credits'], obj['course_taken'][0][stri][l][
+                                'grade']]  # Creates a string value of each objects within array
+                    courseList.append(resl)  # Appends that string to a course list
+                    numbCourses = numbCourses + 1
+                except IndexError as d:
+                    ctotal = ctotal  # Last none index error course number is stored
+            # print(ctotal)
+            courseHist.append(courseList)
+        policies = []
+        for i in range(len(obj['major'])):
+            fourList.append(self.getFourYear(majList[i]))
+            policies.append(self.getPolicies(majList[i]))
             # First array initializer corresponds to which semester you are viewing course for
             # Ex.  fourList[0][1]  =  The first semester and the second course the took that semester
 
@@ -172,9 +190,14 @@ class Model:
 
             # [0, 'ENGL', '103', 'Composition and Research', '4']    Example output for fourList[0][2]
 
-        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses,
-                        bcourses=backup, courseHist=fourList)
+        pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, major=majList, minor=minList,
+                        bcourses=backup, courseHist=courseHist, fourYear=fourList, policies=policies)
         # pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
+
+    def getPolicies(self, major):
+        myCol = db.get_collection('FourYear')
+        i = myCol.find_one({'major': major})
+        return i['policies']
 
     def delStud(self, id):
         stud = db["Student"]
@@ -213,54 +236,47 @@ class Model:
         else:
             return str(info.deleted_count) + " entries deleted"
 
-    def getFourYearLayout(sname, sid):
+    def getFourYear(self, major):
+        courseList = []  # course list
+        fourList = []  # four year plan list (return value)
+        sem = "1"  # Keeps track of which semester in database
+        total = 0  # Total number of semesters
+        ctotal = 0  # Total number of courses in a semester
+
         myCol = db.get_collection('FourYear')
-        crsList = []
-        obj = myCol.distinct('four_year.semester', {'id': sid})
-        for i in obj:
-            crsList.append(i)
-        print(crsList)
+        i = myCol.find_one({'major': major})
 
-        fourList = []
-        # For loop to iterate through all entries within the distinct list for comparison
-        # Length of course list is number of distinct semesters for a certain student
-        for x in range(len(crsList)):
-            # aggregate pipeline
-            pipe = myCol.aggregate([
-                {
-                    # unwind array for individual comparisons
-                    '$unwind': '$four_year'
-                },
-                {
-                    # match the semester with the distinct semester list
-                    '$match': {'four_year.semester': crsList[x],
-                               'id': sid,
-                               'name': sname}
-                },
-                {
-                    # group all values to a new object and get a count for total number of courses within
-                    '$group': {'_id': '$four_year.semester',
-                               'sub': {'$push': '$four_year.subject'},
-                               'cat': {'$push': '$four_year.catalog'},
-                               'tit': {'$push': '$four_year.title'},
-                               'crd': {'$push': '$four_year.cred'},
-                               # Number of courses within the semester
-                               'count': {'$sum': 1}
-                               }
-                },
+        # fourList.append(i['policies'])
 
-            ])
-            # Outputs all objects returned by pipeline aggregate and appends them to a list
-            # Through a double for loop iterating through the object and number of courses
-            for i in pipe:
-                val = i['count']
-                for j in range(val):
-                    str = [i['_id'], i['sub'][j], i['cat'][j], i['tit'][j], i['crd'][j]]
-                    fourList.append(str)
+        # Gets total number of semesters through error handling
+        for j in range(15):  # Max of 15 possible semesters taken
+            stri = "semester_"  # Append which semester to string
+            stri = stri + sem
+            try:  # Error checks is semester is out of range
+                (i[stri])  # Sets the total to the currently viewed semester
+                total = int(sem)
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
+        # print(total)
 
-        # How to access the elements within the list
-        # 0 - Semester  1 - Subject  2 - Catalog  3 - Title  4 - Credits
+        for k in range(total):  # Iterates through each semester from previously calculated value
+            stri = "semester_"  # Appends which semester to a string
+            stri = stri + str(k + 1)
+            # Gets total number of courses through error handling
+            courseList = []
+            for l in range(8):  # Max of 8 possible courses taken during any given semester
 
+                try:  # Checks for Array index error
+                    (i[stri][l])
+                    ctotal = l + 1  # Sets total number of courses to currently viewed course
+                    resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
+                            i[stri][l]['credits']]  # Creates a string value of each objects within array
+                    courseList.append(resl)  # Appends that string to a course list
+                except IndexError as c:
+                    ctotal = ctotal  # Last none index error course number is stored
+            # print(ctotal)
+            fourList.append(courseList)
         return fourList
 
     def openJson(self):
