@@ -14,14 +14,14 @@ def donothing():
 
 
 class View:
-    def __init__(self, master, majorL, minorL, subjectL):
+    def __init__(self, master, schL, majorL, minorL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
         self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
         self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
-        # self.schList = schL
+        self.schList = schL
         self.subjectsList = subjectL
         self.majorList = majorL
         self.minorList = minorL
@@ -393,89 +393,119 @@ class View:
         rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.planningWorksheet_delBackupCourseButton)
         rmbackupbutton.pack(side=RIGHT)
 
-    ''''
-    def getMajorMinor(self, e):
-        pub.sendMessage("request_major_minor", sch=self.schCbox.get() )
-        self.majorCbox['value'] = self.majorList
-        self.minorCbox['value'] = self.minorList
-    '''
-
     def editMajorMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Major & Minor")
-        t.geometry("425x250")
+        t.geometry("400x400")
         t.resizable(width=FALSE, height=FALSE)
         t.attributes('-topmost', 'true')
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-        selection_color = "red"
+        def majorSelection(e):
+            i = self.majorBox.curselection()
+            self.selected_major_Box.insert(END, self.majorBox.get(i))
 
-        def search(e, w):
-            if w == 'M':
-                word = search_major.get()
-                for i in range(0, len(self.majorList)):
-                    mj = self.majorList[i]
-                    self.majorBox.itemconfig(i, foreground="white")
-                    if word == "":
-                        self.majorBox.itemconfig(i, foreground="white")
-                    if word.lower() == mj[0:len(word)].lower():
-                        self.majorBox.see(i)
-                        self.majorBox.itemconfig(i, foreground=selection_color)
-            else:
-                word = search_minor.get()
-                for i in range(0, len(self.minorList)):
-                    mn = self.minorList[i]
-                    self.minorBox.itemconfig(i, foreground="white")
-                    if word == "":
-                        self.minorBox.itemconfig(i, foreground="white")
-                    if word.lower() == mn[0:len(word)].lower():
-                        self.minorBox.see(i)
-                        self.minorBox.itemconfig(i, foreground=selection_color)
+        def minorSelection(e):
+            i = self.minorBox.curselection()
+            self.selected_minor_Box.insert(END, self.minorBox.get(i))
 
-        majorframe = Frame(t)
-        majorframe.pack(side=LEFT, padx=10, fill=Y)
+        def removeMajor():
+            i = self.selected_major_Box.curselection()
+            self.selected_major_Box.delete(i)
 
-        minorframe = Frame(t)
-        minorframe.pack(side=RIGHT, padx=10, fill=Y)
+        def removeMinor():
+            i = self.selected_minor_Box.curselection()
+            self.selected_minor_Box.delete(i)
 
-        label1 = Label(majorframe, text="Search for Majors:").pack(side=TOP, pady=5)
-        search_major = ttk.Entry(majorframe, justify=CENTER)
-        search_major.pack(side=TOP)
-        search_major.bind('<KeyRelease>', lambda event, w='M': search(event, w))
+        def confirmSelection():
+            self.setMajor_treeview()
+            self.setMinor_treeview()
+            t.destroy()
 
-        label2 = Label(minorframe, text="Search for Minors:").pack(side=TOP, pady=5)
-        search_minor = ttk.Entry(minorframe, justify=CENTER)
-        search_minor.pack(side=TOP)
-        search_minor.bind('<KeyRelease>', lambda event, w='m':search(event, w))
+        mainframe = Frame(t)
+        mainframe.pack(fill=X, ipadx=1, padx=10)
 
-        majorVar = StringVar()
-        majorVar.set(self.majorList)
-        self.majorBox = Listbox(majorframe, selectmode=MULTIPLE, justify=CENTER, listvariable=majorVar, exportselection=False)
+        majorframe = Frame(mainframe)
+        majorframe.pack(side=LEFT)
+
+        minorframe = Frame(mainframe)
+        minorframe.pack(side=RIGHT)
+
+        self.schCbox1 = ttk.Combobox(majorframe, value=self.schList, exportselection=0, width=18)
+        self.schCbox1.pack(side=TOP)
+        self.schCbox1.bind("<<ComboboxSelected>>", self.getMajorBySchool)
+
+        self.schCbox2 = ttk.Combobox(minorframe, value=self.schList, exportselection=0, width=18)
+        self.schCbox2.pack(side=TOP)
+        self.schCbox2.bind("<<ComboboxSelected>>", self.getMinorBySchool)
+
+        self.majorVar = StringVar()
+        #self.majorVar.set(self.majorList)
+        self.majorBox = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.majorVar, exportselection=False)
         # exportselection allows us to work on other listbox while not calling this binding
         self.majorBox.pack(side=TOP)
-        self.majorBox.bind('<<ListboxSelect>>', lambda event:self.setMajor_treeview(event))
+        #self.majorBox.bind('<<ListboxSelect>>', lambda event:self.setMajor_treeview(event))
+        self.majorBox.bind('<<ListboxSelect>>', majorSelection)
 
-        minorVar = StringVar()
-        minorVar.set(self.minorList)
-        self.minorBox = Listbox(minorframe, selectmode=MULTIPLE, justify=CENTER, listvariable=minorVar, exportselection=False)
+        self.minorVar = StringVar()
+        #self.minorVar.set(self.minorList)
+        self.minorBox = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.minorVar, exportselection=False)
         self.minorBox.pack(side=TOP)
-        self.minorBox.bind('<<ListboxSelect>>', lambda event: self.setMinor_treeview(event))
+        #self.minorBox.bind('<<ListboxSelect>>', lambda event: self.setMinor_treeview(event))
+        self.minorBox.bind('<<ListboxSelect>>', minorSelection)
 
-    def setMajor_treeview(self, e):
+        label3 = Label(majorframe, text="Major(s) Selected:")
+        label3.pack(side=TOP)
+        label4 = Label(minorframe, text="Minor(s) Selected:")
+        label4.pack(side=TOP)
+
+        self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False, height=5)
+        self.selected_major_Box.pack(side=TOP)
+
+        self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False, height=5)
+        self.selected_minor_Box.pack(side=TOP)
+
+        # for if major minor treeview were already filled
+        for id in self.majorTree.get_children():
+            major = self.majorTree.item(id)['text']
+            self.selected_major_Box.insert(END, major)
+
+        for id in self.minorTree.get_children():
+            minor = self.minorTree.item(id)['text']
+            self.selected_minor_Box.insert(END, minor)
+
+        majorRemove = ttk.Button(majorframe, text="Remove", command=removeMajor)
+        majorRemove.pack(side=TOP)
+        minorRemove = ttk.Button(minorframe, text="Remove", command=removeMinor)
+        minorRemove.pack(side=TOP)
+
+        comfirm = ttk.Button(t, text="Confirm", command=confirmSelection)
+        comfirm.pack(side=BOTTOM, pady=10)
+
+    def getMajorBySchool(self, e):
+        pub.sendMessage("request_major", sch=self.schCbox1.get() )
+
+    def getMinorBySchool(self, e):
+        pub.sendMessage("request_minor", sch=self.schCbox2.get() )
+
+    def setMajor_treeview(self):
         # clear tree view
         for id in self.majorTree.get_children():
             self.majorTree.delete(id)
-        # fill in selections from listbox
-        for i in self.majorBox.curselection():
-            word = self.majorList[i]
+
+        self.selected_major_Box.select_set(0,END)
+        for i in self.selected_major_Box.curselection():
+            word = self.selected_major_Box.get(i)
             self.majorTree.insert(parent='', index='end', iid=i, text=str(word))
 
-    def setMinor_treeview(self, e):
+    def setMinor_treeview(self):
         for id in self.minorTree.get_children():
             self.minorTree.delete(id)
-        for i in self.minorBox.curselection():
-            word = self.minorList[i]
+
+        self.selected_minor_Box.select_set(0, END)
+        for i in self.selected_minor_Box.curselection():
+            word = self.selected_minor_Box.get(i)
             self.minorTree.insert(parent='', index='end', iid=i, text=str(word))
 
     def planningWorksheet_addCourseButton(self):
@@ -617,6 +647,12 @@ class View:
         self.nameEntry.delete(0, END)
         self.idEntry.delete(0, END)
 
+        for id in self.majorTree.get_children():
+            self.majorTree.delete(id)
+
+        for id in self.minorTree.get_children():
+            self.minorTree.delete(id)
+
         self.enrollCredVar.set(0)
 
         self.earnCredEntry['state'] = NORMAL
@@ -643,14 +679,14 @@ class View:
         self.idEntry.insert(END, obj['s_id'])
         self.seasonVar.set(obj['registering_for'])
 
-        # self.schCbox.set(obj['dept'])                                                     #TODO fill major & minor treeview
-        # self.getMajorMinor(0) # zero is just for filler since the function is called with binding
-
-        # self.majorCbox.set(obj['major'])
-        # self.minorCbox.set(obj['minor'])
-
-        #print(obj['major'])
-        #print(obj['minor'])
+        index=0
+        for m in major:
+            self.majorTree.insert(parent='', index='end', iid=index, text=m)
+            index = index + 1
+        index = 0
+        for m in minor:
+            self.minorTree.insert(parent='', index='end', iid=index, text=m)
+            index = index + 1
 
         self.earnCredEntry['state'] = NORMAL
         self.earnCredEntry.insert(END, obj['credits'])
@@ -826,10 +862,10 @@ class View:
 
     def saveSchedule(self):
         majors, minors =  [], []
-        for i in self.majorBox.curselection():
-            majors.append(self.majorList[i])
-        for i in self.minorBox.curselection():
-            minors.append(self.minorList[i])                                            # TODO: when minor list is empty
+        for id in self.majorTree.get_children():
+            majors.append( self.majorTree.item(id)['text'] )
+        for id in self.minorTree.get_children():
+            minors.append( self.minorTree.item(id)['text'] )
 
         courses, bcourses = [], []
         for id in self.courseTree.get_children():
@@ -840,9 +876,9 @@ class View:
         pydict = {
             "name": self.nameEntry.get(),
             "s_id": self.idEntry.get(),
-            #"dept": self.schCbox.get(),
-            #"major": self.majorCbox.get(),
-            #"minor": self.minorCbox.get(),
+            #"dept": ,
+            "major": majors,
+            "minor": minors,
             "taking_course": courses,
             "backup_course": bcourses
         }

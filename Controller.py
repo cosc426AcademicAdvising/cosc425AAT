@@ -7,7 +7,7 @@ from pubsub import pub
 class Controller:
     def __init__(self, master):
         self.model = Model()
-        self.view = View(master, self.model.listAllMajors(), self.model.listAllMinors(), self.model.getSubjects())
+        self.view = View(master, self.model.getSchools(), self.model.listAllMajors(), self.model.listAllMinors(), self.model.getSubjects())
 
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 
@@ -20,8 +20,9 @@ class Controller:
         # pub.subscribe(self.fourYearPlan_open, "request_FYP")
         pub.subscribe(self.view.fourYearPlan_fill, "PPW_information")
 
-        # for specific mojor and minor under a department
-        pub.subscribe(self.setMajorMinor, "request_major_minor")
+        # for specific mojor and minor under a school
+        pub.subscribe(self.setMajor, "request_major")
+        pub.subscribe(self.setMinor, "request_minor" )
 
         # for saving info from program planning sheet
         pub.subscribe(self.saveSchedule, "save_schedule")
@@ -44,9 +45,11 @@ class Controller:
     def addCourse(self, sub, cat):
         self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat))
 
-    def setMajorMinor(self, sch):
-        self.view.majorList = list( self.model.getMajorsbySchool(sch) )
-        self.view.minorList = list( self.model.getMinorsbySchool(sch) )
+    def setMajor(self, sch):
+        self.view.majorVar.set( self.model.getMajorsbySchool(sch) )
+
+    def setMinor(self, sch):
+        self.view.minorVar.set( self.model.getMinorsbySchool(sch) )
 
     def saveSchedule(self, obj):
         self.model.updateStudent(obj)
