@@ -706,8 +706,6 @@ class View:
         self.courseTakenList_fill()
 
     def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):
-        self.semTableTree_counter = 0
-
         # delete what was previously there then insert
         self.name2Entry.delete(0, END)
         self.name2Entry.insert(END, obj['name'])
@@ -715,9 +713,16 @@ class View:
         self.id2Entry.delete(0, END)
         self.id2Entry.insert(END, obj['s_id'])
 
+        self.semTableTree_counter = 0
+        semIndex = 0
+        for sem in self.courseHist:
+            for course in sem:
+                        self.progTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
+                                                        values=(course[1] + " " + course[2], course[3], course[4]))
+                        self.semTableTree_counter += 1
+            semIndex += 1
 
         majorIndex = 0
-
         for majors in fourYear:
             self.semTableTree_counter = 0
             semIndex = 0
@@ -730,6 +735,7 @@ class View:
 
                         self.semTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
                                                      values=(course[1] + " " + course[2], course[3], course[4]))
+
                         self.semTableTree_counter += 1
 
                         self.policyMemoEntry.delete('1.0', 'end')
@@ -764,8 +770,6 @@ class View:
                             extraTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
                                                         values=(course[1] + " " + course[2], course[3], course[4]))
                             self.semTableTree_counter += 1
-                        #self.policyMemoEntry.delete('1.0', 'end')
-                        #self.policyMemoEntry.insert('1.0', policies[0])
                 semIndex += 1
             majorIndex += 1
 
