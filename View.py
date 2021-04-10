@@ -759,7 +759,6 @@ class View:
                                                       self.createTable("Year: " + str(yearCount), 15, yPos, extraTable,
                                                                        extraLabel,
                                                                        self.newFrame, semesterCounter))
-
                                 else:
                                     extraTable.insert(i, self.createTable(" ", 455, yPos, extraTable, extraLabel,
                                                                           self.newFrame, semesterCounter))
