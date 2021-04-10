@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="update">
+    <list default="true" id="e4a11c53-bf25-477a-90c6-44eb0e7c1d45" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/cosc425AAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cosc425AAT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="1oMl1pYJEeOWR5zT3h9IUIku2Zh" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="1qxToUnpmOByaPoIO8hFxSIT3VI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,28 +25,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="recentsLimit" value="1" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings module-name="cosc425AAT" is-module-sdk="true">
-        <option name="myUseModuleSdk" value="true" />
-        <option name="myModuleName" value="cosc425AAT" />
-      </console-settings>
-    </option>
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/Florent/gui tests" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Florent/Devin" />
-    </key>
-  </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Controller">
     <configuration name="Controller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cosc425AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,312 +49,43 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="req" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cosc425AAT" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/req.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.Controller" />
+        <item itemvalue="Python.req" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="" />
-      <created>1613104128996</created>
+      <changelist id="e4a11c53-bf25-477a-90c6-44eb0e7c1d45" name="Default Changelist" comment="" />
+      <created>1618020415969</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1613104128996</updated>
+      <updated>1618020415969</updated>
     </task>
-    <task id="LOCAL-00001" summary="removed bg colors">
-      <created>1613405387072</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1613405387072</updated>
-    </task>
-    <task id="LOCAL-00002" summary="reworked layout, menu for 'open recent'. TODO: MVC and file browser">
-      <created>1613428018531</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1613428018531</updated>
-    </task>
-    <task id="LOCAL-00003" summary="...">
-      <created>1613882825650</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1613882825650</updated>
-    </task>
-    <task id="LOCAL-00004" summary="fixed course entry table and revised code">
-      <created>1614370949770</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1614370949770</updated>
-    </task>
-    <task id="LOCAL-00005" summary="revised code">
-      <created>1614371298603</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1614371298603</updated>
-    </task>
-    <task id="LOCAL-00006" summary="memo box">
-      <created>1614441228793</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1614441228793</updated>
-    </task>
-    <task id="LOCAL-00007" summary="changed bd functions and backup course table">
-      <created>1614633906576</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1614633906576</updated>
-    </task>
-    <task id="LOCAL-00008" summary="used grid to do layout, radiobutton work and new schedule clear entries">
-      <created>1614978323011</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1614978323011</updated>
-    </task>
-    <task id="LOCAL-00009" summary="fixed window size">
-      <created>1615225111763</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1615225111763</updated>
-    </task>
-    <task id="LOCAL-00010" summary="optimal spacing between widgets in rightFrame">
-      <created>1615225374129</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1615225374129</updated>
-    </task>
-    <task id="LOCAL-00011" summary="open schedule popup window">
-      <created>1615242799581</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1615242799581</updated>
-    </task>
-    <task id="LOCAL-00012" summary="open json from database">
-      <created>1615243532562</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1615243532562</updated>
-    </task>
-    <task id="LOCAL-00013" summary="implemented Treeview to replace entries tables">
-      <created>1615419276149</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1615419276149</updated>
-    </task>
-    <task id="LOCAL-00014" summary="fixed Treeview sizing issue">
-      <created>1615419986911</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1615419986911</updated>
-    </task>
-    <task id="LOCAL-00015" summary="cleanned up code">
-      <created>1615420992949</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1615420992949</updated>
-    </task>
-    <task id="LOCAL-00016" summary="{schedule -&gt; open} revised">
-      <created>1615423673359</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1615423673359</updated>
-    </task>
-    <task id="LOCAL-00017" summary="implemented add/remove buttons for course table">
-      <created>1615958438819</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1615958438819</updated>
-    </task>
-    <task id="LOCAL-00018" summary="changed table columns name">
-      <created>1616014769159</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1616014769159</updated>
-    </task>
-    <task id="LOCAL-00019" summary="implemented auto search for add button">
-      <created>1616021239883</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1616021239883</updated>
-    </task>
-    <task id="LOCAL-00020" summary="implemented auto search for add button for backup courses">
-      <created>1616165818974</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1616165818974</updated>
-    </task>
-    <task id="LOCAL-00021" summary="can hide/show 4 year plan frame and course taken list frame">
-      <created>1616168724605</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1616168724605</updated>
-    </task>
-    <task id="LOCAL-00022" summary="started working on course taken list ideal format">
-      <created>1616185431592</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1616185431592</updated>
-    </task>
-    <task id="LOCAL-00023" summary="minor setup">
-      <created>1616253030819</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1616253030820</updated>
-    </task>
-    <task id="LOCAL-00024" summary="course taken list implemented, need to filter out subjects not used">
-      <created>1616279871036</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1616279871036</updated>
-    </task>
-    <task id="LOCAL-00025" summary="course taken list finalized">
-      <created>1616297158162</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1616297158162</updated>
-    </task>
-    <task id="LOCAL-00026" summary="renamed/moved functions, renamed some variables, fix enrollCred traceback call error">
-      <created>1616428624225</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1616428624225</updated>
-    </task>
-    <task id="LOCAL-00027" summary="course taken list hidden when no information is provided">
-      <created>1616448124850</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1616448124850</updated>
-    </task>
-    <task id="LOCAL-00028" summary="rezized layout and positioned combobox for careerFrame.">
-      <created>1616739114328</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1616739114328</updated>
-    </task>
-    <task id="LOCAL-00029" summary="department, major and minor combobox functional">
-      <created>1616788919657</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1616788919657</updated>
-    </task>
-    <task id="LOCAL-00030" summary="reworking on course taken list due to db changes">
-      <created>1616880762938</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1616880762938</updated>
-    </task>
-    <task id="LOCAL-00031" summary="fixed course taken list and save menu button now bundles data to be sent to model class">
-      <created>1616884691789</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1616884691789</updated>
-    </task>
-    <task id="LOCAL-00032" summary="changed department label to school, added grade column to course taken list">
-      <created>1617052596841</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1617052596841</updated>
-    </task>
-    <task id="LOCAL-00033" summary="reworked coursetaken list and removed 'save as' &amp; 'open recent' file menubar option">
-      <created>1617070990309</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1617070990309</updated>
-    </task>
-    <task id="LOCAL-00034" summary="update">
-      <created>1617391691817</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1617391691818</updated>
-    </task>
-    <option name="localTasksCounter" value="35" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/main" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="optimal spacing between widgets in rightFrame" />
-    <MESSAGE value="open schedule popup window" />
-    <MESSAGE value="open json from database" />
-    <MESSAGE value="implemented Treeview to replace entries tables" />
-    <MESSAGE value="fixed Treeview sizing issue" />
-    <MESSAGE value="cleanned up code" />
-    <MESSAGE value="{schedule -&gt; open} revised" />
-    <MESSAGE value="implemented add/remove buttons for course table" />
-    <MESSAGE value="changed table columns name" />
-    <MESSAGE value="implemented auto search for add button" />
-    <MESSAGE value="implemented auto search for add button for backup courses" />
-    <MESSAGE value="can hide/show 4 year plan frame and course taken list frame" />
-    <MESSAGE value="started working on course taken list ideal format" />
-    <MESSAGE value="minor setup" />
-    <MESSAGE value="course taken list implemented, need to filter out subjects not used" />
-    <MESSAGE value="course taken list finalized" />
-    <MESSAGE value="renamed/moved functions, renamed some variables, fix enrollCred traceback call error" />
-    <MESSAGE value="course taken list hidden when no information is provided" />
-    <MESSAGE value="rezized layout and positioned combobox for careerFrame." />
-    <MESSAGE value="department, major and minor combobox functional" />
-    <MESSAGE value="reworking on course taken list due to db changes" />
-    <MESSAGE value="fixed course taken list and save menu button now bundles data to be sent to model class" />
-    <MESSAGE value="changed department label to school, added grade column to course taken list" />
-    <MESSAGE value="reworked coursetaken list and removed 'save as' &amp; 'open recent' file menubar option" />
-    <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>

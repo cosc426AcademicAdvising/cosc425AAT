@@ -2,6 +2,7 @@ from tkinter.filedialog import askopenfilename
 import json
 from pubsub import pub  # pip install PyPubSub
 import pymongo
+import requests
 from bson.regex import Regex
 
 client = pymongo.MongoClient(
@@ -14,48 +15,52 @@ class Model:
         return
 
     def listAllMajors(self):
-        myCol = db.get_collection('Department')
-        obj = myCol.find({'Plan Type': 'Major'})
-        majors = []
+        majList = []
+        response = requests.get("http://localhost:5001/Department/Major")
+        obj = response.json()
         for i in obj:
-            majors.append(i['Acad Plan'])
-        return majors
+            majList.append(i['Acad Plan'])
+        return majList
 
     def listAllMinors(self):
-        myCol = db.get_collection('Department')
-        obj = myCol.find({'Plan Type': 'Minor'})
-        minors = []
+        minList = []
+        response = requests.get("http://localhost:5001/Department/Minor")
+        obj = response.json()
         for i in obj:
-            minors.append(i['Acad Plan'])
-        return minors
+            minList.append(i['Acad Plan'])
+        return minList
 
     def getSchools(self):
-        myCol = db.get_collection("Department")
-        schools = myCol.distinct('School')
-        return schools
+        response = requests.get("http://localhost:5001/Department/School")
+        return response.json()
 
     def getMajorsbySchool(self, schools):
         majList = []
-        myCol = db.get_collection("Department")
-        obj = myCol.find({"$and": [{"School": schools, "Plan Type": "Major"}]})
+        url = "http://localhost:5001/Department/Major/"
+        url = url + schools
+        response = requests.get(url)
+        obj = response.json()
         for i in obj:
             majList.append(i['Acad Plan'])
         return majList
 
     def getMinorsbySchool(self, schools):
         minList = []
-        myCol = db.get_collection("Department")
-        obj = myCol.find({"$and": [{"School": schools, "Plan Type": "Minor"}]})
+        url = "http://localhost:5001/Department/Minor/"
+        url = url + schools
+        response = requests.get(url)
+        obj = response.json()
         for i in obj:
             minList.append(i['Acad Plan'])
         return minList
 
     # Get a course by searching for subject and catalog
     def getCoursebySubCat(self, sub, cat):
-        myCol = db.get_collection('Course')
-        spacer = " "
-        newCat = spacer + cat
-        obj = myCol.find_one({'$and': [{'Subject': sub}, {'Catalog': newCat}]})
+        url = "http://localhost:5003/Course/"
+        url = url + sub + "/"
+        url = url + cat
+        response = requests.get(url)
+        obj = response.json()
         courseInfo = []
         courseInfo.append(obj['Subject'])
         courseInfo.append(obj['Catalog'])
@@ -104,12 +109,11 @@ class Model:
                 json.dump(data, f, indent=4)
 
     def getStudent(self, sname, sid):
-        myCol = db.get_collection('Student')
-        obj2 = myCol.aggregate([{u"$project": {u"count": {u"$size": u"$course_taken"}}}])
-        for i in obj2:
-            cnt = int(i['count'])
-        obj = myCol.find_one({'$and': [{'name': str(sname)}, {'s_id': int(sid)}]})
-        numbCourses = cnt
+        url = "http://localhost:5000/Student/"
+        url = url + str(sid)
+        response = requests.get(url)
+        obj = response.json()
+        numbCourses = 0
         cred = 0
         courses = []
         backup = []
@@ -195,9 +199,10 @@ class Model:
         # pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
     def getPolicies(self, major):
-        myCol = db.get_collection('FourYear')
-        i = myCol.find_one({'major': major})
-        return i['policies']
+        url = "http://localhost:5002/FourYear/Policy/"
+        url = url + major
+        response = requests.get(url)
+        return response.json()
 
     def delStud(self, id):
         stud = db["Student"]
@@ -243,8 +248,10 @@ class Model:
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
 
-        myCol = db.get_collection('FourYear')
-        i = myCol.find_one({'major': major})
+        url = "http://localhost:5002/FourYear/"
+        url = url + major
+        response = requests.get(url)
+        i = response.json()
 
         # fourList.append(i['policies'])
 
