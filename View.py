@@ -746,7 +746,7 @@ class View:
                             semesterCounter = 0
                             yPos = 50
                             extraLabel = []
-                            extraTable = []
+                            self.extraTable = []
                             yearCount = 0
                             self.newFrame = Frame(self.tab_parent, width=900, height=1375)
                             self.newFrame.pack(expand=1, fill='both')
@@ -755,18 +755,18 @@ class View:
                             for i in range(8):
                                 if semesterCounter % 2 == 0:
                                     yearCount += 1
-                                    extraTable.insert(i,
-                                                      self.createTable("Year: " + str(yearCount), 15, yPos, extraTable,
+                                    self.extraTable.insert(i,
+                                                      self.createTable("Year: " + str(yearCount), 15, yPos, self.extraTable,
                                                                        extraLabel,
                                                                        self.newFrame, semesterCounter))
                                 else:
-                                    extraTable.insert(i, self.createTable(" ", 455, yPos, extraTable, extraLabel,
+                                    self.extraTable.insert(i, self.createTable(" ", 455, yPos, self.extraTable, extraLabel,
                                                                           self.newFrame, semesterCounter))
                                     yPos += 190
                                 semesterCounter += 1
                             creation = True
                         else:
-                            extraTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
+                            self.extraTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
                                                         values=(course[1] + " " + course[2], course[3], course[4]))
                             self.semTableTree_counter += 1
                 semIndex += 1
@@ -778,14 +778,31 @@ class View:
         self.id2Entry.delete(0, END)
 
         self.policyMemoEntry.delete('1.0', 'end')
-        index = 0
-        length = len(self.semTable)
 
+        index = 0
         while(index < len(self.semTable)):
             for course in self.semTable[index].get_children():
                 self.semTable[index].delete(course)
                 self.semTableTree_counter += 1
             index += 1
+        index = 0
+        self.semTableTree_counter = 0
+        while (index < len(self.progTable)):
+            for course in self.progTable[index].get_children():
+                self.progTable[index].delete(course)
+                self.semTableTree_counter += 1
+            index += 1
+        index = 0
+        self.semTableTree_counter = 0
+        while (index < len(self.extraTable)):
+            for course in self.extraTable[index].get_children():
+                self.extraTable[index].delete(course)
+                self.semTableTree_counter += 1
+            index += 1
+        self.semTableTree_counter = 0
+
+        self.tab_parent.tab(self.semesterFrame, text="Four Year Plan")
+        self.tab_parent.forget(self.newFrame)
 
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
