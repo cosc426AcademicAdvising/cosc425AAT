@@ -9,6 +9,8 @@ client = pymongo.MongoClient(
     "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client['COSC425AAT']
 
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDczNjY5YzRjMWVhZTU5MTBlMjI2YjUiLCJpYXQiOjE2MTgxNzgzMzZ9.GwkVHDBEBn8UUMVPE4Ns_YpSBGdrlLaObIBHAtPCqBc'
+
 
 class Model:
     def __init__(self):
@@ -16,7 +18,7 @@ class Model:
 
     def listAllMajors(self):
         majList = []
-        response = requests.get("http://localhost:5001/Department/Major")
+        response = requests.get("http://localhost:5000/api/Department/Major", headers={'auth-token': token})
         obj = response.json()
         for i in obj:
             majList.append(i['Acad Plan'])
@@ -24,21 +26,21 @@ class Model:
 
     def listAllMinors(self):
         minList = []
-        response = requests.get("http://localhost:5001/Department/Minor")
+        response = requests.get("http://localhost:5000/api/Department/Minor", headers={'auth-token': token})
         obj = response.json()
         for i in obj:
             minList.append(i['Acad Plan'])
         return minList
 
     def getSchools(self):
-        response = requests.get("http://localhost:5001/Department/School")
+        response = requests.get("http://localhost:5000/api/Department/school", headers={'auth-token': token})
         return response.json()
 
     def getMajorsbySchool(self, schools):
         majList = []
-        url = "http://localhost:5001/Department/Major/"
+        url = "http://localhost:5000/api/Department/Major/"
         url = url + schools
-        response = requests.get(url)
+        response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         for i in obj:
             majList.append(i['Acad Plan'])
@@ -46,9 +48,9 @@ class Model:
 
     def getMinorsbySchool(self, schools):
         minList = []
-        url = "http://localhost:5001/Department/Minor/"
+        url = "http://localhost:5000/api/Department/Minor/"
         url = url + schools
-        response = requests.get(url)
+        response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         for i in obj:
             minList.append(i['Acad Plan'])
@@ -56,10 +58,10 @@ class Model:
 
     # Get a course by searching for subject and catalog
     def getCoursebySubCat(self, sub, cat):
-        url = "http://localhost:5003/Course/"
+        url = "http://localhost:5000/api/Course/"
         url = url + sub + "/"
         url = url + cat
-        response = requests.get(url)
+        response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         courseInfo = []
         courseInfo.append(obj['Subject'])
@@ -109,9 +111,9 @@ class Model:
                 json.dump(data, f, indent=4)
 
     def getStudent(self, sname, sid):
-        url = "http://localhost:5000/Student/"
+        url = "http://localhost:5000/api/Student/"
         url = url + str(sid)
-        response = requests.get(url)
+        response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         numbCourses = 0
         cred = 0
@@ -199,9 +201,9 @@ class Model:
         # pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
     def getPolicies(self, major):
-        url = "http://localhost:5002/FourYear/Policy/"
+        url = "http://localhost:5000/api/FourYear/Policy/"
         url = url + major
-        response = requests.get(url)
+        response = requests.get(url, headers={'auth-token': token})
         return response.json()
 
     def delStud(self, id):
@@ -248,9 +250,9 @@ class Model:
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
 
-        url = "http://localhost:5002/FourYear/"
+        url = "http://localhost:5000/api/FourYear/"
         url = url + major
-        response = requests.get(url)
+        response = requests.get(url, headers={'auth-token': token})
         i = response.json()
 
         # fourList.append(i['policies'])
