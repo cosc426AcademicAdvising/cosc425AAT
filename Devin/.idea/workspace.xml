@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Filled policies portion of FYP">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21,_6_00_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21,_6_58_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21__6_00_PM__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21__6_58_PM__Default_Changelist_.xml" beforeDir="false" />
+    <list default="true" id="d3030d7f-4345-4108-a3de-06b66e2166e9" name="Default Changelist" comment="Filled Progress report for FYP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../View.py" beforeDir="false" afterPath="$PROJECT_DIR$/../View.py" afterDir="false" />
     </list>
@@ -378,7 +374,35 @@
       <option name="project" value="LOCAL" />
       <updated>1617219621930</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Implemented tabs(FYP and Progress Report)">
+      <created>1617572305699</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1617572305699</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Double major implementation for FYP tabs">
+      <created>1617932821432</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1617932821432</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Filled Progress report for FYP">
+      <created>1618094684172</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1618094684172</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Filled Progress report for FYP">
+      <created>1618094832634</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1618094832634</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -420,6 +444,9 @@
     <MESSAGE value="Finished populating Semesters" />
     <MESSAGE value="Filled policies portion of FYP" />
     <MESSAGE value="Implemented reset for FYP using &quot;new&quot; menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented reset for FYP using &quot;new&quot; menu" />
+    <MESSAGE value="Implemented tabs(FYP and Progress Report)" />
+    <MESSAGE value="Double major implementation for FYP tabs" />
+    <MESSAGE value="Filled Progress report for FYP" />
+    <option name="LAST_COMMIT_MESSAGE" value="Filled Progress report for FYP" />
   </component>
 </project>

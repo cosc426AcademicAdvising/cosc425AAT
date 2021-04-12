@@ -113,17 +113,15 @@ class View:
         self.policyMemoEntry.pack()
 
         # ============================ Four Year Tabs and Progress Report ============================
-        tabFrame = Frame(self.innerLeftFrame, width=900, height=40)
-        tabFrame.pack(expand=1, pady=5)
+        self.tabFrame = Frame(self.innerLeftFrame, width=900, height=40)
+        self.tabFrame.pack(expand=1, pady=5)
 
-        tab_parent = ttk.Notebook(self.innerLeftFrame)
-        tab1 = ttk.Frame(tab_parent)
-        self.tab2 = Frame(tab_parent, width=900, height=1375)
-        self.tab2.pack(expand=1, fill='both')
+        self.tab_parent = ttk.Notebook(self.innerLeftFrame)
+        self.progressRepo = Frame(self.tab_parent, width=900, height=1375)
+        self.progressRepo.pack(expand=1, fill='both')
 
 
-        tab_parent.pack(expand=1, fill='both', padx=25)
-        #tab_parent.place(x=20, y=370)
+        self.tab_parent.pack(expand=1, fill='both', padx=25)
 
         self.yearCounter2 = 1
         semesterCounter2 = 0
@@ -135,20 +133,20 @@ class View:
         for i in range(8):
             if semesterCounter2 % 2 == 0:
                 yearCount2 += 1
-                self.progTable.insert(i, self.createTable("Year:" + str(yearCount2), 15, yPos2, self.progTable, self.progLabel, self.tab2, semesterCounter2))
+                self.progTable.insert(i, self.createTable("Year: " + str(yearCount2), 15, yPos2, self.progTable, self.progLabel, self.progressRepo, semesterCounter2))
             else:
-                self.progTable.insert(i, self.createTable(" ", 455, yPos2, self.progTable, self.progLabel, self.tab2, semesterCounter2))
+                self.progTable.insert(i, self.createTable(" ", 455, yPos2, self.progTable, self.progLabel, self.progressRepo, semesterCounter2))
                 yPos2 += 190
             semesterCounter2 += 1
 
         # ============================ Semester Tables ============================
-        self.semesterFrame = Frame(tab_parent, width=900, height=1375)
+        self.semesterFrame = Frame(self.tab_parent, width=900, height=1375)
         self.semesterFrame.pack(expand=1, fill='both')
         #self.semesterFrame.place(x=50, y=500)
 
         # Adding to notebook for tab functionality
-        tab_parent.add(self.semesterFrame, text="Four Year Plan")
-        tab_parent.add(self.tab2, text="Progress Report")
+        self.tab_parent.add(self.progressRepo, text="Progress Report")
+        self.tab_parent.add(self.semesterFrame, text="Four Year Plan")
 
         self.yearCounter=1
         semesterCounter = 0
@@ -160,7 +158,7 @@ class View:
         for i in range(8):
             if semesterCounter % 2 == 0:
                 yearCount+=1
-                self.semTable.insert(i, self.createTable("Year:"+str(yearCount), 15, yPos, self.semTable, self.semLabel, self.semesterFrame, semesterCounter))
+                self.semTable.insert(i, self.createTable("Year: " + str(yearCount), 15, yPos, self.semTable, self.semLabel, self.semesterFrame, semesterCounter))
             else:
                 self.semTable.insert(i, self.createTable(" ", 455, yPos, self.semTable, self.semLabel, self.semesterFrame, semesterCounter))
                 yPos += 190
@@ -459,10 +457,10 @@ class View:
 
     # end goal: return array of major under specified school
     def getMajorBySchool(self, e):
-        pub.sendMessage("request_major", sch=self.schCbox1.get() )
+        pub.sendMessage("request_major", sch=self.schCbox1.get())
 
     def getMinorBySchool(self, e):
-        pub.sendMessage("request_minor", sch=self.schCbox2.get() )
+        pub.sendMessage("request_minor", sch=self.schCbox2.get())
 
     # fill major treeview from program planning worksheet
     def setMajor_treeview(self):
@@ -695,8 +693,6 @@ class View:
         self.courseTakenList_fill()
 
     def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):
-        self.semTableTree_counter = 0
-
         # delete what was previously there then insert
         self.name2Entry.delete(0, END)
         self.name2Entry.insert(END, obj['name'])
@@ -704,18 +700,64 @@ class View:
         self.id2Entry.delete(0, END)
         self.id2Entry.insert(END, obj['s_id'])
 
-        index = 0
         self.semTableTree_counter = 0
-
-        for sem in fourYear:
+        semIndex = 0
+        for sem in self.courseHist:
             for course in sem:
-                        self.semTable[index].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                             values=(course[1] + " " + course[2], course[3], course[4]))
+                        self.progTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
+                                                        values=(course[1] + " " + course[2], course[3], course[4]))
                         self.semTableTree_counter += 1
-            index += 1
+            semIndex += 1
 
-        self.policyMemoEntry.delete('1.0', 'end')
-        self.policyMemoEntry.insert('1.0', policies)
+        majorIndex = 0
+        for majors in fourYear:
+            self.semTableTree_counter = 0
+            semIndex = 0
+            tabTitle = major[majorIndex]
+            creation = False
+            for sem in majors:
+                for course in sem:
+                    if majorIndex == 0:
+                        self.tab_parent.tab(self.semesterFrame, text=tabTitle)
+
+                        self.semTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
+                                                     values=(course[1] + " " + course[2], course[3], course[4]))
+
+                        self.semTableTree_counter += 1
+
+                        self.policyMemoEntry.delete('1.0', 'end')
+                        self.policyMemoEntry.insert('1.0', policies[0])
+                    else:
+                        if creation==False:
+                            yearCounter = 1
+                            semesterCounter = 0
+                            yPos = 50
+                            extraLabel = []
+                            self.extraTable = []
+                            yearCount = 0
+                            self.newFrame = Frame(self.tab_parent, width=900, height=1375)
+                            self.newFrame.pack(expand=1, fill='both')
+                            self.tab_parent.add(self.newFrame, text=tabTitle)
+
+                            for i in range(8):
+                                if semesterCounter % 2 == 0:
+                                    yearCount += 1
+                                    self.extraTable.insert(i,
+                                                      self.createTable("Year: " + str(yearCount), 15, yPos, self.extraTable,
+                                                                       extraLabel,
+                                                                       self.newFrame, semesterCounter))
+                                else:
+                                    self.extraTable.insert(i, self.createTable(" ", 455, yPos, self.extraTable, extraLabel,
+                                                                          self.newFrame, semesterCounter))
+                                    yPos += 190
+                                semesterCounter += 1
+                            creation = True
+                        else:
+                            self.extraTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
+                                                        values=(course[1] + " " + course[2], course[3], course[4]))
+                            self.semTableTree_counter += 1
+                semIndex += 1
+            majorIndex += 1
 
     def FYP_reset(self):
         self.courseHist.clear()
@@ -723,14 +765,31 @@ class View:
         self.id2Entry.delete(0, END)
 
         self.policyMemoEntry.delete('1.0', 'end')
-        index = 0
-        length = len(self.semTable)
 
+        index = 0
         while(index < len(self.semTable)):
             for course in self.semTable[index].get_children():
                 self.semTable[index].delete(course)
                 self.semTableTree_counter += 1
             index += 1
+        index = 0
+        self.semTableTree_counter = 0
+        while (index < len(self.progTable)):
+            for course in self.progTable[index].get_children():
+                self.progTable[index].delete(course)
+                self.semTableTree_counter += 1
+            index += 1
+        index = 0
+        self.semTableTree_counter = 0
+        while (index < len(self.extraTable)):
+            for course in self.extraTable[index].get_children():
+                self.extraTable[index].delete(course)
+                self.semTableTree_counter += 1
+            index += 1
+        self.semTableTree_counter = 0
+
+        self.tab_parent.tab(self.semesterFrame, text="Four Year Plan")
+        self.tab_parent.forget(self.newFrame)
 
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
