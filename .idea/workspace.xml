@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="update">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="major and minor feature now works as intended">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
@@ -336,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617391691818</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="major and minor feature now works as intended">
+      <created>1617828497477</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1617828497477</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -364,7 +371,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="optimal spacing between widgets in rightFrame" />
     <MESSAGE value="open schedule popup window" />
     <MESSAGE value="open json from database" />
     <MESSAGE value="implemented Treeview to replace entries tables" />
@@ -389,6 +395,7 @@
     <MESSAGE value="changed department label to school, added grade column to course taken list" />
     <MESSAGE value="reworked coursetaken list and removed 'save as' &amp; 'open recent' file menubar option" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="major and minor feature now works as intended" />
+    <option name="LAST_COMMIT_MESSAGE" value="major and minor feature now works as intended" />
   </component>
 </project>

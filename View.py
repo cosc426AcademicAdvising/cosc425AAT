@@ -4,17 +4,12 @@ from tkinter import ttk
 from pubsub import pub  # pip install PyPubSub
 # import tkinter.font as TkFont
 # from PIL import ImageTk, Image  # pip install pillow
+from tkinter import messagebox
 
-
-# import functionss as funct
-
-
-def donothing():
-    print("Something happened...")
 
 
 class View:
-    def __init__(self, master, schL, majorL, minorL, subjectL):
+    def __init__(self, master, schL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
@@ -23,16 +18,10 @@ class View:
 
         self.schList = schL
         self.subjectsList = subjectL
-        self.majorList = majorL
-        self.minorList = minorL
-
-        # self.majorsList = majorL
-        # self.minorsList = minorL
 
         self.TVstyle = ttk.Style()
         self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 12))
         self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 12))
-
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
@@ -42,20 +31,16 @@ class View:
 
         self.courseHist = []
 
-        # for major & minor treeview display
-        self.majorTree_counter = 0
-        self.minorTree_counter = 0
-
-        self.counter = 0
-
         self.layout()
         self.menuBar()
 
     def layout(self):
+        # four year plan
         self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.leftFrame.pack(expand=1)
         self.leftFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
 
+        # program planning worksheet
         self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
         self.rightFrame.pack(expand=1)
         self.rightFrame.place(relwidth=0.40, relheight=0.91, relx=0.6, rely=0.02)
@@ -190,7 +175,7 @@ class View:
         self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable, self.semLabel, self.semesterFrame, self.temp)
 
     def planningWorksheet_layout(self):
-        # outer most blank frames left & right
+        # Blank frames for padding
         width = self.mainwin.winfo_screenwidth()
         height = self.mainwin.winfo_screenheight()
         AspectRatio = width/height
@@ -206,7 +191,7 @@ class View:
         else:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
 
-        pad = 12 # pady value for most frames below
+        pad = 10 # pady value for most frames below
 
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
@@ -268,28 +253,6 @@ class View:
         self.minorTree.column("#0", width=150, anchor=CENTER)
         self.minorTree.heading("#0", text="Minors")
 
-
-        '''' 
-        schLabel = Label(careerFrame, text="School")
-        majorLabel = Label(careerFrame, text="Major")
-        minorLabel = Label(careerFrame, text="Minor")
-
-        schLabel.grid(row=0, column=0)
-        majorLabel.grid(row=0, column=2)
-        minorLabel.grid(row=0, column=3)
-
-        comboboxWidth = 10
-        self.schCbox = ttk.Combobox(careerFrame, width=comboboxWidth, value=self.schList)
-        self.majorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
-        self.minorCbox = ttk.Combobox(careerFrame, width=comboboxWidth)
-
-        self.schCbox.grid(row=1, column=0)
-        filler = Label(careerFrame).grid(column=1, row=0, rowspan=2, padx=18)
-        self.majorCbox.grid(row=1, column=2)
-        self.minorCbox.grid(row=1, column=3)
-
-        self.schCbox.bind("<<ComboboxSelected>>", self.getMajorMinor)
-        '''
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame, )
         credFrame.grid(row=8, column=1, columnspan=4, pady=pad)
@@ -327,7 +290,7 @@ class View:
         courseTableFrame = Frame(self.rightFrame)
         courseTableFrame.grid(row=12, column=1, columnspan=4, pady=pad)
 
-        self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview") # TIP: height is number of rows
+        self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview") #height is number of rows
         self.courseTree.pack()
 
         self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
@@ -387,36 +350,49 @@ class View:
         bcoursebuttonFrame = Frame(self.rightFrame)
         bcoursebuttonFrame.grid(row=15, column=2, columnspan=2)
 
-        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add", command=self.planningWorksheet_addBackupCourseButton)
+        addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add",
+                                     command=self.planningWorksheet_addBackupCourseButton)
         addbackupbutton.pack(side=LEFT)
 
-        rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove", command=self.planningWorksheet_delBackupCourseButton)
+        rmbackupbutton = ttk.Button(bcoursebuttonFrame, text="Remove",
+                                    command=self.planningWorksheet_delBackupCourseButton)
         rmbackupbutton.pack(side=RIGHT)
 
+    # Popup window for editing student major and minor from program planning sheet
+    # called from button command
     def editMajorMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Major & Minor")
         t.geometry("400x400")
         t.resizable(width=FALSE, height=FALSE)
-        t.attributes('-topmost', 'true')
+        #t.attributes('-topmost', 'true')
+        t.transient(self.mainwin)
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
+        # insert selected major into separate listbox
         def majorSelection(e):
             i = self.majorBox.curselection()
             self.selected_major_Box.insert(END, self.majorBox.get(i))
 
+        def removeMajor():
+            i = self.selected_major_Box.curselection()
+            msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
+            response = messagebox.askquestion("askquestion", msg, parent=t)
+            if response == 'yes':
+                self.selected_major_Box.delete(i)
+
+        # insert selected minor into separate listbox
         def minorSelection(e):
             i = self.minorBox.curselection()
             self.selected_minor_Box.insert(END, self.minorBox.get(i))
 
-        def removeMajor():
-            i = self.selected_major_Box.curselection()
-            self.selected_major_Box.delete(i)
-
         def removeMinor():
             i = self.selected_minor_Box.curselection()
-            self.selected_minor_Box.delete(i)
+            msg = "Do you want to remove selected minor? ("+ self.selected_minor_Box.get(i) + ")"
+            response = messagebox.askquestion("askquestion", msg , parent=t)
+            if response == 'yes':
+                self.selected_minor_Box.delete(i)
 
         def confirmSelection():
             self.setMajor_treeview()
@@ -441,18 +417,16 @@ class View:
         self.schCbox2.bind("<<ComboboxSelected>>", self.getMinorBySchool)
 
         self.majorVar = StringVar()
-        #self.majorVar.set(self.majorList)
-        self.majorBox = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.majorVar, exportselection=False)
+        self.majorBox = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.majorVar,
+                                exportselection=False)
         # exportselection allows us to work on other listbox while not calling this binding
         self.majorBox.pack(side=TOP)
-        #self.majorBox.bind('<<ListboxSelect>>', lambda event:self.setMajor_treeview(event))
         self.majorBox.bind('<<ListboxSelect>>', majorSelection)
 
         self.minorVar = StringVar()
-        #self.minorVar.set(self.minorList)
-        self.minorBox = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.minorVar, exportselection=False)
+        self.minorBox = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.minorVar,
+                                exportselection=False)
         self.minorBox.pack(side=TOP)
-        #self.minorBox.bind('<<ListboxSelect>>', lambda event: self.setMinor_treeview(event))
         self.minorBox.bind('<<ListboxSelect>>', minorSelection)
 
         label3 = Label(majorframe, text="Major(s) Selected:")
@@ -466,7 +440,7 @@ class View:
         self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False, height=5)
         self.selected_minor_Box.pack(side=TOP)
 
-        # for if major minor treeview were already filled
+        # for if major & minor treeview were already filled
         for id in self.majorTree.get_children():
             major = self.majorTree.item(id)['text']
             self.selected_major_Box.insert(END, major)
@@ -475,23 +449,24 @@ class View:
             minor = self.minorTree.item(id)['text']
             self.selected_minor_Box.insert(END, minor)
 
-        majorRemove = ttk.Button(majorframe, text="Remove", command=removeMajor)
-        majorRemove.pack(side=TOP)
-        minorRemove = ttk.Button(minorframe, text="Remove", command=removeMinor)
-        minorRemove.pack(side=TOP)
+        majorRemoveButton = ttk.Button(majorframe, text="Remove", command=removeMajor)
+        majorRemoveButton.pack(side=TOP)
+        minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor)
+        minorRemoveButton.pack(side=TOP)
 
-        comfirm = ttk.Button(t, text="Confirm", command=confirmSelection)
-        comfirm.pack(side=BOTTOM, pady=10)
+        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)
+        comfirmButton.pack(side=BOTTOM, pady=10)
 
+    # end goal: return array of major under specified school
     def getMajorBySchool(self, e):
         pub.sendMessage("request_major", sch=self.schCbox1.get() )
 
     def getMinorBySchool(self, e):
         pub.sendMessage("request_minor", sch=self.schCbox2.get() )
 
+    # fill major treeview from program planning worksheet
     def setMajor_treeview(self):
-        # clear tree view
-        for id in self.majorTree.get_children():
+        for id in self.majorTree.get_children(): # clear tree view
             self.majorTree.delete(id)
 
         self.selected_major_Box.select_set(0,END)
@@ -513,7 +488,8 @@ class View:
         t.wm_title("Search for Course")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
-        t.attributes('-topmost', 'true')
+        #t.attributes('-topmost', 'true')
+        t.transient(self.mainwin)
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
@@ -531,6 +507,7 @@ class View:
             else:
                 self.resultVar.set("")
 
+        # adds searched course into the treeview
         def addCourse():
             self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
                                    values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
@@ -552,37 +529,41 @@ class View:
 
         entry.bind('<KeyRelease>', courseSearch) # for auto search
 
-        rf = Frame(t)   # result frame
-        rf.pack(anchor=CENTER)
+        resultFrame = Frame(t)
+        resultFrame.pack(anchor=CENTER)
 
-        resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry = ttk.Entry(resultFrame, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
-        gf = Frame(t)   # gen frame
-        gf.pack(anchor=CENTER)
+        genedFrame = Frame(t)
+        genedFrame .pack(anchor=CENTER)
 
-        l2 = Label(gf, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
+        l2 = Label(genedFrame , text="gen ed/elect:").pack(side=LEFT, anchor=NW)
 
-        genEntry = ttk.Entry(gf)
+        genEntry = ttk.Entry(genedFrame)
         genEntry.pack(side=TOP)
 
-        addButton = Button(gf, text="Add", command=addCourse)
+        addButton = Button(genedFrame, text="Add", command=addCourse)
         addButton.pack(side=TOP)
 
     def planningWorksheet_delCourseButton(self):
         for course in self.courseTree.selection():
-            prevcred = self.enrollCredVar.get()
-            self.enrollCredVar.set(prevcred -  int(float(self.courseTree.item(course)['values'][2])) )
+            msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0]  + ")"
+            response = messagebox.askquestion("askquestion", msg)
+            if response == 'yes':
+                prevcred = self.enrollCredVar.get()
+                self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
 
-            self.courseTree.delete(course)
-            self.courseTree_counter -= 1
+                self.courseTree.delete(course)
+                self.courseTree_counter -= 1
 
     def planningWorksheet_addBackupCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Backup Course")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
-        t.attributes('-topmost', 'true')
+        #t.attributes('-topmost', 'true')
+        t.transient(self.mainwin)
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
@@ -620,28 +601,32 @@ class View:
 
         entry.bind('<KeyRelease>', courseSearch) # for auto search
 
-        rf = Frame(t)   # result frame
-        rf.pack(anchor=CENTER)
+        resultFrame = Frame(t)
+        resultFrame.pack(anchor=CENTER)
 
-        resultEntry = ttk.Entry(rf, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry = ttk.Entry(resultFrame, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
-        gf = Frame(t)   # gen frame
-        gf.pack(anchor=CENTER)
+        genedFrame = Frame(t)
+        genedFrame.pack(anchor=CENTER)
 
-        l2 = Label(gf, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
+        l2 = Label(genedFrame, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
 
-        genEntry = ttk.Entry(gf)
+        genEntry = ttk.Entry(genedFrame)
         genEntry.pack(side=TOP)
 
-        addButton = Button(gf, text="Add", command=addCourse)
+        addButton = Button(genedFrame, text="Add", command=addCourse)
         addButton.pack(side=TOP)
 
     def planningWorksheet_delBackupCourseButton(self):
         for course in self.backupCourseTree.selection():
-            self.backupCourseTree.delete(course)
-            self.backupCourseTree_counter -= 1
+            msg = "Do you want to remove the selected backup course? (" + self.backupCourseTree.item(course)['values'][0] + ")"
+            response = messagebox.askquestion("askquestion", msg)
+            if response == 'yes':
+                self.backupCourseTree.delete(course)
+                self.backupCourseTree_counter -= 1
 
+    # clears every widget
     def planningWorksheet_reset(self):
         self.courseHist.clear()
         self.nameEntry.delete(0, END)
@@ -670,7 +655,9 @@ class View:
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
 
-    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):  # (py dict, total cred, 2d course array, course size) fyp - four year plan
+    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):
+        # obj is a py dict
+
         # clear data in widgets
         self.planningWorksheet_reset()
 
@@ -750,7 +737,6 @@ class View:
         label.pack(anchor=CENTER, side=TOP, pady=20)
 
         self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38, style="mystyle.Treeview")
-        # self.courseTakenListTree.pack(side=TOP, padx=50, pady=10, fill=X)
         self.courseTakenListTree['columns'] = ("grade")
         self.courseTakenListTree.column("#0")
         self.courseTakenListTree.column("grade")
@@ -824,7 +810,9 @@ class View:
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Student")
         t.geometry("450x125")
-        t.resizable(width=FALSE, height=FALSE)
+        t.resizable(width=0, height=0)
+
+        t.attributes('-topmost', 'true')
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
