@@ -1,18 +1,13 @@
-const express = require("express");
-const bodyparser = require("body-parser");
-const mongo = require("mongodb").MongoClient;
-const obj = require("mongodb").ObjectID;
-const { response } = require("express");
-const conn_url = "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/test?authSource=admin&replicaSet=atlas-udg01y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
-const dbname = "COSC425AAT";
+const router = require("express").Router();
+const mongoUtil = require('../mongoUtil');
+const verify = require('./verifyToken');
 
-var app = express();
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}));
-var database, collection;
+var collection;
+
 
 // getDistinctSchools
-app.get("/Department/School", (req, res) => {
+router.get("/School", verify, (req, res) => {
+    collection = mongoUtil.getDept();
     collection.distinct("School", function(error, result){
         if(error) {
             return res.status(500).send(error);
@@ -22,7 +17,8 @@ app.get("/Department/School", (req, res) => {
 });
 
 // getMajors
-app.get("/Department/Major", (req, res) => {
+router.get("/Major", verify, (req, res) => {
+    collection = mongoUtil.getDept();
     collection.find({'Plan Type': 'Major'}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
         if(error) {
             return res.status(500).send(error);
@@ -32,7 +28,8 @@ app.get("/Department/Major", (req, res) => {
 });
 
 //getMajorsbySchool
-app.get("/Department/Major/:school", (req, res) => {
+router.get("/Major/:school", verify, (req, res) => {
+    collection = mongoUtil.getDept();
     var name = req.params.school;
     collection.find({'Plan Type': 'Major', 'School': name}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
         if(error) {
@@ -43,7 +40,8 @@ app.get("/Department/Major/:school", (req, res) => {
 });
 
 // getMinors
-app.get("/Department/Minor", (req, res) => {
+router.get("/Minor", verify, (req, res) => {
+    collection = mongoUtil.getDept();
     collection.find({'Plan Type': 'Minor'}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
         if(error) {
             return res.status(500).send(error);
@@ -53,7 +51,8 @@ app.get("/Department/Minor", (req, res) => {
 });
 
 //getMinorsbySchool
-app.get("/Department/Minor/:school", (req, res) => {
+router.get("/Minor/:school", verify, (req, res) => {
+    collection = mongoUtil.getDept();
     var name = req.params.school
     collection.find({'Plan Type': 'Minor', 'School': name}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
         if(error) {
@@ -63,14 +62,4 @@ app.get("/Department/Minor/:school", (req, res) => {
     });
 });
 
-app.listen(5001, () =>{
-    mongo.connect(conn_url, {useUnifiedTopology: true},
-        (error, client) => {
-            if(error){
-                return response.status(500).send(error);
-            }
-            database = client.db(dbname);
-            collection = database.collection("Department");
-            console.log("Connected to `" + dbname + "`!");
-        });
-});
+module.exports = router;
