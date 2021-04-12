@@ -239,16 +239,16 @@ class View:
         careerFrame.grid(row=6, column=0, columnspan=5, pady=pad)
 
         self.majorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
-        self.majorTree.pack(side=LEFT, padx=20)
-        self.majorTree.column("#0", width=150, anchor=CENTER)
+        self.majorTree.pack(side=LEFT, padx=30)
+        self.majorTree.column("#0", width=150)
         self.majorTree.heading("#0", text="Majors")
 
         editButton = Button(careerFrame, text="Edit", command=self.editMajorMinor)
         editButton.pack(side=LEFT)
 
         self.minorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
-        self.minorTree.pack(side=RIGHT, padx=20)
-        self.minorTree.column("#0", width=150, anchor=CENTER)
+        self.minorTree.pack(side=RIGHT, padx=30)
+        self.minorTree.column("#0", width=150)
         self.minorTree.heading("#0", text="Minors")
 
         # ============================ credits ============================
