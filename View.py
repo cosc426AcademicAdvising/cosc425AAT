@@ -7,7 +7,6 @@ from pubsub import pub  # pip install PyPubSub
 from tkinter import messagebox
 
 
-
 class View:
     def __init__(self, master, schL, subjectL):
         self.mainwin = master
@@ -27,7 +26,7 @@ class View:
         self.backupCourseTree_counter = 0
         self.courseTakenList_counter = 0
         self.addCourseSearchResult = []
-        self.resultVar = StringVar() # for add course button
+        self.resultVar = StringVar()  # for add course button
 
         self.courseHist = []
 
@@ -49,7 +48,7 @@ class View:
         self.courseTakenListFrame.pack(expand=1)
         self.courseTakenListFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
 
-        self.courseTakenListFrame.place_forget() # hide frame
+        self.courseTakenListFrame.place_forget()  # hide frame
 
         self.FourYearPlan()
         self.planningWorksheet_layout()
@@ -76,7 +75,7 @@ class View:
         canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW)
 
         # ============================ title ============================
-        ProgPlanTitleFrame=Frame(self.innerLeftFrame, width=900, height=50)
+        ProgPlanTitleFrame = Frame(self.innerLeftFrame, width=900, height=50)
         ProgPlanTitleFrame.pack(expand=1)
 
         ProgPlanTitle = ttk.Label(ProgPlanTitleFrame, text="Four Year Plan", anchor=CENTER,
@@ -98,7 +97,7 @@ class View:
         self.name2Entry.place(x=230, y=20)
 
         idLabel = Label(nameIDFrame, text='ID Number:')
-        idLabel.pack(side= RIGHT, expand=1)
+        idLabel.pack(side=RIGHT, expand=1)
         idLabel.place(x=490, y=20)
 
         self.id2Entry = ttk.Entry(nameIDFrame, width=8)
@@ -120,7 +119,6 @@ class View:
         self.progressRepo = Frame(self.tab_parent, width=900, height=1375)
         self.progressRepo.pack(expand=1, fill='both')
 
-
         self.tab_parent.pack(expand=1, fill='both', padx=25)
 
         self.yearCounter2 = 1
@@ -133,34 +131,40 @@ class View:
         for i in range(8):
             if semesterCounter2 % 2 == 0:
                 yearCount2 += 1
-                self.progTable.insert(i, self.createTable("Year: " + str(yearCount2), 15, yPos2, self.progTable, self.progLabel, self.progressRepo, semesterCounter2))
+                self.progTable.insert(i, self.createTable("Year: " + str(yearCount2), 15, yPos2, self.progTable,
+                                                          self.progLabel, self.progressRepo, semesterCounter2))
             else:
-                self.progTable.insert(i, self.createTable(" ", 455, yPos2, self.progTable, self.progLabel, self.progressRepo, semesterCounter2))
+                self.progTable.insert(i, self.createTable(" ", 455, yPos2, self.progTable, self.progLabel,
+                                                          self.progressRepo, semesterCounter2))
                 yPos2 += 190
             semesterCounter2 += 1
 
         # ============================ Semester Tables ============================
         self.semesterFrame = Frame(self.tab_parent, width=900, height=1375)
         self.semesterFrame.pack(expand=1, fill='both')
-        #self.semesterFrame.place(x=50, y=500)
+        # self.semesterFrame.place(x=50, y=500)
 
         # Adding to notebook for tab functionality
         self.tab_parent.add(self.progressRepo, text="Progress Report")
         self.tab_parent.add(self.semesterFrame, text="Four Year Plan")
 
-        self.yearCounter=1
+        self.yearCounter = 1
         semesterCounter = 0
-        yPos=50
+        yPos = 50
         self.semLabel = []
         self.semTable = []
-        yearCount=0
+        yearCount = 0
 
         for i in range(8):
             if semesterCounter % 2 == 0:
-                yearCount+=1
-                self.semTable.insert(i, self.createTable("Year: " + str(yearCount), 15, yPos, self.semTable, self.semLabel, self.semesterFrame, semesterCounter))
+                yearCount += 1
+                self.semTable.insert(i,
+                                     self.createTable("Year: " + str(yearCount), 15, yPos, self.semTable, self.semLabel,
+                                                      self.semesterFrame, semesterCounter))
             else:
-                self.semTable.insert(i, self.createTable(" ", 455, yPos, self.semTable, self.semLabel, self.semesterFrame, semesterCounter))
+                self.semTable.insert(i,
+                                     self.createTable(" ", 455, yPos, self.semTable, self.semLabel, self.semesterFrame,
+                                                      semesterCounter))
                 yPos += 190
             semesterCounter += 1
 
@@ -170,26 +174,27 @@ class View:
         self.addSemesterBtn.place(x=120, y=950)
         self.temp = semesterCounter
         self.tempY = yPos
-        self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable, self.semLabel, self.semesterFrame, self.temp)
+        self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
+                                                                        self.semLabel, self.semesterFrame, self.temp)
 
     def planningWorksheet_layout(self):
         # Blank frames for padding
         width = self.mainwin.winfo_screenwidth()
         height = self.mainwin.winfo_screenheight()
-        AspectRatio = width/height
+        AspectRatio = width / height
 
-        if AspectRatio == 16/10:
+        if AspectRatio == 16 / 10:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
-        elif AspectRatio == 16/9:
-            blank1 = Frame(self.rightFrame, width=120).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
-        elif AspectRatio == 4/3:
-            blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
-        elif AspectRatio == 3/2:
-            blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0,rowspan=15,sticky=(N, E, S, W))
+        elif AspectRatio == 16 / 9:
+            blank1 = Frame(self.rightFrame, width=120).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
+        elif AspectRatio == 4 / 3:
+            blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
+        elif AspectRatio == 3 / 2:
+            blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
         else:
             blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
 
-        pad = 10 # pady value for most frames below
+        pad = 10  # pady value for most frames below
 
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
@@ -288,18 +293,19 @@ class View:
         courseTableFrame = Frame(self.rightFrame)
         courseTableFrame.grid(row=12, column=1, columnspan=4, pady=pad)
 
-        self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview") #height is number of rows
+        self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview")
+        # height is number of rows
         self.courseTree.pack()
 
         self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
 
-        self.courseTree.column("#0", width=0, stretch=NO)   # important
-        self.courseTree.column("course#", anchor=CENTER, width=80) # anchor for the data in the column
+        self.courseTree.column("#0", width=0, stretch=NO)  # important
+        self.courseTree.column("course#", anchor=CENTER, width=80)  # anchor for the data in the column
         self.courseTree.column("title", anchor=CENTER, width=295)
         self.courseTree.column("cred", anchor=CENTER, width=25)
         self.courseTree.column("gen/elect", anchor=CENTER, width=100)
 
-        self.courseTree.heading("course#", text='Course #', anchor=CENTER) # anchor for the title of the column
+        self.courseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
         self.courseTree.heading("cred", text='CH', anchor=CENTER)
         self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
@@ -361,9 +367,9 @@ class View:
     def editMajorMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Major & Minor")
-        t.geometry("400x400")
+        t.geometry("425x425")
         t.resizable(width=FALSE, height=FALSE)
-        #t.attributes('-topmost', 'true')
+        # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
@@ -387,8 +393,8 @@ class View:
 
         def removeMinor():
             i = self.selected_minor_Box.curselection()
-            msg = "Do you want to remove selected minor? ("+ self.selected_minor_Box.get(i) + ")"
-            response = messagebox.askquestion("askquestion", msg , parent=t)
+            msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
+            response = messagebox.askquestion("askquestion", msg, parent=t)
             if response == 'yes':
                 self.selected_minor_Box.delete(i)
 
@@ -400,11 +406,11 @@ class View:
         mainframe = Frame(t)
         mainframe.pack(fill=X, ipadx=1, padx=10)
 
-        majorframe = Frame(mainframe)
-        majorframe.pack(side=LEFT)
+        majorframe = ttk.LabelFrame(mainframe, text="Major")
+        majorframe.pack(side=LEFT, pady=5)
 
-        minorframe = Frame(mainframe)
-        minorframe.pack(side=RIGHT)
+        minorframe = ttk.LabelFrame(mainframe, text="Minor")
+        minorframe.pack(side=RIGHT, pady=5)
 
         self.schCbox1 = ttk.Combobox(majorframe, value=self.schList, exportselection=0, width=18)
         self.schCbox1.pack(side=TOP)
@@ -419,23 +425,25 @@ class View:
                                 exportselection=False)
         # exportselection allows us to work on other listbox while not calling this binding
         self.majorBox.pack(side=TOP)
-        self.majorBox.bind('<<ListboxSelect>>', majorSelection)
+        self.majorBox.bind('<Double-1>', majorSelection)    # double-click binding
 
         self.minorVar = StringVar()
         self.minorBox = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.minorVar,
                                 exportselection=False)
         self.minorBox.pack(side=TOP)
-        self.minorBox.bind('<<ListboxSelect>>', minorSelection)
+        self.minorBox.bind('<Double-1>', minorSelection)
 
         label3 = Label(majorframe, text="Major(s) Selected:")
         label3.pack(side=TOP)
         label4 = Label(minorframe, text="Minor(s) Selected:")
         label4.pack(side=TOP)
 
-        self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False, height=5)
+        self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                          height=5)
         self.selected_major_Box.pack(side=TOP)
 
-        self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False, height=5)
+        self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                          height=5)
         self.selected_minor_Box.pack(side=TOP)
 
         # for if major & minor treeview were already filled
@@ -452,7 +460,7 @@ class View:
         minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor)
         minorRemoveButton.pack(side=TOP)
 
-        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)
+        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)     # TODO: link to four year plan
         comfirmButton.pack(side=BOTTOM, pady=10)
 
     # end goal: return array of major under specified school
@@ -464,10 +472,10 @@ class View:
 
     # fill major treeview from program planning worksheet
     def setMajor_treeview(self):
-        for id in self.majorTree.get_children(): # clear tree view
+        for id in self.majorTree.get_children():  # clear tree view
             self.majorTree.delete(id)
 
-        self.selected_major_Box.select_set(0,END)
+        self.selected_major_Box.select_set(0, END)
         for i in self.selected_major_Box.curselection():
             word = self.selected_major_Box.get(i)
             self.majorTree.insert(parent='', index='end', iid=i, text=str(word))
@@ -486,7 +494,7 @@ class View:
         t.wm_title("Search for Course")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
-        #t.attributes('-topmost', 'true')
+        # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
@@ -518,25 +526,25 @@ class View:
             prevcred = self.enrollCredVar.get()
             self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
 
-        f1 = Frame(t)
-        f1.pack(anchor=CENTER, pady=5)
+        courseEntryFrame = Frame(t)
+        courseEntryFrame.pack(anchor=CENTER)
 
-        l1 = Label(f1, text="Course Number:").pack(side=LEFT)
-        entry = ttk.Entry(f1, width=10, justify=CENTER)
+        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
+        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
         entry.pack(side=LEFT)
 
-        entry.bind('<KeyRelease>', courseSearch) # for auto search
+        entry.bind('<KeyRelease>', courseSearch)  # for auto search
 
         resultFrame = Frame(t)
         resultFrame.pack(anchor=CENTER)
 
-        resultEntry = ttk.Entry(resultFrame, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
         genedFrame = Frame(t)
-        genedFrame .pack(anchor=CENTER)
+        genedFrame.pack(anchor=CENTER)
 
-        l2 = Label(genedFrame , text="gen ed/elect:").pack(side=LEFT, anchor=NW)
+        l2 = Label(genedFrame, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
 
         genEntry = ttk.Entry(genedFrame)
         genEntry.pack(side=TOP)
@@ -546,7 +554,7 @@ class View:
 
     def planningWorksheet_delCourseButton(self):
         for course in self.courseTree.selection():
-            msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0]  + ")"
+            msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
                 prevcred = self.enrollCredVar.get()
@@ -560,7 +568,7 @@ class View:
         t.wm_title("Search for Backup Course")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
-        #t.attributes('-topmost', 'true')
+        # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
 
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
@@ -580,29 +588,29 @@ class View:
 
         def addCourse():
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
-                                   values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
-                                           self.addCourseSearchResult[2],
-                                           int(float(self.addCourseSearchResult[3])),
-                                           genEntry.get()))
+                                         values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
+                                                 self.addCourseSearchResult[2],
+                                                 int(float(self.addCourseSearchResult[3])),
+                                                 genEntry.get()))
             self.backupCourseTree_counter += 1
             genEntry.delete(0, END)
 
             prevcred = self.enrollCredVar.get()
             self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
 
-        f1 = Frame(t)
-        f1.pack(anchor=CENTER, pady=5)
+        courseEntryFrame = Frame(t)
+        courseEntryFrame.pack(anchor=CENTER)
 
-        l1 = Label(f1, text="Course Number:").pack(side=LEFT)
-        entry = ttk.Entry(f1, width=10, justify=CENTER)
+        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
+        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
         entry.pack(side=LEFT)
 
-        entry.bind('<KeyRelease>', courseSearch) # for auto search
+        entry.bind('<KeyRelease>', courseSearch)  # for auto search
 
         resultFrame = Frame(t)
         resultFrame.pack(anchor=CENTER)
 
-        resultEntry = ttk.Entry(resultFrame, textvariable = self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(side=TOP)
 
         genedFrame = Frame(t)
@@ -618,7 +626,8 @@ class View:
 
     def planningWorksheet_delBackupCourseButton(self):
         for course in self.backupCourseTree.selection():
-            msg = "Do you want to remove the selected backup course? (" + self.backupCourseTree.item(course)['values'][0] + ")"
+            msg = "Do you want to remove the selected backup course? (" + self.backupCourseTree.item(course)['values'][
+                0] + ")"
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
                 self.backupCourseTree.delete(course)
@@ -635,6 +644,8 @@ class View:
 
         for id in self.minorTree.get_children():
             self.minorTree.delete(id)
+
+        self.seasonVar.set("")
 
         self.enrollCredVar.set(0)
 
@@ -653,7 +664,8 @@ class View:
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
 
-    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):
+    def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear,
+                               policies):
         # obj is a py dict
 
         # clear data in widgets
@@ -664,7 +676,7 @@ class View:
         self.idEntry.insert(END, obj['s_id'])
         self.seasonVar.set(obj['registering_for'])
 
-        index=0
+        index = 0
         for m in major:
             self.majorTree.insert(parent='', index='end', iid=index, text=m)
             index = index + 1
@@ -683,16 +695,19 @@ class View:
         self.memoEntry.insert('1.0', obj['memo'])
 
         for c in courses:
-            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                   values=(c[0], c[1], c[2], c[3]))
             self.courseTree_counter += 1
 
         for c in bcourses:
-            self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="", values=(c[0],c[1],c[2],c[3]))
+            self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
+                                         values=(c[0], c[1], c[2], c[3]))
             self.backupCourseTree_counter += 1
 
         self.courseTakenList_fill()
 
-    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear, policies):
+    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear,
+                          policies):
         # delete what was previously there then insert
         self.name2Entry.delete(0, END)
         self.name2Entry.insert(END, obj['name'])
@@ -704,9 +719,9 @@ class View:
         semIndex = 0
         for sem in self.courseHist:
             for course in sem:
-                        self.progTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                                        values=(course[1] + " " + course[2], course[3], course[4]))
-                        self.semTableTree_counter += 1
+                self.progTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
+                                                values=(course[1] + " " + course[2], course[3], course[4]))
+                self.semTableTree_counter += 1
             semIndex += 1
 
         majorIndex = 0
@@ -721,14 +736,14 @@ class View:
                         self.tab_parent.tab(self.semesterFrame, text=tabTitle)
 
                         self.semTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                                     values=(course[1] + " " + course[2], course[3], course[4]))
+                                                       values=(course[1] + " " + course[2], course[3], course[4]))
 
                         self.semTableTree_counter += 1
 
                         self.policyMemoEntry.delete('1.0', 'end')
                         self.policyMemoEntry.insert('1.0', policies[0])
                     else:
-                        if creation==False:
+                        if creation == False:
                             yearCounter = 1
                             semesterCounter = 0
                             yPos = 50
@@ -743,18 +758,20 @@ class View:
                                 if semesterCounter % 2 == 0:
                                     yearCount += 1
                                     self.extraTable.insert(i,
-                                                      self.createTable("Year: " + str(yearCount), 15, yPos, self.extraTable,
-                                                                       extraLabel,
-                                                                       self.newFrame, semesterCounter))
+                                                           self.createTable("Year: " + str(yearCount), 15, yPos,
+                                                                            self.extraTable,
+                                                                            extraLabel,
+                                                                            self.newFrame, semesterCounter))
                                 else:
-                                    self.extraTable.insert(i, self.createTable(" ", 455, yPos, self.extraTable, extraLabel,
-                                                                          self.newFrame, semesterCounter))
+                                    self.extraTable.insert(i,
+                                                           self.createTable(" ", 455, yPos, self.extraTable, extraLabel,
+                                                                            self.newFrame, semesterCounter))
                                     yPos += 190
                                 semesterCounter += 1
                             creation = True
                         else:
                             self.extraTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                                        values=(course[1] + " " + course[2], course[3], course[4]))
+                                                             values=(course[1] + " " + course[2], course[3], course[4]))
                             self.semTableTree_counter += 1
                 semIndex += 1
             majorIndex += 1
@@ -767,7 +784,7 @@ class View:
         self.policyMemoEntry.delete('1.0', 'end')
 
         index = 0
-        while(index < len(self.semTable)):
+        while (index < len(self.semTable)):
             for course in self.semTable[index].get_children():
                 self.semTable[index].delete(course)
                 self.semTableTree_counter += 1
@@ -795,7 +812,8 @@ class View:
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
 
-        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38, style="mystyle.Treeview")
+        self.courseTakenListTree = ttk.Treeview(self.courseTakenListFrame, show="tree", height=38,
+                                                style="mystyle.Treeview")
         self.courseTakenListTree['columns'] = ("grade")
         self.courseTakenListTree.column("#0")
         self.courseTakenListTree.column("grade")
@@ -822,8 +840,9 @@ class View:
             for course in sem:
                 for id in self.courseTakenListTree.get_children():
                     if course[1] == self.courseTakenListTree.item(id)['text']:  # comparing subjects
-                        name = str(course[1] + " " + course[2] + " "*5 + course[3])
-                        self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter, text=name, values=(course[5]))
+                        name = str(course[1] + " " + course[2] + " " * 5 + course[3])
+                        self.courseTakenListTree.insert(parent=str(id), index='end', iid=self.courseTakenList_counter,
+                                                        text=name, values=(course[5]))
                         self.courseTakenList_counter += 1
 
         for id in self.courseTakenListTree.get_children():
@@ -884,7 +903,7 @@ class View:
                 t.destroy()
 
         nameFrame = Frame(t)
-        nameFrame.pack(side=TOP,anchor='w', padx=20, pady=10)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
 
         idFrame = Frame(t)
         idFrame.pack(side=TOP, anchor='w', padx=20)
@@ -908,11 +927,11 @@ class View:
         searchB.pack()
 
     def saveSchedule(self):
-        majors, minors =  [], []
+        majors, minors = [], []
         for id in self.majorTree.get_children():
-            majors.append( self.majorTree.item(id)['text'] )
+            majors.append(self.majorTree.item(id)['text'])
         for id in self.minorTree.get_children():
-            minors.append( self.minorTree.item(id)['text'] )
+            minors.append(self.minorTree.item(id)['text'])
 
         courses, bcourses = [], []
         for id in self.courseTree.get_children():
@@ -923,7 +942,7 @@ class View:
         pydict = {
             "name": self.nameEntry.get(),
             "s_id": self.idEntry.get(),
-            #"dept": ,
+            # "dept": ,
             "major": majors,
             "minor": minors,
             "taking_course": courses,
@@ -961,46 +980,46 @@ class View:
         DB.add_command(label='Add/Remove a minor')
 
     def themeMenu(self, theme):
-        #s = ThemedTk(self.mainwin)
+        # s = ThemedTk(self.mainwin)
         '''
         def lightMode(s):
             s.set_theme("plastik")
         def darkMode(s):
             s.set_theme("black")
         '''
-        #theme.add_command(label='Light Mode', command=)
+        # theme.add_command(label='Light Mode', command=)
         theme.add_command(label='Dark Mode')
 
     def createTable(self, semester, x, y, tableArray, labelArray, frame, counter):
-            endOfArray = len(tableArray)
-            endOfSemLabel = len(labelArray)
+        endOfArray = len(tableArray)
+        endOfSemLabel = len(labelArray)
 
-            labelArray.append(Label(frame, text=semester, font=('Helvetica', 15)))
-            labelArray[endOfSemLabel].pack(expand=1)
+        labelArray.append(Label(frame, text=semester, font=('Helvetica', 15)))
+        labelArray[endOfSemLabel].pack(expand=1)
 
-            tableArray.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview"))
+        tableArray.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview"))
 
-            if counter % 2 == 0:
-                tableArray[endOfArray].pack(expand=1)
-                tableArray[endOfArray].place(x=15, y=y)
-                labelArray[endOfSemLabel].place(x=15, y=y - 25)
-            else:
-                tableArray[endOfArray].pack(expand=1)
-                tableArray[endOfArray].place(x=455, y=y)
-                labelArray[endOfSemLabel].place(x=455, y=y - 25)
+        if counter % 2 == 0:
+            tableArray[endOfArray].pack(expand=1)
+            tableArray[endOfArray].place(x=15, y=y)
+            labelArray[endOfSemLabel].place(x=15, y=y - 25)
+        else:
+            tableArray[endOfArray].pack(expand=1)
+            tableArray[endOfArray].place(x=455, y=y)
+            labelArray[endOfSemLabel].place(x=455, y=y - 25)
 
-            tableArray[endOfArray]['columns']= ("course#", "title", "cred")
-            tableArray[endOfArray].column("#0", width=0, stretch=NO)  # important
-            tableArray[endOfArray].column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
-            tableArray[endOfArray].column("title", anchor=W, width=295)
-            tableArray[endOfArray].column("cred", anchor=CENTER, width=62)
-            # self.semesterTree.column("taken", anchor=CENTER, width=30)
+        tableArray[endOfArray]['columns'] = ("course#", "title", "cred")
+        tableArray[endOfArray].column("#0", width=0, stretch=NO)  # important
+        tableArray[endOfArray].column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
+        tableArray[endOfArray].column("title", anchor=W, width=295)
+        tableArray[endOfArray].column("cred", anchor=CENTER, width=62)
+        # self.semesterTree.column("taken", anchor=CENTER, width=30)
 
-            tableArray[endOfArray].heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
-            tableArray[endOfArray].heading("title", text='Title', anchor=CENTER)
-            tableArray[endOfArray].heading("cred", text='Crd. Hr.', anchor=CENTER)
+        tableArray[endOfArray].heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
+        tableArray[endOfArray].heading("title", text='Title', anchor=CENTER)
+        tableArray[endOfArray].heading("cred", text='Crd. Hr.', anchor=CENTER)
 
-            return tableArray[endOfArray]
+        return tableArray[endOfArray]
 
     def createSemesterBtn(self, semester, y, tableArray, labelArray, frame, counter):
         if counter % 2 == 0:

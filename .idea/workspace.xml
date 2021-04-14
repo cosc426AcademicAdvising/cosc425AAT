@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Added warnings to remove/delete buttons, and also cleaned up code a bit and included small comments">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="uncentered majorTree and minorTree from Programing Worksheet">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="1" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -348,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618201377774</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="uncentered majorTree and minorTree from Programing Worksheet">
+      <created>1618201677106</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1618201677107</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -376,7 +384,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="open json from database" />
     <MESSAGE value="implemented Treeview to replace entries tables" />
     <MESSAGE value="fixed Treeview sizing issue" />
     <MESSAGE value="cleanned up code" />
@@ -401,6 +408,7 @@
     <MESSAGE value="update" />
     <MESSAGE value="major and minor feature now works as intended" />
     <MESSAGE value="Added warnings to remove/delete buttons, and also cleaned up code a bit and included small comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added warnings to remove/delete buttons, and also cleaned up code a bit and included small comments" />
+    <MESSAGE value="uncentered majorTree and minorTree from Programing Worksheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="uncentered majorTree and minorTree from Programing Worksheet" />
   </component>
 </project>
