@@ -11,7 +11,7 @@ class View:
     def __init__(self, master, schL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
-        self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
+        self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))    # TODO fixed layout for school computers
         self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
         self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
 
@@ -19,8 +19,8 @@ class View:
         self.subjectsList = subjectL
 
         self.TVstyle = ttk.Style()
-        self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 12))
-        self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 12))
+        self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 10))
+        self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 10))
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
@@ -307,7 +307,7 @@ class View:
 
         self.courseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
-        self.courseTree.heading("cred", text='CH', anchor=CENTER)
+        self.courseTree.heading("cred", text='CR', anchor=CENTER)
         self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
         # ===================== backup course ===================
@@ -329,7 +329,7 @@ class View:
 
         self.backupCourseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.backupCourseTree.heading("title", text='Title', anchor=CENTER)
-        self.backupCourseTree.heading("cred", text='CH', anchor=CENTER)
+        self.backupCourseTree.heading("cred", text='CR', anchor=CENTER)
         self.backupCourseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
         # ====================== memo ========================
@@ -853,19 +853,19 @@ class View:
         menu = Menu(self.mainwin, tearoff=0)
         self.mainwin.config(menu=menu)
 
-        schedule = Menu(menu)
+        schedule = Menu(menu, tearoff=0)
         menu.add_cascade(label='Schedule', menu=schedule)
         self.scheduleMenu(schedule)
 
-        load = Menu(menu)
+        load = Menu(menu, tearoff=0)
         menu.add_cascade(label='View', menu=load)
         self.loadMenu(load)
 
-        DB = Menu(menu)
+        DB = Menu(menu, tearoff=0)
         menu.add_cascade(label='Update DB', menu=DB)
         self.DataBaseMenu(DB)
 
-        theme = Menu(menu)
+        theme = Menu(menu, tearoff=0)
         menu.add_cascade(label='Themes', menu=theme)
         self.themeMenu(theme)
 
@@ -1017,7 +1017,7 @@ class View:
 
         tableArray[endOfArray].heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         tableArray[endOfArray].heading("title", text='Title', anchor=CENTER)
-        tableArray[endOfArray].heading("cred", text='Crd. Hr.', anchor=CENTER)
+        tableArray[endOfArray].heading("cred", text='CR', anchor=CENTER)
 
         return tableArray[endOfArray]
 
