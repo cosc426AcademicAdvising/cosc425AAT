@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 # from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
-# import tkinter.font as TkFont
+import tkinter.font as TkFont
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
 
@@ -11,16 +11,20 @@ class View:
     def __init__(self, master, schL, subjectL):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
-        self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))    # TODO fixed layout for school computers
-        self.mainwin.minsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
-        self.mainwin.maxsize(width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
+
+        # self.mainwin.resizable(width=0, height=0)
+        # 2560 x 1440
+
+        self.defaultFont = TkFont.nametofont("TkDefaultFont")
+        self.defaultFont.configure(family='Helvetica', size=14)
+
+        self.TVstyle = ttk.Style()
+        self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 12))
+        self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 12))
 
         self.schList = schL
         self.subjectsList = subjectL
-
-        self.TVstyle = ttk.Style()
-        self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 10))
-        self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 10))
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
@@ -34,21 +38,23 @@ class View:
         self.menuBar()
 
     def layout(self):
+        self.right_width = self.mainwin.winfo_screenwidth() * 0.4
+        self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
+
         # four year plan
-        self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
-        self.leftFrame.pack(expand=1)
-        self.leftFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
+        self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=2, width=self.left_width)
+        self.leftFrame.pack(side=LEFT, fill=Y)
 
         # program planning worksheet
-        self.rightFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
-        self.rightFrame.pack(expand=1)
-        self.rightFrame.place(relwidth=0.40, relheight=0.91, relx=0.6, rely=0.02)
+        self.PPWFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=2, width=self.right_width)
+        self.PPWFrame.pack(side=RIGHT, fill=Y)
+        self.PPWFrame.pack_propagate(0)
 
-        self.courseTakenListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=1)
-        self.courseTakenListFrame.pack(expand=1)
-        self.courseTakenListFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
-
-        self.courseTakenListFrame.place_forget()  # hide frame
+        self.courseTakenListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=2,
+                                          width=self.left_width)
+        self.courseTakenListFrame.pack(side=LEFT, fill=Y)
+        self.courseTakenListFrame.pack_propagate(0)
+        self.courseTakenListFrame.pack_forget()     # hide frame
 
         self.FourYearPlan()
         self.planningWorksheet_layout()
@@ -56,7 +62,7 @@ class View:
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
-        canvas = Canvas(self.leftFrame)
+        canvas = Canvas(self.leftFrame, width=self.left_width)
         canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
         scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
@@ -70,6 +76,7 @@ class View:
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.configure(xscrollcommand=scrollbar2.set)
         canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
         self.innerLeftFrame = Frame(canvas)
         self.innerLeftFrame.pack(expand=1)
         canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW)
@@ -178,32 +185,24 @@ class View:
                                                                         self.semLabel, self.semesterFrame, self.temp)
 
     def planningWorksheet_layout(self):
-        # Blank frames for padding
-        width = self.mainwin.winfo_screenwidth()
-        height = self.mainwin.winfo_screenheight()
-        AspectRatio = width / height
+        self.rightFrame = Frame(self.PPWFrame)
+        self.rightFrame.pack(fill=BOTH)
 
-        if AspectRatio == 16 / 10:
-            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
-        elif AspectRatio == 16 / 9:
-            blank1 = Frame(self.rightFrame, width=120).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
-        elif AspectRatio == 4 / 3:
-            blank1 = Frame(self.rightFrame, width=200).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
-        elif AspectRatio == 3 / 2:
-            blank1 = Frame(self.rightFrame, width=160).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
-        else:
-            blank1 = Frame(self.rightFrame, width=50).grid(column=0, row=0, rowspan=15, sticky=(N, E, S, W))
+        self.rightFrame.columnconfigure(0, weight=1)
+        self.rightFrame.columnconfigure(1, weight=1)
+        self.rightFrame.columnconfigure(2, weight=1)
+        self.rightFrame.columnconfigure(3, weight=1)
 
         pad = 10  # pady value for most frames below
 
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.grid(row=0, column=1, columnspan=3, pady=pad)
+        ProgPlanTitle.grid(row=0, column=0, columnspan=4, pady=pad)
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame)
-        nameFrame.grid(row=2, column=1, columnspan=2, pady=pad)
+        nameFrame.grid(row=2, column=0, columnspan=2, pady=pad)
 
         nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
@@ -213,7 +212,7 @@ class View:
 
         # ============================ student id ============================
         idFrame = Frame(self.rightFrame)
-        idFrame.grid(row=2, column=3, columnspan=2, pady=pad)
+        idFrame.grid(row=2, column=2, columnspan=2, pady=pad)
 
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
@@ -222,10 +221,10 @@ class View:
         self.idEntry.pack()
 
         # ============================ season ============================
-        self.seasonVar = StringVar()
-
         seasonFrame = Frame(self.rightFrame)
-        seasonFrame.grid(row=4, column=1, columnspan=4, pady=pad)
+        seasonFrame.grid(row=4, column=0, columnspan=4, pady=pad)
+
+        self.seasonVar = StringVar()
 
         seasonLabel = Label(seasonFrame, text='Registering for:')
         fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', variable=self.seasonVar, value='Fall')
@@ -241,7 +240,7 @@ class View:
 
         # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
-        careerFrame.grid(row=6, column=0, columnspan=5, pady=pad)
+        careerFrame.grid(row=6, column=0, columnspan=4, pady=pad)
 
         self.majorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
         self.majorTree.pack(side=LEFT, padx=30)
@@ -257,31 +256,35 @@ class View:
         self.minorTree.heading("#0", text="Minors")
 
         # ============================ credits ============================
-        credFrame = Frame(self.rightFrame, )
-        credFrame.grid(row=8, column=1, columnspan=4, pady=pad)
+        credFrame = Frame(self.rightFrame)
+        credFrame.grid(row=8, column=0, columnspan=4, pady=pad)
 
-        credLabel1 = Label(credFrame, text='Earned:')
-        self.earnCredEntry = ttk.Entry(credFrame, width=3, justify=CENTER, state=DISABLED)
-        credLabel2 = Label(credFrame, text='credits')
+        credFrameL = Frame(credFrame)
+        credFrameL.pack(side=LEFT, padx=15)
+
+        credFrameR = Frame(credFrame)
+        credFrameR.pack(side=RIGHT, padx=15)
+
+        credLabel1 = Label(credFrameL, text='Earned:')
+        self.earnCredEntry = ttk.Entry(credFrameL, width=3, justify=CENTER, state=DISABLED)
+        credLabel2 = Label(credFrameL, text='credits.')
 
         credLabel1.grid(row=0, column=0)
         self.earnCredEntry.grid(row=0, column=1)
         credLabel2.grid(row=0, column=2)
 
-        cblank = Frame(credFrame, width=130).grid(row=0, column=3)
-
-        credLabel3 = Label(credFrame, text='Currently Enrolled in')
+        credLabel3 = Label(credFrameR, text='Currently Enrolled in.')
         self.enrollCredVar = IntVar()
-        self.enrollCredEntry = ttk.Entry(credFrame, width=3, textvariable=self.enrollCredVar, justify=CENTER)
-        credLabel4 = Label(credFrame, text='credits')
+        self.enrollCredEntry = ttk.Entry(credFrameR, width=3, textvariable=self.enrollCredVar, justify=CENTER)
+        credLabel4 = Label(credFrameR, text='Credits')
 
-        credLabel4.grid(row=0, column=4)
-        self.enrollCredEntry.grid(row=0, column=5)
-        credLabel3.grid(row=0, column=6)
+        credLabel4.grid(row=0, column=0)
+        self.enrollCredEntry.grid(row=0, column=1)
+        credLabel3.grid(row=0, column=2)
 
         # ====================== Enrollment Date ========================
         enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.grid(row=10, column=2, columnspan=2, pady=pad)
+        enrlDateFrame.grid(row=10, column=0, columnspan=4, pady=pad)
 
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
@@ -291,7 +294,7 @@ class View:
 
         # ============================ Course table ============================
         courseTableFrame = Frame(self.rightFrame)
-        courseTableFrame.grid(row=12, column=1, columnspan=4, pady=pad)
+        courseTableFrame.grid(row=12, column=0, columnspan=4, pady=pad)
 
         self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview")
         # height is number of rows
@@ -303,7 +306,7 @@ class View:
         self.courseTree.column("course#", anchor=CENTER, width=80)  # anchor for the data in the column
         self.courseTree.column("title", anchor=CENTER, width=295)
         self.courseTree.column("cred", anchor=CENTER, width=25)
-        self.courseTree.column("gen/elect", anchor=CENTER, width=100)
+        self.courseTree.column("gen/elect", anchor=CENTER, width=80)
 
         self.courseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
@@ -312,7 +315,7 @@ class View:
 
         # ===================== backup course ===================
         backupCourseFrame = Frame(self.rightFrame)
-        backupCourseFrame.grid(row=14, column=1, columnspan=4, pady=pad)
+        backupCourseFrame.grid(row=14, column=0, columnspan=4, pady=pad)
 
         backuplabel = Label(backupCourseFrame, text="Back-up Courses").pack(anchor=CENTER)
 
@@ -325,7 +328,7 @@ class View:
         self.backupCourseTree.column("course#", anchor=CENTER, width=80)
         self.backupCourseTree.column("title", anchor=CENTER, width=295)
         self.backupCourseTree.column("cred", anchor=CENTER, width=25)
-        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=100)
+        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=80)
 
         self.backupCourseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.backupCourseTree.heading("title", text='Title', anchor=CENTER)
@@ -334,15 +337,14 @@ class View:
 
         # ====================== memo ========================
         memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.grid(row=16, column=2, columnspan=2, pady=pad)
+        memoFrame.grid(row=16, column=0, columnspan=4, pady=pad)
 
         self.memoEntry = Text(memoFrame, width=50, height=5)
         self.memoEntry.pack()
 
         # ===================== add remove course ==================
         coursebuttonFrame = Frame(self.rightFrame)
-        # courseLabelFrame.grid(row=17, column=1, columnspan=3)
-        coursebuttonFrame.grid(row=13, column=2, columnspan=2)
+        coursebuttonFrame.grid(row=13, column=0, columnspan=4)
 
         addcoursebutton = ttk.Button(coursebuttonFrame, text="Add", command=self.planningWorksheet_addCourseButton)
         addcoursebutton.pack(side=LEFT)
@@ -352,7 +354,7 @@ class View:
 
         # backup course
         bcoursebuttonFrame = Frame(self.rightFrame)
-        bcoursebuttonFrame.grid(row=15, column=2, columnspan=2)
+        bcoursebuttonFrame.grid(row=15, column=0, columnspan=4)
 
         addbackupbutton = ttk.Button(bcoursebuttonFrame, text="Add",
                                      command=self.planningWorksheet_addBackupCourseButton)
@@ -425,7 +427,7 @@ class View:
                                 exportselection=False)
         # exportselection allows us to work on other listbox while not calling this binding
         self.majorBox.pack(side=TOP)
-        self.majorBox.bind('<Double-1>', majorSelection)    # double-click binding
+        self.majorBox.bind('<Double-1>', majorSelection)  # double-click binding
 
         self.minorVar = StringVar()
         self.minorBox = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.minorVar,
@@ -460,7 +462,7 @@ class View:
         minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor)
         minorRemoveButton.pack(side=TOP)
 
-        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)     # TODO: link to four year plan
+        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)  # TODO: link to four year plan
         comfirmButton.pack(side=BOTTOM, pady=10)
 
     # end goal: return array of major under specified school
@@ -861,13 +863,10 @@ class View:
         menu.add_cascade(label='View', menu=load)
         self.loadMenu(load)
 
+        # DataBase
         DB = Menu(menu, tearoff=0)
         menu.add_cascade(label='Update DB', menu=DB)
         self.DataBaseMenu(DB)
-
-        theme = Menu(menu, tearoff=0)
-        menu.add_cascade(label='Themes', menu=theme)
-        self.themeMenu(theme)
 
     # schedule menu dropdown
     def scheduleMenu(self, schedule):
@@ -964,12 +963,14 @@ class View:
         major.add_command(label='Minor Checklist')
 
     def showFourYearPlan(self):
-        self.courseTakenListFrame.place_forget()
-        self.leftFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
+        self.courseTakenListFrame.pack_forget()
+        self.leftFrame.pack(side=LEFT, fill=Y)
 
     def showCourseTakenList(self):
-        self.leftFrame.place_forget()
-        self.courseTakenListFrame.place(relwidth=0.58, relheight=0.91, relx=0.01, rely=0.02)
+        self.leftFrame.pack_forget()
+        self.courseTakenListFrame.pack(side=LEFT, fill=Y)
+        self.courseTakenListFrame['width'] = self.left_width
+        self.courseTakenListFrame.propagate(0)
 
     # data base menu dropdown
     def DataBaseMenu(self, DB):
@@ -978,17 +979,6 @@ class View:
         DB.add_command(label='Add/Remove a School')
         DB.add_command(label='Add/remove a Major')
         DB.add_command(label='Add/Remove a minor')
-
-    def themeMenu(self, theme):
-        # s = ThemedTk(self.mainwin)
-        '''
-        def lightMode(s):
-            s.set_theme("plastik")
-        def darkMode(s):
-            s.set_theme("black")
-        '''
-        # theme.add_command(label='Light Mode', command=)
-        theme.add_command(label='Dark Mode')
 
     def createTable(self, semester, x, y, tableArray, labelArray, frame, counter):
         endOfArray = len(tableArray)
@@ -1012,7 +1002,7 @@ class View:
         tableArray[endOfArray].column("#0", width=0, stretch=NO)  # important
         tableArray[endOfArray].column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
         tableArray[endOfArray].column("title", anchor=W, width=295)
-        tableArray[endOfArray].column("cred", anchor=CENTER, width=62)
+        tableArray[endOfArray].column("cred", anchor=CENTER, width=25)
         # self.semesterTree.column("taken", anchor=CENTER, width=30)
 
         tableArray[endOfArray].heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column

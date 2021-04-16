@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="labeled sides in major minor popup window, changed major minor listbox binding to double-click, seasonVar reset when ppw reset">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="centered right side of application, and set default font to helvetica 14">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618377199237</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Removed dash line from menu bar, lower tables fonts size, changed Credit Hour abbr to CR">
+      <created>1618433966614</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1618433966614</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -390,8 +398,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed Treeview sizing issue" />
-    <MESSAGE value="cleanned up code" />
     <MESSAGE value="{schedule -&gt; open} revised" />
     <MESSAGE value="implemented add/remove buttons for course table" />
     <MESSAGE value="changed table columns name" />
@@ -415,6 +421,8 @@
     <MESSAGE value="Added warnings to remove/delete buttons, and also cleaned up code a bit and included small comments" />
     <MESSAGE value="uncentered majorTree and minorTree from Programing Worksheet" />
     <MESSAGE value="labeled sides in major minor popup window, changed major minor listbox binding to double-click, seasonVar reset when ppw reset" />
-    <option name="LAST_COMMIT_MESSAGE" value="labeled sides in major minor popup window, changed major minor listbox binding to double-click, seasonVar reset when ppw reset" />
+    <MESSAGE value="Removed dash line from menu bar, lower tables fonts size, changed Credit Hour abbr to CR" />
+    <MESSAGE value="centered right side of application, and set default font to helvetica 14" />
+    <option name="LAST_COMMIT_MESSAGE" value="centered right side of application, and set default font to helvetica 14" />
   </component>
 </project>
