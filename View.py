@@ -126,6 +126,14 @@ class View:
         self.progressRepo = Frame(self.tab_parent, width=900, height=1375)
         self.progressRepo.pack(expand=1, fill='both')
 
+        self.addProgRepoBtn = Button(self.progressRepo, text="Add", command=self.planningWorksheet_addCourseButton)
+        self.addProgRepoBtn.pack()
+        self.addProgRepoBtn.place(x=696, y=10)
+
+        self.removeProgRepoBtn = Button(self.progressRepo, text="Remove", command=self.planningWorksheet_delCourseButton)
+        self.removeProgRepoBtn.pack()
+        self.removeProgRepoBtn.place(x=755, y=10)
+
         self.tab_parent.bind('<ButtonRelease>', self.updatePolicy)
         self.tab_parent.pack(expand=1, fill='both', padx=25)
 
