@@ -126,6 +126,7 @@ class View:
         self.progressRepo = Frame(self.tab_parent, width=900, height=1375)
         self.progressRepo.pack(expand=1, fill='both')
 
+        self.tab_parent.bind('<ButtonRelease>', self.updatePolicy)
         self.tab_parent.pack(expand=1, fill='both', padx=25)
 
         self.yearCounter2 = 1
@@ -717,6 +718,7 @@ class View:
         self.id2Entry.delete(0, END)
         self.id2Entry.insert(END, obj['s_id'])
 
+        self.policies = policies
         self.extraTable = []
         self.semTableTree_counter = 0
         semIndex = 0
