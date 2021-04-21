@@ -26,6 +26,8 @@ class View:
         self.schList = schL
         self.subjectsList = subjectL
 
+        self.progressRepo_counter = 0
+
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
         self.courseTakenList_counter = 0
@@ -123,14 +125,14 @@ class View:
         self.tabFrame.pack(expand=1, pady=5)
 
         self.tab_parent = ttk.Notebook(self.innerLeftFrame)
-        self.progressRepo = Frame(self.tab_parent, width=900, height=1375)
-        self.progressRepo.pack(expand=1, fill='both')
+        self.progressRepoFrame = Frame(self.tab_parent, width=900, height=1375)
+        self.progressRepoFrame.pack(expand=1, fill='both')
 
-        self.addProgRepoBtn = Button(self.progressRepo, text="Add", command=self.planningWorksheet_addCourseButton)
+        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=self.FYP_addCourseButton)
         self.addProgRepoBtn.pack()
         self.addProgRepoBtn.place(x=696, y=10)
 
-        self.removeProgRepoBtn = Button(self.progressRepo, text="Remove", command=self.planningWorksheet_delCourseButton)
+        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=self.FYP_delCourseButton)
         self.removeProgRepoBtn.pack()
         self.removeProgRepoBtn.place(x=755, y=10)
 
@@ -138,22 +140,21 @@ class View:
         self.tab_parent.pack(expand=1, fill='both', padx=25)
 
         self.yearCounter2 = 1
-        semesterCounter2 = 0
         yPos2 = 50
         self.progLabel = []
         self.progTable = []
         yearCount2 = 0
 
         for i in range(8):
-            if semesterCounter2 % 2 == 0:
+            if self.progressRepo_counter % 2 == 0:
                 yearCount2 += 1
-                self.progTable.insert(i, self.createTable("Year: " + str(yearCount2), 15, yPos2, self.progTable,
-                                                          self.progLabel, self.progressRepo, semesterCounter2))
+                self.createTable("Year: " + str(yearCount2), 15, yPos2, self.progTable,
+                                                          self.progLabel, self.progressRepoFrame, self.progressRepo_counter)
             else:
-                self.progTable.insert(i, self.createTable(" ", 455, yPos2, self.progTable, self.progLabel,
-                                                          self.progressRepo, semesterCounter2))
+                self.createTable(" ", 455, yPos2, self.progTable, self.progLabel,
+                                                          self.progressRepoFrame, self.progressRepo_counter)
                 yPos2 += 190
-            semesterCounter2 += 1
+            self.progressRepo_counter += 1
 
         # ============================ Semester Tables ============================
         self.semesterFrame = Frame(self.tab_parent, width=900, height=1375)
@@ -161,7 +162,7 @@ class View:
         # self.semesterFrame.place(x=50, y=500)
 
         # Adding to notebook for tab functionality
-        self.tab_parent.add(self.progressRepo, text="Progress Report")
+        self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
         self.tab_parent.add(self.semesterFrame, text="Four Year Plan")
 
         self.yearCounter = 1
@@ -814,6 +815,66 @@ class View:
         self.tab_parent.tab(self.semesterFrame, text="Four Year Plan")
         while (self.tab_parent.index("end") != 2):
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
+
+    def FYP_addCourseButton(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Course")
+        t.geometry("450x125")
+        t.resizable(width=FALSE, height=FALSE)
+        # t.attributes('-topmost', 'true')
+        t.transient(self.mainwin)
+        selectedTreeView = self.progressRepoFrame.focus_get()
+
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def courseSearch(e):
+            course = entry.get()
+            if len(course) > 7:
+                if len(course.split()[1]) == 3:
+                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
+                    self.resultVar.set(
+                        self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
+                        self.addCourseSearchResult[2] + " " * 3 +
+                        self.addCourseSearchResult[3])
+                else:
+                    self.resultVar.set("")
+            else:
+                self.resultVar.set("")
+
+        # adds searched course into the treeview
+        def addCourse():
+            print(selectedTreeView)
+            selectedTreeView.insert(parent='', index='end', iid=self.progressRepo_counter, text="",
+                                   values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
+                                           self.addCourseSearchResult[2]))
+            self.progressRepo_counter += 1
+
+        courseEntryFrame = Frame(t)
+        courseEntryFrame.pack(anchor=CENTER)
+
+        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
+        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
+        entry.pack(side=RIGHT)
+
+        entry.bind('<KeyRelease>', courseSearch)  # for auto search
+
+        resultFrame = Frame(t)
+        resultFrame.pack(anchor=CENTER)
+
+        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry.pack(pady=10)
+
+        addButton = Button(resultFrame, text="Add", command=addCourse)
+        addButton.pack(side=BOTTOM, pady=5)
+
+    def FYP_delCourseButton(self):
+        selectedTreeView = self.progressRepoFrame.focus_get()
+        for course in selectedTreeView.selection():
+            msg = "Do you want to remove the selected course? (" + selectedTreeView.item(course)['values'][0] + ")"
+            response = messagebox.askquestion("askquestion", msg)
+            if response == 'yes':
+                selectedTreeView.delete(course)
+                self.progressRepo_counter -= 1
 
     def updatePolicy(self, event):
         selected_tab = event.widget.select()
