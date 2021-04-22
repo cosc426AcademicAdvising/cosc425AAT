@@ -18,7 +18,7 @@ class View:
         # 2560 x 1440
         self.mainwin.deiconify()
 
-        #self.mainwin.call('tk', 'scaling', 0.75)
+        # self.mainwin.call('tk', 'scaling', 0.75)
 
         self.defaultFont = TkFont.nametofont("TkDefaultFont")
         self.defaultFont.configure(family='Helvetica', size=14)
@@ -29,8 +29,6 @@ class View:
 
         self.schList = schL
         self.subjectsList = subjectL
-
-        self.progressRepo_counter = 0
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
@@ -60,7 +58,7 @@ class View:
                                           width=self.left_width)
         self.courseTakenListFrame.pack(side=LEFT, fill=Y)
         self.courseTakenListFrame.pack_propagate(0)
-        self.courseTakenListFrame.pack_forget()     # hide frame
+        self.courseTakenListFrame.pack_forget()  # hide frame
 
         self.FourYearPlan()
         self.planningWorksheet_layout()
@@ -73,14 +71,8 @@ class View:
 
         scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
-        #scrollbar.place(relwidth=0.022, relheight=0.98, relx=0.98, rely=0.00)
-
-        #scrollbar2 = ttk.Scrollbar(self.leftFrame, orient=HORIZONTAL, command=canvas.xview)
-        #scrollbar2.pack(side=BOTTOM, fill=X)
-        #scrollbar2.place(relwidth=0.98, relheight=0.022, relx=0.00, rely=0.98)
 
         canvas.configure(yscrollcommand=scrollbar.set)
-        #canvas.configure(xscrollcommand=scrollbar2.set)
         canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
         self.innerLeftFrame = Frame(canvas)
@@ -89,85 +81,59 @@ class View:
 
         # ============================ title ============================
         ProgPlanTitleFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
-        ProgPlanTitleFrame.pack(expand=1)
+        ProgPlanTitleFrame.pack(pady=20)
 
-        ProgPlanTitle = ttk.Label(ProgPlanTitleFrame, text="Four Year Plan", anchor=CENTER,
+        ProgPlanTitle = ttk.Label(ProgPlanTitleFrame, text="Academic Advising", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.pack(expand=1)
-        ProgPlanTitle.place(x=360, y=20)
+        ProgPlanTitle.pack(side=TOP)
 
         # ============================ Student Name and ID ============================
 
         nameIDFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
-        nameIDFrame.pack(expand=1)
+        nameIDFrame.pack(ipadx=30, ipady=10)
 
         nameLabel = Label(nameIDFrame, text='Name:')
         nameLabel.pack(side=LEFT, expand=1)
-        nameLabel.place(x=181, y=20)
 
         self.name2Entry = ttk.Entry(nameIDFrame)
         self.name2Entry.pack(side=LEFT, expand=1)
-        self.name2Entry.place(x=230, y=20)
-
-        idLabel = Label(nameIDFrame, text='ID Number:')
-        idLabel.pack(side=RIGHT, expand=1)
-        idLabel.place(x=490, y=20)
 
         self.id2Entry = ttk.Entry(nameIDFrame, width=8)
         self.id2Entry.pack(side=RIGHT, expand=1)
-        self.id2Entry.place(x=570, y=20)
 
-        # ============================ Memo ============================
+        idLabel = Label(nameIDFrame, text='ID Number:')
+        idLabel.pack(side=RIGHT, expand=1)
+
+        # ============================ Policy Memo ============================
         policyFrame = ttk.LabelFrame(self.innerLeftFrame, height=200, width=self.left_width, text='University Policy:')
         policyFrame.pack(pady=30)
 
         self.policyMemoEntry = Text(policyFrame, width=90, height=10)
         self.policyMemoEntry.pack()
 
-        # ============================ Four Year Tabs and Progress Report ============================
+        # ============================ Progress Report ============================
+        # Creation of ttk.Notebook to add tabs to Academic Advising screen
         self.tab_parent = ttk.Notebook(self.innerLeftFrame)
 
+        # Frame for Progress Report tab
         self.progressRepoFrame = Frame(self.tab_parent, width=self.left_width)
         self.progressRepoFrame.pack(fill='both')
 
-        """"
-        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=self.FYP_addCourseButton)
-        self.addProgRepoBtn.pack()
-        self.addProgRepoBtn.place(x=696, y=10)
-
-        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=self.FYP_delCourseButton)
-        self.removeProgRepoBtn.pack()
-        self.removeProgRepoBtn.place(x=755, y=10)
-        """
-
+        # Event handler to change policy via clicking a tab
         self.tab_parent.bind('<ButtonRelease>', self.updatePolicy)
         self.tab_parent.pack(expand=1, fill=X, pady=30, ipady=5)
 
-        self.yearCounter2 = 1
-        yPos2 = 50
-        self.progLabel = []
-        self.progTable = []
-        yearCount2 = 0
+        self.progLabel = []  # Holds the labels for each semester in Progress Report
+        self.progTable = []  # Holds the treeviews for progress report
 
+        # Treeviews are created for Progress Report tab
         self.createTable(self.progressRepoFrame, self.progLabel, self.progTable)
-
-        # ============================ Semester Tables ============================
-        self.semesterFrame = Frame(self.tab_parent, width=self.left_width)
-        self.semesterFrame.pack(fill='both')
-        # self.semesterFrame.place(x=50, y=500)
-
-        # Adding to notebook for tab functionality
+        # Adds the progress report tab ttk.Notebook
         self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
-        self.tab_parent.add(self.semesterFrame, text="Four Year Plan")
 
-        self.yearCounter = 1
-        semesterCounter = 0
-        yPos = 50
-        self.semLabel = []
-        self.semTable = []
-        yearCount = 0
-
-        self.createTable(self.semesterFrame, self.semLabel, self.semTable)
+        # Creating buttons for Progress Report placing with .grid() in FYP_addCourseButton
+        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=self.FYP_addCourseButton)
+        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=self.FYP_delCourseButton)
 
         # ============================ Add Semester Table Button ============================
         """"
@@ -178,8 +144,158 @@ class View:
         self.tempY = yPos
         self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
                                                                         self.semLabel, self.semesterFrame, self.temp)
-                                                                        """
+        """
 
+    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear,
+                          policies):
+        # delete what was previously there then insert
+        self.name2Entry.delete(0, END)
+        self.name2Entry.insert(END, obj['name'])
+
+        self.id2Entry.delete(0, END)
+        self.id2Entry.insert(END, obj['s_id'])
+
+        self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
+        self.majorsTable = []  # Holds arrays filled with treeviews
+        self.frameArray = []  # Holds frames for tabs
+        self.labelArray = []
+
+        self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
+        self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
+
+        semIndex = 0
+        for sem in courseHist:  # Filling the Progress Report treeviews with students course history from database
+            for course in sem:
+                self.progTable[semIndex].insert(parent='', index='end', iid=self.progTableTree_iid,
+                                                values=(course[1] + " " + course[2], course[3], course[4]))
+                self.progTableTree_iid += 1
+            semIndex += 1
+
+        for i in range(len(major)): # Filling arrays according to amount of majors a student is doing
+            self.labelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+            self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
+            self.frameArray.append(Frame(self.tab_parent)) # Holds frames for each tab
+            self.createTable(self.frameArray[i], self.labelArray[i], self.majorsTable[i]) # Function to populate these arrays
+            self.tab_parent.add(self.frameArray[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
+
+        majorIndex = 0
+        for majors in fourYear: # Filling semesters for each major
+            semIndex = 0
+            for sem in majors:
+                self.majorsTableTree_iid = 0
+                for course in sem:
+                    self.majorsTable[majorIndex][semIndex].insert(parent='', index='end',
+                                                                  iid=self.majorsTableTree_iid,
+                                                                  values=(str(course[1] + " " + course[2]), course[3],
+                                                                          course[4]))
+                    self.majorsTableTree_iid += 1
+                semIndex += 1
+            majorIndex += 1
+
+    def FYP_reset(self):
+        self.name2Entry.delete(0, END)
+        self.id2Entry.delete(0, END)
+
+        self.policyMemoEntry.delete('1.0', 'end')
+
+        semIndex = 0
+        for sem in self.progTable: # Clear treeviews in Progress Report
+            courseIndex = 0
+            for course in self.progTable[semIndex].get_children():
+                print(self.progTable[semIndex].get_children())
+                self.progTable[semIndex].delete(course)
+                courseIndex += 1
+            semIndex += 1
+
+        majorIndex = 0
+        for majors in self.majorsTable: # Clear treeviews for each major tab
+            semIndex = 0
+            for sem in majors:
+                self.majorsTableTree_iid = 0
+                for course in self.majorsTable[majorIndex][semIndex].get_children():
+                    self.majorsTable[majorIndex][semIndex].delete(course)
+                    self.majorsTableTree_iid += 1
+                semIndex += 1
+            majorIndex += 1
+        self.majorsTable.clear()
+        self.labelArray.clear()
+        self.frameArray.clear()
+
+        while (self.tab_parent.index("end") != 1): # Removes the tabs but leaves Progress Report tab
+            self.tab_parent.forget(self.tab_parent.index("end") - 1)
+
+    def FYP_addCourseButton(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Course")
+        t.geometry("450x125")
+        t.resizable(width=FALSE, height=FALSE)
+        # t.attributes('-topmost', 'true')
+        t.transient(self.mainwin)
+        selectedTreeView = self.progressRepoFrame.focus_get()
+
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def courseSearch(e):
+            course = entry.get()
+            if len(course) > 7:
+                if len(course.split()[1]) == 3:
+                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
+                    self.resultVar.set(
+                        self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
+                        self.addCourseSearchResult[2] + " " * 3 +
+                        self.addCourseSearchResult[3])
+                else:
+                    self.resultVar.set("")
+            else:
+                self.resultVar.set("")
+
+        # adds searched course into the treeview
+        def addCourse():
+            print(selectedTreeView)
+            selectedTreeView.insert(parent='', index='end', iid=self.progressRepo_counter, text="",
+                                    values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
+                                            self.addCourseSearchResult[2]))
+            self.progressRepo_counter += 1
+
+        courseEntryFrame = Frame(t)
+        courseEntryFrame.pack(anchor=CENTER)
+
+        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
+        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
+        entry.pack(side=RIGHT)
+
+        entry.bind('<KeyRelease>', courseSearch)  # for auto search
+
+        resultFrame = Frame(t)
+        resultFrame.pack(anchor=CENTER)
+
+        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry.pack(pady=10)
+
+        addButton = Button(resultFrame, text="Add", command=addCourse)
+        addButton.pack(side=BOTTOM, pady=5)
+
+    def FYP_delCourseButton(self):
+        selectedTreeView = self.progressRepoFrame.focus_get()
+        for course in selectedTreeView.selection():
+            msg = "Do you want to remove the selected course? (" + selectedTreeView.item(course)['values'][0] + ")"
+            response = messagebox.askquestion("askquestion", msg)
+            if response == 'yes':
+                selectedTreeView.delete(course)
+                self.progressRepo_counter -= 1
+
+    # Function for event handler to change policy memo via clicking a tab
+    def updatePolicy(self, event):
+        selected_tab = event.widget.select()
+        tab_text = event.widget.tab(selected_tab, "text")
+        tab_index = event.widget.index(selected_tab)
+        if tab_text == "Progress Report" or tab_text == "Four Year Plan":
+            pass
+        else:
+            self.policyMemoEntry.delete('1.0', 'end')
+            self.policyMemoEntry.insert('1.0', self.policies[tab_index - 1])
+
+    # Creates a table of treeviews for tabs in Academic Advising
     def createTable(self, frame, labels, tables):
         # column configure
         for i in range(2):
@@ -192,7 +308,8 @@ class View:
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
             tables[i].column("course#", anchor=CENTER, width=75)
-            tables[i].column("title", anchor=W, width=295)
+            w = int((self.left_width - 300) / 2)
+            tables[i].column("title", anchor=W, width=w)
             tables[i].column("cred", anchor=CENTER, width=25)
             # tables[i].column("taken", anchor=CENTER, width=30)
 
@@ -224,7 +341,7 @@ class View:
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.grid(row=0, column=0, columnspan=4, pady=pad)
+        ProgPlanTitle.grid(row=0, column=0, columnspan=4, pady=20)
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame)
@@ -402,6 +519,7 @@ class View:
 
         def close(e):
             self.editCareerButton.configure(state=NORMAL)
+
         t.bind('<Destroy>', close)
         self.editCareerButton.configure(state=DISABLED)
 
@@ -455,7 +573,7 @@ class View:
         self.majorVar = StringVar()
         self.majorBox = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.majorVar,
                                 exportselection=False)
-        # exportselection allows us to work on other listbox while not calling this binding
+        # export selection allows us to work on other listbox while not calling this binding
         self.majorBox.pack(side=TOP)
         self.majorBox.bind('<Double-1>', majorSelection)  # double-click binding
 
@@ -532,6 +650,7 @@ class View:
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
             t.destroy()
+
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
 
@@ -610,6 +729,7 @@ class View:
         def close(e):
             self.addBackupButton.configure(state=NORMAL)
             t.destroy()
+
         t.bind('<Destroy>', close)
         self.addBackupButton.configure(state=DISABLED)
 
@@ -746,177 +866,6 @@ class View:
 
         self.courseTakenList_fill()
 
-    def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses, courseHist, fourYear,
-                          policies):
-        # delete what was previously there then insert
-        self.name2Entry.delete(0, END)
-        self.name2Entry.insert(END, obj['name'])
-
-        self.id2Entry.delete(0, END)
-        self.id2Entry.insert(END, obj['s_id'])
-
-        self.policies = policies
-        self.extraTable = []
-        self.semTableTree_counter = 0
-        semIndex = 0
-        for sem in self.courseHist:
-            for course in sem:
-                self.progTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                                values=(course[1] + " " + course[2], course[3], course[4]))
-                self.semTableTree_counter += 1
-            semIndex += 1
-
-        majorIndex = 0
-        for majors in fourYear:
-            self.semTableTree_counter = 0
-            semIndex = 0
-            tabTitle = major[majorIndex]
-            creation = False
-            for sem in majors:
-                for course in sem:
-                    if majorIndex == 0:
-                        self.tab_parent.tab(self.semesterFrame, text=tabTitle)
-
-                        self.semTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                                       values=(course[1] + " " + course[2], course[3], course[4]))
-
-                        self.semTableTree_counter += 1
-
-                        self.policyMemoEntry.delete('1.0', 'end')
-                        self.policyMemoEntry.insert('1.0', policies[0])
-                    else:
-                        if creation == False:
-                            yearCounter = 1
-                            semesterCounter = 0
-                            yPos = 50
-                            extraLabel = []
-                            yearCount = 0
-                            self.newFrame = Frame(self.tab_parent, width=900, height=1375)
-                            self.newFrame.pack(expand=1, fill='both')
-                            self.tab_parent.add(self.newFrame, text=tabTitle)
-
-                            """
-                            for i in range(8):
-                                if semesterCounter % 2 == 0:
-                                    yearCount += 1
-                                    self.extraTable.insert(i,
-                                                           self.createTable("Year: " + str(yearCount), 15, yPos,
-                                                                            self.extraTable,
-                                                                            extraLabel,
-                                                                            self.newFrame, semesterCounter))
-                                else:
-                                    self.extraTable.insert(i,
-                                                           self.createTable(" ", 455, yPos, self.extraTable, extraLabel,
-                                                                            self.newFrame, semesterCounter))
-                                    yPos += 190
-                                semesterCounter += 1
-                            """
-                            self.createTable(self.newFrame, extraLabel, self.extraTable)
-                            creation = True
-                        else:
-                            self.extraTable[semIndex].insert(parent='', index='end', iid=self.semTableTree_counter,
-                                                             values=(course[1] + " " + course[2], course[3], course[4]))
-                            self.semTableTree_counter += 1
-                semIndex += 1
-            majorIndex += 1
-
-    def FYP_reset(self):
-        self.courseHist.clear()
-        self.name2Entry.delete(0, END)
-        self.id2Entry.delete(0, END)
-
-        self.policyMemoEntry.delete('1.0', 'end')
-
-        index = 0
-        while (index < len(self.semTable)):
-            for course in self.semTable[index].get_children():
-                self.semTable[index].delete(course)
-            index += 1
-        index = 0
-        while (index < len(self.progTable)):
-            for course in self.progTable[index].get_children():
-                self.progTable[index].delete(course)
-            index += 1
-        index = 0
-        for object in self.extraTable:
-            for course in object.get_children():
-                self.extraTable[index].delete(course)
-            index += 1
-
-        self.tab_parent.tab(self.semesterFrame, text="Four Year Plan")
-        while (self.tab_parent.index("end") != 2):
-            self.tab_parent.forget(self.tab_parent.index("end") - 1)
-
-    def FYP_addCourseButton(self):
-        t = Toplevel(self.mainwin)
-        t.wm_title("Search for Course")
-        t.geometry("450x125")
-        t.resizable(width=FALSE, height=FALSE)
-        # t.attributes('-topmost', 'true')
-        t.transient(self.mainwin)
-        selectedTreeView = self.progressRepoFrame.focus_get()
-
-        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
-
-        def courseSearch(e):
-            course = entry.get()
-            if len(course) > 7:
-                if len(course.split()[1]) == 3:
-                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
-                    self.resultVar.set(
-                        self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
-                        self.addCourseSearchResult[2] + " " * 3 +
-                        self.addCourseSearchResult[3])
-                else:
-                    self.resultVar.set("")
-            else:
-                self.resultVar.set("")
-
-        # adds searched course into the treeview
-        def addCourse():
-            print(selectedTreeView)
-            selectedTreeView.insert(parent='', index='end', iid=self.progressRepo_counter, text="",
-                                   values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
-                                           self.addCourseSearchResult[2]))
-            self.progressRepo_counter += 1
-
-        courseEntryFrame = Frame(t)
-        courseEntryFrame.pack(anchor=CENTER)
-
-        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
-        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
-        entry.pack(side=RIGHT)
-
-        entry.bind('<KeyRelease>', courseSearch)  # for auto search
-
-        resultFrame = Frame(t)
-        resultFrame.pack(anchor=CENTER)
-
-        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
-        resultEntry.pack(pady=10)
-
-        addButton = Button(resultFrame, text="Add", command=addCourse)
-        addButton.pack(side=BOTTOM, pady=5)
-
-    def FYP_delCourseButton(self):
-        selectedTreeView = self.progressRepoFrame.focus_get()
-        for course in selectedTreeView.selection():
-            msg = "Do you want to remove the selected course? (" + selectedTreeView.item(course)['values'][0] + ")"
-            response = messagebox.askquestion("askquestion", msg)
-            if response == 'yes':
-                selectedTreeView.delete(course)
-                self.progressRepo_counter -= 1
-
-    def updatePolicy(self, event):
-        selected_tab = event.widget.select()
-        tab_text = event.widget.tab(selected_tab, "text")
-        tab_index = event.widget.index(selected_tab)
-        if tab_text == "Progress Report" or tab_text == "Four Year Plan":
-            print()
-        else:
-            self.policyMemoEntry.delete('1.0', 'end')
-            self.policyMemoEntry.insert('1.0', self.policies[tab_index - 1])
-
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
@@ -989,6 +938,9 @@ class View:
         self.planningWorksheet_reset()
         self.FYP_reset()
         self.courseTakenList_reset()
+        # Removes buttons when student information is not present
+        self.addProgRepoBtn.grid_forget()
+        self.removeProgRepoBtn.grid_forget()
 
     def openSchedule(self):
         t = Toplevel(self.mainwin)
@@ -1001,6 +953,7 @@ class View:
         def close(e):
             self.schedule.entryconfigure(1, state=NORMAL)
             t.destroy()
+
         t.bind('<Destroy>', close)
         self.schedule.entryconfigure(1, state=DISABLED)
 
@@ -1011,6 +964,9 @@ class View:
                 pub.sendMessage("request_PPW", name=name, id=int(id))
                 self.schedule.entryconfigure(1, state=NORMAL)
                 t.destroy()
+                # Shows buttons for Progress Report when student information is present
+                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
 
         nameFrame = Frame(t)
         nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
@@ -1090,46 +1046,3 @@ class View:
         DB.add_command(label='Add/Remove a School')
         DB.add_command(label='Add/remove a Major')
         DB.add_command(label='Add/Remove a minor')
-
-    """"
-    def createTable(self, semester, x, y, tableArray, labelArray, frame, counter):
-        endOfArray = len(tableArray)
-        endOfSemLabel = len(labelArray)
-
-        labelArray.append(Label(frame, text=semester, font=('Helvetica', 15)))
-        labelArray[endOfSemLabel].pack(expand=1)
-
-        tableArray.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview"))
-
-        if counter % 2 == 0:
-            tableArray[endOfArray].pack(expand=1)
-            tableArray[endOfArray].place(x=15, y=y)
-            labelArray[endOfSemLabel].place(x=15, y=y - 25)
-        else:
-            tableArray[endOfArray].pack(expand=1)
-            tableArray[endOfArray].place(x=455, y=y)
-            labelArray[endOfSemLabel].place(x=455, y=y - 25)
-
-        tableArray[endOfArray]['columns'] = ("course#", "title", "cred")
-        tableArray[endOfArray].column("#0", width=0, stretch=NO)  # important
-        tableArray[endOfArray].column("course#", anchor=CENTER, width=75)  # anchor for the data in the column
-        tableArray[endOfArray].column("title", anchor=W, width=295)
-        tableArray[endOfArray].column("cred", anchor=CENTER, width=25)
-        # self.semesterTree.column("taken", anchor=CENTER, width=30)
-
-        tableArray[endOfArray].heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
-        tableArray[endOfArray].heading("title", text='Title', anchor=CENTER)
-        tableArray[endOfArray].heading("cred", text='CR', anchor=CENTER)
-
-        return tableArray[endOfArray]
-
-    def createSemesterBtn(self, semester, y, tableArray, labelArray, frame, counter):
-        if counter % 2 == 0:
-            self.createTable(semester, 15, self.tempY, tableArray, labelArray, frame, self.temp)
-            self.addSemesterBtn.place(x=455, y=self.tempY)
-        else:
-            self.createTable(semester, 455, self.tempY, tableArray, labelArray, frame, self.temp)
-            self.tempY += 190
-            self.addSemesterBtn.place(x=15, y=self.tempY)
-        self.temp += 1
-    """
