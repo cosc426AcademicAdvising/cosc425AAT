@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Added some functionality to Progress report buttons">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Clean">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
@@ -384,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618788331598</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Clean">
+      <created>1619133855597</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1619133855597</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -422,7 +429,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="implemented add/remove buttons for course table" />
     <MESSAGE value="changed table columns name" />
     <MESSAGE value="implemented auto search for add button" />
     <MESSAGE value="implemented auto search for add button for backup courses" />
@@ -447,6 +453,7 @@
     <MESSAGE value="Removed dash line from menu bar, lower tables fonts size, changed Credit Hour abbr to CR" />
     <MESSAGE value="centered right side of application, and set default font to helvetica 14" />
     <MESSAGE value="Fixed policy not changing and triple major not resetting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed policy not changing and triple major not resetting" />
+    <MESSAGE value="Clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean" />
   </component>
 </project>

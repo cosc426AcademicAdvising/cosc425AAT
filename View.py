@@ -202,7 +202,6 @@ class View:
         for sem in self.progTable: # Clear treeviews in Progress Report
             courseIndex = 0
             for course in self.progTable[semIndex].get_children():
-                print(self.progTable[semIndex].get_children())
                 self.progTable[semIndex].delete(course)
                 courseIndex += 1
             semIndex += 1
@@ -232,7 +231,6 @@ class View:
         # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
         selectedTreeView = self.progressRepoFrame.focus_get()
-
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def courseSearch(e):
@@ -252,10 +250,10 @@ class View:
         # adds searched course into the treeview
         def addCourse():
             print(selectedTreeView)
-            selectedTreeView.insert(parent='', index='end', iid=self.progressRepo_counter, text="",
+            print(len(selectedTreeView.get_children()))
+            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children())+10), text="",
                                     values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                             self.addCourseSearchResult[2]))
-            self.progressRepo_counter += 1
 
         courseEntryFrame = Frame(t)
         courseEntryFrame.pack(anchor=CENTER)
@@ -282,7 +280,6 @@ class View:
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
                 selectedTreeView.delete(course)
-                self.progressRepo_counter -= 1
 
     # Function for event handler to change policy memo via clicking a tab
     def updatePolicy(self, event):
