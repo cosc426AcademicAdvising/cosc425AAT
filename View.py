@@ -66,7 +66,7 @@ class View:
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
-        canvas = Canvas(self.leftFrame, width=self.left_width)
+        canvas = Canvas(self.leftFrame, width=self.left_width) # Creating Canvas for scrollbar
         canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
         scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
@@ -157,6 +157,7 @@ class View:
 
         self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
         self.majorsTable = []  # Holds arrays filled with treeviews
+        self.minorsTable = [] # Holds arrays filled with treeviews
         self.frameArray = []  # Holds frames for tabs
         self.labelArray = []
 
@@ -165,6 +166,7 @@ class View:
 
         semIndex = 0
         for sem in courseHist:  # Filling the Progress Report treeviews with students course history from database
+            self.progTableTree_iid = 0
             for course in sem:
                 self.progTable[semIndex].insert(parent='', index='end', iid=self.progTableTree_iid,
                                                 values=(course[1] + " " + course[2], course[3], course[4]))
@@ -177,7 +179,15 @@ class View:
             self.frameArray.append(Frame(self.tab_parent)) # Holds frames for each tab
             self.createTable(self.frameArray[i], self.labelArray[i], self.majorsTable[i]) # Function to populate these arrays
             self.tab_parent.add(self.frameArray[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
-
+        '''
+        length = len(major)
+        for length in range(len(minor)): # Filling arrays according to amount of majors a student is doing
+            self.labelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+            self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
+            self.frameArray.append(Frame(self.tab_parent)) # Holds frames for each tab
+            self.createTable(self.frameArray[length], self.labelArray[length], self.majorsTable[length]) # Function to populate these arrays
+            self.tab_parent.add(self.frameArray[length], text=minor[0]) # Each frame to the ttk.Notebook to display tab
+        '''
         majorIndex = 0
         for majors in fourYear: # Filling semesters for each major
             semIndex = 0
@@ -198,24 +208,14 @@ class View:
 
         self.policyMemoEntry.delete('1.0', 'end')
 
-        semIndex = 0
         for sem in self.progTable: # Clear treeviews in Progress Report
-            courseIndex = 0
-            for course in self.progTable[semIndex].get_children():
-                self.progTable[semIndex].delete(course)
-                courseIndex += 1
-            semIndex += 1
+            for course in sem.get_children():
+                sem.delete(course)
 
-        majorIndex = 0
         for majors in self.majorsTable: # Clear treeviews for each major tab
-            semIndex = 0
             for sem in majors:
-                self.majorsTableTree_iid = 0
-                for course in self.majorsTable[majorIndex][semIndex].get_children():
-                    self.majorsTable[majorIndex][semIndex].delete(course)
-                    self.majorsTableTree_iid += 1
-                semIndex += 1
-            majorIndex += 1
+                for course in sem.get_children():
+                    sem.delete(course)
         self.majorsTable.clear()
         self.labelArray.clear()
         self.frameArray.clear()
@@ -249,9 +249,7 @@ class View:
 
         # adds searched course into the treeview
         def addCourse():
-            print(selectedTreeView)
-            print(len(selectedTreeView.get_children()))
-            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children())+10), text="",
+            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children())+1), text="",
                                     values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                             self.addCourseSearchResult[2]))
 
@@ -286,7 +284,7 @@ class View:
         selected_tab = event.widget.select()
         tab_text = event.widget.tab(selected_tab, "text")
         tab_index = event.widget.index(selected_tab)
-        if tab_text == "Progress Report" or tab_text == "Four Year Plan":
+        if tab_text == "Progress Report":
             pass
         else:
             self.policyMemoEntry.delete('1.0', 'end')
@@ -300,7 +298,7 @@ class View:
 
         # define treeviews and labels
         for i in range(8):
-            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview"))
+            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True))
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
