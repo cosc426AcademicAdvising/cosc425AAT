@@ -178,6 +178,8 @@ class Model:
         for i in range(len(obj['major'])):
             fourList.append(self.getFourYear(majList[i]))
             policies.append(self.getPolicies(majList[i]))
+        for i in range(len(obj['minor'])):
+            policies.append(self.getMinorUnivReq(minList[i]))
             # First array initializer corresponds to which semester you are viewing course for
             # Ex.  fourList[0][1]  =  The first semester and the second course the took that semester
 
