@@ -232,9 +232,16 @@ class View:
             for sem in majors:
                 for course in sem.get_children():
                     sem.delete(course)
+        for minors in self.minorsTable: # Clear treeviews for each major tab
+            for sem in minors:
+                for course in sem.get_children():
+                    sem.delete(course)
         self.majorsTable.clear()
-        self.labelArray.clear()
-        self.frameArray.clear()
+        self.minorsTable.clear()
+        self.majorsLabelArray.clear()
+        self.minorsLabelArray.clear()
+        self.majorFrames.clear()
+        self.minorFrames.clear()
 
         while (self.tab_parent.index("end") != 1): # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
