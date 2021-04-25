@@ -279,6 +279,82 @@ class Model:
             fourList.append(courseList)
         return fourList
 
+    def getMinorUnivReq(self, minor):
+        reqList = []  # req list
+        sem = "1"  # Keeps track of which semester in database
+        total = 0  # Total number of semesters
+        ctotal = 0  # Total number of courses in a semester
+
+        myCol = db.get_collection('MinPlan')
+        i = myCol.find_one({'minor': minor})
+        policy = i['university_policies'] + i['minor_req']
+        reqList.append(policy)
+        return reqList
+
+    def getMinorPlanReq(self, minor):
+        reqList = []  # req list
+        sem = "1"  # Keeps track of which semester in database
+        total = 0  # Total number of semesters
+        ctotal = 0  # Total number of courses in a semester
+
+        myCol = db.get_collection('MinPlan')
+        i = myCol.find_one({'minor': minor})
+
+        # Gets total number of reqs through error handling
+        for j in range(15):  # Max of 15 possible reqs
+            stri = "req_"  # Append which req to string
+            stri = stri + sem
+            try:  # Error checks is req is out of range
+                (i[stri])  # Sets the total to the currently viewed req
+                total = int(sem)
+                resl = [j, i[stri]]
+                reqList.append(resl)  # Appends that string to a req list
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
+        return reqList
+
+    def getMinorPlanCourse(self, minor):
+        courseList = []  # course list
+        minList = []  # four year plan list (return value)
+        sem = "1"  # Keeps track of which semester in database
+        total = 0  # Total number of semesters
+        ctotal = 0  # Total number of courses in a semester
+
+        myCol = db.get_collection('MinPlan')
+        i = myCol.find_one({'minor': minor})
+
+        # fourList.append(i['policies'])
+
+        # Gets total number of semesters through error handling
+        for j in range(15):  # Max of 15 possible semesters needed
+            stri = "course_"  # Append which semester to string
+            stri = stri + sem
+            try:  # Error checks is semester is out of range
+                (i[stri])  # Sets the total to the currently viewed semester
+                total = int(sem)
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
+
+        for k in range(total):  # Iterates through each semester from previously calculated value
+            stri = "course_"  # Appends which semester to a string
+            stri = stri + str(k + 1)
+            # Gets total number of courses through error handling
+            courseList = []
+            for l in range(8):  # Max of 8 possible courses taken during any given semester
+
+                try:  # Checks for Array index error
+                    (i[stri][l])
+                    ctotal = l + 1  # Sets total number of courses to currently viewed course
+                    resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
+                            i[stri][l]['credits']]  # Creates a string value of each objects within array
+                    courseList.append(resl)  # Appends that string to a course list
+                except IndexError as c:
+                    ctotal = ctotal  # Last none index error course number is stored
+            minList.append(courseList)
+        return minList
+
     def openJson(self):
         path = askopenfilename(
             initialdir="./",
