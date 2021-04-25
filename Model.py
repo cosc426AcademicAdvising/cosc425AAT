@@ -131,7 +131,9 @@ class Model:
             minList.append(c['title'])
 
         courseList = []  # course list
-        fourList = []  # four year plan list (return value)
+        majorFourList = []  # major four year plan list (return value)
+        minorFourList = []  # minor four year plan list (return value)
+        minorReqList = []
         sem = "1"  # Keeps track of which semester in database
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
@@ -176,9 +178,11 @@ class Model:
             courseHist.append(courseList)
         policies = []
         for i in range(len(obj['major'])):
-            fourList.append(self.getFourYear(majList[i]))
+            majorFourList.append(self.getFourYear(majList[i]))
             policies.append(self.getPolicies(majList[i]))
         for i in range(len(obj['minor'])):
+            minorFourList.append(self.getMinorPlanCourse(minList[i]))
+            minorReqList.append(self.getMinorPlanReq(minList[i]))
             policies.append(self.getMinorUnivReq(minList[i]))
             # First array initializer corresponds to which semester you are viewing course for
             # Ex.  fourList[0][1]  =  The first semester and the second course the took that semester
@@ -193,7 +197,7 @@ class Model:
             # [0, 'ENGL', '103', 'Composition and Research', '4']    Example output for fourList[0][2]
 
         pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, major=majList, minor=minList,
-                        bcourses=backup, courseHist=courseHist, fourYear=fourList, policies=policies)
+                        bcourses=backup, courseHist=courseHist, fourYear=majorFourList, minorFourYear=minorFourList,minorReqList=minorReqList,  policies=policies)
         # pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
     def getPolicies(self, major):
