@@ -155,13 +155,16 @@ class View:
         self.id2Entry.delete(0, END)
         self.id2Entry.insert(END, obj['s_id'])
 
+        self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable() (COULD MAKE THIS ENCAPSULATED)
         self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
         self.majorsTable = []  # Holds arrays filled with treeviews
-        self.minorsTable = [] # Holds arrays filled with treeviews
-        self.majorFrames = []  # Holds frames for tabs
-        self.minorFrames = []
-        self.majorsLabelArray = []
-        self.minorsLabelArray = []
+        self.minorsTable = []  # Holds arrays filled with treeviews
+        self.majorFrames = []  # Holds frames major for tabs
+        self.minorFrames = []  # Holds frames minor for tabs
+        self.majorsLabelArray = []  # Holds labels for major tabs
+        self.minorsLabelArray = []  # Holds labels for minor tabs
+
+
 
         self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
         self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
@@ -202,7 +205,7 @@ class View:
                     self.majorsTableTree_iid += 1
                 semIndex += 1
             majorIndex += 1
-        print(minorReqList)
+
         minorIndex = 0
         for minors in minorFourYear:  # Filling semesters for each minor
             semIndex = 0
@@ -333,10 +336,11 @@ class View:
             tables[i].heading("course#", text='Course #', anchor=CENTER)
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
-            #if hasMinor == 0:
-            if i < 8 / 2:
-                labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
-            #else:
+            if hasMinor == 0:
+                if i < 8 / 2:
+                    labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
+            else:
+                labels.append(Label(frame, text=self.minorReqList[0], font=('Helvetica', 15)))
 
 
         # grid labels

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Resets the minors tabs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model.py" afterDir="false" />
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Minor tabs being filled properly">
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -413,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619387581865</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Minor tabs being filled properly">
+      <created>1619390422769</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1619390422770</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -451,7 +456,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="implemented auto search for add button for backup courses" />
     <MESSAGE value="can hide/show 4 year plan frame and course taken list frame" />
     <MESSAGE value="started working on course taken list ideal format" />
     <MESSAGE value="minor setup" />
@@ -476,6 +480,7 @@
     <MESSAGE value="Clean" />
     <MESSAGE value="Partial Minor tab implmentation" />
     <MESSAGE value="Resets the minors tabs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Resets the minors tabs" />
+    <MESSAGE value="Minor tabs being filled properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor tabs being filled properly" />
   </component>
 </project>
