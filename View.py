@@ -45,19 +45,21 @@ class View:
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
 
+        self.mainFrame = ttk.Frame(self.mainwin)
+        self.mainFrame.pack(fill=BOTH, padx=10, pady=10, expand=1, ipadx=10)
+
         # four year plan
-        self.leftFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=2, width=self.left_width)
-        self.leftFrame.pack(side=LEFT, fill=Y)
+        self.leftFrame = ttk.Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
+        self.leftFrame.pack(side=LEFT, fill=Y, padx=5)
 
         # program planning worksheet
-        self.PPWFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=2, width=self.right_width)
+        self.PPWFrame = ttk.Frame(self.mainFrame, width=self.right_width, borderwidth=2, relief=GROOVE)
         self.PPWFrame.pack(side=RIGHT, fill=Y)
         self.PPWFrame.pack_propagate(0)
 
-        self.courseTakenListFrame = Frame(self.mainwin, highlightbackground='gray', highlightthickness=2,
-                                          width=self.left_width)
-        self.courseTakenListFrame.pack(side=LEFT, fill=Y)
-        self.courseTakenListFrame.pack_propagate(0)
+        self.courseTakenListFrame = ttk.Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
+        self.courseTakenListFrame.pack(side=LEFT, fill=Y, padx=5)
+        #self.courseTakenListFrame.pack_propagate(0)
         self.courseTakenListFrame.pack_forget()  # hide frame
 
         self.FourYearPlan()
@@ -66,7 +68,7 @@ class View:
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
-        canvas = Canvas(self.leftFrame, width=self.left_width) # Creating Canvas for scrollbar
+        canvas = Canvas(self.leftFrame, width=self.left_width)  # Creating Canvas for scrollbar
         canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
         scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=canvas.yview)
@@ -1054,11 +1056,14 @@ class View:
 
     def showFourYearPlan(self):
         self.courseTakenListFrame.pack_forget()
-        self.leftFrame.pack(side=LEFT, fill=Y)
+        self.PPWFrame.pack_forget()
+        self.leftFrame.pack(side=LEFT, fill=Y, padx=5)
+        self.PPWFrame.pack(side=RIGHT, fill=Y)
+        self.PPWFrame.pack_propagate(0)
 
     def showCourseTakenList(self):
         self.leftFrame.pack_forget()
-        self.courseTakenListFrame.pack(side=LEFT, fill=Y)
+        self.courseTakenListFrame.pack(side=LEFT, fill=Y, padx=5)
         self.courseTakenListFrame['width'] = self.left_width
         self.courseTakenListFrame.propagate(0)
 
