@@ -308,7 +308,7 @@ class Model:
 
         # Gets total number of reqs through error handling
         for j in range(15):  # Max of 15 possible reqs
-            stri = "req_"  # Append which req to string
+            stri = "req"  # Append which req to string
             stri = stri + sem
             try:  # Error checks is req is out of range
                 (i[stri])  # Sets the total to the currently viewed req
@@ -334,7 +334,7 @@ class Model:
 
         # Gets total number of semesters through error handling
         for j in range(15):  # Max of 15 possible semesters needed
-            stri = "course_"  # Append which semester to string
+            stri = "crs"  # Append which semester to string
             stri = stri + sem
             try:  # Error checks is semester is out of range
                 (i[stri])  # Sets the total to the currently viewed semester
@@ -344,7 +344,7 @@ class Model:
             sem = str(int(sem) + 1)
 
         for k in range(total):  # Iterates through each semester from previously calculated value
-            stri = "course_"  # Appends which semester to a string
+            stri = "crs"  # Appends which semester to a string
             stri = stri + str(k + 1)
             # Gets total number of courses through error handling
             courseList = []
