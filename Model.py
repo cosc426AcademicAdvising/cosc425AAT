@@ -72,24 +72,26 @@ class Model:
 
     # Displays what prereqs are necessary for a subject + catalog
     def getPreReq(self, subject, catalog):
-        myCol = db.get_collection('Course')
-        obj = myCol.find_one({'$and': [{'Subject': subject}, {'Catalog': catalog}]})
+        url = "http://localhost:5000/api/Course/"
+        url = url + subject + "/"
+        url = url + catalog
+        response = requests.get(url, headers={'auth-token': token})
+        obj = response.json()
         print(obj['RQ Descr(Descrlong)'])
 
     def getSubjects(self):
-        myCol = db.get_collection('Catalog')
-        obj = myCol.distinct('Subject')
+        url = "http://localhost:5000/api/Course/"
+        response = requests.get(url, headers={'auth-token': token})
+        obj = response.json()
         return obj
 
     def pullStud(self, id, fname):
-        client = pymongo.MongoClient(
-                "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        db = client['COSC425AAT']
-        stud = db["Student"]
-        query = {"s_id": id}
-        curs = stud.find(query)
+        url = "http://localhost:5000/api/Student/"
+        url = url + str(id)
+        response = requests.get(url, headers={'auth-token': token})
+        obj = response.json()
         data = {}
-        for i in curs:
+        for i in obj:
             data["name"] = i['name']
             data["s_id"] = i['s_id']
             data["major"] = i['major']
@@ -110,7 +112,7 @@ class Model:
             with open(fname, 'w+') as f:
                 json.dump(data, f, indent=4)
 
-    def getStudent(self, sname, sid):
+    def getStudent(self, sid):
         url = "http://localhost:5000/api/Student/"
         url = url + str(sid)
         response = requests.get(url, headers={'auth-token': token})
@@ -207,41 +209,23 @@ class Model:
         return response.json()
 
     def delStud(self, id):
-        stud = db["Student"]
-        query = {"s_id": int(id)}
-        info = stud.delete_many(query)
-        if info.deleted_count == 1:
-            return "one entry deleted"
-        elif info.deleted_count == 0:
-            return "no matches found, deleted 0 entries"
-        else:
-            return str(info.deleted_count) + " entries deleted"
+        url = "http://localhost:5000/api/Student/"
+        url = url + str(id)
+        response = requests.delete(url, headers={'auth-token': token})
+        return response.text
 
     def delCrs(self, sub, num):
-        crs = db["Course"]
-        query = {"Subject": sub, "Catalog": Regex(u".*{0}.*".format(num), "i")}
-        # this ".*string.*" regex searches for entries containing the given string
-        # when searching for a given catalog num normally, the entire string must match
-        # a portion of the entries in the db have spaces at the beginning of the catalog num string
-        # this regex ignores that space and is true if the field contains the given number anywhere in the string
-        info = crs.delete_many(query)
-        if info.deleted_count == 1:
-            return "one entry deleted"
-        elif info.deleted_count == 0:
-            return "no matches found, deleted 0 entries"
-        else:
-            return str(info.deleted_count) + " entries deleted"
+        url = "http://localhost:5000/api/Course/"
+        url = url + sub + "/"
+        url = url + num
+        response = requests.delete(url, headers={'auth-token': token})
+        return response.text
 
     def delDept(self, acad):
-        dept = db["Department"]
-        query = {"Subject": acad}
-        info = dept.delete_many(query)
-        if info.deleted_count == 1:
-            return "one entry deleted"
-        elif info.deleted_count == 0:
-            return "no matches found, deleted 0 entries"
-        else:
-            return str(info.deleted_count) + " entries deleted"
+        url = "http://localhost:5000/api/Department/"
+        url = url + acad
+        response = requests.delete(url, headers={'auth-token': token})
+        return response.text
 
     def getFourYear(self, major):
         courseList = []  # course list
