@@ -1,5 +1,6 @@
 from tkinter.filedialog import askopenfilename
 import json
+import csv
 from pubsub import pub  # pip install PyPubSub
 import pymongo
 from bson.regex import Regex
@@ -360,6 +361,27 @@ class Model:
                     ctotal = ctotal  # Last none index error course number is stored
             minList.append(courseList)
         return minList
+
+    def openCSV(self):
+        myCol = db.get_collection("Crs Test")
+        myCol.drop()
+        myCol = db.get_collection("Crs Test")
+        header = ["Course ID", "Eff Date", "Status", "Catalog Descr", "Equiv Crs", "Allowd Unt", "Allow Comp", "Long Title", "Descr", "Offer Nbr", "Acad Group", "Subject", "Catalog", "Acad Org", "CIP Code", "HEGIS Code", "Component", "Equiv Crs", "Course ID", "CRSE ID Descr", "Crse Attr", "CrsAtr Val", "RQ Designation", "RQ Designation Descr", "RQ Designation Formal Descr", "Rq Group", "RQ GRP Descr", "RQ GRP ShortDescr", "Rq Group", "RQ Usage", "RQ Description(Descr80)", "RQ Descr(DESCR254A)", "RQ Descr(Descrlong)", "Grading"]
+        path = askopenfilename(
+            initialdir="./",
+            filetypes=[("CSV File", "*.csv"), ("All Files", ".")],
+            title="Choose a Course CSV File")
+
+       # if len(path) > 0:
+        res = []
+        with open(path, encoding="utf8") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            line_count = 0
+            for each in csv_reader:
+                row = {}
+                for field in header:
+                    row[field] = each[field]
+                myCol.insert_one(row)
 
     def openJson(self):
         path = askopenfilename(

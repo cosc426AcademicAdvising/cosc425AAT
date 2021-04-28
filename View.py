@@ -1067,9 +1067,12 @@ class View:
         self.courseTakenListFrame['width'] = self.left_width
         self.courseTakenListFrame.propagate(0)
 
+    def openCSV(self):
+        pub.sendMessage("request_CSV")
+
     # data base menu dropdown
     def DataBaseMenu(self, DB):
-        DB.add_command(label='Current Semester Course')
+        DB.add_command(label='Current Semester Course', command=self.openCSV)
         DB.add_separator()
         DB.add_command(label='Add/Remove a School')
         DB.add_command(label='Add/remove a Major')
