@@ -200,6 +200,22 @@ class Model:
                         bcourses=backup, courseHist=courseHist, fourYear=majorFourList, minorFourYear=minorFourList,minorReqList=minorReqList,  policies=policies)
         # pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
+    def getFourYear_refresh(self, majors, minors):
+        fouryear = []
+        minorfouryear = []
+        policies = []
+        minorReqList = []
+
+        for m in majors:
+            fouryear.append(self.getFourYear(m))
+            policies.append(self.getPolicies(m))
+        for mi in minors:
+            minorfouryear.append(self.getMinorPlanCourse(mi))
+            minorReqList.append(self.getMinorPlanReq(mi))
+            policies.append(self.getMinorUnivReq(mi))
+
+        pub.sendMessage("FYP_refresh_info", major=majors, minor=minors, FourYear=fouryear, minorFourYear=minorfouryear, minorReqList=minorReqList, policies=policies)
+
     def getPolicies(self, major):
         myCol = db.get_collection('FourYear')
         i = myCol.find_one({'major': major})

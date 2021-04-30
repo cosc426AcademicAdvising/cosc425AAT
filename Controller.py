@@ -12,13 +12,17 @@ class Controller:
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 
         # for populating planning worksheet
-        pub.subscribe(self.planningWorksheet_open,"request_PPW")
-        pub.subscribe(self.view.planningWorksheet_fill,"PPW_information")
+        pub.subscribe(self.planningWorksheet_open, "request_PPW")
+        pub.subscribe(self.view.planningWorksheet_fill, "PPW_information")
         pub.subscribe(self.addCourse, "request_course#")
 
         # for populating Four Year Plan
         # pub.subscribe(self.fourYearPlan_open, "request_FYP")
         pub.subscribe(self.view.fourYearPlan_fill, "PPW_information")
+
+        # for refreshing the four year plan
+        pub.subscribe(self.model.getFourYear_refresh, "refresh_fyp")
+        pub.subscribe(self.view.fourYearPlan_refresh, "FYP_refresh_info")
 
         # for specific mojor and minor under a school
         pub.subscribe(self.setMajor, "request_major")

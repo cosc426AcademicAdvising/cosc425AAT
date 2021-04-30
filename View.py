@@ -222,6 +222,61 @@ class View:
                 semIndex += 1
             minorIndex += 1
 
+    def fourYearPlan_refresh(self, major, minor, FourYear, minorFourYear, minorReqList, policies):
+        self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable() (COULD MAKE THIS ENCAPSULATED)
+        self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
+        self.majorsTable = []  # Holds arrays filled with treeviews
+        self.minorsTable = []  # Holds arrays filled with treeviews
+        self.majorFrames = []  # Holds frames major for tabs
+        self.minorFrames = []  # Holds frames minor for tabs
+        self.majorsLabelArray = []  # Holds labels for major tabs
+        self.minorsLabelArray = []  # Holds labels for minor tabs
+
+        self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
+        self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
+
+        for i in range(len(major)): # Filling arrays according to amount of majors a student is doing
+            self.majorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+            self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
+            self.majorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 0) # Function to populate these arrays
+            self.tab_parent.add(self.majorFrames[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
+
+        for i in range(len(minor)): # Filling arrays according to amount of majors a student is doing
+            self.minorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+            self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
+            self.minorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
+            self.createTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i], 1) # Function to populate these arrays
+            self.tab_parent.add(self.minorFrames[i], text=minor[i]) # Each frame to the ttk.Notebook to display tab
+
+        majorIndex = 0
+        for majors in FourYear: # Filling semesters for each major
+            semIndex = 0
+            for sem in majors:
+                self.majorsTableTree_iid = 0
+                for course in sem:
+                    self.majorsTable[majorIndex][semIndex].insert(parent='', index='end',
+                                                                  iid=self.majorsTableTree_iid,
+                                                                  values=(str(course[1] + " " + course[2]), course[3],
+                                                                          course[4]))
+                    self.majorsTableTree_iid += 1
+                semIndex += 1
+            majorIndex += 1
+
+        minorIndex = 0
+        for minors in minorFourYear:  # Filling semesters for each minor
+            semIndex = 0
+            for sem in minors:
+                self.minorTableTree_iid = 0
+                for course in sem:
+                    self.minorsTable[minorIndex][semIndex].insert(parent='', index='end',
+                                                                  iid=self.minorTableTree_iid,
+                                                                  values=(str(course[1] + " " + course[2]), course[3],
+                                                                          course[4]))
+                    self.minorTableTree_iid += 1
+                semIndex += 1
+            minorIndex += 1
+
     def FYP_reset(self):
         self.name2Entry.delete(0, END)
         self.id2Entry.delete(0, END)
@@ -537,7 +592,7 @@ class View:
     def editMajorMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Major & Minor")
-        t.geometry("425x425")
+        t.geometry("425x450")
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
@@ -576,6 +631,10 @@ class View:
             self.setMajor_treeview()
             self.setMinor_treeview()
             self.editCareerButton.configure(state=NORMAL)
+            # clear tabs from left side
+            while (self.tab_parent.index("end") != 1):
+                self.tab_parent.forget(self.tab_parent.index("end") - 1)
+            self.FYP_refresh()
             t.destroy()
 
         mainframe = Frame(t)
@@ -635,7 +694,7 @@ class View:
         minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor)
         minorRemoveButton.pack(side=TOP)
 
-        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)  # TODO: link to four year plan
+        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)
         comfirmButton.pack(side=BOTTOM, pady=10)
 
     # end goal: return array of major under specified school
@@ -654,6 +713,14 @@ class View:
         for i in self.selected_major_Box.curselection():
             word = self.selected_major_Box.get(i)
             self.majorTree.insert(parent='', index='end', iid=i, text=str(word))
+
+    def FYP_refresh(self):
+        majors, minors = [], []
+        for id in self.majorTree.get_children():
+            majors.append(self.majorTree.item(id)['text'])
+        for id in self.minorTree.get_children():
+            minors.append(self.minorTree.item(id)['text'])
+        pub.sendMessage("refresh_fyp", majors=majors, minors=minors)
 
     def setMinor_treeview(self):
         for id in self.minorTree.get_children():
