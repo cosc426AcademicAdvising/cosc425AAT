@@ -1,0 +1,148 @@
+[
+  {
+    "minor": "HLTHUMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete a minimum of 5 courses from this checklist.\n\u2022 Courses must be taken from at least 4 different disciplines.\n\u2022 Earn grades of C or better in all courses taken for the minor.",
+    "req_1": "A: CORE Complete 1 course from the following (circle course taken):",
+    "course_1": [
+      {
+        "subject": "COMM",
+        "catalog": "341",
+        "title": "Health Communication",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "315",
+        "title": "Life and Death Issues",
+        "credits": "4"
+      }
+    ],
+    "req_2": "B: FOUNDATIONS Complete 2 or 3 courses from the following (circle courses taken):",
+    "course_2": [
+      {
+        "subject": "COMM",
+        "catalog": "341",
+        "title": "Health Communication",
+        "credits": "4"
+      },
+      {
+        "subject": "HLTH",
+        "catalog": "110",
+        "title": "Foundations of Community Health Education",
+        "credits": "4"
+      },
+      {
+        "subject": "HLTH",
+        "catalog": "450",
+        "title": "U.S. Healthcare and Public Health",
+        "credits": "4"
+      },
+      {
+        "subject": "IDIS",
+        "catalog": "399 -",
+        "title": "Global Seminar in Interdisciplinary Studies",
+        "credits": "4"
+      },
+      {
+        "subject": "NURS",
+        "catalog": "415",
+        "title": "Special Topics in Nursing",
+        "credits": "3"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "315*",
+        "title": "Life and Death Issues",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "323",
+        "title": "Psychology of Death and Dying",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "423",
+        "title": "Developmental Disabilities",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "329",
+        "title": "Medical Sociology",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "334",
+        "title": "Sociology of Mental Health",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "465",
+        "title": "Social Work in Health Care",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "475",
+        "title": "Disabilities Studies: Culture and Practice",
+        "credits": "4"
+      }
+    ],
+    "req_3": "C. ELECTIVES Complete 1 or 2 courses from the following (circle courses taken):",
+    "course_3": [
+      {
+        "subject": "COMM",
+        "catalog": "300",
+        "title": "Intercultural Communication",
+        "credits": "4"
+      },
+      {
+        "subject": "ENVR",
+        "catalog": "320",
+        "title": "Environmental Justice",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "203",
+        "title": "Ethics",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "310",
+        "title": "Philosophical Topics",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "481",
+        "title": "Health Psychology  Behavioral Medicine",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "361",
+        "title": "Aging and Society",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "481",
+        "title": "Teen Angst: Understanding Adolescent",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "482",
+        "title": "Death and Dying and Social Work",
+        "credits": "4"
+      }
+    ]
+  }
+]

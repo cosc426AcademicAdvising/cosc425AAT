@@ -1,0 +1,217 @@
+[
+  {
+    "minor": "SOASMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 At least 1 course for the minor must be completed while studying in a South Asian country.\nNo more than 9 transfer credits may count toward the minor. (Note: Students may count 4\ncourses\/16 credits completed via the semester-long Salisbury Abroad: American Institute of\nIndian Studies program toward the minor, as these are not transfer credits, but SU courses\nexecuted abroad via SU\u2019s partner institution in Pune, India.)\n\u2022 Earn grades of C or better in all courses taken for the minor.\n\u2022 No more than one course in the minor may be used to satisfy General Education\nrequirements.\nComplete a minimum of 5 from the following courses. Within the minimum 5 courses:\n\u2022 At least 2 South Asian language courses or 1 8-credit South Asian language course\n\u2022 At least 1 course from the area of Social Sciences and at least 1 course from the area of\nArts\/Humanities\n\u2022 The 1 remaining course may be taken from any area.",
+    "req_1": "Complete a minimum of 2 courses in one South Asian language or 1 course each in 2 different South Asian languages or 1 8-credit South Asian language course or demonstrate equivalent language knowledge (to be determined via appropriate examination).",
+    "course_1": [
+      {
+        "subject": "MDFL",
+        "catalog": "101",
+        "title": "Elementary Language Study I",
+        "credits": ""
+      },
+      {
+        "subject": "MDFL",
+        "catalog": "102",
+        "title": "Elementary Language Study II",
+        "credits": ""
+      }
+    ],
+    "req_2": "SOCIAL SCIENCES AREA",
+    "course_2": [
+      {
+        "subject": "ANTH",
+        "catalog": "200",
+        "title": "Topics in Anthropology",
+        "credits": "4"
+      },
+      {
+        "subject": "ANTH",
+        "catalog": "201",
+        "title": "Cultural Anthropology Survey",
+        "credits": "4"
+      },
+      {
+        "subject": "ENVR",
+        "catalog": "150",
+        "title": "Environmental Perspectives",
+        "credits": "4"
+      },
+      {
+        "subject": "ENVR",
+        "catalog": "495",
+        "title": "Environmental Field Studies",
+        "credits": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "399",
+        "title": "International Field Study",
+        "credits": "3"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "342",
+        "title": "History of India to 1857",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "343",
+        "title": "History of India 1857 to Present",
+        "credits": "4"
+      },
+      {
+        "subject": "IDIS",
+        "catalog": "399",
+        "title": "Global Seminar in Interdiscipinary Stu",
+        "credits": "dies 4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "204",
+        "title": "Topics in Political Science",
+        "credits": "4"
+      }
+    ],
+    "req_3": "ARTS\/HUMANITIES AREA",
+    "course_3": [
+      {
+        "subject": "ART",
+        "catalog": "391",
+        "title": "Special Topics in Art History",
+        "credits": "4"
+      },
+      {
+        "subject": "COMM",
+        "catalog": "391",
+        "title": "Studies in Mass Media",
+        "credits": "4"
+      },
+      {
+        "subject": "COMM",
+        "catalog": "399",
+        "title": "International Studies in Communica",
+        "credits": "tion 4"
+      },
+      {
+        "subject": "DANC",
+        "catalog": "150",
+        "title": "Yoga",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "300",
+        "title": "Topics in English Literature",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "399",
+        "title": "International Studies in Literature",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "469",
+        "title": "Topics in Global South Literature*",
+        "credits": "4"
+      },
+      {
+        "subject": "MDFL",
+        "catalog": "248",
+        "title": "Studies in Contemporary Cultures",
+        "credits": "4"
+      },
+      {
+        "subject": "MDFL",
+        "catalog": "399",
+        "title": "International Field STudy",
+        "credits": "1-8"
+      },
+      {
+        "subject": "MUSC",
+        "catalog": "210",
+        "title": "Special Topics in Music",
+        "credits": "4"
+      },
+      {
+        "subject": "MUSC",
+        "catalog": "316",
+        "title": "Topics in Music History",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "212",
+        "title": "Introduction to Asian Philosophy",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "323",
+        "title": "Buddhist Philosophy",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "324",
+        "title": "Topics in Asian Philosophy",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "399",
+        "title": "International Studies in Philosophy",
+        "credits": "4"
+      }
+    ],
+    "req_4": "Complete 1 course from any area above (including Survey Courses) - write course below:",
+    "course_4": [
+      {
+        "subject": "ANTH",
+        "catalog": "100",
+        "title": "Cultural Anthropology and Linguistics",
+        "credits": "4"
+      },
+      {
+        "subject": "COMM",
+        "catalog": "337",
+        "title": "International Media Systems",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "253",
+        "title": "The Short Story (Genre)",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "365",
+        "title": "Literature of the Global South",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "369",
+        "title": "Global Literature and Justice",
+        "credits": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "101",
+        "title": "Europe and Asia",
+        "credits": "3"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "311",
+        "title": "Comparative Politics of Developing Nations",
+        "credits": "4"
+      }
+    ]
+  }
+]

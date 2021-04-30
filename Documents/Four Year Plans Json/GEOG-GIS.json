@@ -1,0 +1,235 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "GEOGBS GEHUGE",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "key_0": "GEOG",
+        "key_1": "101",
+        "key_2": "World Geography: Europe and Asia",
+        "key_3": "3"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "102",
+        "key_2": "World Geography: Africa and the Americas",
+        "key_3": "3"
+      },
+      {
+        "key_0": "IVA",
+        "key_1": "",
+        "key_2": "Gen Ed Lab Science course (non GEOG\/GEOL)",
+        "key_3": "4"
+      },
+      {
+        "key_0": "ENGL",
+        "key_1": "103",
+        "key_2": "Composition and Research",
+        "key_3": "4"
+      },
+      {
+        "key_0": "IIIA",
+        "key_1": "",
+        "key_2": "Gen Ed Humanities course (COMM 100 recommended",
+        "key_3": ") 4"
+      }
+    ],
+    "semester_2": [
+      {
+        "key_0": "GEOG",
+        "key_1": "201",
+        "key_2": "Weather and Climate",
+        "key_3": "4"
+      },
+      {
+        "key_0": "GEOL",
+        "key_1": "103",
+        "key_2": "Introduction to Physical Geology",
+        "key_3": "4"
+      },
+      {
+        "key_0": "HIST",
+        "key_1": "10X",
+        "key_2": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "key_3": "4"
+      },
+      {
+        "key_0": "MATH",
+        "key_1": "155",
+        "key_2": "Modern Statistics with Computer Analysis",
+        "key_3": "3"
+      }
+    ],
+    "semester_3": [
+      {
+        "key_0": "GEOG",
+        "key_1": "203",
+        "key_2": "Economic Geography",
+        "key_3": "3"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "204",
+        "key_2": "Statistical Problem Solving in Geography",
+        "key_3": "4"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "219",
+        "key_2": "Map Interpretation and Analysis",
+        "key_3": "3"
+      },
+      {
+        "key_0": "ENGL",
+        "key_1": "XXX",
+        "key_2": "Gen Ed IB Literature course",
+        "key_3": "4"
+      }
+    ],
+    "semester_4": [
+      {
+        "key_0": "COSC",
+        "key_1": "118",
+        "key_2": "Introductory Scientific Programming",
+        "key_3": "4"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "319",
+        "key_2": "Geographic Information Science",
+        "key_3": "4"
+      },
+      {
+        "key_0": "HIST",
+        "key_1": "XXX",
+        "key_2": "Gen Ed IIB History course",
+        "key_3": "4"
+      },
+      {
+        "key_0": "IIIC",
+        "key_1": "",
+        "key_2": "Gen Ed Humanities or Social Science Course",
+        "key_3": "3-4"
+      }
+    ],
+    "semester_5": [
+      {
+        "key_0": "GEOG",
+        "key_1": "XXX",
+        "key_2": "Track course (1 of 3)",
+        "key_3": "3"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "XXX",
+        "key_2": "Track course (2 of 3)",
+        "key_3": "3"
+      },
+      {
+        "key_0": "GEOG\/URPL",
+        "key_1": "XX",
+        "key_2": "X 300-\/400-Level Track course (1 of 2)",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "FTWL",
+        "key_1": "106",
+        "key_2": "Lifelong Fitness and Wellness",
+        "key_3": "3"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      }
+    ],
+    "semester_6": [
+      {
+        "key_0": "GEOG",
+        "key_1": "414",
+        "key_2": "Research and Writing",
+        "key_3": "3"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "419",
+        "key_2": "Advanced Geographic Information Science",
+        "key_3": "4"
+      },
+      {
+        "key_0": "GEOG",
+        "key_1": "XXX",
+        "key_2": "Track course (3 of 3)",
+        "key_3": "3"
+      },
+      {
+        "key_0": "GEOG\/URPL",
+        "key_1": "XX",
+        "key_2": "X 300-\/400-Level Track course (2 of 2)",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      }
+    ],
+    "semester_7": [
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      }
+    ],
+    "semester_8": [
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "Needed for 120 credits",
+        "key_3": "3-4"
+      },
+      {
+        "key_0": "Elective",
+        "key_1": "",
+        "key_2": "If needed for 120 credits",
+        "key_3": "3-4"
+      }
+    ]
+  }
+]

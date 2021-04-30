@@ -1,0 +1,223 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "IDISBA IDAAMST",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "credits": "4"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities course",
+        "credits": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "credits": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "credits": "3"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "ENGL",
+        "catalog": "380",
+        "title": "American Literature I: Beginnings to 1860",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "381",
+        "title": "American Literature II: 1860-Present",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "110",
+        "title": "American National Government",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "HIST",
+        "catalog": "201",
+        "title": "US History Through 1865",
+        "credits": "4"
+      },
+      {
+        "subject": "IVC",
+        "catalog": "",
+        "title": "Gen Ed Math course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Language",
+        "catalog": "",
+        "title": "Fulton School Language requirement (if needed)",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "If needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "HIST",
+        "catalog": "202",
+        "title": "US History After 1865",
+        "credits": "4"
+      },
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Category Requirement course (1 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Language",
+        "catalog": "",
+        "title": "Fulton School Language requirement (if needed)",
+        "credits": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "IDIS",
+        "catalog": "335",
+        "title": "Fundamentals of Interdisciplinary Studies",
+        "credits": "4"
+      },
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Category Requirement course (2 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Category Requirement course (3 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "IVB",
+        "catalog": "",
+        "title": "Gen Ed Non-Lab Science or Math course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Category Requirement course (4 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "IDIS",
+        "catalog": "435",
+        "title": "Interdisciplinary Research Seminar",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "If needed for 120 credits",
+        "credits": "3-4"
+      }
+    ]
+  }
+]

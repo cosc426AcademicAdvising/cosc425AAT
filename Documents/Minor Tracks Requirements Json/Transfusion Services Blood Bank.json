@@ -1,0 +1,52 @@
+[
+  {
+    "minor": "TRANMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 To be eligible for the minor, students must meet the same prerequisites as the medical laboratory science majors with a C or better. \u2022 Complete courses with grades of C or better.",
+    "req_1": "Complete the following (7 courses)",
+    "course_1": [
+      {
+        "subject": "BIOL",
+        "catalog": "215",
+        "title": "Anatomy and Physiology I",
+        "credits": "4"
+      },
+      {
+        "subject": "BIOL",
+        "catalog": "216",
+        "title": "Anatomy and Physiology II",
+        "credits": "4"
+      },
+      {
+        "subject": "MDTC",
+        "catalog": "101",
+        "title": "Safety in the Biological, Chemical",
+        "credits": ""
+      },
+      {
+        "subject": "MDTC",
+        "catalog": "300",
+        "title": "Principles of Medical Laboratory Science",
+        "credits": "4"
+      },
+      {
+        "subject": "MDTC",
+        "catalog": "301",
+        "title": "Hematology I",
+        "credits": "4"
+      },
+      {
+        "subject": "MDTC",
+        "catalog": "331",
+        "title": "Diagnostic Immunology",
+        "credits": "4"
+      },
+      {
+        "subject": "MDTC",
+        "catalog": "431",
+        "title": "Introduction to Transfusion Services",
+        "credits": "3"
+      }
+    ]
+  }
+]

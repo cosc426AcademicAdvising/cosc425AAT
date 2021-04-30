@@ -1,0 +1,163 @@
+[
+  {
+    "minor": "RELSMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete 5 courses, with at least 3 at the 300\/400 level.\n\u2022 The 4 courses required beyond the core must be from at least 3 different departments.\n\u2022 Grades of C or better are required in all courses applicable to the minor.",
+    "req_1": "Complete 1 of the following core courses (circle course taken):",
+    "course_1": [
+      {
+        "subject": "IDIS",
+        "catalog": "250",
+        "title": "Comparative Religions",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "210",
+        "title": "Introduction to World Religions",
+        "credits": "4"
+      }
+    ],
+    "req_2": "Complete a minimum of 4 courses from the following: select from at least 3 different departments (circle courses taken):",
+    "course_2": [
+      {
+        "subject": "ANTH",
+        "catalog": "200",
+        "title": "Topics in Anthropology",
+        "credits": "4"
+      },
+      {
+        "subject": "ANTH",
+        "catalog": "215",
+        "title": "Religion, Magic and Witchcraft",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "300",
+        "title": "Studies in English",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "301",
+        "title": "Studies in English",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "341",
+        "title": "The Bible as Literature",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "366",
+        "title": "World Mythology",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "384",
+        "title": "Native American Literature",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "401",
+        "title": "Studies in Film",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "210*",
+        "title": "Introduction to World Religions",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "215",
+        "title": "Topics in History",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "320",
+        "title": "History of the Early Christian Church",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "371",
+        "title": "Introduction to Classical Mythology",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "375",
+        "title": "Topics in American Studies",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "382",
+        "title": "American Religious History",
+        "credits": "4"
+      },
+      {
+        "subject": "IDIS",
+        "catalog": "250*",
+        "title": "Comparative Religions",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "309",
+        "title": "Medieval Philosophy",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "310",
+        "title": "Philosophical Topics",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "323",
+        "title": "Buddhist Philosophy",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "324",
+        "title": "Topics in Asian Philosophy",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "325",
+        "title": "Philosophy of Religion",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "368",
+        "title": "Philosophical Concepts in Literature",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "402",
+        "title": "The Problem of God",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "318",
+        "title": "Sociology of Religion",
+        "credits": "4"
+      }
+    ]
+  }
+]

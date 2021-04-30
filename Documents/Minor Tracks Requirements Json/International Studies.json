@@ -1,0 +1,65 @@
+[
+  {
+    "minor": "INTLMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete 7 courses as described below.\n\u2022 No more than 3 courses in the minor can be taken from courses in a student\u2019s major.\n\u2022 Grades of C or better are required for all courses in the major.",
+    "req_1": "CORE COURSES (3 courses) Complete the following:",
+    "course_1": [
+      {
+        "subject": "POSC",
+        "catalog": "210",
+        "title": "Introduction to International Relations",
+        "credits": "4"
+      }
+    ],
+    "req_2": "Complete 1 of the following (circle course taken):",
+    "course_2": [
+      {
+        "subject": "ECON",
+        "catalog": "150",
+        "title": "Principles of Economics",
+        "credits": "3"
+      },
+      {
+        "subject": "ECON",
+        "catalog": "212",
+        "title": "Macroeconomic Principles",
+        "credits": "3"
+      }
+    ],
+    "req_3": "Complete 1 course from the following (circle course taken):",
+    "course_3": [
+      {
+        "subject": "ANTH",
+        "catalog": "100",
+        "title": "Cultural Anthropology and Linguistics",
+        "credits": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "101",
+        "title": "World Geography: Europe and Asia",
+        "credits": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "102",
+        "title": "World Geography: Africa and Americas",
+        "credits": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "203",
+        "title": "Economic Geography",
+        "credits": "3"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "250",
+        "title": "Diaspora and Today\u2019s Race Relations:",
+        "credits": "4"
+      }
+    ],
+    "req_4": "Complete 4 courses: \u2022 Select 4 courses that can be used to satisfy the requirements for 1 of the 3 concentrations within the international studies major. \u2022 The 4 courses must be approved by an international studies academic advisor. \u2022 No more than 2 courses can be from the same department. \u2022 At least 3 courses must be at the 300\/400 level."
+  }
+]

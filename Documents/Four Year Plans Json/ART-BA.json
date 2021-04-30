@@ -1,0 +1,259 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "ARTBA",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses. \n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 \u24b6\u24b7 indicates the recommended minimum grade; although a C meets the requirement, SU history shows that students who graduate with this major earned this grade or higher for this course.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "ART",
+        "catalog": "121A",
+        "title": "Design Principles",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "credits": "4"
+      },
+      {
+        "subject": "IIIB",
+        "catalog": "",
+        "title": "Gen Ed Social Science course",
+        "credits": "3-4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "ART",
+        "catalog": "201",
+        "title": "Intro to Art History",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "130B",
+        "title": "Drawing I",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course",
+        "credits": "4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "ART",
+        "catalog": "299",
+        "title": "Sophomore Seminar",
+        "credits": "2"
+      },
+      {
+        "subject": "ART",
+        "catalog": "215B",
+        "title": "Ceramics I",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "271B",
+        "title": "Glass I",
+        "credits": "4"
+      },
+      {
+        "subject": "MDFL",
+        "catalog": "",
+        "title": "Foreign Language Requirement (1 of 2)",
+        "credits": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "credits": "3"
+      },
+      {
+        "subject": "IVC",
+        "catalog": "",
+        "title": "Gen Ed Math course",
+        "credits": "3-4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "ART",
+        "catalog": "129",
+        "title": "Introduction to Digital Photography",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "229",
+        "title": "Photography I",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "XXX",
+        "title": "Core Art History elective",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Non-Art Elective",
+        "credits": "4"
+      },
+      {
+        "subject": "MDFL",
+        "catalog": "",
+        "title": "Foreign Language Requirement (2 of 2)",
+        "credits": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "ART",
+        "catalog": "XXX",
+        "title": "Choose from courses in declared track (1 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Humanities\/Social Science course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course (1 of 2)",
+        "credits": "4"
+      },
+      {
+        "subject": "IVB",
+        "catalog": "",
+        "title": "Gen Ed Non-Lab Science or Math course",
+        "credits": "3-4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "ART",
+        "catalog": "XXX",
+        "title": "Choose from courses in declared track (2 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "246",
+        "title": "Painting I",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "261B",
+        "title": "Sculpture I",
+        "credits": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course (2 of 2)",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Non-Art Elective",
+        "credits": "4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "ART",
+        "catalog": "226",
+        "title": "Graphic Design I",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "227",
+        "title": "Digital Design and Layout",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "280",
+        "title": "New Media",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "XXX",
+        "title": "Choose from courses in declared track (3 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "ART",
+        "catalog": "XXX",
+        "title": "Core Art History elective",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Non-ART Elective",
+        "credits": "4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "ART",
+        "catalog": "498",
+        "title": "Senior Capstone in Art History",
+        "credits": "2"
+      },
+      {
+        "subject": "ART",
+        "catalog": "499",
+        "title": "Senior Exhibition",
+        "credits": "2"
+      },
+      {
+        "subject": "ART",
+        "catalog": "XXX",
+        "title": "Choose from courses in declared track (4 of 4)",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Non-Art Elective at the 300\/400 level",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Non-Art Elective",
+        "credits": "4"
+      }
+    ]
+  }
+]

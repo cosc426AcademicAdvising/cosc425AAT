@@ -1,0 +1,265 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "ESOLBA",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 \u24b7 indicates the recommended minimum grade; although a C meets the requirement, SU history shows that students who graduate with this major earned this grade or higher for this course.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "ENGL",
+        "catalog": "103B",
+        "title": "Composition and Research",
+        "credits": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "credits": "3"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "credits": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "credits": "4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "ENGL",
+        "catalog": "240",
+        "title": "Introduction to the Study of Language",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "430",
+        "title": "Principles of Linguistics",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "English Elective course (1 of 2)",
+        "credits": "4"
+      },
+      {
+        "subject": "",
+        "catalog": "",
+        "title": "(ENGL 257, 306, 420, 421, 423, 435, 440, 441, 443, 4",
+        "credits": "44,"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "10XB",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "credits": "4"
+      },
+      {
+        "subject": "Language",
+        "catalog": "",
+        "title": "Foreign Language requirement (1 of 2)",
+        "credits": "3\/4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "EDFN",
+        "catalog": "210",
+        "title": "School in a Diverse Society",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "433",
+        "title": "Language and Culture",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "432",
+        "title": "Literacy and ESOL Reading",
+        "credits": "4"
+      },
+      {
+        "subject": "Language",
+        "catalog": "",
+        "title": "Foreign Language requirement (2 of 2)",
+        "credits": "3\/4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "ENGL",
+        "catalog": "434",
+        "title": "Literacy and ESOL Writing",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course",
+        "credits": "4"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "300",
+        "title": "Development, Learning and Assessment",
+        "credits": "3"
+      },
+      {
+        "subject": "IIIB",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "IVB",
+        "catalog": "",
+        "title": "Gen Ed Non-Lab Science or Math course",
+        "credits": "3-4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "ENGL",
+        "catalog": "431",
+        "title": "Survey of Modern English Grammar",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "442",
+        "title": "English Structure for Educators",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "English Elective course (2 of 2)",
+        "credits": "4"
+      },
+      {
+        "subject": "",
+        "catalog": "",
+        "title": "(ENGL 257, 306, 420, 421, 423, 435, 440, 441, 443, 4",
+        "credits": "44,"
+      },
+      {
+        "subject": "IVC",
+        "catalog": "",
+        "title": "Gen Ed Math course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "ENGL",
+        "catalog": "428",
+        "title": "ESOL Tests and Measurements",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "350",
+        "title": "Children\u2019s Literature",
+        "credits": "3"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "416",
+        "title": "Literature for Adolescence",
+        "credits": "3"
+      },
+      {
+        "subject": "SCED367",
+        "catalog": "",
+        "title": "Inclusive Instruction for Secondary Educators",
+        "credits": "3"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "438",
+        "title": "Teaching Literacy in the Content Areas I",
+        "credits": "3"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "439",
+        "title": "Second Language Acquisition",
+        "credits": "4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "ENGL",
+        "catalog": "438",
+        "title": "Bilingualism",
+        "credits": "4"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "447",
+        "title": "ESOL Methods",
+        "credits": "3"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "SCED",
+        "catalog": "462",
+        "title": "TESOL Internship - Elementary",
+        "credits": "6"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "463",
+        "title": "TESOL Internship - Secondary",
+        "credits": "6"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "465",
+        "title": "TESOL Internship Seminar",
+        "credits": "3"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "If needed for 120 credits",
+        "credits": "3-4"
+      }
+    ]
+  }
+]

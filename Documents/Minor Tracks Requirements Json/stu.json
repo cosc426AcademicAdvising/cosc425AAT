@@ -1,0 +1,384 @@
+[
+{
+  "name": "Bob Robert",
+  "s_id": 4321321,
+  "major": [
+    {
+      "title": "COSCBS",
+      "school": "Henson"
+    },
+    {
+      "title": "COMMBA COMMSTD",
+      "school": "Perdue"
+    }
+  ],
+  "minor": [
+    {
+      "title": "AMSTMIN",
+      "school": "Fulton"
+    },
+    {
+      "title": "BAUDMIN",
+      "school": "Perdue"
+    }
+  ],
+  "status": "Undergraduate",
+  "year": "Sophmore",
+  "credits": 55,
+  "sem_id": "Spring 2021",
+  "registering_for": "Spring",
+  "enrll": "4-5-21",
+  "advisor_mail": "advisor@mail.com",
+  "memo": "Are there any other courses you recommend that I take instead?",
+  "course_taken": [
+    {
+      "semester_1": [
+        {
+          "subject": "COSC",
+          "catalog": "117",
+          "title": "Programming Fundamentals",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "MATH",
+          "catalog": "201",
+          "title": "Calculus I",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "ENGL",
+          "catalog": "103",
+          "title": "Composition and Research",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "HIST",
+          "catalog": "102",
+          "title": "World Civilizations",
+          "credits": "4",
+          "grade": "P"
+        }
+      ],
+      "semester_2": [
+        {
+          "subject": "COSC",
+          "catalog": "120",
+          "title": "Computer Science I",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "MATH",
+          "catalog": "202",
+          "title": "Calculus II",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "ENGL",
+          "catalog": "250",
+          "title": "Understanding Poetry",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "HIST",
+          "catalog": "201",
+          "title": "United States History",
+          "credits": "4",
+          "grade": "P"
+        }
+      ],
+      "semester_3": [
+        {
+          "subject": "COSC",
+          "catalog": "220",
+          "title": "Computer Science II",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "MATH",
+          "catalog": "210",
+          "title": "Introduction to Discrete Mathematics",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "GEOG",
+          "catalog": "100",
+          "title": "Intro To Human Geography",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "GEOG",
+          "catalog": "101",
+          "title": "World GEOG: Europe & Asia",
+          "credits": "4",
+          "grade": "P"
+        }
+      ],
+      "semester_4": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ],
+        "semester_5": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ],
+          "semester_6": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ],
+        "semester_7": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ],
+          "semester_8": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ],
+        "semester_9": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ],
+          "semester_10": [
+        {
+          "subject": "COSC",
+          "catalog": "250",
+          "title": "Microcomputer Organization",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "320",
+          "title": "Adv Data Struc & Alg Anlys",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "COSC",
+          "catalog": "362",
+          "title": "Theory of Computation",
+          "credits": "4",
+          "grade": "P"
+        },
+        {
+          "subject": "FTWL",
+          "catalog": "106",
+          "title": "Lifelong Fitness and Wellness",
+          "credits": "3",
+          "grade": "P"
+        }
+      ]
+    }
+  ],
+  "taking_course": [
+    {
+      "subject": "COSC",
+      "catalog": "220",
+      "title": "Computer Science II",
+      "cred": 4,
+      "genED": "Major"
+    },
+    {
+      "subject": "COSC",
+      "catalog": "370",
+      "title": "Computer Networks",
+      "cred": 4,
+      "genED": "Elective"
+    },
+    {
+      "subject": "COSC",
+      "catalog": "117",
+      "title": "Web Development",
+      "cred": 3,
+      "genED": "Elective"
+    },
+    {
+      "subject": "MATH",
+      "catalog": "210",
+      "title": "Discrete Math",
+      "cred": 4,
+      "genED": "Major"
+    }
+  ],
+  "backup_course": [
+    {
+      "subject": "COSC",
+      "catalog": "250",
+      "title": "Micro-Computer",
+      "cred": 4,
+      "genED": "Major"
+    },
+    {
+      "subject": "COSC",
+      "catalog": "117",
+      "title": "Programming Fundamentals",
+      "cred": 4,
+      "genED": "Major"
+    }
+  ]
+}
+]

@@ -366,7 +366,11 @@ class Model:
         myCol = db.get_collection("Crs Test")
         myCol.drop()
         myCol = db.get_collection("Crs Test")
-        header = ["Course ID", "Eff Date", "Status", "Catalog Descr", "Equiv Crs", "Allowd Unt", "Allow Comp", "Long Title", "Descr", "Offer Nbr", "Acad Group", "Subject", "Catalog", "Acad Org", "CIP Code", "HEGIS Code", "Component", "Equiv Crs", "Course ID", "CRSE ID Descr", "Crse Attr", "CrsAtr Val", "RQ Designation", "RQ Designation Descr", "RQ Designation Formal Descr", "Rq Group", "RQ GRP Descr", "RQ GRP ShortDescr", "Rq Group", "RQ Usage", "RQ Description(Descr80)", "RQ Descr(DESCR254A)", "RQ Descr(Descrlong)", "Grading"]
+        header = ["Course ID", "Eff Date", "Status", "Catalog Descr", "Equiv Crs", "Allowd Unt", "Allow Comp", "Long Title", "Descr", "Offer Nbr", "Acad Group",
+                  "Subject", "Catalog", "Acad Org", "CIP Code", "HEGIS Code", "Component", "Equiv Crs", "Course ID", "CRSE ID Descr", "Crse Attr", "CrsAtr Val",
+                  "RQ Designation", "RQ Designation Descr", "RQ Designation Formal Descr", "Rq Group", "RQ GRP Descr", "RQ GRP ShortDescr", "Rq Group", "RQ Usage",
+                  "RQ Description(Descr80)", "RQ Descr(DESCR254A)", "RQ Descr(Descrlong)", "Grading"]
+
         path = askopenfilename(
             initialdir="./",
             filetypes=[("CSV File", "*.csv"), ("All Files", ".")],

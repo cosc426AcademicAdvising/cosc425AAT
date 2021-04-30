@@ -1,0 +1,109 @@
+[
+  {
+    "minor": "URPLMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete at least 18 credit hours, of which 15 hours may not be counted for General Education and 9 hours must be earned at SU. \u2022 Complete courses with grades of C or better.",
+    "req_1": "Complete the following: (2 courses)",
+    "course_1": [
+      {
+        "subject": "URPL",
+        "catalog": "308",
+        "title": "Principles of Planning",
+        "credits": "3"
+      },
+      {
+        "subject": "URPL",
+        "catalog": "408",
+        "title": "Seminar in Urban Theory",
+        "credits": "3"
+      }
+    ],
+    "req_2": "Complete at least 2 of the following (circle course taken):",
+    "course_2": [
+      {
+        "subject": "URPL",
+        "catalog": "328",
+        "title": "Applied Planning",
+        "credits": "3"
+      },
+      {
+        "subject": "URPL",
+        "catalog": "402",
+        "title": "Environmental Planning",
+        "credits": "3"
+      },
+      {
+        "subject": "URPL",
+        "catalog": "416",
+        "title": "Smart Growth",
+        "credits": "3"
+      }
+    ],
+    "req_3": "Complete at least 1 from the following (circle courses taken):",
+    "course_3": [
+      {
+        "subject": "GEOG",
+        "catalog": "325",
+        "title": "Conservation and Resource Management",
+        "credits": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "401",
+        "title": "Soil, Water and Environment",
+        "credits": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "403",
+        "title": "Environmental Hazards",
+        "credits": "3"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "360",
+        "title": "Environmental Policy",
+        "credits": "4"
+      }
+    ],
+    "req_4": "Complete at least 1 from the following (circle courses taken):",
+    "course_4": [
+      {
+        "subject": "CADR",
+        "catalog": "200",
+        "title": "Foundations of Conflict and Conflict Resolution",
+        "credits": "4"
+      },
+      {
+        "subject": "ECON",
+        "catalog": "211",
+        "title": "MicroEconomic Principles",
+        "credits": "3"
+      },
+      {
+        "subject": "ENVR",
+        "catalog": "210",
+        "title": "Principles of Environmental Economics",
+        "credits": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "304",
+        "title": "Decision Making with GIS",
+        "credits": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "319",
+        "title": "Geographic Information Science",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "202",
+        "title": "State and Local Government in the US",
+        "credits": "4"
+      }
+    ]
+  }
+]

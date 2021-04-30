@@ -41,6 +41,7 @@ class View:
         self.layout()
         self.menuBar()
 
+
     def layout(self):
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
