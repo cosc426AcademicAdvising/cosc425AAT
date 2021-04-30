@@ -1,0 +1,60 @@
+Program Planning Worksheet:
+------------------------------------------
+
+
+    |    Name: Students Name (First and Last)
+    |    ID Number: Students ID Number
+    |    Registering For: The academic season a student is attempting to register for
+    |    |    - Fall
+    |    |    - Winter
+    |    |    - Spring
+    |    |    - Summer
+    |
+    |    School: The school name associated with a students major
+    |    Major: A students major
+    |    Minor: A students minor
+    |    Earned [ ] credits: Consist of the total number of credits accumulated through a students enrollment
+    |    credits [ ] Currently Enrolled In: Consists of the sum of credits from students courses
+    |                they plan to take in the upcoming semester
+    |    Enrollment Date: Consist of their enrollment date once activated by their advisor
+    |
+    |    Course Table: Consists of the courses a student plans to take in the upcoming semester
+    |    |
+    |    |    - Course#: Consists of Subject and Catalog for a courses
+    |    |    - Title: Consists of full title for a course
+    |    |    - CH.: Consists of the Credit Hours for a course
+    |    |    - GenEd/Elect: Consists of the academic group the selected course falls under
+    |    |
+    |    |    * Add Button: Displays pop up window that may allows user to search for a course Subject
+    |    |        and Catalog to add a course
+    |    |        - Pop Up Window: Enter a "Subject(space)Catalog" into the top bar to find an
+    |    |            available course within the database
+    |    |        - Type in the academic group the course belongs to in the bottom bar
+    |    |        - Hit add to add the course to the students program planning form
+    |    |
+    |    |    * Remove Button: Removes a course from a students Program Planning form
+    |    |        - Click and highlight a course within the course table to select it
+    |    |        - Then click remove to remove the selected course from the table
+    |
+    |
+    |    Backup Course Table: Consists of the backup courses a student plans to
+    |    |    take in case their first choices are unavailable
+    |    |
+    |    |    - Course#: Consists of Subject and Catalog for a courses
+    |    |    - Title: Consists of full title for a course
+    |    |    - CH.: Consists of the Credit Hours for a course
+    |    |    - GenEd/Elect: Consists of the academic group the selected course falls under
+    |    |
+    |    |    * Add Button: Displays pop up window that may allows user to search for a course
+    |    |        Subject and Catalog to add a course
+    |    |        - Pop Up Window: Enter a "Subject(space)Catalog" into the top bar to find an
+    |    |            available course within the database
+    |    |        - Type in the academic group the course belongs to in the bottom bar
+    |    |        - Hit add to add the course to the students program planning form
+    |    |
+    |    |    * Remove Button: Removes a course from a students Program Planning form
+    |    |        - Click and highlight a course within the course table to select it
+    |    |       - Then click remove to remove the selected course from the table
+    |
+    |
+    |    Memo: Consists of any questions or comments from the student intended for their advisor

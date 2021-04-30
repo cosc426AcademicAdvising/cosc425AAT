@@ -959,6 +959,65 @@ class View:
         self.schedule.add_separator()
         self.schedule.add_command(label='Export', command=self.exportSchedule)
         self.schedule.add_command(label='Print', command=self.printSchedule)
+        self.schedule.add_separator()
+        self.schedule.add_command(label="Help", command=self.printHelp)
+
+
+    def printHelp(self):
+
+        # Create pop up window on top level of application
+        t = Toplevel(self.mainwin)
+        t.wm_title("Help Menu")
+        t.geometry("1000x600")
+        t.attributes('-topmost', 'true')
+
+        top = Frame(t)      # Top frame for title and buttons
+        bottom = Frame(t)   # Bottom frame for list box containing help menu
+        top.pack(side=TOP)
+        bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
+
+        # Create scroll bar
+        scrollbar = Scrollbar(bottom)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        # Create list box in bottom frame for help menu
+        helpmenu = Listbox(bottom, yscrollcommand=scrollbar.set)
+        helpmenu.pack(side=LEFT, fill=BOTH, expand=YES)
+
+        # Displays the menu options
+        def menu_option():
+            helpmenu.delete(0, 'end')
+            file = open('Help/help.txt')
+            for i in file:
+                helpmenu.insert(END, str(i))
+
+        # Displays the four year plan options
+        def four_option():
+            helpmenu.delete(0, 'end')
+            file = open('Help/help2.txt')
+            for i in file:
+                helpmenu.insert(END, str(i))
+
+        # Displays the program planning options
+        def program_option():
+            helpmenu.delete(0, 'end')
+            file = open('Help/help3.txt')
+            for i in file:
+                helpmenu.insert(END, str(i))
+
+        menu_option()   # Starts on first page of help menu
+        head = Label(top, text="Help Menu", font=125)   # Title
+        head.pack()
+        button1 = Button(top, text="Menu Options", width=15, height=1, command=menu_option)     # Button for menu options
+        button1.pack(in_=top, side=LEFT)
+        button2 = Button(top, text="Four Year Plan", width=15, height=1, command=four_option)   # Button for four year options
+        button2.pack(in_=top, side=LEFT)
+        button3 = Button(top, text="Program Planning", width=15, height=1, command=program_option)  # Button for program planning options
+        button3.pack(in_=top, side=LEFT)
+
+        scrollbar.config(command=helpmenu.yview)    # Set scroll bar to effect Y axis view of list box
+
+
 
     def newSchedule(self):
         self.planningWorksheet_reset()
@@ -1051,9 +1110,6 @@ class View:
     def loadMenu(self, major):
         major.add_command(label='Four Year Plan', command=self.showFourYearPlan)
         major.add_command(label='Course Taken List', command=self.showCourseTakenList)
-        major.add_separator()
-        major.add_command(label='Major Checklist')
-        major.add_command(label='Minor Checklist')
 
     def showFourYearPlan(self):
         self.courseTakenListFrame.pack_forget()

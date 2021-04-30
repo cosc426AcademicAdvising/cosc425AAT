@@ -1,0 +1,28 @@
+Four Year Plan:
+---------------------
+
+    |    Name: Students Name (First and Last)
+    |    ID Number: Students ID Number
+    |    University Policy: University policies associated with ta students selected major
+    |
+    |    Four Year Plan Tab: Displays suggested courses over 4 years (8 Semesters)
+    |    |    based off default Four Year Plans for a major
+    |    |
+    |    |    - Year 1: Consists of courses suggested for the semesters one and two of a students enrollment
+    |    |        - Course#: Consists of Subject and Catalog for a courses
+    |    |        - Title: Consists of full title for a course
+    |    |        - Crd. Hr.: Consists of the Credit Hours for a course
+    |    |    - Year 2: Consists of courses suggested for the semesters three and four of a students enrollment
+    |    |        - Course#: Consists of Subject and Catalog for a courses
+    |    |        - Title: Consists of full title for a course
+    |    |        - Crd. Hr.: Consists of the Credit Hours for a course
+    |    |    - Year 3: Consists of courses suggested for the semesters five and six of a students enrollment
+    |    |        - Course#: Consists of Subject and Catalog for a courses
+    |    |        - Title: Consists of full title for a course
+    |    |        - Crd. Hr.: Consists of the Credit Hours for a course
+    |    |    - Year 4: Consists of courses suggested for the semesters seven and eight a students enrollment
+    |    |        - Course#: Consists of Subject and Catalog for a courses
+    |    |        - Title: Consists of full title for a course
+    |    |        - Crd. Hr.: Consists of the Credit Hours for a course
+    |
+    |    Progress Report Tab:
