@@ -1,0 +1,237 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "ECEDBS",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses. \n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 \u24b6\u24b7 indicates the recommended minimum grade; although a C meets the requirement, SU history shows that students who graduate with this major earned this grade or higher for this course.",
+    "semester_1": [
+      {
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "130",
+        "title": "Fundamental Concepts I",
+        "credits": "3"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities course",
+        "credits": "4"
+      },
+      {
+        "subject": "IIIB",
+        "catalog": "",
+        "title": "Gen Ed Social Science course (non-PSYC)",
+        "credits": "4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "ELED",
+        "catalog": "201A",
+        "title": "Introduction to Teaching",
+        "credits": "1"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "230",
+        "title": "Fundamental Concepts II",
+        "credits": "3"
+      },
+      {
+        "subject": "BIOL",
+        "catalog": "101",
+        "title": "Fundamentals of Biology",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course (above 103)",
+        "credits": "4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "PHYS",
+        "catalog": "101",
+        "title": "Physical Science",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "credits": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "credits": "3"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "150",
+        "title": "Data and Probability Connections",
+        "credits": "3"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "ECED",
+        "catalog": "251*A",
+        "title": "Collaboration and Cooperation",
+        "credits": ""
+      },
+      {
+        "subject": "",
+        "catalog": "",
+        "title": "in Early Childhood Community",
+        "credits": "3"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "202*",
+        "title": "Technology in Education",
+        "credits": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "104",
+        "title": "Earth and Space Science",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "250B",
+        "title": "Psychology of Infancy and Childhood",
+        "credits": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "ECED",
+        "catalog": "352",
+        "title": "Integrated Reading and Language Arts Birth-4",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "305",
+        "title": "Learning and Assessment for Diverse Classrooms",
+        "credits": "4"
+      },
+
+      {
+        "subject": "ELED",
+        "catalog": "317",
+        "title": "Integrating Aesthetic Experiences into Teaching and Learning",
+        "credits": "4"
+      },
+
+      {
+        "subject": "ELED",
+        "catalog": "397",
+        "title": "Diversity and the Self",
+        "credits": "1"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "ECED",
+        "catalog": "356",
+        "title": "Play and Creativity in Early Childhood Education",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "302",
+        "title": "Integrated Reading and Language Arts Grades K-3",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "320",
+        "title": "Teaching Diverse Learners",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "350",
+        "title": "Literature for Children",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "398",
+        "title": "Diversity and the Family",
+        "credits": "1"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "ECED",
+        "catalog": "451",
+        "title": "Teaching Mathematics in Early Childhood Classrooms",
+        "credits": "4"
+      },
+      {
+        "subject": "ECED",
+        "catalog": "452",
+        "title": "Teaching Science in Early Childhood Classrooms",
+        "credits": "4"
+      },
+      {
+        "subject": "ECED",
+        "catalog": "453",
+        "title": "Teaching Social Studies in Early Childhood Classrooms",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "410",
+        "title": "Literacy Assessment and Intervention",
+        "credits": "4"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "499",
+        "title": "Diversity and the Community",
+        "credits": "1"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "ECED",
+        "catalog": "455",
+        "title": "Early Childhood Education Clinical Practice I",
+        "credits": "5"
+      },
+      {
+        "subject": "ECED",
+        "catalog": "456",
+        "title": "Early Childhood Education Clinical Practice II",
+        "credits": "5"
+      },
+      {
+        "subject": "ELED",
+        "catalog": "411",
+        "title": "Clinical Practice Seminar",
+        "credits": "4"
+      }
+    ]
+  }
+]

@@ -1,0 +1,61 @@
+[
+  {
+    "minor": "SPMDMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete courses with grades of C or better. \u2022 Complete a total of at least 20 credits.",
+    "req_1": "Complete the following (4 courses)",
+    "course_1": [
+      {
+        "subject": "BIOL",
+        "catalog": "215",
+        "title": "Human Anatomy and Physiology I",
+        "credits": "4"
+      },
+      {
+        "subject": "ATTR",
+        "catalog": "210",
+        "title": "Foundations of Athletic Training",
+        "credits": "4"
+      },
+      {
+        "subject": "ATTR",
+        "catalog": "213",
+        "title": "Pathology of Injuries and Illnesses",
+        "credits": "4"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "213",
+        "title": "Injury Prevention and Emergency Management",
+        "credits": "4"
+      },
+      {
+        "subject": "ATTR",
+        "catalog": "333",
+        "title": "Anatomy of Human Movement",
+        "credits": "4"
+      }
+    ],
+    "req_2": "Complete 1 from the following (circle course taken):",
+    "course_2": [
+      {
+        "subject": "ATTR",
+        "catalog": "401",
+        "title": "Therapeutic Modalities",
+        "credits": "4"
+      },
+      {
+        "subject": "ATTR",
+        "catalog": "402",
+        "title": "Orthopedic Assessment",
+        "credits": "4"
+      },
+      {
+        "subject": "ATTR",
+        "catalog": "403",
+        "title": "Foundations of Therapeutic Exercise",
+        "credits": "4"
+      }
+    ]
+  }
+]

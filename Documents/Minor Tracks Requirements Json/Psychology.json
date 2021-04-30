@@ -1,0 +1,157 @@
+[
+  {
+    "minor": "PSYCMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete 5 courses with grades of C or better.\n\u2022 Either PSYC 200 or PSYC 250 may count toward minor requirements, but not both.",
+    "req_1": "Complete the following course:",
+    "course_1": [
+      {
+        "subject": "PSYC",
+        "catalog": "101",
+        "title": "General Psychology",
+        "credits": "4"
+      }
+    ],
+    "req_2": "Complete 4 additional courses:",
+    "course_2": [
+      {
+        "subject": "PSYC",
+        "catalog": "200",
+        "title": "Developmental Psychology",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "250",
+        "title": "Psychology of Infancy and Childhood",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "302",
+        "title": "Abnormal Psychology",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "306",
+        "title": "Social Psychology",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "313",
+        "title": "Drugs and Behavior",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "321",
+        "title": "Psychology of Adolescence",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "322",
+        "title": "Psychology of Aging",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "323",
+        "title": "Psychology of Death and Dying",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "325",
+        "title": "Psychology of Sexuality",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "334",
+        "title": "Psychology of Women",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "360",
+        "title": "Clinical\/Counseling Psychology",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "375",
+        "title": "Psychology and the Law",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "402",
+        "title": "Childhood Disorders",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "407",
+        "title": "Psychology of Personality",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "410",
+        "title": "Multicultural Issues",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "412",
+        "title": "Psychology of Religion",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "415",
+        "title": "Community and Applied Social Psychology",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "423",
+        "title": "Developmental Disabilities",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "425",
+        "title": "Psychology of Global Climate Change",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "430",
+        "title": "Applied Behavior Analysis",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "445",
+        "title": "Cognitive Psychology",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "481",
+        "title": "Health Psychology\/Behavioral Medicine",
+        "credits": ""
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "482",
+        "title": "NatureNurture Issues",
+        "credits": ""
+      }
+    ]
+  }
+]

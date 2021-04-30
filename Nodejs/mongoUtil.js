@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 
 var db, collection;
 
-
-
 // connect to db
 module.exports = {
     connectToServer: function(callback) {
@@ -12,7 +10,6 @@ module.exports = {
         mongo.connect(process.env.DB_CONNECT,
         {useNewUrlParser: true},
         {useUnifiedTopology: true}, function(err, client) {
-            
             db = client.db('COSC425AAT');
             return callback(err);
         });

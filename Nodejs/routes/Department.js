@@ -1,12 +1,11 @@
 const router = require("express").Router();
 const mongoUtil = require('../mongoUtil');
-const verify = require('./verifyToken');
-
+const verify = require('./token');
 var collection;
 
 
 // getDistinctSchools
-router.get("/School", verify, (req, res) => {
+router.get("/School", verify.verToken, (req, res) => {
     collection = mongoUtil.getDept();
     collection.distinct("School", function(error, result){
         if(error) {
@@ -17,7 +16,7 @@ router.get("/School", verify, (req, res) => {
 });
 
 // getMajors
-router.get("/Major", verify, (req, res) => {
+router.get("/Major", verify.verToken, (req, res) => {
     collection = mongoUtil.getDept();
     collection.find({'Plan Type': 'Major'}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
         if(error) {
@@ -28,7 +27,7 @@ router.get("/Major", verify, (req, res) => {
 });
 
 //getMajorsbySchool
-router.get("/Major/:school", verify, (req, res) => {
+router.get("/Major/:school", verify.verToken, (req, res) => {
     collection = mongoUtil.getDept();
     var name = req.params.school;
     collection.find({'Plan Type': 'Major', 'School': name}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
@@ -40,7 +39,7 @@ router.get("/Major/:school", verify, (req, res) => {
 });
 
 // getMinors
-router.get("/Minor", verify, (req, res) => {
+router.get("/Minor", verify.verToken, (req, res) => {
     collection = mongoUtil.getDept();
     collection.find({'Plan Type': 'Minor'}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {
         if(error) {
@@ -51,7 +50,7 @@ router.get("/Minor", verify, (req, res) => {
 });
 
 //getMinorsbySchool
-router.get("/Minor/:school", verify, (req, res) => {
+router.get("/Minor/:school", verify.verToken, (req, res) => {
     collection = mongoUtil.getDept();
     var name = req.params.school
     collection.find({'Plan Type': 'Minor', 'School': name}).project({'Acad Plan': 1, _id:0}).toArray((error, result) => {

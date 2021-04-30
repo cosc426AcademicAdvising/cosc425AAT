@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const mongoUtil = require('../mongoUtil');
-const verify = require('./verifyToken');
+const verify = require('./token');
 
 var collection;
 
 // getStudentbyID
-router.get("/:id", verify, (req, res) => {
+router.get("/:id", verify.verToken, (req, res) => {
     collection = mongoUtil.getStud();
     var sid = parseInt(req.params.id);
     collection.findOne({"s_id": sid},

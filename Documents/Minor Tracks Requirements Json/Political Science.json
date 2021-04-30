@@ -1,0 +1,49 @@
+[
+  {
+    "minor": "POSCMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete 5 courses, with at least 2 at the 300\/400 level.\n\u2022 Complete all courses applicable to minor with grades of C or better.\n\u2022 One 1 course can be used to satisfy General Education requirements",
+    "req_1": "Complete 1 of the following (circle course taken):",
+    "course_1": [
+      {
+        "subject": "POSC",
+        "catalog": "101",
+        "title": "Introduction to Politics and Government",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "110",
+        "title": "American National Government",
+        "credits": "4"
+      }
+    ],
+    "req_2": "Complete the following:",
+    "course_2": [
+      {
+        "subject": "POSC",
+        "catalog": "_",
+        "title": "________________________",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "_",
+        "title": "________________________",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "_",
+        "title": "________________________",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "_",
+        "title": "________________________",
+        "credits": "4"
+      }
+    ]
+  }
+]

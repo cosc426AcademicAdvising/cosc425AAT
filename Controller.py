@@ -31,6 +31,8 @@ class Controller:
         # for saving info from program planning sheet
         pub.subscribe(self.saveSchedule, "save_schedule")
 
+        pub.subscribe(self.openPPW, "request_CSV")
+
     def newSchedule(self):
         self.schedule = Toplevel()
         self.schedule.geometry('1000x600')
@@ -57,6 +59,9 @@ class Controller:
 
     def saveSchedule(self, obj):
         self.model.updateStudent(obj)
+
+    def openPPW(self):
+        self.model.openCSV()
 
 if __name__=="__main__":
     root = Tk()

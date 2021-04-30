@@ -1,22 +1,23 @@
 const router = require("express").Router();
 const mongoUtil = require('../mongoUtil');
-const verify = require('./verifyToken');
-
+const verify = require('./token');
 var collection;
 
 // getDistinctSubjects
-router.get("/Subject", verify, (req, res) => {
-    collection = mongoUtil.getCourse();
-    collection.distinct("Subject", function(error, result){
-        if(error) {
-            return res.status(500).send(error);
-        }
-        res.send(result);
-    });
+router.get("/Subject", verify.verToken, (req, res) => {
+    {
+        collection = mongoUtil.getCourse();
+        collection.distinct("Subject", function(error, result){
+            if(error) {
+                return res.status(500).send(error);
+            }
+            res.send(result);
+        });
+    }
 });
 
 // getCoursebySubCat
-router.get("/:subject/:catalog", verify, (req, res) => {
+router.get("/:subject/:catalog", verify.verToken, (req, res) => {
     collection = mongoUtil.getCourse();
     var sub = req.params.subject;
     var cat = req.params.catalog;

@@ -1,0 +1,253 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "MATHBS MAACTU",
+    "policies": "UNIVERSITY POLICIES\n\n\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "MATH",
+        "catalog": "201",
+        "title": "Calculus I",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "216",
+        "title": "Statistical Thinking",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "credits": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "credits": "3"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "MATH",
+        "catalog": "202",
+        "title": "Calculus II",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "210",
+        "title": "Introduction to Discrete Mathematics (spring o",
+        "credits": "dd)4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course (spring even)",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "215",
+        "title": "Introduction to Financial Mathematics",
+        "credits": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "credits": "4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "MATH",
+        "catalog": "310",
+        "title": "Calculus III",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "314",
+        "title": "Regression Analysis (fall odd)",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "210",
+        "title": "Introduction to Discrete Mathematics (fall even",
+        "credits": ")4"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities course",
+        "credits": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "credits": "4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "MATH",
+        "catalog": "306",
+        "title": "Linear Algebra",
+        "credits": "4"
+      },
+      {
+        "subject": "COSC",
+        "catalog": "117",
+        "title": "Programming Fundamentals",
+        "credits": "4"
+      },
+      {
+        "subject": "COSC",
+        "catalog": "120",
+        "title": "Computer Science I",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course",
+        "credits": "4"
+      },
+      {
+        "subject": "Elective*",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "MATH",
+        "key_2": "314",
+        "title": "Regression Analysis (fall odd)",
+        "credits": "4"
+      },
+      {
+        "subject": "IVA",
+        "key_2": "",
+        "title": "Gen Ed Lab Science course (fall even)",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "key_2": "413",
+        "title": "Mathematical Statistics I (every fall)",
+        "credits": "4"
+      },
+      {
+        "subject": "ACCT",
+        "key_2": "201",
+        "title": "Introduction to Financial Accounting",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGL",
+        "key_2": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "credits": "4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "MATH",
+        "catalog": "414",
+        "title": "Mathematical Statistics II (spring odd)",
+        "credits": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "415",
+        "title": "Actuarial and Finacial Models (spring even)",
+        "credits": "4"
+      },
+      {
+        "subject": "ECON",
+        "catalog": "211",
+        "title": "Micro-Economics Principles",
+        "credits": "3"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "4XX",
+        "title": "MATH elective",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective*",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "ECON",
+        "catalog": "212",
+        "title": "Macro-Economic Principles",
+        "credits": "3"
+      },
+      {
+        "subject": "FINA",
+        "catalog": "311",
+        "title": "Financial Management",
+        "credits": "3"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Humanities\/Social Science course",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective*",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "MATH",
+        "catalog": "414",
+        "title": "Mathematical Statistics II (spring odd)",
+        "credits": "3"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "415",
+        "title": "Actuarial and Finacial Models (spring even)",
+        "credits": "4"
+      },
+      {
+        "subject": "FINA",
+        "catalog": "312",
+        "title": "Risk Management and Insurance",
+        "credits": "3"
+      },
+      {
+        "subject": "Elective*",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      },
+      {
+        "subject": "Elective*",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "credits": "3-4"
+      }
+    ]
+  }
+]

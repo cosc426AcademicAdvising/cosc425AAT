@@ -1,0 +1,33 @@
+Menu Bar Options:
+-------------------------
+
+    Schedule:
+    ---------------
+    |    New: Create Program Planning form for a student from scratch
+    |    |    Open: Displays a Pop up Window to search for a student's record in the database
+    |    |        - Enter the Students First Name, Last Name, and Student ID Number then click search
+    |    |        - If a students record is found, Then the Four Year Plan, Program Planning Worksheet,
+    |    |            Progress Report, and Course Taken List will be populated with the corresponding students information
+    |    |    Save: Save and upload to the database a students Program Planning and Progress Report
+    |    |    Export: Export a students Program Planning form, Progress Report, or Four Year Plan in PDF format
+    |    |    Print: Print a students Program Planning form, Progress Report, or Four Year Plan in PDF format
+    |
+    |    View:
+    |    |    Four Year Plan: Toggle on the viewing of a students Four Year Plan and Progress Report
+    |    |    Course Taken List: Toggle on the viewing of all courses a student has taken
+    |
+    |    UpdateDB:
+    |    |    Current Semester Course: Load a .csv file containing all courses
+    |    |        offered in the upcoming semester to the database
+    |    |    Add/Remove School: Add or remove a school from the database
+    |    |    Add/Remove Major: Add or remove a major from the database
+    |    |    Add/Remove Minor: Add or remove a minor from the database
+    |
+    |    Themes:
+    |    |    Dark Mode: Toggle on Dark mode theme
+    |    |    Light Mode: Toggle on Light mode theme
+    |
+    |    Help: Displays this help page Containing descriptions and How-To-Use for the user interface
+
+
+

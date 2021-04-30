@@ -1,0 +1,216 @@
+[
+  {
+    "minor": "LJADMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 For the experiential\/internship area, students must enroll in 4 credits (3 for CADR 400) and\nwork with the minor coordinator and the appropriate department chair to develop an\ninternship relevant to the minor.\n\u2022 3 of the 5 courses must be from different disciplines.\n\u2022 Grades of C or better are required in all courses applicable to the minor.",
+    "req_1": "Complete 1 course from each area (5 courses) (Circle courses taken):",
+    "course_1": [
+      {
+        "subject": "COMM",
+        "catalog": "218",
+        "title": "Rhetoric and Public Presentation",
+        "credits": "4"
+      },
+      {
+        "subject": "COMM",
+        "catalog": "317",
+        "title": "Persuasion and Argumentation",
+        "credits": "4"
+      },
+      {
+        "subject": "COMM",
+        "catalog": "430",
+        "title": "Political Communication",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "103",
+        "title": "Critical Thinking",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "202",
+        "title": "Introduction to Symbolic Logic",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "415",
+        "title": "Community and Applied Social Psychology",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "330",
+        "title": "Social Welfare Policy Practice:",
+        "credits": "4"
+      }
+    ],
+    "course_2": [
+      {
+        "subject": "POSC",
+        "catalog": "230",
+        "title": "Judicial Process and Politics",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "330",
+        "title": "American Constitutional Development",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "411",
+        "title": "International Law",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "450",
+        "title": "Civil Rights and Liberties",
+        "credits": "4"
+      }
+    ],
+    "course_3": [
+      {
+        "subject": "ACCT",
+        "catalog": "248",
+        "title": "Legal Environment",
+        "credits": "3"
+      },
+      {
+        "subject": "CADR",
+        "catalog": "200",
+        "title": "Foundations of Conflict and Conflict Resolution",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "460",
+        "title": "Environmental Law",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "375",
+        "title": "Psychology of the Law",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "420",
+        "title": "Political Psychology",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "305",
+        "title": "Sociology of Law",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "313",
+        "title": "Criminology and Penology",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "484",
+        "title": "Social Work and the Law",
+        "credits": "4"
+      }
+    ],
+    "course_4": [
+      {
+        "subject": "ENGL",
+        "catalog": "369",
+        "title": "Global Literature and Justice",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "203",
+        "title": "Ethics",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "319",
+        "title": "Law and Morality",
+        "credits": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "205",
+        "title": "Women in Politics",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "410",
+        "title": "Multicultural Issues",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "304",
+        "title": "Social Inequality",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "309",
+        "title": "Privilege and Oppression",
+        "credits": "4"
+      }
+    ],
+    "course_5": [
+      {
+        "subject": "CADR",
+        "catalog": "400",
+        "title": "Practicum and Internship",
+        "credits": "3"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "340",
+        "title": "Political Science Internship",
+        "credits": "4"
+      },
+      {
+        "subject": "PHIL",
+        "catalog": "490",
+        "title": "Independent Study",
+        "credits": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "485",
+        "title": "Psychology Practicum",
+        "credits": "4"
+      },
+      {
+        "subject": "SOCI",
+        "catalog": "498",
+        "title": "Internship in Sociology",
+        "credits": "4"
+      },
+      {
+        "subject": "SOWK",
+        "catalog": "420",
+        "title": "Field Instruction in Social Work I",
+        "credits": "4"
+      },
+      {
+        "subject": "IDIS",
+        "catalog": "490",
+        "title": "Internship in Interdisciplinary Studies",
+        "credits": "4"
+      }
+    ]
+  }
+]
