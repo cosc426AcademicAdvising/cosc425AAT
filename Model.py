@@ -4,6 +4,7 @@ import csv
 from pubsub import pub  # pip install PyPubSub
 import pymongo
 from bson.regex import Regex
+import re
 
 client = pymongo.MongoClient(
     "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -203,7 +204,18 @@ class Model:
 
     def getPolicies(self, major):
         myCol = db.get_collection('FourYear')
-        i = myCol.find_one({'major': major})
+        i = ""
+        obj = myCol.find_one({'major': major})
+        if not obj:
+            spl = major.split(" ")
+            regx = re.compile("^" + spl[0])
+            obj1 = myCol.find_one({'major': regx})
+            if not obj1:
+                print("\n\nNo Major Found\n\n")
+            else:
+                i = obj1
+        else:
+            i = obj
         return i['policies']
 
     def delStud(self, id):
@@ -249,9 +261,20 @@ class Model:
         sem = "1"  # Keeps track of which semester in database
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
-
+        i = ""
         myCol = db.get_collection('FourYear')
-        i = myCol.find_one({'major': major})
+        obj = myCol.find_one({'major': major})
+        if not obj:
+            spl = major.split(" ")
+            regx = re.compile("^" + spl[0])
+            obj1 = myCol.find_one({'major': regx})
+            if not obj1:
+                print("\n\nNo Major Found\n\n")
+            else:
+                i = obj1
+        else:
+            i = obj
+
 
         # fourList.append(i['policies'])
 
