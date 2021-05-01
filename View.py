@@ -130,7 +130,7 @@ class View:
         self.progTable = []  # Holds the treeviews for progress report
 
         # Treeviews are created for Progress Report tab
-        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, 0)
+        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable)
         # Adds the progress report tab ttk.Notebook
         self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
 
@@ -167,8 +167,6 @@ class View:
         self.majorsLabelArray = []  # Holds labels for major tabs
         self.minorsLabelArray = []  # Holds labels for minor tabs
 
-
-
         self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
         self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
 
@@ -185,14 +183,14 @@ class View:
             self.majorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
             self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
             self.majorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 0) # Function to populate these arrays
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i]) # Function to populate these arrays
             self.tab_parent.add(self.majorFrames[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
 
         for i in range(len(minor)): # Filling arrays according to amount of majors a student is doing
             self.minorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
             self.minorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i], 1) # Function to populate these arrays
+            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i]) # Function to populate these arrays
             self.tab_parent.add(self.minorFrames[i], text=minor[i]) # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
@@ -223,6 +221,10 @@ class View:
                 semIndex += 1
             minorIndex += 1
 
+        for minors in range(len(self.minorReqList)):
+            for labels in range(len(self.minorReqList[minors])):
+                self.minorsLabelArray[minors][labels]['text'] = self.minorReqList[minors][labels][1]
+
     def fourYearPlan_refresh(self, major, minor, FourYear, minorFourYear, minorReqList, policies):
         self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable() (COULD MAKE THIS ENCAPSULATED)
         self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
@@ -232,6 +234,7 @@ class View:
         self.minorFrames = []  # Holds frames minor for tabs
         self.majorsLabelArray = []  # Holds labels for major tabs
         self.minorsLabelArray = []  # Holds labels for minor tabs
+        self.minorLength = len(minor)
 
         self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
         self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
@@ -240,14 +243,14 @@ class View:
             self.majorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
             self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
             self.majorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 0) # Function to populate these arrays
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i]) # Function to populate these arrays
             self.tab_parent.add(self.majorFrames[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
 
         for i in range(len(minor)): # Filling arrays according to amount of majors a student is doing
             self.minorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
             self.minorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i], 1) # Function to populate these arrays
+            self.createTable(self.minorFrames[i], minorReqList, self.minorsTable[i]) # Function to populate these arrays
             self.tab_parent.add(self.minorFrames[i], text=minor[i]) # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
@@ -374,7 +377,7 @@ class View:
             self.policyMemoEntry.insert('1.0', self.policies[tab_index - 1])
 
     # Creates a table of treeviews for tabs in Academic Advising
-    def createTable(self, frame, labels, tables, hasMinor):
+    def createTable(self, frame, labels, tables):
         # column configure
         for i in range(2):
             frame.columnconfigure(i, weight=1)
@@ -394,12 +397,9 @@ class View:
             tables[i].heading("course#", text='Course #', anchor=CENTER)
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
-            if hasMinor == 0:
-                if i < 8 / 2:
-                    labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
-            else:
-                labels.append(Label(frame, text=self.minorReqList[0], font=('Helvetica', 15)))
 
+            if i < 8 / 2:
+                labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
 
         # grid labels
         for i in range(4):
@@ -407,6 +407,41 @@ class View:
 
         # grid treeviews
         for i in range(0, 8 - 1, 2):
+            tables[i].grid(column=0, row=i + 1)
+            tables[i + 1].grid(column=1, row=i + 1)
+
+    # Creates a table of treeviews for tabs in Academic Advising
+    def createMinorTable(self, frame, labels, tables):
+        # column configure
+        for i in range(2):
+            frame.columnconfigure(i, weight=1)
+
+        # define treeviews and labels
+        for i in range(len(self.minorReqList)): # Looping through the amount of minors
+            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True))
+
+            tables[i]['columns'] = ("course#", "title", "cred")
+            tables[i].column("#0", width=0, stretch=NO)
+            tables[i].column("course#", anchor=CENTER, width=75)
+            w = int((self.left_width - 300) / 2)
+            tables[i].column("title", anchor=W, width=w)
+            tables[i].column("cred", anchor=CENTER, width=25)
+            # tables[i].column("taken", anchor=CENTER, width=30)
+
+            tables[i].heading("course#", text='Course #', anchor=CENTER)
+            tables[i].heading("title", text='Title', anchor=CENTER)
+            tables[i].heading("cred", text='CR', anchor=CENTER)
+
+            if i < len(tables):
+                labels.append(Label(frame, font=('Helvetica', 14)))
+
+        # grid labels
+        for i in range(0,len(tables), 2):
+            labels[i].grid(column=i, row=i, columnspan=2, sticky=W, padx=20)
+            labels[i + 1].grid(column=i + 1, row=i, columnspan=2, sticky=W, padx=20)
+
+        # grid treeviews
+        for i in range(0, len(tables), 2):
             tables[i].grid(column=0, row=i + 1)
             tables[i + 1].grid(column=1, row=i + 1)
 

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Clean">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2021_4_15_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -418,7 +419,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619390422770</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Clean">
+      <created>1619904789998</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1619904789998</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -477,10 +485,10 @@
     <MESSAGE value="Removed dash line from menu bar, lower tables fonts size, changed Credit Hour abbr to CR" />
     <MESSAGE value="centered right side of application, and set default font to helvetica 14" />
     <MESSAGE value="Fixed policy not changing and triple major not resetting" />
-    <MESSAGE value="Clean" />
     <MESSAGE value="Partial Minor tab implmentation" />
     <MESSAGE value="Resets the minors tabs" />
     <MESSAGE value="Minor tabs being filled properly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor tabs being filled properly" />
+    <MESSAGE value="Clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean" />
   </component>
 </project>
