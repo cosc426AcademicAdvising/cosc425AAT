@@ -4,6 +4,7 @@ from tkinter import ttk
 # from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
+import math
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
 
@@ -140,7 +141,7 @@ class View:
         self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=self.FYP_delCourseButton)
 
         # ============================ Add Semester Table Button ============================
-        """"
+        """
         self.addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
         self.addSemesterBtn.pack()
         self.addSemesterBtn.place(x=120, y=950)
@@ -313,6 +314,17 @@ class View:
             for course in sem.get_children():
                 sem.delete(course)
 
+        while len(self.progTable) > 8:
+                self.progTable[len(self.progTable)-1].destroy()
+                self.progTable.pop()
+                if(len(self.progTable)%2 == 0):
+                    self.progLabel[len(self.progLabel)-1].destroy()
+                    self.progLabel.pop()
+
+        # Updates canvas to get correct scrollbar size
+        self.canvas.update()
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
         for majors in self.majorsTable: # Clear treeviews for each major tab
             for sem in majors:
                 for course in sem.get_children():
@@ -420,11 +432,11 @@ class View:
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
 
-            if i < 8 / 2:
+            if i < math.ceil(length/2):
                 labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
 
         # grid labels
-        for i in range(4):
+        for i in range(math.ceil(length/2)):
             labels[i].grid(column=0, row=2 * i, columnspan=2, sticky=W, padx=5)
 
         # grid treeviews

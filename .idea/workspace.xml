@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Fixed labels for minor tabs">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Fixed labels for extra treeviews and clearing treeviews">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
@@ -433,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619912202069</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Progress report now handles a dynamic amount of semesters">
+      <created>1619986030563</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1619986030563</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -471,7 +478,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="started working on course taken list ideal format" />
     <MESSAGE value="minor setup" />
     <MESSAGE value="course taken list implemented, need to filter out subjects not used" />
     <MESSAGE value="course taken list finalized" />
@@ -496,6 +502,7 @@
     <MESSAGE value="Minor tabs being filled properly" />
     <MESSAGE value="Clean" />
     <MESSAGE value="Fixed labels for minor tabs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed labels for minor tabs" />
+    <MESSAGE value="Progress report now handles a dynamic amount of semesters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress report now handles a dynamic amount of semesters" />
   </component>
 </project>
