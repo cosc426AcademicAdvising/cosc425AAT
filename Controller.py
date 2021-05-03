@@ -32,6 +32,7 @@ class Controller:
         pub.subscribe(self.saveSchedule, "save_schedule")
 
         pub.subscribe(self.openPPW, "request_CSV")
+        pub.subscribe(self.exportSchedule, "export_schedule")
 
     def newSchedule(self):
         self.schedule = Toplevel()
@@ -62,6 +63,9 @@ class Controller:
 
     def openPPW(self):
         self.model.openCSV()
+
+    def exportSchedule(self, id, fname):
+        self.model.mkPdf(id, fname)
 
 if __name__=="__main__":
     root = Tk()
