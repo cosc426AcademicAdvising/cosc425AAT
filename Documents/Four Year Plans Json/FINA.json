@@ -1,276 +1,267 @@
 [
   {
-    "id": "e9dda46b3e9b9f2ca65f7527d0f91783",
-    "document_id": "5b3e5f51c46223d621d783c982cd1bf3",
-    "remote_id": "",
-    "file_name": "Finance.pdf",
-    "media_link": "https:\/\/api.docparser.com\/v1\/document\/media\/x3TUZump9yCdz9FIux6UgEwzc2sAhwf2Bhlq68sufAa7TTrcXH9Q9zLVoswC49ZylP1PVyQ5Q1Fiv414JX-XnXc_qO7PmK9VZQ4P177Tsgw",
-    "media_link_original": "https:\/\/api.docparser.com\/v1\/document\/media\/x3TUZump9yCdz9FIux6UgEwzc2sAhwf2Bhlq68sufAa7TTrcXH9Q9zLVoswC49ZylP1PVyQ5Q1Fiv414JX-XnXc_qO7PmK9VZQ4P177Tsgw\/original",
-    "media_link_data": "https:\/\/api.docparser.com\/v1\/document\/media\/x3TUZump9yCdz9FIux6UgEwzc2sAhwf2Bhlq68sufAa7TTrcXH9Q9zLVoswC49ZylP1PVyQ5Q1Fiv414JX-XnXc_qO7PmK9VZQ4P177Tsgw\/data",
-    "page_count": 2,
-    "uploaded_at": "2021-03-20T22:41:21+00:00",
-    "processed_at": "2021-03-20T22:59:08+00:00",
+    "major": "FINA",
     "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 \u24b7 indicates the recommended minimum grade; although a C meets the requirement, SU history shows that students who graduate with this major earned this grade or higher for this course.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
     "semester_1": [
       {
-        "key_0": "MATH",
-        "key_1": "135",
-        "key_2": "College Algebra",
-        "key_3": "3"
+        "subject": "MATH",
+        "catalog": "135",
+        "title": "College Algebra",
+        "cred": "3"
       },
       {
-        "key_0": "HIST",
-        "key_1": "10X",
-        "key_2": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "key_3": "4"
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "cred": "4"
       },
       {
-        "key_0": "ECON",
-        "key_1": "211B",
-        "key_2": "Principles of Microeconomics",
-        "key_3": "3"
+        "subject": "ECON",
+        "catalog": "211B",
+        "title": "Principles of Microeconomics",
+        "cred": "3"
       },
       {
-        "key_0": "COMM",
-        "key_1": "100",
-        "key_2": "Fund of Communication",
-        "key_3": "4"
+        "subject": "COMM",
+        "catalog": "100",
+        "title": "Fund of Communication",
+        "cred": "4"
       },
       {
-        "key_0": "COMM",
-        "key_1": "260",
-        "key_2": "Fund of Organizational Communication",
-        "key_3": "4"
+        "subject": "COMM",
+        "catalog": "260",
+        "title": "Fund of Organizational Communication",
+        "cred": "4"
       }
     ],
     "semester_2": [
       {
-        "key_0": "MATH",
-        "key_1": "160",
-        "key_2": "Applied Calculus",
-        "key_3": "3"
+        "subject": "MATH",
+        "catalog": "160",
+        "title": "Applied Calculus",
+        "cred": "3"
       },
       {
-        "key_0": "MATH",
-        "key_1": "201",
-        "key_2": "Calculus I",
-        "key_3": "4"
+        "subject": "MATH",
+        "catalog": "201",
+        "title": "Calculus I",
+        "cred": "4"
       },
       {
-        "key_0": "ENGL",
-        "key_1": "103",
-        "key_2": "Composition and Research",
-        "key_3": "4"
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "cred": "4"
       },
       {
-        "key_0": "INFO",
-        "key_1": "211",
-        "key_2": "Information Systems Concepts",
-        "key_3": "4"
+        "subject": "INFO",
+        "catalog": "211",
+        "title": "Information Systems Concepts",
+        "cred": "4"
       },
       {
-        "key_0": "ECON",
-        "key_1": "212",
-        "key_2": "Principles of Macroeconomics",
-        "key_3": "3"
+        "subject": "ECON",
+        "catalog": "212",
+        "title": "Principles of Macroeconomics",
+        "cred": "3"
       },
       {
-        "key_0": "FTWL",
-        "key_1": "106",
-        "key_2": "Lifelong Fitness and Wellness",
-        "key_3": "3"
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "cred": "3"
       }
     ],
     "semester_3": [
       {
-        "key_0": "MATH",
-        "key_1": "155",
-        "key_2": "Modern Statistics",
-        "key_3": "3"
+        "subject": "MATH",
+        "catalog": "155",
+        "title": "Modern Statistics",
+        "cred": "3"
       },
       {
-        "key_0": "ACCT",
-        "key_1": "201B",
-        "key_2": "Intro to Financial Accounting",
-        "key_3": "3"
+        "subject": "ACCT",
+        "catalog": "201B",
+        "title": "Intro to Financial Accounting",
+        "cred": "3"
       },
       {
-        "key_0": "ACCT",
-        "key_1": "248",
-        "key_2": "Legal Environment",
-        "key_3": "3"
+        "subject": "ACCT",
+        "catalog": "248",
+        "title": "Legal Environment",
+        "cred": "3"
       },
       {
-        "key_0": "ENGL",
-        "key_1": "XXX",
-        "key_2": "Gen Ed IB Literature course",
-        "key_3": "4"
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "cred": "4"
       },
       {
-        "key_0": "IVA",
-        "key_1": "",
-        "key_2": "Gen Ed Lab Science course",
-        "key_3": "4"
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "cred": "4"
       }
     ],
     "semester_4": [
       {
-        "key_0": "INFO",
-        "key_1": "281B",
-        "key_2": "Intermediate Business Statistics",
-        "key_3": "3"
+        "subject": "INFO",
+        "catalog": "281B",
+        "title": "Intermediate Business Statistics",
+        "cred": "3"
       },
       {
-        "key_0": "ACCT",
-        "key_1": "202B",
-        "key_2": "Intro to Managerial Accounting",
-        "key_3": "3"
+        "subject": "ACCT",
+        "catalog": "202B",
+        "title": "Intro to Managerial Accounting",
+        "cred": "3"
       },
       {
-        "key_0": "HIST",
-        "key_1": "XXX",
-        "key_2": "Gen Ed IIB History course",
-        "key_3": "4"
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course",
+        "cred": "4"
       },
       {
-        "key_0": "IIIC",
-        "key_1": "",
-        "key_2": "Gen Ed Social Science\/Humanities course",
-        "key_3": "3-4"
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "cred": "3-4"
       },
       {
-        "key_0": "IVA",
-        "key_1": "",
-        "key_2": "Gen Ed Lab Science course",
-        "key_3": "4"
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "cred": "4"
       }
     ],
     "semester_5": [
       {
-        "key_0": "MATH",
-        "key_1": "160",
-        "key_2": "Applied Calculus",
-        "key_3": "3"
+        "subject": "MATH",
+        "catalog": "160",
+        "title": "Applied Calculus",
+        "cred": "3"
       },
       {
-        "key_0": "MATH",
-        "key_1": "201",
-        "key_2": "Calculus I",
-        "key_3": "4"
+        "subject": "MATH",
+        "catalog": "201",
+        "title": "Calculus I",
+        "cred": "4"
       },
       {
-        "key_0": "ECON",
-        "key_1": "211B",
-        "key_2": "Principles of Microeconomics",
-        "key_3": "3"
+        "subject": "ECON",
+        "catalog": "211B",
+        "title": "Principles of Microeconomics",
+        "cred": "3"
       },
       {
-        "key_0": "COMM",
-        "key_1": "100",
-        "key_2": "Fund of Communication",
-        "key_3": "4"
+        "subject": "COMM",
+        "catalog": "100",
+        "title": "Fund of Communication",
+        "cred": "4"
       },
       {
-        "key_0": "COMM",
-        "key_1": "260",
-        "key_2": "Business and Professional Communication",
-        "key_3": "4"
+        "subject": "COMM",
+        "catalog": "260",
+        "title": "Business and Professional Communication",
+        "cred": "4"
       },
       {
-        "key_0": "HIST",
-        "key_1": "10X",
-        "key_2": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "key_3": "4"
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "cred": "4"
       }
     ],
     "semester_6": [
       {
-        "key_0": "MATH",
-        "key_1": "155",
-        "key_2": "Modern Statistics",
-        "key_3": "3"
+        "subject": "MATH",
+        "catalog": "155",
+        "title": "Modern Statistics",
+        "cred": "3"
       },
       {
-        "key_0": "INFO",
-        "key_1": "211",
-        "key_2": "Information Systems Concepts",
-        "key_3": "4"
+        "subject": "INFO",
+        "catalog": "211",
+        "title": "Information Systems Concepts",
+        "cred": "4"
       },
       {
-        "key_0": "ECON",
-        "key_1": "212",
-        "key_2": "Principles of Macroeconomics",
-        "key_3": "3"
+        "subject": "ECON",
+        "catalog": "212",
+        "title": "Principles of Macroeconomics",
+        "cred": "3"
       },
       {
-        "key_0": "ENGL",
-        "key_1": "103",
-        "key_2": "Composition and Research",
-        "key_3": "4"
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "cred": "4"
       },
       {
-        "key_0": "FTWL",
-        "key_1": "106",
-        "key_2": "Lifelong Fitness and Wellness",
-        "key_3": "3"
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "cred": "3"
       }
     ],
     "semester_7": [
       {
-        "key_0": "ACCT",
-        "key_1": "201B",
-        "key_2": "Intro to Financial Accounting",
-        "key_3": "3"
+        "subject": "ACCT",
+        "catalog": "201B",
+        "title": "Intro to Financial Accounting",
+        "cred": "3"
       },
       {
-        "key_0": "INFO",
-        "key_1": "281",
-        "key_2": "Intermediate Business Statistics",
-        "key_3": "3"
+        "subject": "INFO",
+        "catalog": "281",
+        "title": "Intermediate Business Statistics",
+        "cred": "3"
       },
       {
-        "key_0": "ENGL",
-        "key_1": "XXX",
-        "key_2": "Gen Ed IB Literature course",
-        "key_3": "4"
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "cred": "4"
       },
       {
-        "key_0": "IIIC",
-        "key_1": "",
-        "key_2": "Gen Ed Social Science\/Humanities course",
-        "key_3": "3-4"
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "cred": "3-4"
       },
       {
-        "key_0": "IVA",
-        "key_1": "",
-        "key_2": "Gen Ed Lab Science course",
-        "key_3": "4"
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "cred": "4"
       }
     ],
     "semester_8": [
       {
-        "key_0": "ACCT",
-        "key_1": "202B",
-        "key_2": "Intro to Managerial Accounting",
-        "key_3": "3"
+        "subject": "ACCT",
+        "catalog": "202B",
+        "title": "Intro to Managerial Accounting",
+        "cred": "3"
       },
       {
-        "key_0": "ACCT",
-        "key_1": "248",
-        "key_2": "Legal Environment",
-        "key_3": "3"
+        "subject": "ACCT",
+        "catalog": "248",
+        "title": "Legal Environment",
+        "cred": "3"
       },
       {
-        "key_0": "HIST",
-        "key_1": "XXX",
-        "key_2": "Gen Ed IIB History course",
-        "key_3": "4"
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course",
+        "cred": "4"
       },
       {
-        "key_0": "IVA",
-        "key_1": "",
-        "key_2": "Gen Ed Lab Science course",
-        "key_3": "4"
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course",
+        "cred": "4"
       }
     ]
   }

@@ -10,25 +10,25 @@
         "subject": "BIOL",
         "catalog": "210",
         "title": "Biology: Concepts & Methods",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "121",
         "title": "General Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "BIOL",
         "catalog": "2XX",
         "title": "BIOL 211, 212 or 213",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "122",
         "title": "General Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "GEOG 104, 105 or 219",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_3": [
@@ -62,37 +62,37 @@
         "subject": "BIOL",
         "catalog": "2XX",
         "title": "BIOL 211, 212 or 213",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "221",
         "title": "Organic Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "198",
         "title": "Calculus I for Biology and Medicine",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "201",
         "title": "Calculus I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENVS",
         "catalog": "202 (lec)",
         "title": "\/",
-        "credits": ""
+        "cred": ""
       },
       {
         "subject": "ENVS",
         "catalog": "204 (lab)",
         "title": "Oceanography",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -100,31 +100,31 @@
         "subject": "CHEM",
         "catalog": "222",
         "title": "Organic Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "203 (lab)",
         "title": "Marine Biology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENVS",
         "catalog": "221 (lec)",
         "title": "\/",
-        "credits": ""
+        "cred": ""
       },
       {
         "subject": "ENVS",
         "catalog": "222 (lab)",
         "title": "Principles of Environmental Science",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "202",
         "title": "Calculus II",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_5": [
@@ -132,37 +132,37 @@
         "subject": "BIOL",
         "catalog": "2XX",
         "title": "BIOL 211, 212 or 213",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "350",
         "title": "Cell Biology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "360",
         "title": "Genetic Analysis",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "370",
         "title": "Molecular Genetics",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "121",
         "title": "General Physics I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "221",
         "title": "Physics I",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -170,31 +170,31 @@
         "subject": "BIOL",
         "catalog": "310",
         "title": "Ecology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "PHYS",
         "catalog": "123",
         "title": "General Physics II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "223",
         "title": "Physics II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "155",
         "title": "Modern Statistics with Computer Analysis",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_7": [
@@ -202,37 +202,37 @@
         "subject": "ENVS",
         "catalog": "403 (le",
         "title": "c)\/",
-        "credits": ""
+        "cred": ""
       },
       {
         "subject": "ENVS",
         "catalog": "405 (la",
         "title": "b) Marine Ecotoxicology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "BIOL",
         "catalog": "420",
         "title": "Independent Study",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "ENVS",
         "catalog": "498",
         "title": "Independent Study",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_8": [
@@ -240,37 +240,37 @@
         "subject": "BIOL",
         "catalog": "375",
         "title": "Evolution",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "BIOL",
         "catalog": "400",
         "title": "Marine and Estuarine Ecology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "410",
         "title": "Estuarine Ecology (fall only)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "415",
         "title": "Undergraduate Research",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "ENVS",
         "catalog": "499",
         "title": "Undergraduate Research",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_9": [
@@ -278,25 +278,25 @@
         "subject": "BIOL",
         "catalog": "401",
         "title": "Wetland Ecology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "DNSC",
         "catalog": "400",
         "title": "Senior Proficiency Exam",
-        "credits": "1"
+        "cred": "1"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Optional",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }

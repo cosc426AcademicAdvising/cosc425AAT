@@ -10,25 +10,25 @@
         "subject": "ENGL",
         "catalog": "103B",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IVB",
         "catalog": "",
         "title": "Gen Ed Non-Lab Science or Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "ENGL",
         "catalog": "240",
         "title": "Introduction to Study of Language",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10XB",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Language",
         "catalog": "",
         "title": "Fulton School Language requirement (if needed)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_3": [
@@ -62,31 +62,31 @@
         "subject": "ENGL",
         "catalog": "306",
         "title": "Writing for the Disciplines",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "308",
         "title": "Composition III",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVC",
         "catalog": "",
         "title": "Gen Ed Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Language",
         "catalog": "",
         "title": "Fulton School Language requirement (if needed)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -94,25 +94,25 @@
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "English Elective course (1 of 4 - 1 in literature)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_5": [
@@ -120,25 +120,25 @@
         "subject": "ENGL",
         "catalog": "431",
         "title": "Survey of Modern English Grammars",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_6": [
@@ -146,25 +146,25 @@
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "English Elective course (2 of 4 - 1 in literature)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "4XX",
         "title": "Track Elective course (1 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_7": [
@@ -172,25 +172,25 @@
         "subject": "ENGL",
         "catalog": "433",
         "title": "Language and Culture",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "English Elective course (3 of 4 - 1 in literature)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_8": [
@@ -198,25 +198,25 @@
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "English Elective course (4 of 4 - 1 in literature)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "4XX",
         "title": "Track Elective course (2 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "If needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }

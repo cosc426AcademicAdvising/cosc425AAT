@@ -10,25 +10,25 @@
         "subject": "POSC",
         "catalog": "210",
         "title": "Introduction to International Relations",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits (or Foreign Language 101)",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_2": [
@@ -36,31 +36,31 @@
         "subject": "ECON",
         "catalog": "150",
         "title": "Principles of Economics",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "ECON",
         "catalog": "212",
         "title": "Macro-Economic Principles",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "Global",
         "catalog": "",
         "title": "Global Core Elective*",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits (or Foreign Language 102)",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_3": [
@@ -68,25 +68,25 @@
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Concentration Group I",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Concentration Group 3",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXX",
         "catalog": "201",
         "title": "Foreign Langage 201",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -94,25 +94,25 @@
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVB",
         "catalog": "",
         "title": "Gen Ed Non-Lab Science or Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "XXX",
         "catalog": "202",
         "title": "Foreign Langage 202",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_5": [
@@ -120,25 +120,25 @@
         "subject": "XXXX",
         "key_2": "XXX",
         "title": "Concentration Group I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "key_2": "XXX",
         "title": "Concentration Group 2",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVC",
         "key_2": "",
         "title": "Gen Ed Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "ENGL",
         "key_2": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -146,25 +146,25 @@
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Concentration Group 2",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Concentration Group 3",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Regional Specialization course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_7": [
@@ -172,25 +172,25 @@
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Concentration Group 1",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Concentration Group 4",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Regional Specialization course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_8": [
@@ -198,25 +198,25 @@
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "If needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }

@@ -6,6 +6,7 @@ import pymongo
 from bson.regex import Regex
 import re
 import threading
+from reportlab.pdfgen.canvas import Canvas
 
 client = pymongo.MongoClient(
     "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -76,6 +77,62 @@ class Model:
         myCol = db.get_collection('Catalog')
         obj = myCol.distinct('Subject')
         return obj
+
+    def mkPdf(self, id, path):
+        db = client['COSC425AAT']
+        stud = db["Student"]
+        fyp = db["FourYear"]
+        query = {"s_id": id}
+        curs = stud.find(query)
+        data = []
+        canvas = Canvas(path, pagesize=(612.0, 792.0))
+        major = ''
+        multiMaj = 0
+        for i in curs:
+            data.append(i['name'])
+            data.append(i['s_id'])
+            try:
+                data.append('major(s): ' + str(i['major']))
+                data.append(i['dept'] + ' school')
+            except (TypeError, KeyError):
+                data.append("Double major")
+                multiMaj = 1
+            try:
+                data.append('minor(s): ' + str(i['minor']))
+            except TypeError:
+                data.append("Double minor")
+            data.append(i['status'])
+            data.append(i['year'])
+            data.append('current credits: ' + str(i['credits']))
+            data.append(i['sem_id'])
+            data.append('Registering for ' + i['registering_for'] + ' semester')
+            data.append(i['enrll'])
+            data.append(i['advisor_mail'])
+            major = i['major']
+
+        data.append("-----------------------------------------")
+        data.append("Current courses:")
+        obj = stud.find_one({'s_id': id})
+        for x in obj['taking_course']:
+            data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
+                x['cred']) + ' credits')
+
+        data.append("-----------------------------------------")
+        data.append("Backup courses:")
+        for x in obj['backup_course']:
+            data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
+                x['cred']) + ' credits')
+
+        x = 72
+        y = 725
+        for z in range(len(data)):
+            canvas.drawString(x, y, str(data[z]))
+            y -= 20
+            if (y <= 75):
+                canvas.showPage()
+                y = 725
+
+        canvas.save()
 
     def pullStud(self, id, fname):
         client = pymongo.MongoClient(
@@ -348,7 +405,7 @@ class Model:
                     (i[stri][l])
                     ctotal = l + 1  # Sets total number of courses to currently viewed course
                     resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
-                            i[stri][l]['credits']]  # Creates a string value of each objects within array
+                            i[stri][l]['cred']]  # Creates a string value of each objects within array
                     courseList.append(resl)  # Appends that string to a course list
                 except IndexError as c:
                     ctotal = ctotal  # Last none index error course number is stored

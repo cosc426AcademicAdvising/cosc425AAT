@@ -10,25 +10,25 @@
         "subject": "BIOL\/GEOG",
         "catalog": "150",
         "title": "Environmental Science: Concepts and Methods",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENVR",
         "catalog": "102",
         "title": "Introduction to Sustainability",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102, 103)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "ENVR",
         "catalog": "205",
         "title": "Art, Nature, Culture",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENVR",
         "catalog": "210",
         "title": "Principles of Environmental Economics",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed BIOL 210\/CHEM\/GEOG\/GEOL course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_3": [
@@ -62,31 +62,31 @@
         "subject": "ENVR",
         "catalog": "300",
         "title": "Environmental Studies: Methods and Analysis",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENVR",
         "catalog": "302",
         "title": "Society and Environment",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Minor\/Double Major course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IVC",
         "catalog": "",
         "title": "Gen Ed Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_4": [
@@ -94,25 +94,25 @@
         "subject": "ENVR",
         "catalog": "305",
         "title": "Topics in Humanities\/Social Sciences",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Language",
         "catalog": "",
         "title": "Language requirement (if needed)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed Literature course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_5": [
@@ -120,25 +120,25 @@
         "subject": "ENVR",
         "catalog": "350",
         "title": "Topics in Natural Sciences",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Environmental Elective course (1 of 3)",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Minor\/Double Major course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -146,25 +146,25 @@
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Environmental Elective course (2 of 3)",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Environmental Elective course (3 of 3)",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Minor\/Double Major course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_7": [
@@ -172,25 +172,25 @@
         "subject": "ENVR",
         "catalog": "499",
         "title": "Environmental Senior Seminar",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Minor\/Double Major course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective \/Double Major course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective \/Double Major course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_8": [
@@ -198,25 +198,25 @@
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Environmental Experience course*",
-        "credits": "3-6"
+        "cred": "3-6"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective \/Double Major Course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective \/Double Major Course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective \/Double Major Course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }

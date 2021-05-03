@@ -10,31 +10,31 @@
         "subject": "HIST",
         "catalog": "101\/102  W",
         "title": "orld Civilizations",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Secondary",
         "catalog": "Educa",
         "title": "tion students are encouraged to take both HIST 101 & 1",
-        "credits": "02"
+        "cred": "02"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course (Language 101 requirement)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course (GEOG 105 recommended)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_2": [
@@ -42,25 +42,25 @@
         "subject": "HIST",
         "catalog": "201\/202",
         "title": "History of the US I\/II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "EDFN",
         "catalog": "210A",
         "title": "School in a Diverse Society",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVC",
         "catalog": "",
         "title": "Gen Ed Math course (MATH 105 recommended)",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_3": [
@@ -68,19 +68,19 @@
         "subject": "HIST",
         "catalog": "330",
         "title": "Proseminar in History (C or better)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "History Elective (1 of 4)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "POSC",
         "catalog": "101",
         "title": "Introduction to Politics and Government",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -88,37 +88,37 @@
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Non-US\/Non-European Course (1 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "3XX\/4XX",
         "title": "History Elective (2 of 4)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ECON",
         "catalog": "150",
         "title": "Principles of Economics",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "ECON",
         "catalog": "211",
         "title": "Principles of Microeconomics",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED300B",
         "catalog": "",
         "title": "Development, Learning and Assessment",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "Language",
         "catalog": "",
         "title": "Language 102 requirement (if needed)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_5": [
@@ -126,37 +126,37 @@
         "subject": "HIST",
         "catalog": "3XX\/4XX",
         "title": "History Elective (3 of 4)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ECON",
         "catalog": "212",
         "title": "Principles of Macroeconomics (if ECON 211 previously)",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "GEOG",
         "catalog": "101",
         "title": "World Geography: Europe and Asia",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "GEOG",
         "catalog": "102",
         "title": "World Geography: African and America",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "IVB",
         "catalog": "Gen. Ed. Non-Lab Science or Math course",
         "title": "(GEOL 103 recommended)",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_6": [
@@ -164,42 +164,42 @@
         "subject": "HIST",
         "catalog": "430",
         "title": "Research Seminar Capstone (C or better)",
-        "credits": "4",
+        "cred": "4",
         "key_4": ""
       },
       {
         "subject": "If",
         "catalog": "taking HIST",
         "title": "430 for the Non-US\/Non-European Course, you must take",
-        "credits": "an",
+        "cred": "an",
         "key_4": ""
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "History Elective (4 of 4)",
-        "credits": "4",
+        "cred": "4",
         "key_4": ""
       },
       {
         "subject": "(must",
         "catalog": "be at the",
         "title": "300\/400 level if a 200-level Non-US\/Non-European Course is t",
-        "credits": "aken",
+        "cred": "aken",
         "key_4": ")"
       },
       {
         "subject": "SCED",
         "catalog": "438",
         "title": "Teaching Literacy in the Content Areas I",
-        "credits": "3",
+        "cred": "3",
         "key_4": ""
       },
       {
         "subject": "SCED",
         "catalog": "372",
         "title": "Teaching Social Studies in Grades 7-12 Part I",
-        "credits": "4",
+        "cred": "4",
         "key_4": ""
       }
     ],
@@ -208,25 +208,25 @@
         "subject": "HIST",
         "catalog": "3XX\/4XX",
         "title": "Non-US\/Non-European Course (2 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "SCED",
         "catalog": "367",
         "title": "Inclusive Instruction for Secondary Teachers",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED",
         "catalog": "434",
         "title": "Classroom Management",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED",
         "catalog": "472",
         "title": "Teaching Social Studies in Grades 7-12 Part II",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_8": [
@@ -234,19 +234,19 @@
         "subject": "SCED",
         "catalog": "426",
         "title": "Internship in Middle\/High Schools",
-        "credits": "6"
+        "cred": "6"
       },
       {
         "subject": "SCED",
         "catalog": "428",
         "title": "Internship in Middle\/High Schools",
-        "credits": "6"
+        "cred": "6"
       },
       {
         "subject": "SCED",
         "catalog": "433",
         "title": "Reflection and Inquiry in Teaching Practice",
-        "credits": "2"
+        "cred": "2"
       }
     ]
   }

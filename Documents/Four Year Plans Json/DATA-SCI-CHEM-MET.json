@@ -10,25 +10,25 @@
         "subject": "COSC",
         "catalog": "117",
         "title": "Programming Fundamentals",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "201",
         "title": "Calculus I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "COSC",
         "catalog": "120",
         "title": "Computer Science I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "202",
         "title": "Calculus II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_3": [
@@ -62,25 +62,25 @@
         "subject": "MATH",
         "catalog": "216",
         "title": "Statistical Thinking",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "306",
         "title": "Linear Algebra",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_4": [
@@ -88,25 +88,25 @@
         "subject": "COSC",
         "catalog": "311",
         "title": "Introduction to Data Science",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Humanities\/Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "General Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_5": [
@@ -114,25 +114,25 @@
         "subject": "CHEM",
         "catalog": "121",
         "title": "General Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course (non-CHEM)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "3XX\/4XX Level Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "3XX\/4XX Level Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_6": [
@@ -140,25 +140,25 @@
         "subject": "CHEM",
         "catalog": "122",
         "title": "General Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "3XX\/4XX Level Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 Credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 Credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_7": [
@@ -166,25 +166,25 @@
         "subject": "CHEM",
         "catalog": "321",
         "title": "Analytical Chemistry",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "DSCI",
         "catalog": "470",
         "title": "Research Methods in Data Science",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 Credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 Credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_8": [
@@ -192,25 +192,25 @@
         "subject": "CHEM",
         "catalog": "333",
         "title": "Instrumental Analysis",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "DSCI",
         "catalog": "490",
         "title": "Capstone Project",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 Credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 Credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }

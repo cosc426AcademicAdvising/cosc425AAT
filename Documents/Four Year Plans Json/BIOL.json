@@ -10,25 +10,25 @@
         "subject": "BIOL",
         "catalog": "210",
         "title": "Biology: Concepts and Methods",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "121",
         "title": "General Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "BIOL",
         "catalog": "XXX",
         "title": "211, 212 or 213 (1st of 3)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "122",
         "title": "General Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_3": [
@@ -62,37 +62,37 @@
         "subject": "BIOL",
         "catalog": "XXX",
         "title": "211, 212, 213 or 310 (2nd of 3)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "221",
         "title": "Organic Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "155",
         "title": "Modern Statistics",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "MATH",
         "catalog": "198",
         "title": "Calculus I for Biology and Medicine",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "201",
         "title": "Calculus I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -100,25 +100,25 @@
         "subject": "BIOL",
         "catalog": "XXX",
         "title": "211, 212, 213 or 310 (3rd of 3)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "350",
         "title": "Cell Biology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_5": [
@@ -126,31 +126,31 @@
         "subject": "BIOL",
         "catalog": "360",
         "title": "Genetic Analysis",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "370",
         "title": "Molecular Genetics",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "3XX\/4X",
         "title": "X Upper Level BIOL elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Humanities\/Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Physical Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_6": [
@@ -158,25 +158,25 @@
         "subject": "BIOL",
         "catalog": "375",
         "title": "Evolution",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "BIOL",
         "catalog": "3XX\/4X",
         "title": "X Upper Level BIOL elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Any subject",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Any subject",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_7": [
@@ -184,25 +184,25 @@
         "subject": "BIOL",
         "catalog": "3XX\/4X",
         "title": "X Upper Level BIOL elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "XXX",
         "title": "BIOL elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Any subject",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Any subject",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_8": [
@@ -210,25 +210,25 @@
         "subject": "BIOL",
         "catalog": "3XX\/4X",
         "title": "X Upper Level BIOL elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "3XX\/4XX elective (any subject)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Any subject",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Any subject - If needed for 120 credits",
-        "credits": "4"
+        "cred": "4"
       }
     ]
   }

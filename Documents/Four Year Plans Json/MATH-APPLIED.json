@@ -10,25 +10,25 @@
         "subject": "MATH",
         "catalog": "201",
         "title": "Calculus I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "216",
         "title": "Statistical Thinking",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "MATH",
         "catalog": "202",
         "title": "Calculus II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "210",
         "title": "Intro to Discrete Mathematics",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_3": [
@@ -62,31 +62,31 @@
         "subject": "MATH",
         "catalog": "310",
         "title": "Calculus III",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "COSC",
         "catalog": "117",
         "title": "Programming Fundamentals",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "COSC",
         "catalog": "120",
         "title": "Computer Science I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -94,25 +94,25 @@
         "subject": "MATH",
         "catalog": "306",
         "title": "Linear Algebra",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "311",
         "title": "Differential Equations",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_5": [
@@ -120,31 +120,31 @@
         "subject": "MATH",
         "key_2": "413",
         "title": "Mathematical Statistics I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "key_2": "451",
         "title": "Analysis I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "key_2": "XXX",
         "title": "Applied Math course* (1 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "key_2": "",
         "title": "Gen Ed Lab Science course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "key_2": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_6": [
@@ -152,31 +152,31 @@
         "subject": "MATH",
         "catalog": "414",
         "title": "Mathematical Statistics II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "452",
         "title": "Analysis II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "3XX\/4X",
         "title": "X MATH elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_7": [
@@ -184,31 +184,31 @@
         "subject": "MATH",
         "catalog": "413",
         "title": "Mathematical Statistics",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "451",
         "title": "Analysis I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "4XX",
         "title": "MATH elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_8": [
@@ -216,25 +216,25 @@
         "subject": "MATH",
         "catalog": "XXX",
         "title": "Applied Math course* (2 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "Elective",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }
