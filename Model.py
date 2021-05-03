@@ -179,6 +179,35 @@ class Model:
                     ctotal = ctotal  # Last none index error course number is stored
             # print(ctotal)
             courseHist.append(courseList)
+
+        stri = "semester_winter"
+        wList = []
+        for l in range(8):
+            try:
+                (obj['course_taken'][0][stri][l])
+                resl = [obj['course_taken'][0][stri][l]['subject'], obj['course_taken'][0][stri][l]['catalog'],
+                        obj['course_taken'][0][stri][l]['title'],
+                        obj['course_taken'][0][stri][l]['credits'], obj['course_taken'][0][stri][l]['grade']]
+                wList.append(resl)
+            except IndexError as b:
+                continue
+            except KeyError as c:
+                continue
+
+        stri = "semester_summer"
+        sList = []
+        for l in range(8):
+            try:
+                (obj['course_taken'][0][stri][l])
+                resl = [obj['course_taken'][0][stri][l]['subject'], obj['course_taken'][0][stri][l]['catalog'],
+                        obj['course_taken'][0][stri][l]['title'],
+                        obj['course_taken'][0][stri][l]['credits'], obj['course_taken'][0][stri][l]['grade']]
+                sList.append(resl)
+            except IndexError as b:
+                continue
+            except KeyError as c:
+                continue
+
         policies = []
         for i in range(len(obj['major'])):
             majorFourList.append(self.getFourYear(majList[i]))
@@ -200,7 +229,8 @@ class Model:
             # [0, 'ENGL', '103', 'Composition and Research', '4']    Example output for fourList[0][2]
 
         pub.sendMessage("PPW_information", obj=obj, tcred=cred, courses=courses, numbCourse=numbCourses, major=majList, minor=minList,
-                        bcourses=backup, courseHist=courseHist, fourYear=majorFourList, minorFourYear=minorFourList,minorReqList=minorReqList,  policies=policies)
+                        bcourses=backup, courseHist=courseHist, fourYear=majorFourList, minorFourYear=minorFourList,minorReqList=minorReqList,  policies=policies,
+                        sumCourse=sList, winCourse=wList)
         # pub.sendMessage("FYP_information", obj=obj, courseHist=fourList)
 
     def getFourYear_refresh(self, majors, minors):

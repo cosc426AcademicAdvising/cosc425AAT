@@ -152,7 +152,8 @@ class View:
         """
 
     def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses,
-                          courseHist, fourYear, minorFourYear, minorReqList, policies):
+                          courseHist, fourYear, minorFourYear, minorReqList, policies,
+                          sumCourse, winCourse):
         # delete what was previously there then insert
         self.name2Entry.delete(0, END)
         self.name2Entry.insert(END, obj['name'])
@@ -987,7 +988,8 @@ class View:
         self.backupCourseTree_counter = 0
 
     def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses,
-                               courseHist, fourYear, minorFourYear, minorReqList, policies):
+                               courseHist, fourYear, minorFourYear, minorReqList, policies,
+                               sumCourse, winCourse):
         # obj is a py dict
 
         # clear data in widgets
