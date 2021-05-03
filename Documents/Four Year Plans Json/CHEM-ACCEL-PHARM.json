@@ -10,25 +10,25 @@
         "subject": "CHEM",
         "catalog": "121",
         "title": "General Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "210",
         "title": "Biology: Concepts and Methods",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "COMM",
         "catalog": "100",
         "title": "Fundamentals of Communication",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_2": [
@@ -36,31 +36,31 @@
         "subject": "CHEM",
         "catalog": "122",
         "title": "General Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "211",
         "title": "Microbiology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "155",
         "title": "Modern Statistics with Computer Analysis",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "MATH",
         "catalog": "216",
         "title": "Statistical Thinking",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_3": [
@@ -68,31 +68,31 @@
         "subject": "CHEM",
         "catalog": "221",
         "title": "Organic Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "121",
         "title": "General Physics I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "221",
         "title": "Physics I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "201",
         "title": "Calculus I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "215",
         "title": "Human Anatomy and Physiology I",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -100,43 +100,43 @@
         "subject": "CHEM",
         "catalog": "207*",
         "title": "Laboratory Safety",
-        "credits": "1"
+        "cred": "1"
       },
       {
         "subject": "MDTC",
         "catalog": "101",
         "title": "Safety in the Biological, Chemical Clinical Laborator",
-        "credits": "y1"
+        "cred": "y1"
       },
       {
         "subject": "CHEM",
         "catalog": "222",
         "title": "Organic Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "123",
         "title": "General Physics II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "223",
         "title": "Physics II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "202",
         "title": "Calculus II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "216",
         "title": "Human Anatomy and Physiology II",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_5": [
@@ -144,31 +144,31 @@
         "subject": "CHEM",
         "catalog": "321",
         "title": "** Analytical Chemistry",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "341",
         "title": "** Physical Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "342",
         "title": "* Physical Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "CHEM",
         "catalog": "417",
         "title": "Biochemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -176,31 +176,31 @@
         "subject": "CHEM",
         "catalog": "333*",
         "title": "Instrumental Analysis",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History Course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ECON",
         "catalog": "211",
         "title": "Principles of Microeconomics",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Humanities\/Social Sciences course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ]
   }

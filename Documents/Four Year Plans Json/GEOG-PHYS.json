@@ -10,31 +10,31 @@
         "subject": "GEOG",
         "catalog": "101",
         "title": "World Geography: Europe and Asia",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "GEOG",
         "catalog": "102",
         "title": "World Geography: Africa and the Americas",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Core course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course (COMM 100 recommended",
-        "credits": ") 4"
+        "cred": ") 4"
       }
     ],
     "semester_2": [
@@ -42,31 +42,31 @@
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Core course (not already taken)",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Core course (not already taken)",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "155",
         "title": "Modern Statistics with Computer Analysis",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_3": [
@@ -74,31 +74,31 @@
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Core course (not already taken)",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "GEOG",
         "catalog": "204",
         "title": "Statistical Problem Solving in Geography",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "GEOG",
         "catalog": "319",
         "title": "Geographic Information Science",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course (non GEOG\/GEOL)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -106,31 +106,31 @@
         "subject": "GEOG",
         "catalog": "204",
         "title": "Statistical Problem Solving in Geography",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "GEOG",
         "catalog": "319",
         "title": "Geographic Information Science",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_5": [
@@ -138,25 +138,25 @@
         "subject": "GEOG",
         "catalog": "111",
         "title": "Introduction to Oceans and Coasts",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Weather\/Climate Track Requirement course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -164,25 +164,25 @@
         "subject": "GEOG",
         "catalog": "411",
         "title": "Geomorphology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Track Requirement course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_7": [
@@ -190,25 +190,25 @@
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Track Requirement course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "GEOG",
         "catalog": "414",
         "title": "Research and Writing",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_8": [
@@ -216,25 +216,25 @@
         "subject": "GEOG",
         "catalog": "XXX",
         "title": "Track Requirement course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "Needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "Elective*",
         "catalog": "",
         "title": "If needed for 120 credits",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ]
   }

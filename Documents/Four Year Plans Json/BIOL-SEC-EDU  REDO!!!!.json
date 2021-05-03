@@ -16,25 +16,25 @@
         "subject": "CHEM",
         "catalog": "121",
         "title": "General Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "EDFN",
         "catalog": "210",
         "title": "School in a Diverse Society",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_2": [
@@ -42,31 +42,31 @@
         "subject": "BIOL",
         "catalog": "2XX",
         "title": "211, 212 or 213 (212 or 213 recommended",
-        "credits": ") 4"
+        "cred": ") 4"
       },
       {
         "subject": "CHEM",
         "catalog": "122",
         "title": "General Chemistry II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "115",
         "title": "Safety in the Biological, Chemical and Clinical Lab",
-        "credits": "1"
+        "cred": "1"
       }
     ],
     "semester_3": [
@@ -74,25 +74,25 @@
         "subject": "________",
         "catalog": "",
         "title": "______________________________",
-        "credits": "___"
+        "cred": "___"
       },
       {
         "subject": "BIOL",
         "catalog": "2XX",
         "title": "211, 212 or 213 (212 or 213 recommended",
-        "credits": ") 4"
+        "cred": ") 4"
       },
       {
         "subject": "CHEM",
         "catalog": "221",
         "title": "Organic Chemistry I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "155",
         "title": "Modern Statistics",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_4": [
@@ -100,55 +100,55 @@
         "subject": "MATH",
         "catalog": "201",
         "title": "Calculus I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "SCED",
         "catalog": "300",
         "title": "Development, Learning and Assessment",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "",
         "catalog": "",
         "title": "18-19",
-        "credits": "\/53-54"
+        "cred": "\/53-54"
       },
       {
         "subject": "BIOL",
         "catalog": "310",
         "title": "Ecology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "350",
         "title": "Cell Biology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "",
         "catalog": "",
         "title": "15-16",
-        "credits": "\/68-70"
+        "cred": "\/68-70"
       }
     ],
     "semester_5": [
@@ -156,25 +156,25 @@
         "subject": "BIOL",
         "catalog": "370",
         "title": "Molecular Genetics",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "BIOL",
         "catalog": "3XX\/4X",
         "title": "X Upper Level BIOL elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PHYS",
         "catalog": "121",
         "title": "General Physics I",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -182,19 +182,19 @@
         "subject": "BIOL",
         "catalog": "375",
         "title": "Evolution",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "BIOL",
         "catalog": "3XX\/4X",
         "title": "X Upper Level BIOL elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "GEOG",
         "catalog": "105",
         "title": "Introduction to Physical Geography",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_7": [
@@ -202,19 +202,19 @@
         "subject": "________",
         "catalog": "",
         "title": "______________________________",
-        "credits": "___"
+        "cred": "___"
       },
       {
         "subject": "________",
         "catalog": "",
         "title": "______________________________",
-        "credits": "___"
+        "cred": "___"
       },
       {
         "subject": "urth",
         "catalog": "Yea",
         "title": "r",
-        "credits": ""
+        "cred": ""
       }
     ],
     "semester_8": [
@@ -222,25 +222,25 @@
         "subject": "SCED",
         "catalog": "367",
         "title": "Inclusive Instruction for Secondary Teachers",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED",
         "catalog": "434",
         "title": "Classroom Management",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED",
         "catalog": "474",
         "title": "Teaching Science in Grades 7-12 Part II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "",
         "catalog": "",
         "title": "18\/11",
-        "credits": "8-122"
+        "cred": "8-122"
       }
     ]
   }

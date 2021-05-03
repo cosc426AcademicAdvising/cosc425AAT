@@ -10,25 +10,25 @@
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "PSYC",
         "catalog": "101",
         "title": "General Psychology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course (non-BIOL)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "155*",
         "title": "Modern Statistics with Computer Analysis",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_3": [
@@ -62,25 +62,25 @@
         "subject": "HLTH",
         "catalog": "110",
         "title": "Foundations of Community Health Education",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIA",
         "catalog": "",
         "title": "Gen Ed Humanities course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "BIOL",
         "catalog": "215",
         "title": "Human Anatomy and Physiology I",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -88,25 +88,25 @@
         "subject": "HLTH",
         "catalog": "225",
         "title": "Health Behavior",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "BIOL",
         "catalog": "216",
         "title": "Human Anatomy and Physiology II",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_5": [
@@ -114,25 +114,25 @@
         "subject": "HLTH",
         "catalog": "230",
         "title": "Chronic and Communicable Diseases",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HLTH",
         "catalog": "311",
         "title": "Human Sexuality Education",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HLTH",
         "catalog": "315",
         "title": "Community Nutrition",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HLTH",
         "catalog": "325",
         "title": "Planning and Assessing Health Education Programs",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -140,25 +140,25 @@
         "subject": "HLTH",
         "catalog": "312",
         "title": "Drugs and Public Health",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HLTH",
         "catalog": "326",
         "title": "Measurement and Evaluation of Health Programs",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HLTH",
         "catalog": "330",
         "title": "Principles of Epidemiology",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HLTH",
         "catalog": "361",
         "title": "Health Communication",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_7": [
@@ -166,25 +166,25 @@
         "subject": "HLTH",
         "catalog": "450",
         "title": "Introduction to US Healthcare and Public Health Poli",
-        "credits": "cy4"
+        "cred": "cy4"
       },
       {
         "subject": "HLTH",
         "catalog": "479",
         "title": "Senior Seminar in Public Health Education",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "XXXX",
         "catalog": "XXX",
         "title": "Elective",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_8": [
@@ -192,7 +192,7 @@
         "subject": "HLTH",
         "catalog": "480",
         "title": "Internship in Community Health",
-        "credits": "12"
+        "cred": "12"
       }
     ]
   }

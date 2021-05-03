@@ -348,7 +348,7 @@ class Model:
                     (i[stri][l])
                     ctotal = l + 1  # Sets total number of courses to currently viewed course
                     resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
-                            i[stri][l]['credits']]  # Creates a string value of each objects within array
+                            i[stri][l]['cred']]  # Creates a string value of each objects within array
                     courseList.append(resl)  # Appends that string to a course list
                 except IndexError as c:
                     ctotal = ctotal  # Last none index error course number is stored

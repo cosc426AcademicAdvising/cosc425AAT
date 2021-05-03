@@ -10,25 +10,25 @@
         "subject": "ART",
         "catalog": "121A",
         "title": "Design Principles",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "130B",
         "title": "Drawing I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVC",
         "catalog": "",
         "title": "Gen Ed Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_2": [
@@ -36,31 +36,31 @@
         "subject": "ART",
         "catalog": "201",
         "title": "Intro to Art History",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "129",
         "title": "Introduction to Digital Photography",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "229",
         "title": "Photography I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "261B",
         "title": "Sculpture I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course (1 of 2)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_3": [
@@ -68,31 +68,31 @@
         "subject": "ART",
         "catalog": "230",
         "title": "Drawing II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "35X",
         "title": "Printmaking",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "246A",
         "title": "Painting I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "299",
         "title": "Sophomore Seminar",
-        "credits": "2"
+        "cred": "2"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science course (2 of 2)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_4": [
@@ -100,43 +100,43 @@
         "subject": "ART",
         "catalog": "215B",
         "title": "Ceramics I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "271B",
         "title": "Glass I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "226",
         "title": "Graphic Design I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "227",
         "title": "Digital Design and Layout",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "280",
         "title": "New Media",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "3XX",
         "title": "Core Art History elective (1 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Humanities\/Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_5": [
@@ -144,31 +144,31 @@
         "subject": "ART",
         "catalog": "3XX",
         "title": "Choose from courses in declared track",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "3XX",
         "title": "Core Art History elective (2 of 2)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "XXX",
         "title": "Art elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "227",
         "title": "Digital Design and Layout",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVB",
         "catalog": "",
         "title": "Gen Ed Non-Lab Science or Math course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_6": [
@@ -176,25 +176,25 @@
         "subject": "ART",
         "catalog": "3XX\/",
         "title": "4XXChoose from courses in declared track",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "XXX",
         "title": "Art elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "XXX",
         "title": "Gen Ed IB Literature course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_7": [
@@ -202,25 +202,25 @@
         "subject": "ART",
         "catalog": "3XX\/",
         "title": "4XXChoose from courses in declared track",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "XXX",
         "title": "Art elective",
-        "credits": "2-4"
+        "cred": "2-4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_8": [
@@ -228,25 +228,25 @@
         "subject": "ART",
         "catalog": "4XX",
         "title": "Choose from courses in declared track",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "XXX",
         "title": "Art elective",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ART",
         "catalog": "499",
         "title": "Senior Exhibition",
-        "credits": "2"
+        "cred": "2"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       }
     ]
   }

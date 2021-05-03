@@ -10,25 +10,25 @@
         "subject": "FREN",
         "catalog": "101",
         "title": "Elementary French I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "ENGL",
         "catalog": "103",
         "title": "Composition and Research",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FTWL",
         "catalog": "106",
         "title": "Lifelong Fitness and Wellness",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_2": [
@@ -36,25 +36,25 @@
         "subject": "FREN",
         "catalog": "102",
         "title": "Elementary French II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "10X",
         "title": "Gen Ed IIA (HIST 101, 102 or 103)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVA",
         "catalog": "",
         "title": "Gen Ed Lab Science II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IIIB",
         "catalog": "",
         "title": "Gen Ed Social Science course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_3": [
@@ -62,25 +62,25 @@
         "subject": "FREN",
         "catalog": "201",
         "title": "Intermediate French (also Gen Ed IIIA)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "HIST",
         "catalog": "XXX",
         "title": "Gen Ed IIB History course",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "IVB",
         "catalog": "",
         "title": "Gen Ed Non-Lab Science or Math Course",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "IIIC",
         "catalog": "",
         "title": "Gen Ed Social Science\/Humanities course",
-        "credits": "3-4"
+        "cred": "3-4"
       }
     ],
     "semester_4": [
@@ -88,25 +88,25 @@
         "subject": "FREN",
         "catalog": "202",
         "title": "Intermediate and Applied French",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "MATH",
         "catalog": "XXX",
         "title": "Gen Ed IVC",
-        "credits": "3-4"
+        "cred": "3-4"
       },
       {
         "subject": "EDFN",
         "catalog": "210",
         "title": "School in a Diverse Society",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED",
         "catalog": "300",
         "title": "Development, Learning and Assessment",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_5": [
@@ -114,43 +114,43 @@
         "subject": "FREN",
         "catalog": "316",
         "title": "Francophone Culture and Civilization I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "317",
         "title": "Francophone Culture and Civilization II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "325",
         "title": "Francophone Culture Through Literature",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "350",
         "title": "Masterpieces of French Literature I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "351",
         "title": "Masterpieces of French Literature II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "XXX",
         "title": "French course* (1 of 5)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "XXX",
         "title": "French course* (2 of 5)",
-        "credits": "4"
+        "cred": "4"
       }
     ],
     "semester_6": [
@@ -158,31 +158,31 @@
         "subject": "FREN",
         "catalog": "310",
         "title": "French Grammar and Composition",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "312",
         "title": "French Conversation",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "XXX",
         "title": "French course* (3 of 5)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "SCED",
         "catalog": "376",
         "title": "Teaching World Languages in Grades 7-12 Part I",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "SCED",
         "catalog": "438",
         "title": "Teaching Literacy in the Content Areas I",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_7": [
@@ -190,31 +190,31 @@
         "subject": "FREN",
         "catalog": "XXX",
         "title": "French course* (4 of 5)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "FREN",
         "catalog": "XXX",
         "title": "French course* (5 of 5)",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "SCED",
         "catalog": "367",
         "title": "Inclusive Instruction for Secondary Teachers",
-        "credits": "3"
+        "cred": "3"
       },
       {
         "subject": "SCED",
         "catalog": "476",
         "title": "Teaching World Languages in Grades 7-12 Part II",
-        "credits": "4"
+        "cred": "4"
       },
       {
         "subject": "SCED",
         "catalog": "434",
         "title": "Classroom Management",
-        "credits": "3"
+        "cred": "3"
       }
     ],
     "semester_8": [
@@ -222,19 +222,19 @@
         "subject": "SCED",
         "catalog": "426",
         "title": "Internship in Middle\/High Schools",
-        "credits": "6"
+        "cred": "6"
       },
       {
         "subject": "SCED",
         "catalog": "428",
         "title": "Internship in Middle\/High Schools",
-        "credits": "6"
+        "cred": "6"
       },
       {
         "subject": "SCED",
         "catalog": "433",
         "title": "Reflection and Inquiry in Teaching Practice",
-        "credits": "2"
+        "cred": "2"
       }
     ]
   }
