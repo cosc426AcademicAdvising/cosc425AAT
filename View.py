@@ -1240,7 +1240,8 @@ class View:
         pub.sendMessage("save_schedule", obj=pydict)
 
     def exportSchedule(self):
-        print("Export schedule")
+        fname = "{}.pdf".format(self.nameEntry.get())
+        pub.sendMessage("export_schedule", id=self.idEntry.get(), fname=fname)
 
     def printSchedule(self):
         print("Print schedule")
