@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Clean">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2021_4_15_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2021_4_15_PM__Default_Changelist_.xml" beforeDir="false" />
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Fixed labels for extra treeviews and clearing treeviews">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +39,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Minor Json/FRENCH MIN.json" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="1" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -421,7 +419,28 @@
       <option name="project" value="LOCAL" />
       <updated>1619390422770</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Clean">
+      <created>1619904789998</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1619904789998</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Fixed labels for minor tabs">
+      <created>1619912202069</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1619912202069</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Progress report now handles a dynamic amount of semesters">
+      <created>1619986030563</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1619986030563</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -459,8 +478,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="can hide/show 4 year plan frame and course taken list frame" />
-    <MESSAGE value="started working on course taken list ideal format" />
     <MESSAGE value="minor setup" />
     <MESSAGE value="course taken list implemented, need to filter out subjects not used" />
     <MESSAGE value="course taken list finalized" />
@@ -480,10 +497,12 @@
     <MESSAGE value="Removed dash line from menu bar, lower tables fonts size, changed Credit Hour abbr to CR" />
     <MESSAGE value="centered right side of application, and set default font to helvetica 14" />
     <MESSAGE value="Fixed policy not changing and triple major not resetting" />
-    <MESSAGE value="Clean" />
     <MESSAGE value="Partial Minor tab implmentation" />
     <MESSAGE value="Resets the minors tabs" />
     <MESSAGE value="Minor tabs being filled properly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor tabs being filled properly" />
+    <MESSAGE value="Clean" />
+    <MESSAGE value="Fixed labels for minor tabs" />
+    <MESSAGE value="Progress report now handles a dynamic amount of semesters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress report now handles a dynamic amount of semesters" />
   </component>
 </project>
