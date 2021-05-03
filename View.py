@@ -727,14 +727,14 @@ class View:
 
         self.majorVar = StringVar()
         self.majorBox = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.majorVar,
-                                exportselection=False)
+                                exportselection=False, height=8)
         # export selection allows us to work on other listbox while not calling this binding
         self.majorBox.pack(side=TOP)
         self.majorBox.bind('<Double-1>', majorSelection)  # double-click binding
 
         self.minorVar = StringVar()
         self.minorBox = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, listvariable=self.minorVar,
-                                exportselection=False)
+                                exportselection=False, height=8)
         self.minorBox.pack(side=TOP)
         self.minorBox.bind('<Double-1>', minorSelection)
 
@@ -744,11 +744,11 @@ class View:
         label4.pack(side=TOP)
 
         self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
-                                          height=5)
+                                          height=4)
         self.selected_major_Box.pack(side=TOP)
 
         self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
-                                          height=5)
+                                          height=4)
         self.selected_minor_Box.pack(side=TOP)
 
         # for if major & minor treeview were already filled
@@ -766,7 +766,7 @@ class View:
         minorRemoveButton.pack(side=TOP)
 
         comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)
-        comfirmButton.pack(side=BOTTOM, pady=10)
+        comfirmButton.pack(side=TOP, pady=10)
 
     # end goal: return array of major under specified school
     def getMajorBySchool(self, e):
