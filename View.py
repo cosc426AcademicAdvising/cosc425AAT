@@ -333,21 +333,21 @@ class View:
 
         self.policyMemoEntry.delete('1.0', 'end')
 
-        for sem in self.progTable: # Clear treeviews in Progress Report
+        for sem in self.progTable: # Clear courses in treeviews under Progress Report tab
             for course in sem.get_children():
                 sem.delete(course)
 
-        for sem in self.winSumTable: # Clear treeviews in Progress Report
+        for sem in self.winSumTable: # Clear winter/summer courses in treeviews under Progress Report tab
             for course in sem.get_children():
                 sem.delete(course)
 
-        for sem in self.winSumTable: # Clear treeviews in Progress Report
+        for sem in self.winSumTable: # Clear treeviews in Progress Report tab
                 sem.destroy()
 
-        for sem in self.winSumLabel: # Clear treeviews in Progress Report
+        for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
                 sem.destroy()
 
-        while len(self.progTable) > 8:
+        while len(self.progTable) > 8:  # Resets the the progress report tab to default number of treeviews
                 self.progTable[len(self.progTable)-1].destroy()
                 self.progTable.pop()
                 if(len(self.progTable)%2 == 0):
