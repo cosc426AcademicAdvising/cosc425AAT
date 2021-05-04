@@ -37,6 +37,8 @@ class View:
         self.addCourseSearchResult = []
         self.resultVar = StringVar()  # for add course button
 
+        self.sizeOfMinor = 0
+
         self.courseHist = []
 
         self.layout()
@@ -186,6 +188,12 @@ class View:
         # Treeviews are re-created for Progress Report tab with number of semesters student has taken
         self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength)
 
+        # Filling winter and summer courses
+        self.winSumTable = []
+        self.winSumLabel = []
+
+        self.createWinSumTable(self.progressRepoFrame, self.winSumLabel, self.winSumTable, self.progTableLength + 1)
+
         # Updates canvas to get correct scrollbar size
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
@@ -199,22 +207,36 @@ class View:
                 self.progTableTree_iid += 1
             semIndex += 1
 
-        for i in range(len(major)): # Filling arrays according to amount of majors a student is doing
-            self.majorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
-            self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
-            self.majorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 8) # Function to populate these arrays
-            self.tab_parent.add(self.majorFrames[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
+        # Filling the Progress Report winter summer treeviews
+        iid = 0
+        for course in winCourse:
+            self.winSumTable[0].insert(parent='', index='end', iid=iid,
+                                            values=(course[0] + " " + course[1], course[2], course[3]))
+            iid += 1
 
-        for i in range(len(minor)): # Filling arrays according to amount of majors a student is doing
-            self.minorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+        iid = 0
+        for course in sumCourse:
+            self.winSumTable[1].insert(parent='', index='end', iid=iid,
+                                       values=(course[0] + " " + course[1], course[2], course[3]))
+            iid += 1
+
+        for i in range(len(major)):  # Filling arrays according to amount of majors a student is doing
+            self.majorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
+            self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
+            self.majorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 8)  # Function to populate these arrays
+            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
+
+        for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
+            self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
+            self.minorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
-            self.minorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i]) # Function to populate these arrays
-            self.tab_parent.add(self.minorFrames[i], text=minor[i]) # Each frame to the ttk.Notebook to display tab
+            self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
+            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i])  # Function to populate these arrays
+            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
-        for majors in fourYear: # Filling semesters for each major
+        for majors in fourYear:  # Filling semesters for each major
             semIndex = 0
             for sem in majors:
                 self.majorsTableTree_iid = 0
@@ -315,6 +337,16 @@ class View:
             for course in sem.get_children():
                 sem.delete(course)
 
+        for sem in self.winSumTable: # Clear treeviews in Progress Report
+            for course in sem.get_children():
+                sem.delete(course)
+
+        for sem in self.winSumTable: # Clear treeviews in Progress Report
+                sem.destroy()
+
+        for sem in self.winSumLabel: # Clear treeviews in Progress Report
+                sem.destroy()
+
         while len(self.progTable) > 8:
                 self.progTable[len(self.progTable)-1].destroy()
                 self.progTable.pop()
@@ -334,12 +366,15 @@ class View:
             for sem in minors:
                 for course in sem.get_children():
                     sem.delete(course)
+
         self.majorsTable.clear()
         self.minorsTable.clear()
         self.majorsLabelArray.clear()
         self.minorsLabelArray.clear()
         self.majorFrames.clear()
         self.minorFrames.clear()
+        self.winSumTable.clear()
+        self.winSumLabel.clear()
 
         while (self.tab_parent.index("end") != 1): # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
@@ -450,9 +485,8 @@ class View:
         # column configure
         for i in range(2):
             frame.columnconfigure(i, weight=1)
-
         # define treeviews and labels
-        for i in range(len(self.minorReqList)): # Looping through the amount of minors
+        for i in range(self.sizeOfMinor): # Looping through the amount of minors
             tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True))
 
             tables[i]['columns'] = ("course#", "title", "cred")
@@ -471,14 +505,47 @@ class View:
                 labels.append(Label(frame, font=('Helvetica', 14)))
 
         # grid labels
-        for i in range(0,len(tables), 2):
-            labels[i].grid(column=i, row=i, columnspan=2, sticky=W, padx=20)
-            labels[i + 1].grid(column=i + 1, row=i, columnspan=2, sticky=W, padx=20)
+            row = 0
+            for i in range(len(tables)):
+                if i % 2 == 0:
+                    tables[i].grid(column=0, row=row+1)
+                    labels[i].grid(column=0, row=row, columnspan=2, sticky=W, padx=20)
+                else:
+                    tables[i].grid(column=1, row=row+1)
+                    labels[i].grid(column=1, row=row, columnspan=2, sticky=W, padx=20)
+                    row += 2
 
-        # grid treeviews
-        for i in range(0, len(tables), 2):
-            tables[i].grid(column=0, row=i + 1)
-            tables[i + 1].grid(column=1, row=i + 1)
+    # Creates a table of treeviews for tabs in Academic Advising
+    def createWinSumTable(self, frame, labels, tables, length):
+        # column configure
+        for i in range(2):
+            frame.columnconfigure(i, weight=1)
+
+        # define treeviews and labels
+        for i in range(2):
+            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True))
+
+            tables[i]['columns'] = ("course#", "title", "cred")
+            tables[i].column("#0", width=0, stretch=NO)
+            tables[i].column("course#", anchor=CENTER, width=75)
+            w = int((self.left_width - 300) / 2)
+            tables[i].column("title", anchor=W, width=w)
+            tables[i].column("cred", anchor=CENTER, width=25)
+            # tables[i].column("taken", anchor=CENTER, width=30)
+
+            tables[i].heading("course#", text='Course #', anchor=CENTER)
+            tables[i].heading("title", text='Title', anchor=CENTER)
+            tables[i].heading("cred", text='CR', anchor=CENTER)
+
+
+        labels.append(Label(frame, text="Winter Courses", font=('Helvetica', 15)))
+        labels.append(Label(frame, text="Summer Courses", font=('Helvetica', 15)))
+
+        labels[0].grid(column=0, row=length, columnspan=2, sticky=W, padx=5)
+        tables[0].grid(column=0, row=length+1)
+
+        labels[1].grid(column=1, row=length, columnspan=2, sticky=W, padx=5)
+        tables[1].grid(column=1, row=length+1)
 
     def planningWorksheet_layout(self):
         self.rightFrame = Frame(self.PPWFrame)
