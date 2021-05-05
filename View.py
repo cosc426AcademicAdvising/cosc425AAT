@@ -87,12 +87,12 @@ class View:
         self.canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW, width=self.left_width)
 
         # ============================ title ============================
-        ProgPlanTitleFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
-        ProgPlanTitleFrame.pack(pady=20)
+        FYPTitleFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
+        FYPTitleFrame.pack(pady=20)
 
-        ProgPlanTitle = ttk.Label(ProgPlanTitleFrame, text="Academic Advising", anchor=CENTER,
+        FYPTitle = ttk.Label(FYPTitleFrame, text="Academic Advising", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.pack(side=TOP)
+        FYPTitle.pack(side=TOP)
 
         # ============================ Student Name and ID ============================
 
@@ -102,8 +102,8 @@ class View:
         nameLabel = Label(nameIDFrame, text='Name:')
         nameLabel.pack(side=LEFT, expand=1)
 
-        self.name2Entry = ttk.Entry(nameIDFrame)
-        self.name2Entry.pack(side=LEFT, expand=1)
+        self.FYPnameEntry = ttk.Entry(nameIDFrame)
+        self.FYPnameEntry.pack(side=LEFT, expand=1)
 
         self.id2Entry = ttk.Entry(nameIDFrame, width=8)
         self.id2Entry.pack(side=RIGHT, expand=1)
@@ -157,8 +157,8 @@ class View:
                           courseHist, fourYear, minorFourYear, minorReqList, policies,
                           sumCourse, winCourse):
         # delete what was previously there then insert
-        self.name2Entry.delete(0, END)
-        self.name2Entry.insert(END, obj['name'])
+        self.FYPnameEntry.delete(0, END)
+        self.FYPnameEntry.insert(END, obj['name'])
 
         self.id2Entry.delete(0, END)
         self.id2Entry.insert(END, obj['s_id'])
@@ -184,6 +184,10 @@ class View:
 
         self.progTable.clear()
         self.progLabel.clear()
+
+        # CLearing any tabs that might exist before displaying student
+        while (self.tab_parent.index("end") != 1): # Removes the tabs but leaves Progress Report tab
+            self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
         # Treeviews are re-created for Progress Report tab with number of semesters student has taken
         self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength)
@@ -277,26 +281,28 @@ class View:
         self.majorsLabelArray = []  # Holds labels for major tabs
         self.minorsLabelArray = []  # Holds labels for minor tabs
         self.minorLength = len(minor)
-
         self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
         self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
 
-        for i in range(len(major)): # Filling arrays according to amount of majors a student is doing
-            self.majorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+        for i in range(len(major)):  # Filling arrays according to amount of majors a student is doing
+            self.majorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
-            self.majorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 8) # Function to populate these arrays
-            self.tab_parent.add(self.majorFrames[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
+            self.majorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i],
+                             8)  # Function to populate these arrays
+            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
 
-        for i in range(len(minor)): # Filling arrays according to amount of majors a student is doing
-            self.minorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+        for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
+            self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
+            self.minorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
-            self.minorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createMinorTable(self.minorFrames[i], minorReqList, self.minorsTable[i]) # Function to populate these arrays
-            self.tab_parent.add(self.minorFrames[i], text=minor[i]) # Each frame to the ttk.Notebook to display tab
+            self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
+            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i],
+                                  self.minorsTable[i])  # Function to populate these arrays
+            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
-        for majors in FourYear: # Filling semesters for each major
+        for majors in FourYear:  # Filling semesters for each major
             semIndex = 0
             for sem in majors:
                 self.majorsTableTree_iid = 0
@@ -328,7 +334,7 @@ class View:
                 self.minorsLabelArray[minors][labels]['text'] = self.minorReqList[minors][labels][1]
 
     def FYP_reset(self):
-        self.name2Entry.delete(0, END)
+        self.FYPnameEntry.delete(0, END)
         self.id2Entry.delete(0, END)
 
         self.policyMemoEntry.delete('1.0', 'end')
@@ -454,7 +460,7 @@ class View:
 
         # define treeviews and labels
         for i in range(length):
-            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True))
+            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="browse"))
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
