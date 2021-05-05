@@ -34,6 +34,11 @@ class Controller:
         pub.subscribe(self.openPPW, "request_CSV")
         pub.subscribe(self.exportSchedule, "export_schedule")
 
+        pub.subscribe(self.model.delMajor, "request_DelMajor")
+        pub.subscribe(self.model.delMinor, "request_DelMinor")
+        pub.subscribe(self.model.addMajor, "request_AddMajor")
+        pub.subscribe(self.model.addMinor, "request_AddMinor")
+
     def newSchedule(self):
         self.schedule = Toplevel()
         self.schedule.geometry('1000x600')

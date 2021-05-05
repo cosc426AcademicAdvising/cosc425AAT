@@ -348,9 +348,30 @@ class Model:
         else:
             return str(info.deleted_count) + " entries deleted"
 
-    def delDept(self, acad):
+    def addMajor(self, major, program, school, FullSchool):
+        dept = db['Department']
+        newMaj = {"Acad Plan": major, "Plan Type": "Major", "Acad Prog": program, "School": school, "School Full Name": FullSchool}
+        dept.insert_one(newMaj)
+
+    def addMinor(self, minor, program, school, FullSchool):
+        dept = db['Department']
+        newMin = {"Acad Plan": minor, "Plan Type": "Minor", "Acad Prog": program, "School": school, "School Full Name": FullSchool}
+        dept.insert_one(newMin)
+
+    def delMajor(self, acad):
         dept = db["Department"]
-        query = {"Subject": acad}
+        query = {'$and': [{"Acad Plan": acad}, {"Plan Type": "Major"}]}
+        info = dept.delete_many(query)
+        if info.deleted_count == 1:
+            return "one entry deleted"
+        elif info.deleted_count == 0:
+            return "no matches found, deleted 0 entries"
+        else:
+            return str(info.deleted_count) + " entries deleted"
+
+    def delMinor(self, acad):
+        dept = db["Department"]
+        query = {'$and': [{"Acad Plan": acad}, {"Plan Type": "Minor"}]}
         info = dept.delete_many(query)
         if info.deleted_count == 1:
             return "one entry deleted"
@@ -421,7 +442,7 @@ class Model:
 
         myCol = db.get_collection('MinPlan')
         i = myCol.find_one({'minor': minor})
-        policy = i['university_policies'] + i['minor_req']
+        policy = i['minor_req']
         reqList.append(policy)
         return reqList
 

@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Fixed labels for extra treeviews and clearing treeviews">
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Fixed labels again and implemented winter/summer treeviews">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_3_21,_4_45_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_3_21,_6_07_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_3_21__4_45_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_3_21__6_07_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +48,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Documents/Four Year Plans Json/BIOL-SEC-EDU  REDO!!!!.json" />
     <property name="recentsLimit" value="1" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -96,13 +105,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613104128996</updated>
-    </task>
-    <task id="LOCAL-00001" summary="removed bg colors">
-      <created>1613405387072</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1613405387072</updated>
     </task>
     <task id="LOCAL-00002" summary="reworked layout, menu for 'open recent'. TODO: MVC and file browser">
       <created>1613428018531</created>
@@ -440,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619986030563</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Fixed labels again and implemented winter/summer treeviews">
+      <created>1620162887438</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1620162887438</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -478,7 +487,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor setup" />
     <MESSAGE value="course taken list implemented, need to filter out subjects not used" />
     <MESSAGE value="course taken list finalized" />
     <MESSAGE value="renamed/moved functions, renamed some variables, fix enrollCred traceback call error" />
@@ -503,6 +511,7 @@
     <MESSAGE value="Clean" />
     <MESSAGE value="Fixed labels for minor tabs" />
     <MESSAGE value="Progress report now handles a dynamic amount of semesters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Progress report now handles a dynamic amount of semesters" />
+    <MESSAGE value="Fixed labels again and implemented winter/summer treeviews" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed labels again and implemented winter/summer treeviews" />
   </component>
 </project>
