@@ -281,26 +281,28 @@ class View:
         self.majorsLabelArray = []  # Holds labels for major tabs
         self.minorsLabelArray = []  # Holds labels for minor tabs
         self.minorLength = len(minor)
-
         self.progTableTree_iid = 0  # Tracks iid for Progress Report treeviews
         self.majorsTableTree_iid = 0  # Tracks iid for major tables treeviews
 
-        for i in range(len(major)): # Filling arrays according to amount of majors a student is doing
-            self.majorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+        for i in range(len(major)):  # Filling arrays according to amount of majors a student is doing
+            self.majorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
-            self.majorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 8) # Function to populate these arrays
-            self.tab_parent.add(self.majorFrames[i], text=major[i]) # Each frame to the ttk.Notebook to display tab
+            self.majorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i],
+                             8)  # Function to populate these arrays
+            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
 
-        for i in range(len(minor)): # Filling arrays according to amount of majors a student is doing
-            self.minorsLabelArray.append([]) # Creates 2d array for each each array containing labels for a tab
+        for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
+            self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
+            self.minorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
-            self.minorFrames.append(Frame(self.tab_parent)) # Holds frames for each tab
-            self.createMinorTable(self.minorFrames[i], minorReqList, self.minorsTable[i]) # Function to populate these arrays
-            self.tab_parent.add(self.minorFrames[i], text=minor[i]) # Each frame to the ttk.Notebook to display tab
+            self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
+            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i],
+                                  self.minorsTable[i])  # Function to populate these arrays
+            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
-        for majors in FourYear: # Filling semesters for each major
+        for majors in FourYear:  # Filling semesters for each major
             semIndex = 0
             for sem in majors:
                 self.majorsTableTree_iid = 0
