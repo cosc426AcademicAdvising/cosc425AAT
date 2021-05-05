@@ -1337,10 +1337,250 @@ class View:
     def openCSV(self):
         pub.sendMessage("request_CSV")
 
+    def delSchool(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Delete Major")
+        t.geometry("450x125")
+        t.resizable(width=0, height=0)
+        t.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.schedule.entryconfigure(1, state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.schedule.entryconfigure(1, state=DISABLED)
+
+        def openScheduleSearchButton():
+            name = fnameE.get()
+            if name != "" and id != "":
+                pub.sendMessage("request_DelSchool", acad=name)
+                self.schedule.entryconfigure(1, state=NORMAL)
+                t.destroy()
+                # Shows buttons for Progress Report when student information is present
+                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
+
+        label2 = Label(nameFrame, text='School Name:').pack(side=LEFT)
+        fnameE = ttk.Entry(nameFrame, width=10)
+        fnameE.pack(side=LEFT)
+
+        searchB = Button(butFrame, text='Search', command=openScheduleSearchButton)
+        searchB.pack()
+
+    def addMajor(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Student")
+        t.geometry("350x250")
+        t.resizable(width=0, height=0)
+        t.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.schedule.entryconfigure(1, state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.schedule.entryconfigure(1, state=DISABLED)
+
+        def openScheduleSearchButton():
+            maj = major.get()
+            program = prog.get()
+            school = scl.get()
+            Fschool = sclF.get()
+            if maj != "" and program != "" and school != "" and Fschool != "":
+                pub.sendMessage("request_AddMajor", major=maj, program=program, school=school, FullSchool=Fschool)
+                self.schedule.entryconfigure(1, state=NORMAL)
+                t.destroy()
+                # Shows buttons for Progress Report when student information is present
+                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        extFrame = Frame(t)
+        extFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        idFrame = Frame(t)
+        idFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        altFrame = Frame(t)
+        altFrame.pack(side=TOP, anchor='w', padx=20)
+
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
+
+        label2 = Label(nameFrame, text='Major Abbrev:').pack(side=LEFT)
+        major = ttk.Entry(nameFrame, width=10)
+        major.pack(side=RIGHT)
+
+        label3 = Label(extFrame, text='Acad Program:').pack(side=LEFT)
+        prog = ttk.Entry(extFrame, width=15)
+        prog.pack(side=RIGHT)
+
+        label3 = Label(idFrame, text='School Name:').pack(side=LEFT)
+        scl = ttk.Entry(idFrame, width=10)
+        scl.pack(side=RIGHT)
+
+        label4 = Label(altFrame, text='School Full Name:').pack(side=LEFT)
+        sclF = ttk.Entry(altFrame, width=20)
+        sclF.pack(side=LEFT)
+
+        searchB = Button(butFrame, text='Insert', command=openScheduleSearchButton)
+        searchB.pack()
+
+    def addMinor(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Student")
+        t.geometry("350x250")
+        t.resizable(width=0, height=0)
+        t.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.schedule.entryconfigure(1, state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.schedule.entryconfigure(1, state=DISABLED)
+
+        def openScheduleSearchButton():
+            min = minor.get()
+            program = prog.get()
+            school = scl.get()
+            Fschool = sclF.get()
+            if min != "" and program != "" and school != "" and Fschool != "":
+                pub.sendMessage("request_AddMinor", minor=min, program=program, school=school, FullSchool=Fschool)
+                self.schedule.entryconfigure(1, state=NORMAL)
+                t.destroy()
+                # Shows buttons for Progress Report when student information is present
+                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        extFrame = Frame(t)
+        extFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        idFrame = Frame(t)
+        idFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        altFrame = Frame(t)
+        altFrame.pack(side=TOP, anchor='w', padx=20)
+
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
+
+        label2 = Label(nameFrame, text='Minor Abbrev:').pack(side=LEFT)
+        minor = ttk.Entry(nameFrame, width=10)
+        minor.pack(side=LEFT)
+
+        label3 = Label(extFrame, text='Acad Program:').pack(side=LEFT)
+        prog = ttk.Entry(extFrame, width=15)
+        prog.pack(side=LEFT)
+
+        label3 = Label(idFrame, text='School Name:').pack(side=LEFT)
+        scl = ttk.Entry(idFrame, width=10)
+        scl.pack(side=LEFT)
+
+        label4 = Label(altFrame, text='School Full Name:').pack(side=LEFT)
+        sclF = ttk.Entry(altFrame, width=20)
+        sclF.pack(side=LEFT)
+
+        searchB = Button(butFrame, text='Insert', command=openScheduleSearchButton)
+        searchB.pack()
+
+    def delMajor(self):
+            t = Toplevel(self.mainwin)
+            t.wm_title("Delete Major")
+            t.geometry("300x125")
+            t.resizable(width=0, height=0)
+            t.attributes('-topmost', 'true')
+            self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+            def close(e):
+                self.schedule.entryconfigure(1, state=NORMAL)
+                t.destroy()
+
+            t.bind('<Destroy>', close)
+            self.schedule.entryconfigure(1, state=DISABLED)
+
+            def openScheduleSearchButton():
+                name = fnameE.get()
+                if name != "" and id != "":
+                    pub.sendMessage("request_DelMajor", acad=name)
+                    self.schedule.entryconfigure(1, state=NORMAL)
+                    t.destroy()
+                    # Shows buttons for Progress Report when student information is present
+                    self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                    self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+            nameFrame = Frame(t)
+            nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+            butFrame = Frame(t)
+            butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
+
+            label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
+            fnameE = ttk.Entry(nameFrame, width=15)
+            fnameE.pack(side=LEFT)
+
+            searchB = Button(butFrame, text='Delete', command=openScheduleSearchButton)
+            searchB.pack()
+
+    def delMinor(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Delete Minor")
+        t.geometry("300x125")
+        t.resizable(width=0, height=0)
+        t.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.schedule.entryconfigure(1, state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.schedule.entryconfigure(1, state=DISABLED)
+
+        def openScheduleSearchButton():
+            name = fnameE.get()
+            if name != "" and id != "":
+                pub.sendMessage("request_DelMinor", acad=name)
+                self.schedule.entryconfigure(1, state=NORMAL)
+                t.destroy()
+                # Shows buttons for Progress Report when student information is present
+                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
+
+        label2 = Label(nameFrame, text='Minor Abbreviation:').pack(side=LEFT)
+        fnameE = ttk.Entry(nameFrame, width=10)
+        fnameE.pack(side=LEFT)
+
+        searchB = Button(butFrame, text='Delete', command=openScheduleSearchButton)
+        searchB.pack()
+
     # data base menu dropdown
     def DataBaseMenu(self, DB):
         DB.add_command(label='Current Semester Course', command=self.openCSV)
         DB.add_separator()
-        DB.add_command(label='Add/Remove a School')
-        DB.add_command(label='Add/remove a Major')
-        DB.add_command(label='Add/Remove a minor')
+        DB.add_command(label='Add a Major/School', command=self.addMajor)
+        DB.add_command(label='Add a minor/School', command=self.addMinor)
+        DB.add_separator()
+        DB.add_command(label='Remove a Major', command=self.delMajor)
+        DB.add_command(label='Remove a Minor', command=self.delMinor)
