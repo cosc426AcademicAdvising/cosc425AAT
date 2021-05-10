@@ -1348,44 +1348,7 @@ class View:
     def openCSV(self):
         pub.sendMessage("request_CSV")
 
-    def delSchool(self):
-        t = Toplevel(self.mainwin)
-        t.wm_title("Delete Major")
-        t.geometry("450x125")
-        t.resizable(width=0, height=0)
-        t.attributes('-topmost', 'true')
-        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
-
-        def close(e):
-            self.schedule.entryconfigure(1, state=NORMAL)
-            t.destroy()
-
-        t.bind('<Destroy>', close)
-        self.schedule.entryconfigure(1, state=DISABLED)
-
-        def openScheduleSearchButton():
-            name = fnameE.get()
-            if name != "" and id != "":
-                pub.sendMessage("request_DelSchool", acad=name)
-                self.schedule.entryconfigure(1, state=NORMAL)
-                t.destroy()
-                # Shows buttons for Progress Report when student information is present
-                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
-
-        nameFrame = Frame(t)
-        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
-
-        butFrame = Frame(t)
-        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
-
-        label2 = Label(nameFrame, text='School Name:').pack(side=LEFT)
-        fnameE = ttk.Entry(nameFrame, width=10)
-        fnameE.pack(side=LEFT)
-
-        searchB = Button(butFrame, text='Search', command=openScheduleSearchButton)
-        searchB.pack()
-
+    # Add Major Button from Update DB
     def addMajor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Add Major")
@@ -1401,7 +1364,7 @@ class View:
         t.bind('<Destroy>', close)
         self.DB.entryconfigure(2, state=DISABLED)
 
-        def openScheduleSearchButton():
+        def addMajorButton():       # Adds the major and School to database
             maj = major.get()
             program = prog.get()
             school = scl.get()
@@ -1415,26 +1378,27 @@ class View:
         mainFrame = Frame(t)
         mainFrame.grid(row=0, column=0)
 
-        label2 = Label(mainFrame, text='Major Abbrev:').grid(column=0, row=0, padx=10, pady=10)
+        label2 = Label(mainFrame, text='Major Abbrev:').grid(column=0, row=0, padx=10, pady=10)     # Top left entry for Major
         major = ttk.Entry(mainFrame, width=15)
         major.grid(column=1, row=0, padx=10, pady=10)
 
-        label3 = Label(mainFrame, text='Acad Program:').grid(column=2, row=0, padx=10, pady=10)
+        label3 = Label(mainFrame, text='Acad Program:').grid(column=2, row=0, padx=10, pady=10)     # Top right entry for Academic program
         prog = ttk.Entry(mainFrame, width=15)
         prog.grid(column=3, row=0, padx=10, pady=10)
 
-        label4 = Label(mainFrame, text='School Name:').grid(column=0, row=1, padx=10, pady=10)
+        label4 = Label(mainFrame, text='School Name:').grid(column=0, row=1, padx=10, pady=10)      # Bottom left entry for short school name
         scl = ttk.Entry(mainFrame, width=15)
         scl.grid(column=1, row=1, padx=10, pady=10)
 
 
         sclF = ttk.Entry(mainFrame, width=15)
         sclF.grid(column=3, row=1, padx=10, pady=10)
-        label5 = Label(mainFrame, text='School Full Name:').grid(column=2, row=1, padx=10, pady=10)
+        label5 = Label(mainFrame, text='School Full Name:').grid(column=2, row=1, padx=10, pady=10) # Bottom Right entry for full school title
 
-        searchB = Button(mainFrame, text='Insert', command=openScheduleSearchButton)
+        searchB = Button(mainFrame, text='Add', command=addMajorButton)
         searchB.grid(row=2, column=1, columnspan=2)
 
+    # Add minor button in Update DB
     def addMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Add Minor")
@@ -1450,7 +1414,7 @@ class View:
         t.bind('<Destroy>', close)
         self.DB.entryconfigure(3, state=DISABLED)
 
-        def openScheduleSearchButton():
+        def addMinorButton():   # Adds new minor to database
             min = minor.get()
             program = prog.get()
             school = scl.get()
@@ -1479,9 +1443,10 @@ class View:
         sclF.grid(column=3, row=1, padx=10, pady=10)
         label5 = Label(mainFrame, text='School Full Name:').grid(column=2, row=1, padx=10, pady=10)
 
-        searchB = Button(mainFrame, text='Insert', command=openScheduleSearchButton)
+        searchB = Button(mainFrame, text='Add', command=addMinorButton)
         searchB.grid(row=2, column=1, columnspan=2)
 
+    # Delete major in Update DB
     def delMajor(self):
             t = Toplevel(self.mainwin)
             t.wm_title("Delete Major")
@@ -1497,7 +1462,7 @@ class View:
             t.bind('<Destroy>', close)
             self.DB.entryconfigure(5, state=DISABLED)
 
-            def openScheduleSearchButton():
+            def deleteMajorButton():    # Delete the major from database
                 name = fnameE.get()
                 if name != "" and id != "":
                     pub.sendMessage("request_DelMajor", acad=name)
@@ -1514,9 +1479,10 @@ class View:
             fnameE = ttk.Entry(nameFrame, width=15)
             fnameE.pack(side=LEFT)
 
-            searchB = Button(butFrame, text='Delete', command=openScheduleSearchButton)
+            searchB = Button(butFrame, text='Delete', command=deleteMajorButton)
             searchB.pack()
 
+    # Delete Minor in Update DB
     def delMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Delete Minor")
@@ -1532,7 +1498,7 @@ class View:
         t.bind('<Destroy>', close)
         self.DB.entryconfigure(6, state=DISABLED)
 
-        def openScheduleSearchButton():
+        def deleteMinorButton():    # Delete the minor from database
             name = fnameE.get()
             if name != "" and id != "":
                 pub.sendMessage("request_DelMinor", acad=name)
@@ -1549,7 +1515,7 @@ class View:
         fnameE = ttk.Entry(nameFrame, width=10)
         fnameE.pack(side=LEFT)
 
-        searchB = Button(butFrame, text='Delete', command=openScheduleSearchButton)
+        searchB = Button(butFrame, text='Delete', command=deleteMinorButton)
         searchB.pack()
 
     # data base menu dropdown

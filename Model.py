@@ -350,11 +350,17 @@ class Model:
 
     def addMajor(self, major, program, school, FullSchool):
         dept = db['Department']
+        obj = dept.find_one({'$and': [{'Acad Plan': major, 'Plan Type': 'Major', 'School': school}]})
+        if(obj):
+            return
         newMaj = {"Acad Plan": major, "Plan Type": "Major", "Acad Prog": program, "School": school, "School Full Name": FullSchool}
         dept.insert_one(newMaj)
 
     def addMinor(self, minor, program, school, FullSchool):
         dept = db['Department']
+        obj = dept.find_one({'$and': [{'Acad Plan': minor, 'Plan Type': 'Minor', 'School': school}]})
+        if (obj):
+            return
         newMin = {"Acad Plan": minor, "Plan Type": "Minor", "Acad Prog": program, "School": school, "School Full Name": FullSchool}
         dept.insert_one(newMin)
 
