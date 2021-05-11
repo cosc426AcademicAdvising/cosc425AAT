@@ -42,6 +42,9 @@ class View:
 
         self.courseHist = []
 
+        self.winSumTable = []
+        self.winSumLabel = []
+
         self.layout()
         self.menuBar()
 
@@ -352,15 +355,17 @@ class View:
             for course in sem.get_children():
                 sem.delete(course)
 
-        for sem in self.winSumTable: # Clear winter/summer courses in treeviews under Progress Report tab
-            for course in sem.get_children():
-                sem.delete(course)
+        if self.winSumTable:
+            for sem in self.winSumTable: # Clear winter/summer courses in treeviews under Progress Report tab
+                for course in sem.get_children():
+                    sem.delete(course)
 
         for sem in self.winSumTable: # Clear treeviews in Progress Report tab
                 sem.destroy()
 
-        for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
-                sem.destroy()
+        if self.winSumLabel:
+            for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
+                    sem.destroy()
 
         while len(self.progTable) > 8:  # Resets the the progress report tab to default number of treeviews
                 self.progTable[len(self.progTable)-1].destroy()
