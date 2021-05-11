@@ -14,7 +14,6 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
-        self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # self.mainwin.resizable(width=0, height=0)
         # 2560 x 1440
@@ -42,20 +41,9 @@ class View:
 
         self.courseHist = []
 
-        self.winSumTable = []
-        self.winSumLabel = []
-
         self.layout()
         self.menuBar()
 
-    # prompt message before closing program,
-    # also closes all TopLevel functions
-    def on_closing(self):
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
-            for widget in self.mainwin.winfo_children():
-                if isinstance(widget, Toplevel):
-                    widget.destroy()
-            self.mainwin.destroy()
 
     def layout(self):
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
@@ -355,17 +343,15 @@ class View:
             for course in sem.get_children():
                 sem.delete(course)
 
-        if self.winSumTable:
-            for sem in self.winSumTable: # Clear winter/summer courses in treeviews under Progress Report tab
-                for course in sem.get_children():
-                    sem.delete(course)
+        for sem in self.winSumTable: # Clear winter/summer courses in treeviews under Progress Report tab
+            for course in sem.get_children():
+                sem.delete(course)
 
         for sem in self.winSumTable: # Clear treeviews in Progress Report tab
                 sem.destroy()
 
-        if self.winSumLabel:
-            for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
-                    sem.destroy()
+        for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
+                sem.destroy()
 
         while len(self.progTable) > 8:  # Resets the the progress report tab to default number of treeviews
                 self.progTable[len(self.progTable)-1].destroy()
