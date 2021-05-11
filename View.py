@@ -44,6 +44,13 @@ class View:
         self.winSumTable = []
         self.winSumLabel = []
 
+        self.majorsTable = []  # Holds arrays filled with treeviews
+        self.minorsTable = []  # Holds arrays filled with treeviews
+        self.majorFrames = []  # Holds frames major for tabs
+        self.minorFrames = []  # Holds frames minor for tabs
+        self.majorsLabelArray = []  # Holds labels for major tabs
+        self.minorsLabelArray = []  # Holds labels for minor tabs
+
         self.layout()
         self.menuBar()
 
@@ -160,6 +167,9 @@ class View:
                           courseHist, fourYear, minorFourYear, minorReqList, policies,
                           sumCourse, winCourse):
         # delete what was previously there then insert
+
+        self.FYP_reset()
+
         self.FYPnameEntry.delete(0, END)
         self.FYPnameEntry.insert(END, obj['name'])
 
@@ -369,14 +379,16 @@ class View:
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
-        for majors in self.majorsTable: # Clear treeviews for each major tab
-            for sem in majors:
-                for course in sem.get_children():
-                    sem.delete(course)
-        for minors in self.minorsTable: # Clear treeviews for each minor tab
-            for sem in minors:
-                for course in sem.get_children():
-                    sem.delete(course)
+        if self.majorsTable:
+            for majors in self.majorsTable: # Clear treeviews for each major tab
+                for sem in majors:
+                    for course in sem.get_children():
+                        sem.delete(course)
+        if self.minorsTable:
+            for minors in self.minorsTable: # Clear treeviews for each minor tab
+                for sem in minors:
+                    for course in sem.get_children():
+                        sem.delete(course)
 
         self.majorsTable.clear()
         self.minorsTable.clear()
@@ -456,6 +468,9 @@ class View:
         else:
             self.policyMemoEntry.delete('1.0', 'end')
             self.policyMemoEntry.insert('1.0', self.policies[tab_index - 1])
+
+        self.canvas.update()
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     # Creates a table of treeviews for tabs in Academic Advising
     def createTable(self, frame, labels, tables, length):

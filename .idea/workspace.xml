@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="Fixed labels for extra treeviews and clearing treeviews">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_2021_2_48_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_2021_2_48_PM__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_28_2021_2_40_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_28_2021_2_40_PM__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_1.xml" beforeDir="false" />
+    <list default="true" id="c3afb585-7f39-4a8c-a877-221e8ed35f28" name="Default Changelist" comment="fixed issue with fyp_reset">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/View.py" afterDir="false" />
     </list>
@@ -107,20 +99,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613104128996</updated>
-    </task>
-    <task id="LOCAL-00001" summary="removed bg colors">
-      <created>1613405387072</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1613405387072</updated>
-    </task>
-    <task id="LOCAL-00002" summary="reworked layout, menu for 'open recent'. TODO: MVC and file browser">
-      <created>1613428018531</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1613428018531</updated>
     </task>
     <task id="LOCAL-00003" summary="...">
       <created>1613882825650</created>
@@ -451,7 +429,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619986030563</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="fixed issue with fyp_reset">
+      <created>1620772234989</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1620772234990</updated>
+    </task>
+    <task id="LOCAL-00051" summary="fixed issue with fyp_reset">
+      <created>1620772367166</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1620772367166</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -489,7 +481,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor setup" />
     <MESSAGE value="course taken list implemented, need to filter out subjects not used" />
     <MESSAGE value="course taken list finalized" />
     <MESSAGE value="renamed/moved functions, renamed some variables, fix enrollCred traceback call error" />
@@ -514,6 +505,7 @@
     <MESSAGE value="Clean" />
     <MESSAGE value="Fixed labels for minor tabs" />
     <MESSAGE value="Progress report now handles a dynamic amount of semesters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Progress report now handles a dynamic amount of semesters" />
+    <MESSAGE value="fixed issue with fyp_reset" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed issue with fyp_reset" />
   </component>
 </project>
