@@ -14,6 +14,7 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
+        self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # self.mainwin.resizable(width=0, height=0)
         # 2560 x 1440
@@ -54,6 +55,14 @@ class View:
         self.layout()
         self.menuBar()
 
+    # prompt message before closing program,
+    # also closes all TopLevel functions
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            for widget in self.mainwin.winfo_children():
+                if isinstance(widget, Toplevel):
+                    widget.destroy()
+            self.mainwin.destroy()
 
     def layout(self):
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
