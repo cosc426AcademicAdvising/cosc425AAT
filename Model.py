@@ -6,6 +6,7 @@ import pymongo
 from bson.regex import Regex
 import re
 import threading
+from tkinter import messagebox
 # from reportlab.pdfgen.canvas import Canvas
 
 client = pymongo.MongoClient(
@@ -645,6 +646,7 @@ class Model:
                              {'$pull': {
                                  'backup_course': {'subject': 'null'}
                              }})
+        messagebox.showinfo("Save", "Student's data successfully saved!")
 
     def insertCSV(self, path):
         myCol = db.get_collection("Crs Test")
