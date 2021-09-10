@@ -15,6 +15,8 @@ class Controller:
         pub.subscribe(self.planningWorksheet_open, "request_PPW")
         pub.subscribe(self.view.planningWorksheet_fill, "PPW_information")
         pub.subscribe(self.addCourse, "request_course#")
+        pub.subscribe(self.findStudents, "requestStudents")
+        pub.subscribe(self.view.openSchedule, "listOfStudents")
 
         # for populating Four Year Plan
         # pub.subscribe(self.fourYearPlan_open, "request_FYP")
@@ -56,6 +58,10 @@ class Controller:
 
     def addCourse(self, sub, cat):
         self.view.addCourseSearchResult = list( self.model.getCoursebySubCat(sub.upper(), cat))
+
+    def findStudents(self):
+        self.view.studentsVar = self.model.getAllStudents().copy()
+        self.view.studentIdsVar = self.model.getAllStudentIds().copy()
 
     def setMajor(self, sch):
         self.view.majorVar.set( self.model.getMajorsbySchool(sch) )

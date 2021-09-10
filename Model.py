@@ -18,6 +18,48 @@ class Model:
     def __init__(self):
         return
 
+    def getAllStudents(self):
+        stud = db["Student"]
+        name_id = {}
+        obj = stud.aggregate([
+            {
+                # Groups all unique name and id combinations in the student collection
+                "$group": {
+                    "_id": {
+                        "s_id": "$s_id",
+                        "name": "$name"
+                    }
+                }
+            },
+            {
+                # Projects each of those unique values into a list to be assigned to 'obj'
+                "$project": {
+                    "_id": 0,
+                    "s_id": "$_id.s_id",
+                    "name": "$_id.name"
+                }
+            }
+        ])
+
+        # Loops through each value in the object and assigns them to a 2D list
+        j = 0
+        for i in obj:
+            name_id[j] = i
+            j = j + 1
+
+        # Example print statement
+        #print(name_id[3]["name"], name_id[3]["s_id"])
+        #print(name_id[5]["s_id"])
+
+        return name_id
+
+
+    def getAllStudentIds(self):
+        id = []
+        myCol = db.get_collection("Student")
+        id = myCol.distinct('s_id')
+        return id
+
     def listAllMajors(self):
         myCol = db.get_collection('Department')
         obj = myCol.find({'Plan Type': 'Major'})

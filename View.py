@@ -14,7 +14,7 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
-        self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
+        #self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # self.mainwin.resizable(width=0, height=0)
         # 2560 x 1440
@@ -37,8 +37,9 @@ class View:
         self.courseTakenList_counter = 0
         self.addCourseSearchResult = []
         self.resultVar = StringVar()  # for add course button
-
         self.sizeOfMinor = 0
+        self.studentsVar = []
+        self.studentIdsVar = []
 
         self.courseHist = []
 
@@ -57,12 +58,14 @@ class View:
 
     # prompt message before closing program,
     # also closes all TopLevel functions
+    '''
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             for widget in self.mainwin.winfo_children():
                 if isinstance(widget, Toplevel):
                     widget.destroy()
             self.mainwin.destroy()
+    '''
 
     def layout(self):
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
@@ -358,7 +361,7 @@ class View:
     def FYP_reset(self):
         self.FYPnameEntry.delete(0, END)
         self.id2Entry.delete(0, END)
-
+        self.policyMemoEntry.config(state = NORMAL)
         self.policyMemoEntry.delete('1.0', 'end')
 
         for sem in self.progTable: # Clear courses in treeviews under Progress Report tab
@@ -372,17 +375,20 @@ class View:
 
         if self.winSumTable:
             for sem in self.winSumTable: # Clear treeviews in Progress Report tab
-                    sem.destroy()
+                sem.destroy()
 
         for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
                 sem.destroy()
 
-        while len(self.progTable) > 8:  # Resets the the progress report tab to default number of treeviews
-                self.progTable[len(self.progTable)-1].destroy()
-                self.progTable.pop()
-                if(len(self.progTable)%2 == 0):
-                    self.progLabel[len(self.progLabel)-1].destroy()
-                    self.progLabel.pop()
+        for i in self.progTable:
+            i.destroy()
+        for i in self.progLabel:
+            i.destroy()
+
+        self.progTable.clear()
+        self.progLabel.clear()
+
+        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, 8)
 
         # Updates canvas to get correct scrollbar size
         self.canvas.update()
@@ -475,8 +481,10 @@ class View:
         if tab_text == "Progress Report":
             pass
         else:
+            self.policyMemoEntry.config(state=NORMAL)
             self.policyMemoEntry.delete('1.0', 'end')
             self.policyMemoEntry.insert('1.0', self.policies[tab_index - 1])
+            self.policyMemoEntry.config(state=DISABLED)
 
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
@@ -1267,24 +1275,35 @@ class View:
         self.addProgRepoBtn.grid_forget()
         self.removeProgRepoBtn.grid_forget()
 
+
     def openSchedule(self):
+        pub.sendMessage("requestStudents")
+
+        #self.students = StringVar()
+
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Student")
-        t.geometry("450x125")
+        t.geometry("440x350")
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-        def close(e):
-            self.schedule.entryconfigure(1, state=NORMAL)
-            t.destroy()
-
-        t.bind('<Destroy>', close)
-        self.schedule.entryconfigure(1, state=DISABLED)
-
         def openScheduleSearchButton():
-            name = fnameE.get() + " " + lnameE.get()
+            if self.studentBox.curselection() != "":
+                selectedStudent = self.studentBox.get(self.studentBox.curselection())
+                selectedStudentSplit = selectedStudent.split()
+
+                fname.delete(0, END)
+                lname.delete(0, END)
+                idE.delete(0, END)
+
+                fname.insert(0, selectedStudentSplit[0])
+                lname.insert(0, selectedStudentSplit[1])
+                idE.insert(0, selectedStudentSplit[2])
+
+            name = fname.get() + " " + lname.get()
             id = idE.get()
+            print(name + " " + id)
             if name != "" and id != "":
                 pub.sendMessage("request_PPW", name=name, id=int(id))
                 self.schedule.entryconfigure(1, state=NORMAL)
@@ -1293,29 +1312,77 @@ class View:
                 self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
                 self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
 
+        def filtr(e):
+            chars1 = fname.get()
+            chars2 = lname.get()
+            chars3 = idE.get()
+            index = 0
+            if chars1 or chars2 or chars3 != "":
+                fltrdStu1 = [x for x in self.students if chars1 in x]
+                fltrdStu1 = [x for x in fltrdStu1 if chars2 in x]
+                fltrdStu1 = [x for x in fltrdStu1 if chars3 in x]
+                self.studentBox.delete(0, END)
+                fltrdStu = list(fltrdStu1)
+
+                for i in fltrdStu:
+                    self.studentBox.insert(END, fltrdStu[index])
+                    index += 1
+            else:
+                self.studentBox.delete(0, END)
+                for i in self.students:
+                    self.studentBox.insert(END, self.students[index])
+                    index += 1
+
+        def close(e):
+            self.schedule.entryconfigure(1, state=NORMAL)
+            t.destroy()
+        t.bind('<Destroy>', close)
+        self.schedule.entryconfigure(1, state=DISABLED)
+
         nameFrame = Frame(t)
         nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
 
         idFrame = Frame(t)
-        idFrame.pack(side=TOP, anchor='w', padx=20)
+        idFrame.pack(side=TOP, anchor='w', padx=130)
 
         butFrame = Frame(t)
         butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
         label2 = Label(nameFrame, text='First name:').pack(side=LEFT)
-        fnameE = ttk.Entry(nameFrame, width=10)
-        fnameE.pack(side=LEFT)
+        fname = ttk.Entry(nameFrame, width=10)
+        fname.pack(side=LEFT)
+        fname.bind("<KeyRelease>", filtr)
 
-        lnameE = ttk.Entry(nameFrame, width=15)
-        lnameE.pack(side=RIGHT)
+        lname = ttk.Entry(nameFrame, width=15)
+        lname.pack(side=RIGHT)
         label3 = Label(nameFrame, text='Last name:').pack(side=RIGHT)
+        lname.bind("<KeyRelease>", filtr)
 
         label3 = Label(idFrame, text='Student Id:').pack(side=LEFT)
         idE = ttk.Entry(idFrame, width=10)
         idE.pack(side=LEFT)
+        idE.bind("<KeyRelease>", filtr)
 
-        searchB = Button(butFrame, text='Search', command=openScheduleSearchButton)
+        searchB = Button(butFrame, text='Open', command=openScheduleSearchButton)
         searchB.pack()
+
+        mainframe = Frame(t)
+        mainframe.pack(fill=X, ipadx=1, padx=100, pady=10)
+
+        studentFrame = ttk.LabelFrame(mainframe, text="Students")
+        studentFrame.pack(side=TOP, anchor=CENTER)
+
+        self.studentBox = Listbox(studentFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                          listvariable=self.studentsVar, height=10, width=3500, font=('Helvetica', 12))
+        self.studentBox.pack(side=TOP)
+        self.students = []
+        for i in self.studentsVar:
+            self.students.append(str(self.studentsVar[i]["name"]) + " " + str(self.studentsVar[i]["s_id"]))
+        self.students.sort()
+        index = 0
+        for i in self.students:
+            self.studentBox.insert(END, self.students[index])
+            index += 1
 
     def saveSchedule(self):
         majors, minors = [], []
@@ -1342,8 +1409,8 @@ class View:
         pub.sendMessage("save_schedule", obj=pydict)
 
     def exportSchedule(self):
-        fname = "{}.pdf".format(self.nameEntry.get())
-        pub.sendMessage("export_schedule", id=self.idEntry.get(), fname=fname)
+        fnameE = "{}.pdf".format(self.nameEntry.get())
+        pub.sendMessage("export_schedule", id=self.idEntry.get(), fname=fnameE)
 
     def printSchedule(self):
         print("Print schedule")
