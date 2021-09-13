@@ -10,7 +10,7 @@ from tkinter import messagebox
 # from reportlab.pdfgen.canvas import Canvas
 
 client = pymongo.MongoClient(
-    "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tls=True, tlsAllowInvalidCertificates=True)
 db = client['COSC425AAT']
 
 

@@ -8,7 +8,6 @@ import math
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
 
-
 class View:
     def __init__(self, master, schL, subjectL):
         self.mainwin = master
