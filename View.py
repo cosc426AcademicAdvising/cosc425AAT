@@ -54,19 +54,30 @@ class View:
 
         self.layout()
         self.menuBar()
+        self.loginWindow.protocol("WM_DELETE_WINDOW",
+                                  self.login_closing)  # If user closes login window application closes
 
     # prompt message before closing program,
     # also closes all TopLevel functions
-    '''
+
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             for widget in self.mainwin.winfo_children():
                 if isinstance(widget, Toplevel):
                     widget.destroy()
             self.mainwin.destroy()
-    '''
+
+    def login_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?", parent=self.loginWindow):
+            for widget in self.mainwin.winfo_children():
+                if isinstance(widget, Toplevel):
+                    widget.destroy()
+            self.loginWindow.destroy()
+            self.mainwin.destroy()
 
     def layout(self):
+        self.loginPage()
+
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
 
@@ -90,6 +101,55 @@ class View:
         self.FourYearPlan()
         self.planningWorksheet_layout()
         self.courseTakenList_layout()
+
+    def loginPage(self):
+        self.loginWindow = Toplevel(self.mainwin)
+        self.loginWindow.wm_title("Login")
+        self.loginWindow.geometry("300x155")
+        self.loginWindow.resizable(width=0, height=0)
+        self.loginWindow.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(self.loginWindow)} center')
+        self.loginWindow.grab_set()
+
+        loginFrame = Frame(self.loginWindow)
+        emailFrame = Frame(self.loginWindow, width= 30)
+        passwrdFrame = Frame(self.loginWindow, width= 30)
+
+        loginBtn = Button(loginFrame, text="Login", font=('Helvetica', 10))
+
+        emailLabel = Label(emailFrame, text="Email: ", font=('Helvetica', 10), padx=55)
+        passwrdLabel = Label(passwrdFrame, text="Password: ", font=('Helvetica', 10), padx= 55)
+        wrongPassLabel = Label(loginFrame, text="No matching credentials, please try again", font=('Helvetica', 10))
+
+        self.emailEntry = Entry(emailFrame, width= 30)
+        self.passwrdEntry = Entry(passwrdFrame, width= 30)
+
+        emailFrame.pack(side=TOP, fill=X, pady=5)
+        passwrdFrame.pack(side=TOP, fill=X, pady=5)
+        loginFrame.pack(fill='both')
+
+        wrongPassLabel.pack(side=BOTTOM)
+        wrongPassLabel.forget()
+        loginBtn.pack(side=BOTTOM)
+        emailLabel.pack(side=TOP, anchor= W)
+        passwrdLabel.pack(side=TOP, anchor= W)
+        self.emailEntry.pack(side=BOTTOM)
+        self.passwrdEntry.pack(side=BOTTOM)
+
+        def checkLogin(e):
+            restAPIEmail = 'Bob'
+            restAPIpasswrd = 'Robert'
+            if self.emailEntry.get() == restAPIEmail and self.passwrdEntry.get() == restAPIpasswrd:
+                self.loginWindow.grab_release()
+                self.loginWindow.destroy()
+                self.mainwin.lift()
+
+            else:
+                loginBtn.forget()
+                wrongPassLabel.pack(side=BOTTOM)
+                loginBtn.pack(side=BOTTOM)
+
+        loginBtn.bind("<Button-1>", checkLogin)
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
@@ -1278,8 +1338,6 @@ class View:
     def openSchedule(self):
         pub.sendMessage("requestStudents")
 
-        #self.students = StringVar()
-
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Student")
         t.geometry("440x350")
@@ -1302,7 +1360,7 @@ class View:
 
             name = fname.get() + " " + lname.get()
             id = idE.get()
-            print(name + " " + id)
+
             if name != "" and id != "":
                 pub.sendMessage("request_PPW", name=name, id=int(id))
                 self.schedule.entryconfigure(1, state=NORMAL)
