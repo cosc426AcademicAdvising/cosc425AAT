@@ -247,6 +247,9 @@ class View:
         self.id2Entry.delete(0, END)
         self.id2Entry.insert(END, obj['s_id'])
 
+        self.FYPnameEntry.config(state=DISABLED)
+        self.id2Entry.config(state=DISABLED)
+
         self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable() (COULD MAKE THIS ENCAPSULATED)
         self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
         self.progTableLength = len(courseHist) # Storing the amount of semesters to make that many treeviews in createTable
@@ -422,7 +425,8 @@ class View:
         self.id2Entry.delete(0, END)
         self.policyMemoEntry.config(state = NORMAL)
         self.policyMemoEntry.delete('1.0', 'end')
-
+        self.FYPnameEntry.config(state=NORMAL)
+        self.id2Entry.config(state=NORMAL)
         for sem in self.progTable: # Clear courses in treeviews under Progress Report tab
             for course in sem.get_children():
                 sem.delete(course)
