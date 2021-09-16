@@ -15,7 +15,7 @@ client = pymongo.MongoClient(
     "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tls=True, tlsAllowInvalidCertificates=True)
 db = client['COSC425AAT']
 
-token = 'v2.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6IkRCIEFjY2VzcyIsImlhdCI6IjIwMjEtMDktMTZUMTc6MDU6NTcuNjQzWiJ9kotA9tgFzFXDkf3MmMxr2n1WmeujstnELmC6yLuqRkg2JtDqt1-FBWpfnveC3KnJXZ_fAK2iS10O5-IN8J5tDg'
+token = 'v2.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6IkRCIEFjY2VzcyIsImlhdCI6IjIwMjEtMDktMTZUMTc6MzA6MjUuNjY1WiJ9nOxmUtiVlxrBoox-1FM49GSbj0s7LdxatMcJcVx5KZV_-yf4Yz4GDCPjgVc3CnbDgmw9U7agyOY5zGWcwhF7Dg'
 
 class Model:
     def __init__(self):
