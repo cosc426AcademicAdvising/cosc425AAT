@@ -7,7 +7,7 @@ from pubsub import pub
 class Controller:
     def __init__(self, master):
         self.model = Model()
-        self.view = View(master, self.model.getSchools(), self.model.getSubjects())
+        self.view = View(master)
 
         pub.subscribe(self.newSchedule, "New Menu Dropdown Pressed")
 
@@ -41,6 +41,8 @@ class Controller:
         pub.subscribe(self.model.addMajor, "request_AddMajor")
         pub.subscribe(self.model.addMinor, "request_AddMinor")
 
+        pub.subscribe(self.model.setAuthToken, "request_setAuthToken")
+
     def newSchedule(self):
         self.schedule = Toplevel()
         self.schedule.geometry('1000x600')
@@ -68,6 +70,12 @@ class Controller:
 
     def setMinor(self, sch):
         self.view.minorVar.set( self.model.getMinorsbySchool(sch) )
+
+    def setSchools(self):
+        self.view.schList.set( self.model.getSchools() )
+
+    def setSchools(self):
+        self.view.subjectsList.set( self.model.getSubjects() )
 
     def saveSchedule(self, obj):
         self.model.updateStudent(obj)

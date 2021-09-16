@@ -1,6 +1,5 @@
 from tkinter.filedialog import askopenfilename
 import json
-import logger
 import csv
 from pubsub import pub  # pip install PyPubSub
 import pymongo
@@ -15,11 +14,15 @@ client = pymongo.MongoClient(
     "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tls=True, tlsAllowInvalidCertificates=True)
 db = client['COSC425AAT']
 
-token = 'v2.public.eyJ1cm46ZXhhbXBsZTpjbGFpbSI6IkRCIEFjY2VzcyIsImlhdCI6IjIwMjEtMDktMTZUMTc6MzA6MjUuNjY1WiJ9nOxmUtiVlxrBoox-1FM49GSbj0s7LdxatMcJcVx5KZV_-yf4Yz4GDCPjgVc3CnbDgmw9U7agyOY5zGWcwhF7Dg'
+token = ""
 
 class Model:
     def __init__(self):
         return
+
+    def setAuthToken(self, tok):
+        global token
+        token = tok
 
     def getAllStudents(self):
         stud = db["Student"]
@@ -49,10 +52,6 @@ class Model:
         for i in obj:
             name_id[j] = i
             j = j + 1
-
-        # Example print statement
-        #print(name_id[3]["name"], name_id[3]["s_id"])
-        #print(name_id[5]["s_id"])
 
         return name_id
 

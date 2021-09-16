@@ -5,11 +5,13 @@ from tkinter import ttk
 from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
 import math
+import requests
+import json
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
 
 class View:
-    def __init__(self, master, schL, subjectL):
+    def __init__(self, master):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
@@ -28,8 +30,8 @@ class View:
         self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 12))
         self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 12))
 
-        self.schList = schL
-        self.subjectsList = subjectL
+        self.schList = []
+        self.subjectsList = []
 
         self.courseTree_counter = 0
         self.backupCourseTree_counter = 0
@@ -52,7 +54,7 @@ class View:
         self.majorsLabelArray = []  # Holds labels for major tabs
         self.minorsLabelArray = []  # Holds labels for minor tabs
 
-        self.layout()
+        self.loginPage()
         self.menuBar()
         self.loginWindow.protocol("WM_DELETE_WINDOW",
                                   self.login_closing)  # If user closes login window application closes
@@ -76,7 +78,7 @@ class View:
             self.mainwin.destroy()
 
     def layout(self):
-        self.loginPage()
+
 
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
@@ -103,6 +105,7 @@ class View:
         self.courseTakenList_layout()
 
     def loginPage(self):
+        verify = 0
         self.loginWindow = Toplevel(self.mainwin)
         self.loginWindow.wm_title("Login")
         self.loginWindow.geometry("300x155")
@@ -137,14 +140,28 @@ class View:
         self.passwrdEntry.pack(side=BOTTOM)
 
         def checkLogin(e):
-            restAPIEmail = 'Bob'
-            restAPIpasswrd = 'Robert'
-            if self.emailEntry.get() == restAPIEmail and self.passwrdEntry.get() == restAPIpasswrd:
+            url = "https://cosc426restapi.herokuapp.com/api/user/login/"
+            restAPIEmail = 'abc123@email.com'
+            restAPIpasswrd = 'abc123'
+            user = self.emailEntry.get()
+            pwd = self.passwrdEntry.get()
+            val = {
+                "email": restAPIEmail,
+                "password": restAPIpasswrd
+            }
+            response = requests.post(url, json=val)
+            obj = response
+
+            try:
+                val = obj.json()
                 self.loginWindow.grab_release()
                 self.loginWindow.destroy()
                 self.mainwin.lift()
+                pub.sendMessage("request_setAuthToken", tok = val['token'])
+                self.layout()
 
-            else:
+            except:
+                wrongPassLabel = Label(emailFrame, text=obj.text, font=('Helvetica', 10), padx=55)
                 loginBtn.forget()
                 wrongPassLabel.pack(side=BOTTOM)
                 loginBtn.pack(side=BOTTOM)
