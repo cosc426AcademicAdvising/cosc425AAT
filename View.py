@@ -1257,6 +1257,10 @@ class View:
         menu.add_cascade(label='Update DB', menu=self.DB)
         self.DataBaseMenu()
 
+        self.helpmenu = Menu(menu, tearoff=0)
+        menu.add_cascade(label='Help ', menu=self.helpmenu)
+        self.helpmenu.add_command(label="Help Menu", command=self.printHelp)
+
     # schedule menu dropdown
     def scheduleMenu(self):
         self.schedule.add_command(label='New', command=self.newSchedule)
@@ -1266,8 +1270,6 @@ class View:
         self.schedule.add_separator()
         self.schedule.add_command(label='Export', command=self.exportSchedule)
         self.schedule.add_command(label='Print', command=self.printSchedule)
-        self.schedule.add_separator()
-        self.schedule.add_command(label="Help", command=self.printHelp)
 
 
     def printHelp(self):
