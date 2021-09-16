@@ -141,8 +141,8 @@ class View:
 
         def checkLogin(e):
             url = "https://cosc426restapi.herokuapp.com/api/user/login/"
-            restAPIEmail = 'abc123@email.com'
-            restAPIpasswrd = 'abc123'
+            restAPIEmail = 'testing@email.com'
+            restAPIpasswrd = 'test123'
             user = self.emailEntry.get()
             pwd = self.passwrdEntry.get()
             val = {
