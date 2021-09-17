@@ -30,6 +30,9 @@ class Controller:
         pub.subscribe(self.setMajor, "request_major")
         pub.subscribe(self.setMinor, "request_minor" )
 
+        pub.subscribe(self.setSchools, "request_allSchools")
+        pub.subscribe(self.setSubjects, "request_allSubjects")
+
         # for saving info from program planning sheet
         pub.subscribe(self.saveSchedule, "save_schedule")
 
@@ -72,10 +75,10 @@ class Controller:
         self.view.minorVar.set( self.model.getMinorsbySchool(sch) )
 
     def setSchools(self):
-        self.view.schList.set( self.model.getSchools() )
+        self.view.schList = self.model.getSchools()
 
-    def setSchools(self):
-        self.view.subjectsList.set( self.model.getSubjects() )
+    def setSubjects(self):
+        self.view.subjectsList = self.model.getSubjects()
 
     def saveSchedule(self, obj):
         self.model.updateStudent(obj)

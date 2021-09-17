@@ -158,6 +158,8 @@ class View:
                 self.loginWindow.destroy()
                 self.mainwin.lift()
                 pub.sendMessage("request_setAuthToken", tok = val['token'])
+                pub.sendMessage("request_allSchools")
+                pub.sendMessage("request_allSubjects")
                 self.layout()
 
             except:

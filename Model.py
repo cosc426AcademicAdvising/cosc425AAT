@@ -599,62 +599,68 @@ class Model:
         return minList
 
     def updateStudent(self, obj):
-        myCol = db.get_collection('Student')
-        stud = myCol.find_one({'s_id': int(obj['s_id'])})
+        url = "https://cosc426restapi.herokuapp.com/api/Student/"
+        url = url + str(obj['s_id'])
+        response = requests.get(url, headers={'auth-token': token})
+        stud = response.json()
 
         Majtotal = len(stud['major'])
 
         Mintotal = len(stud['minor'])
 
+        update_url = "https://cosc426restapi.herokuapp.com/api/Update/MajorSet"
         for i in range(len(obj['major'])):
             field1 = 'major.' + str(i) + ".title"
-            field2 = 'major.' + str(i) + '.school'
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: obj['major'][i],
-                                 field2: ""
-                             }})
+            val = {
+                'query': field1,
+                's_id': obj['s_id'],
+                'maj': obj['major'][i]
+            }
+            requests.post(update_url, headers={'auth-token': token}, json=val)
 
         for i in range(len(obj['major']), Majtotal):
             field1 = 'major.' + str(i) + ".title"
-            field2 = 'major.' + str(i) + '.school'
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: 'null',
-                                 field2: ""
-                             }})
+            val = {
+                'query': field1,
+                's_id': obj['s_id'],
+                'maj': 'null'
+            }
+            requests.post(update_url, headers={'auth-token': token}, json=val)
 
+        pull_url = "https://cosc426restapi.herokuapp.com/api/Update/MajorPull"
         for i in range(len(obj['major']), Majtotal):
-            field1 = 'major.' + str(i) + ".title"
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$pull': {
-                                 'major': {'title': 'null'}
-                             }})
+            val = {
+                's_id': obj['s_id']
+            }
+            requests.post(pull_url, headers={'auth-token': token}, json=val)
 
+        update_url = "https://cosc426restapi.herokuapp.com/api/Update/MinorSet"
         for i in range(len(obj['minor'])):
             field1 = 'minor.' + str(i) + ".title"
-            field2 = 'minor.' + str(i) + '.school'
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: obj['minor'][i],
-                                 field2: ""
-                             }})
+            val = {
+                'query': field1,
+                's_id': obj['s_id'],
+                'min': obj['minor'][i]
+            }
+            requests.post(update_url, headers={'auth-token': token}, json=val)
 
         for i in range(len(obj['minor']), Mintotal):
             field1 = 'minor.' + str(i) + ".title"
-            field2 = 'minor.' + str(i) + '.school'
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: 'null',
-                                 field2: ""
-                             }})
+            val = {
+                'query': field1,
+                's_id': obj['s_id'],
+                'min': 'null'
+            }
+            requests.post(update_url, headers={'auth-token': token}, json=val)
+
+        pull_url = "https://cosc426restapi.herokuapp.com/api/Update/MinorPull"
 
         for i in range(len(obj['minor']), Mintotal):
-            field1 = 'minor.' + str(i) + ".title"
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$pull': {
-                                 'minor': {'title': 'null'}
-                             }})
+            val = {
+                's_id': obj['s_id']
+            }
+            requests.post(pull_url, headers={'auth-token': token}, json=val)
+
 
         # Original total number of course student plans to take
         CTtotal = len(stud['taking_course'])
@@ -662,38 +668,51 @@ class Model:
         # Original total number of courses student has for backups
         BUtotal = len(stud['backup_course'])
 
+        update_url = "https://cosc426restapi.herokuapp.com/api/Update/CourseSet"
+
         # Iterate through each course a student plans to take and update the fields in the database
         for i in range(len(obj['taking_course'])):
+
             subcat = obj['taking_course'][i][0].split()
             field1 = "taking_course." + str(i) + ".subject"
             field2 = "taking_course." + str(i) + ".catalog"
             field3 = "taking_course." + str(i) + ".title"
             field4 = "taking_course." + str(i) + ".cred"
             field5 = "taking_course." + str(i) + ".genED"
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: subcat[0],
-                                 field2: subcat[1],
-                                 field3: obj['taking_course'][i][1],
-                                 field4: obj['taking_course'][i][2],
-                                 field5: obj['taking_course'][i][3]
-                             }}
-                             )
+            val = {
+                'field1': field1,
+                'field2': field2,
+                'field3': field3,
+                'field4': field4,
+                'field5': field5,
+                'sub': subcat[0],
+                'cat': subcat[1],
+                'title': obj['taking_course'][i][1],
+                'cred': obj['taking_course'][i][2],
+                'gen': obj['taking_course'][i][3],
+                's_id': obj['s_id']
+            }
+            requests.post(update_url, headers={'auth-token': token}, json=val)
+
+        reset_url = "https://cosc426restapi.herokuapp.com/api/Update/CourseReset"
 
         # Iterate through remaining courses and assign null value to subject indicating their need for removal
         for i in range(len(obj['taking_course']), CTtotal):
             field1 = "taking_course." + str(i) + ".subject"
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: 'null'
-                             }})
+            val = {
+                'field1': field1,
+                's_id': obj['s_id']
+            }
+            requests.post(reset_url, headers={'auth-token': token}, json=val)
+
+        pull_url = "https://cosc426restapi.herokuapp.com/api/Update/CoursePull"
 
         # Iterate again through remaining courses and pull those courses from database that are no longer needed
         for i in range(len(obj['taking_course']), CTtotal):
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$pull': {
-                                 'taking_course': {'subject': 'null'}
-                             }})
+            val = {
+                's_id': obj['s_id']
+            }
+            requests.post(pull_url, headers={'auth-token': token}, json=val)
 
         # Iterate through each backup course and update the fields in the database
         for i in range(len(obj['backup_course'])):
@@ -703,30 +722,40 @@ class Model:
             field3 = "backup_course." + str(i) + ".title"
             field4 = "backup_course." + str(i) + ".cred"
             field5 = "backup_course." + str(i) + ".genED"
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: subcat[0],
-                                 field2: subcat[1],
-                                 field3: obj['backup_course'][i][1],
-                                 field4: obj['backup_course'][i][2],
-                                 field5: obj['backup_course'][i][3]
-                             }}
-                             )
+            val = {
+                'field1': field1,
+                'field2': field2,
+                'field3': field3,
+                'field4': field4,
+                'field5': field5,
+                'sub': subcat[0],
+                'cat': subcat[1],
+                'title': obj['backup_course'][i][1],
+                'cred': obj['backup_course'][i][2],
+                'gen': obj['backup_course'][i][3],
+                's_id': obj['s_id']
+            }
+            requests.post(update_url, headers={'auth-token': token}, json=val)
 
         # Iterate through remaining courses and assign null value to subject indicating their need for removal
         for i in range(len(obj['backup_course']), BUtotal):
+            print("A__")
             field1 = "backup_course." + str(i) + ".subject"
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$set': {
-                                 field1: 'null'
-                             }})
+            val = {
+                'field1': field1,
+                's_id': obj['s_id']
+            }
+            requests.post(reset_url, headers={'auth-token': token}, json=val)
+
+        pull_url = "https://cosc426restapi.herokuapp.com/api/Update/BackCoursePull"
 
         # Iterate again through remaining courses and pull those courses from database that are no longer needed
         for i in range(len(obj['backup_course']), BUtotal):
-            myCol.update_one({'s_id': int(obj['s_id'])},
-                             {'$pull': {
-                                 'backup_course': {'subject': 'null'}
-                             }})
+            val = {
+                's_id': obj['s_id']
+            }
+            requests.post(pull_url, headers={'auth-token': token}, json=val)
+
         messagebox.showinfo("Save", "Student's data successfully saved!")
 
     def insertCSV(self, path):
