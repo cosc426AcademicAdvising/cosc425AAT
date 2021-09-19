@@ -152,17 +152,17 @@ class View:
             response = requests.post(url, json=val)
             obj = response
 
-            try:
-                val = obj.json()
+            if obj.text.startswith('v2.public'):
+                val = obj.text
                 self.loginWindow.grab_release()
                 self.loginWindow.destroy()
                 self.mainwin.lift()
-                pub.sendMessage("request_setAuthToken", tok = val['token'])
+                pub.sendMessage("request_setAuthToken", tok = val)
                 pub.sendMessage("request_allSchools")
                 pub.sendMessage("request_allSubjects")
                 self.layout()
 
-            except:
+            else:
                 wrongPassLabel = Label(emailFrame, text=obj.text, font=('Helvetica', 10), padx=55)
                 loginBtn.forget()
                 wrongPassLabel.pack(side=BOTTOM)
