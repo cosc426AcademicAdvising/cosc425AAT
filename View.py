@@ -1387,14 +1387,14 @@ class View:
                 id = idE.get()
 
                 if name != "" and id != "":
+                    self.studentBox.delete(0, END)
                     pub.sendMessage("request_PPW", name=name, id=int(id))
                     self.schedule.entryconfigure(1, state=NORMAL)
                     t.destroy()
                     # Shows buttons for Progress Report when student information is present
                     self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
                     self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
-                self.studentBox.delete(0, END)
-                self.studentsVar.clear()
+
 
         def filtr(e):
             chars1 = fname.get()
@@ -1419,8 +1419,6 @@ class View:
 
         def close(e):
             self.schedule.entryconfigure(1, state=NORMAL)
-            self.studentBox.delete(0, END)
-            self.studentsVar.clear()
             t.destroy()
         t.bind('<Destroy>', close)
         self.schedule.entryconfigure(1, state=DISABLED)
@@ -1461,9 +1459,9 @@ class View:
         self.studentBox = Listbox(studentFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
                                           listvariable=self.studentsVar, height=10, width=3500, font=('Helvetica', 12))
         self.studentBox.pack(side=TOP)
-
+        self.studentBox.delete(0, END)
         self.students = []
-        print(self.studentsVar)
+
         for i in self.studentsVar:
             self.students.append(str(self.studentsVar[i]["name"]) + " " + str(self.studentsVar[i]["s_id"]))
         self.students.sort()
