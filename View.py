@@ -269,8 +269,8 @@ class View:
         self.FYPnameEntry.config(state=DISABLED)
         self.id2Entry.config(state=DISABLED)
 
-        self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable() (COULD MAKE THIS ENCAPSULATED)
-        self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
+        self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable()
+        self.policies = policies  # Copying policies for other functions
         self.progTableLength = len(courseHist) # Storing the amount of semesters to make that many treeviews in createTable
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
@@ -296,7 +296,7 @@ class View:
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
         # Treeviews are re-created for Progress Report tab with number of semesters student has taken
-        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength)
+        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength + 1)
 
         # Filling winter and summer courses
         self.winSumTable = []
@@ -346,7 +346,7 @@ class View:
             self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
-        for majors in fourYear:  # Filling semesters for each major
+        for majors in fourYear:  # Filling semesters for each major tab
             semIndex = 0
             for sem in majors:
                 self.majorsTableTree_iid = 0
@@ -360,7 +360,7 @@ class View:
             majorIndex += 1
 
         minorIndex = 0
-        for minors in minorFourYear:  # Filling semesters for each minor
+        for minors in minorFourYear:  # Filling semesters for each minor tab
             semIndex = 0
             for sem in minors:
                 self.minorTableTree_iid = 0
@@ -378,8 +378,8 @@ class View:
                 self.minorsLabelArray[minors][labels]['text'] = self.minorReqList[minors][labels][1]
 
     def fourYearPlan_refresh(self, major, minor, FourYear, minorFourYear, minorReqList, policies):
-        self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable() (COULD MAKE THIS ENCAPSULATED)
-        self.policies = policies  # Copying policies for other functions (COULD MAKE THIS ENCAPSULATED)
+        self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable()
+        self.policies = policies  # Copying policies for other functions
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
         self.majorFrames = []  # Holds frames major for tabs
@@ -573,7 +573,7 @@ class View:
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
-    # Creates a table of treeviews for tabs in Academic Advising
+    # Creates a table of treeviews for progress report tab
     def createTable(self, frame, labels, tables, length):
         # column configure
         for i in range(2):
@@ -585,21 +585,21 @@ class View:
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
-            tables[i].column("course#", anchor=CENTER, width=75)
+            tables[i].column("course#", anchor=CENTER, width=90)
             w = int((self.left_width - 300) / 2)
             tables[i].column("title", anchor=W, width=w)
-            tables[i].column("cred", anchor=CENTER, width=25)
+            tables[i].column("cred", anchor=CENTER, width=35)
             # tables[i].column("taken", anchor=CENTER, width=30)
 
             tables[i].heading("course#", text='Course #', anchor=CENTER)
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
 
-            if i < math.ceil(length/2):
+            if i < math.floor(length/2):
                 labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
 
         # grid labels
-        for i in range(math.ceil(length/2)):
+        for i in range(math.floor(length/2)):
             labels[i].grid(column=0, row=2 * i, columnspan=2, sticky=W, padx=5)
 
         # grid treeviews
@@ -607,7 +607,7 @@ class View:
             tables[i].grid(column=0, row=i + 1)
             tables[i + 1].grid(column=1, row=i + 1)
 
-    # Creates a table of treeviews for tabs in Academic Advising
+    # Creates a table of treeviews for minor tabs
     def createMinorTable(self, frame, labels, tables):
         # column configure
         for i in range(2):
@@ -618,10 +618,10 @@ class View:
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
-            tables[i].column("course#", anchor=CENTER, width=75)
+            tables[i].column("course#", anchor=CENTER, width=90)
             w = int((self.left_width - 300) / 2)
             tables[i].column("title", anchor=W, width=w)
-            tables[i].column("cred", anchor=CENTER, width=25)
+            tables[i].column("cred", anchor=CENTER, width=35)
             # tables[i].column("taken", anchor=CENTER, width=30)
 
             tables[i].heading("course#", text='Course #', anchor=CENTER)
@@ -791,10 +791,10 @@ class View:
         self.courseTree['columns'] = ("course#", "title", "cred", "gen/elect")
 
         self.courseTree.column("#0", width=0, stretch=NO)  # important
-        self.courseTree.column("course#", anchor=CENTER, width=80)  # anchor for the data in the column
+        self.courseTree.column("course#", anchor=CENTER, width=90)  # anchor for the data in the column
         self.courseTree.column("title", anchor=CENTER, width=295)
-        self.courseTree.column("cred", anchor=CENTER, width=25)
-        self.courseTree.column("gen/elect", anchor=CENTER, width=80)
+        self.courseTree.column("cred", anchor=CENTER, width=35)
+        self.courseTree.column("gen/elect", anchor=CENTER, width=100)
 
         self.courseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
@@ -813,10 +813,10 @@ class View:
         self.backupCourseTree['columns'] = ("course#", "title", "cred", "gen/elect")
 
         self.backupCourseTree.column("#0", width=0, stretch=NO)
-        self.backupCourseTree.column("course#", anchor=CENTER, width=80)
+        self.backupCourseTree.column("course#", anchor=CENTER, width=90)
         self.backupCourseTree.column("title", anchor=CENTER, width=295)
-        self.backupCourseTree.column("cred", anchor=CENTER, width=25)
-        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=80)
+        self.backupCourseTree.column("cred", anchor=CENTER, width=35)
+        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=100)
 
         self.backupCourseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.backupCourseTree.heading("title", text='Title', anchor=CENTER)
@@ -1270,11 +1270,11 @@ class View:
         self.mainwin.config(menu=menu)
 
         self.schedule = Menu(menu, tearoff=0)
-        menu.add_cascade(label='Schedule', menu=self.schedule)
+        menu.add_cascade(label='Student', menu=self.schedule)
         self.scheduleMenu()
 
         load = Menu(menu, tearoff=0)
-        menu.add_cascade(label='View', menu=load)
+        menu.add_cascade(label='View    ', menu=load)
         self.loadMenu(load)
 
         # DataBase
@@ -1385,16 +1385,18 @@ class View:
                 lname.insert(0, selectedStudentSplit[1])
                 idE.insert(0, selectedStudentSplit[2])
 
-            name = fname.get() + " " + lname.get()
-            id = idE.get()
+                name = fname.get() + " " + lname.get()
+                id = idE.get()
 
-            if name != "" and id != "":
-                pub.sendMessage("request_PPW", name=name, id=int(id))
-                self.schedule.entryconfigure(1, state=NORMAL)
-                t.destroy()
-                # Shows buttons for Progress Report when student information is present
-                self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+                if name != "" and id != "":
+                    self.studentBox.delete(0, END)
+                    pub.sendMessage("request_PPW", name=name, id=int(id))
+                    self.schedule.entryconfigure(1, state=NORMAL)
+                    t.destroy()
+                    # Shows buttons for Progress Report when student information is present
+                    self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                    self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
 
         def filtr(e):
             chars1 = fname.get()
@@ -1459,7 +1461,9 @@ class View:
         self.studentBox = Listbox(studentFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
                                           listvariable=self.studentsVar, height=10, width=3500, font=('Helvetica', 12))
         self.studentBox.pack(side=TOP)
+        self.studentBox.delete(0, END)
         self.students = []
+
         for i in self.studentsVar:
             self.students.append(str(self.studentsVar[i]["name"]) + " " + str(self.studentsVar[i]["s_id"]))
         self.students.sort()
