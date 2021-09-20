@@ -1268,11 +1268,11 @@ class View:
         self.mainwin.config(menu=menu)
 
         self.schedule = Menu(menu, tearoff=0)
-        menu.add_cascade(label='Schedule', menu=self.schedule)
+        menu.add_cascade(label='Student', menu=self.schedule)
         self.scheduleMenu()
 
         load = Menu(menu, tearoff=0)
-        menu.add_cascade(label='View', menu=load)
+        menu.add_cascade(label='View    ', menu=load)
         self.loadMenu(load)
 
         # DataBase
