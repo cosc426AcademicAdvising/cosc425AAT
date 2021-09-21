@@ -513,8 +513,6 @@ class View:
             course = entry.get()
             if len(course) > 7:
                 if len(course.split()[1]) == 3:
-                    print(course.split[0])
-                    print(course.split[1])
                     pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
                     self.resultVar.set(
                         self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
