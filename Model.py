@@ -110,10 +110,10 @@ class Model:
         response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         courseInfo = []
-        courseInfo.append(obj[0]['Subject'])
-        courseInfo.append(obj[0]['Catalog'])
-        courseInfo.append(obj[0]['Long Title'])
-        courseInfo.append(obj[0]['Allowd Unt'])
+        courseInfo.append(obj['Subject'])
+        courseInfo.append(obj['Catalog'])
+        courseInfo.append(obj['Long Title'])
+        courseInfo.append(obj['Allowd Unt'])
         return courseInfo
 
     # Displays what prereqs are necessary for a subject + catalog

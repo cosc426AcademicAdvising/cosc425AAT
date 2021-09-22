@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import *
 from tkinter import ttk
 # import tkinter as tk
@@ -506,7 +507,7 @@ class View:
         t.resizable(width=FALSE, height=FALSE)
         # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
-        self.selectedTreeView = self.progressRepoFrame.focus_get()
+        selectedTreeView = self.progressRepoFrame.focus_get()
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def courseSearch(e):
@@ -525,7 +526,7 @@ class View:
 
         # adds searched course into the treeview
         def addCourse():
-            self.selectedTreeView.insert(parent='', index='end', iid=(len(self.selectedTreeView.get_children())+1), text="",
+            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children())+1), text="",
                                     values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                             self.addCourseSearchResult[2]))
 
@@ -733,7 +734,7 @@ class View:
         self.majorTree.column("#0", width=150)
         self.majorTree.heading("#0", text="Majors")
 
-        self.editCareerButton = ttk.Button(careerFrame, text="Edit", command=self.editMajorMinor)
+        self.editCareerButton = ttk.Button(careerFrame, text="Add/Remove", command=self.editMajorMinor)
         self.editCareerButton.pack(side=LEFT)
 
         self.minorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
@@ -877,6 +878,8 @@ class View:
             response = messagebox.askquestion("askquestion", msg, parent=t)
             if response == 'yes':
                 self.selected_major_Box.delete(i)
+                majorRemoveButton["state"] = DISABLED
+                #self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
 
         # insert selected minor into separate listbox
         def minorSelection(e):
@@ -889,6 +892,8 @@ class View:
             response = messagebox.askquestion("askquestion", msg, parent=t)
             if response == 'yes':
                 self.selected_minor_Box.delete(i)
+                minorRemoveButton["state"] = DISABLED
+
 
         def confirmSelection():
             self.setMajor_treeview()
@@ -900,14 +905,42 @@ class View:
             self.FYP_refresh()
             t.destroy()
 
+        def enableMajorRemoveBtn(e):
+            majorRemoveButton["state"] = "NORMAL"
+
+        def enableMinorRemoveBtn(e):
+            minorRemoveButton["state"] = "NORMAL"
+
         mainframe = Frame(t)
         mainframe.pack(fill=X, ipadx=1, padx=10)
 
-        majorframe = ttk.LabelFrame(mainframe, text="Major")
+        majorframe = ttk.LabelFrame(mainframe, text="Current Major(s)")
         majorframe.pack(side=LEFT, pady=5)
 
-        minorframe = ttk.LabelFrame(mainframe, text="Minor")
+        minorframe = ttk.LabelFrame(mainframe, text="Current Minor(s)")
         minorframe.pack(side=RIGHT, pady=5)
+
+        self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                          height=4)
+        self.selected_major_Box.pack(side=TOP)
+        self.selected_major_Box.bind("<<ListboxSelect>>", enableMajorRemoveBtn)
+
+
+        self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                          height=4)
+        self.selected_minor_Box.pack(side=TOP)
+        self.selected_minor_Box.bind("<<ListboxSelect>>", enableMinorRemoveBtn)
+
+        majorRemoveButton = ttk.Button(majorframe, text="Remove", command=removeMajor, state=DISABLED)
+        majorRemoveButton.pack()
+
+        minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor, state=DISABLED)
+        minorRemoveButton.pack()
+
+        label3 = Label(majorframe, text="Major(s)")
+        label3.pack(side=TOP)
+        label4 = Label(minorframe, text="Minor(s)")
+        label4.pack(side=TOP)
 
         self.schCbox1 = ttk.Combobox(majorframe, value=self.schList, exportselection=0, width=18)
         self.schCbox1.pack(side=TOP)
@@ -930,19 +963,6 @@ class View:
         self.minorBox.pack(side=TOP)
         self.minorBox.bind('<Double-1>', minorSelection)
 
-        label3 = Label(majorframe, text="Major(s) Selected:")
-        label3.pack(side=TOP)
-        label4 = Label(minorframe, text="Minor(s) Selected:")
-        label4.pack(side=TOP)
-
-        self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
-                                          height=4)
-        self.selected_major_Box.pack(side=TOP)
-
-        self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
-                                          height=4)
-        self.selected_minor_Box.pack(side=TOP)
-
         # for if major & minor treeview were already filled
         for id in self.majorTree.get_children():
             major = self.majorTree.item(id)['text']
@@ -951,14 +971,9 @@ class View:
         for id in self.minorTree.get_children():
             minor = self.minorTree.item(id)['text']
             self.selected_minor_Box.insert(END, minor)
-
-        majorRemoveButton = ttk.Button(majorframe, text="Remove", command=removeMajor)
-        majorRemoveButton.pack(side=TOP)
-        minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor)
-        minorRemoveButton.pack(side=TOP)
-
-        comfirmButton = ttk.Button(t, text="Confirm", command=confirmSelection)
-        comfirmButton.pack(side=TOP, pady=10)
+        
+        comfirmButton = ttk.Button(t, text="Save", command=confirmSelection)
+        comfirmButton.pack(side=BOTTOM, pady=10)
 
     # end goal: return array of major under specified school
     def getMajorBySchool(self, e):
