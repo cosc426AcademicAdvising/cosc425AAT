@@ -16,6 +16,7 @@ class View:
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
+        self.mainwin.state('zoomed')
         #self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # self.mainwin.resizable(width=0, height=0)
@@ -80,9 +81,12 @@ class View:
 
     def layout(self):
 
+        self.w = self.mainwin.winfo_screenwidth()
+        self.h = self.mainwin.winfo_screenheight()
+        self.ar = self.w / self.h
 
-        self.right_width = self.mainwin.winfo_screenwidth() * 0.4
-        self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
+        self.right_width = self.w * 0.4
+        self.left_width = self.w - self.right_width
 
         self.mainFrame = ttk.Frame(self.mainwin)
         self.mainFrame.pack(fill=BOTH, padx=10, pady=10, expand=1, ipadx=10)
@@ -173,7 +177,7 @@ class View:
 
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
-        self.canvas = Canvas(self.leftFrame, width=self.left_width)  # Creating Canvas for scrollbar
+        self.canvas = Canvas(self.leftFrame, width=self.left_width*.95)  # Creating Canvas for scrollbar
         self.canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
         self.scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=self.canvas.yview)
@@ -185,10 +189,10 @@ class View:
         self.innerLeftFrame = Frame(self.canvas)
         self.innerLeftFrame.pack(expand=1)
 
-        self.canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW, width=self.left_width)
+        self.canvas.create_window((0, 0), window=self.innerLeftFrame, anchor=NW, width=self.left_width*.95)
 
         # ============================ title ============================
-        FYPTitleFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
+        FYPTitleFrame = Frame(self.innerLeftFrame, width=self.left_width*.95, height=50)
         FYPTitleFrame.pack(pady=20)
 
         FYPTitle = ttk.Label(FYPTitleFrame, text="Academic Advising", anchor=CENTER,
@@ -197,7 +201,7 @@ class View:
 
         # ============================ Student Name and ID ============================
 
-        nameIDFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
+        nameIDFrame = Frame(self.innerLeftFrame, width=self.left_width*.95, height=int(self.h*.1))
         nameIDFrame.pack(ipadx=30, ipady=10)
 
         nameLabel = Label(nameIDFrame, text='Name:')
@@ -213,10 +217,10 @@ class View:
         idLabel.pack(side=RIGHT, expand=1)
 
         # ============================ Policy Memo ============================
-        policyFrame = ttk.LabelFrame(self.innerLeftFrame, height=200, width=self.left_width, text='University Policy:')
+        policyFrame = ttk.LabelFrame(self.innerLeftFrame, height=200, width=self.left_width*.95, text='University Policy:')
         policyFrame.pack(pady=30)
 
-        self.policyMemoEntry = Text(policyFrame, width=90, height=10)
+        self.policyMemoEntry = Text(policyFrame, width=int(self.left_width*.95), height=10)
         self.policyMemoEntry.pack()
 
         # ============================ Progress Report ============================
@@ -224,7 +228,7 @@ class View:
         self.tab_parent = ttk.Notebook(self.innerLeftFrame)
 
         # Frame for Progress Report tab
-        self.progressRepoFrame = Frame(self.tab_parent, width=self.left_width)
+        self.progressRepoFrame = Frame(self.tab_parent, width=self.left_width*.95)
         self.progressRepoFrame.pack(fill='both')
 
         # Event handler to change policy via clicking a tab
@@ -674,13 +678,27 @@ class View:
         tables[1].grid(column=1, row=length+1)
 
     def planningWorksheet_layout(self):
-        self.rightFrame = Frame(self.PPWFrame)
-        self.rightFrame.pack(fill=BOTH)
 
         for i in range(4):
-            self.rightFrame.columnconfigure(i, weight=1)
+            self.PPWFrame.columnconfigure(i, weight=1)
+        for i in range(16):
+            self.PPWFrame.rowconfigure(i, weight=1)
 
-        pad = 10  # pady value for most frames below
+        self.PPWcanvas = Canvas(self.PPWFrame, width=self.right_width)  # Creating Canvas for scrollbar
+        self.PPWcanvas.pack(side=LEFT, fill=BOTH, expand=1)
+
+        self.PPWscrollbar = ttk.Scrollbar(self.PPWFrame, orient=VERTICAL, command=self.PPWcanvas.yview)
+        self.PPWscrollbar.pack(side=RIGHT, fill=Y)
+
+        self.PPWcanvas.configure(yscrollcommand=self.PPWscrollbar.set)
+        self.PPWcanvas.bind('<Configure>', lambda e: self.PPWcanvas.configure(scrollregion=self.PPWcanvas.bbox("all")))
+
+        self.rightFrame = Frame(self.PPWcanvas)
+        self.rightFrame.pack(expand=1)
+
+        self.PPWcanvas.create_window((0, 0), window=self.rightFrame, anchor=NW, width=self.right_width)
+
+        pad = 3  # pady value for most frames below
 
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
