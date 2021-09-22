@@ -506,7 +506,7 @@ class View:
         t.resizable(width=FALSE, height=FALSE)
         # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
-        selectedTreeView = self.progressRepoFrame.focus_get()
+        self.selectedTreeView = self.progressRepoFrame.focus_get()
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def courseSearch(e):
@@ -525,7 +525,7 @@ class View:
 
         # adds searched course into the treeview
         def addCourse():
-            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children())+1), text="",
+            self.selectedTreeView.insert(parent='', index='end', iid=(len(self.selectedTreeView.get_children())+1), text="",
                                     values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                             self.addCourseSearchResult[2]))
 
