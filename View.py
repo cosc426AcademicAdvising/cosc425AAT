@@ -678,16 +678,12 @@ class View:
         tables[1].grid(column=1, row=length+1)
 
     def planningWorksheet_layout(self):
-        self.rightFrame = Frame(self.PPWFrame)
-        self.rightFrame.pack(fill=BOTH)
-        
+
         for i in range(4):
             self.PPWFrame.columnconfigure(i, weight=1)
         for i in range(16):
             self.PPWFrame.rowconfigure(i, weight=1)
 
-
-        '''
         self.PPWcanvas = Canvas(self.PPWFrame, width=self.right_width)  # Creating Canvas for scrollbar
         self.PPWcanvas.pack(side=LEFT, fill=BOTH, expand=1)
 
@@ -700,7 +696,7 @@ class View:
         self.rightFrame = Frame(self.PPWcanvas)
         self.rightFrame.pack(expand=1)
 
-        self.PPWcanvas.create_window((0, 0), window=self.rightFrame, anchor=NW, width=self.right_width)'''
+        self.PPWcanvas.create_window((0, 0), window=self.rightFrame, anchor=NW, width=self.right_width)
 
         pad = 3  # pady value for most frames below
 
