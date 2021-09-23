@@ -78,8 +78,12 @@ class Model:
             minors.append(i['Acad Plan'])
         return minors
 
-    def getSchools(self):
-        response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/School", headers={'auth-token': token})
+    def getMinorSchools(self):
+        response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MinorSchool", headers={'auth-token': token})
+        return response.json()
+
+    def getMajorSchools(self):
+        response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MajorSchool", headers={'auth-token': token})
         return response.json()
 
     def getMajorsbySchool(self, schools):
@@ -110,10 +114,10 @@ class Model:
         response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         courseInfo = []
-        courseInfo.append(obj['Subject'])
-        courseInfo.append(obj['Catalog'])
-        courseInfo.append(obj['Long Title'])
-        courseInfo.append(obj['Allowd Unt'])
+        courseInfo.append(obj[0]['Subject'])
+        courseInfo.append(obj[0]['Catalog'])
+        courseInfo.append(obj[0]['Long Title'])
+        courseInfo.append(obj[0]['Allowd Unt'])
         return courseInfo
 
     # Displays what prereqs are necessary for a subject + catalog
@@ -245,14 +249,12 @@ class Model:
         majorFourList = []  # major four year plan list (return value)
         minorFourList = []  # minor four year plan list (return value)
         minorReqList = []
-        sem = "1"  # Keeps track of which semester in database
-        total = 0  # Total number of semesters
-        ctotal = 0  # Total number of courses in a semester
-
         courseHist = []  # four year plan list (return value)
         sem = "1"  # Keeps track of which semester in database
         total = 0  # Total number of semesters
         ctotal = 0  # Total number of courses in a semester
+
+
 
 
         # Gets total number of semesters through error handling

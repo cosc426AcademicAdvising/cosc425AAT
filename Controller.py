@@ -75,7 +75,7 @@ class Controller:
         self.view.minorVar.set( self.model.getMinorsbySchool(sch) )
 
     def setSchools(self):
-        self.view.schList = self.model.getSchools()
+        self.view.schList = self.model.getMajorSchools()
 
     def setSubjects(self):
         self.view.subjectsList = self.model.getSubjects()
