@@ -513,8 +513,9 @@ class View:
         t.resizable(width=FALSE, height=FALSE)
         # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
-        selectedTreeView = self.progressRepoFrame.focus_get()
+        selectedTreeView = self.mainwin.focus_get()
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        t.grab_set()
 
         def courseSearch(e):
             course = entry.get()
@@ -555,7 +556,7 @@ class View:
         addButton.pack(side=BOTTOM, pady=5)
 
     def FYP_delCourseButton(self):
-        selectedTreeView = self.progressRepoFrame.focus_get()
+        selectedTreeView = self.mainwin.focus_get()
         for course in selectedTreeView.selection():
             msg = "Do you want to remove the selected course? (" + selectedTreeView.item(course)['values'][0] + ")"
             response = messagebox.askquestion("askquestion", msg)
@@ -1547,21 +1548,27 @@ class View:
             self.schedule.entryconfigure(1, state=NORMAL)
 
             self.editMajorWindow = Toplevel(self.mainwin)
-            self.editMajorWindow.geometry("1150x800")
+            self.editMajorWindow.geometry("1150x850")
             self.editMajorWindow.wm_title("Edit Major")
-            self.editMajorWindow.resizable(width=0, height=0)
             self.editMajorWindow.attributes('-topmost', 'true')
         else:
             return
 
-        editMajorFrame = Frame(self.editMajorWindow)
-        editMajorFrame.pack(fill=BOTH, expand=True)
+        treeviewFrame = Frame(self.editMajorWindow)
+        treeviewFrame.pack(fill=BOTH, expand=True)
+        addCrsBtnFrame = Frame(self.editMajorWindow)
+        addCrsBtnFrame.pack()
 
         edtMjLbls = []
         edtMjTbls = []
 
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command= self.FYP_addCourseButton)
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=self.FYP_delCourseButton)
+        addCourseBtn.pack(side=LEFT, padx=10)
+        rmvCourseBtn.pack(side=RIGHT)
+
         # Treeviews are created
-        self.createTable(editMajorFrame, edtMjLbls, edtMjTbls, 8)
+        self.createTable(treeviewFrame, edtMjLbls, edtMjTbls, 8)
 
         # Filling semesters for major
         semsIndex = 0
@@ -1573,6 +1580,16 @@ class View:
                                                               values=(course[1] + course[2], course[3], course[4]))
                 edtMjTbls_iid += 1
             semsIndex += 1
+        # ============================ Add Semester Table Button ============================
+        """
+        self.addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
+        self.addSemesterBtn.pack()
+        self.addSemesterBtn.place(x=120, y=950)
+        self.temp = semesterCounter
+        self.tempY = yPos
+        self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
+                                                                        self.semLabel, self.semesterFrame, self.temp)
+        """
 
 
     # Add Major Button from Update DB
