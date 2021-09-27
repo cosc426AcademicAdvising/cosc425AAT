@@ -46,6 +46,22 @@ class Controller:
 
         pub.subscribe(self.model.setAuthToken, "request_setAuthToken")
 
+        # Requesting a list of all majors and minors when trying to edit/add a major or minor
+        pub.subscribe(self.getMajors, "request_Majors")
+        pub.subscribe(self.getMinors, "request_Minors")
+
+        # Requesting the courses for a majors FYP
+        pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
+
+    def getMajors(self):
+        self.view.majors = self.model.listAllMajors().copy()
+
+    def getMinors(self):
+        self.view.minors = self.model.listAllMinors().copy()
+
+    def getMajorsFYP(self, major):
+        self.view.majorsFYP = self.model.getFourYear(major).copy()
+
     def newSchedule(self):
         self.schedule = Toplevel()
         self.schedule.geometry('1000x600')

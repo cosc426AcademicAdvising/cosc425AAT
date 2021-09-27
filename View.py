@@ -11,12 +11,13 @@ import json
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
 
+
 class View:
     def __init__(self, master):
         self.mainwin = master
         self.mainwin.title("Academic Advising Tool")
         self.mainwin.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))
-        #self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
+        # self.mainwin.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         # self.mainwin.resizable(width=0, height=0)
         # 2560 x 1440
@@ -54,6 +55,9 @@ class View:
         self.minorFrames = []  # Holds frames minor for tabs
         self.majorsLabelArray = []  # Holds labels for major tabs
         self.minorsLabelArray = []  # Holds labels for minor tabs
+        self.majors = []
+        self.minors = []
+        self.majorsFYP = []
 
         self.loginPage()
         self.menuBar()
@@ -80,7 +84,6 @@ class View:
 
     def layout(self):
 
-
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
 
@@ -98,7 +101,7 @@ class View:
 
         self.courseTakenListFrame = ttk.Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
         self.courseTakenListFrame.pack(side=LEFT, fill=Y, padx=5)
-        #self.courseTakenListFrame.pack_propagate(0)
+        # self.courseTakenListFrame.pack_propagate(0)
         self.courseTakenListFrame.pack_forget()  # hide frame
 
         self.FourYearPlan()
@@ -116,17 +119,17 @@ class View:
         self.loginWindow.grab_set()
 
         loginFrame = Frame(self.loginWindow)
-        emailFrame = Frame(self.loginWindow, width= 30)
-        passwrdFrame = Frame(self.loginWindow, width= 30)
+        emailFrame = Frame(self.loginWindow, width=30)
+        passwrdFrame = Frame(self.loginWindow, width=30)
 
         loginBtn = Button(loginFrame, text="Login", font=('Helvetica', 10))
 
         emailLabel = Label(emailFrame, text="Email: ", font=('Helvetica', 10), padx=55)
-        passwrdLabel = Label(passwrdFrame, text="Password: ", font=('Helvetica', 10), padx= 55)
+        passwrdLabel = Label(passwrdFrame, text="Password: ", font=('Helvetica', 10), padx=55)
         wrongPassLabel = Label(loginFrame, text="No matching credentials, please try again", font=('Helvetica', 10))
 
-        self.emailEntry = Entry(emailFrame, width= 30)
-        self.passwrdEntry = Entry(passwrdFrame, width= 30)
+        self.emailEntry = Entry(emailFrame, width=30)
+        self.passwrdEntry = Entry(passwrdFrame, width=30)
 
         emailFrame.pack(side=TOP, fill=X, pady=5)
         passwrdFrame.pack(side=TOP, fill=X, pady=5)
@@ -135,8 +138,8 @@ class View:
         wrongPassLabel.pack(side=BOTTOM)
         wrongPassLabel.forget()
         loginBtn.pack(side=BOTTOM)
-        emailLabel.pack(side=TOP, anchor= W)
-        passwrdLabel.pack(side=TOP, anchor= W)
+        emailLabel.pack(side=TOP, anchor=W)
+        passwrdLabel.pack(side=TOP, anchor=W)
         self.emailEntry.pack(side=BOTTOM)
         self.passwrdEntry.pack(side=BOTTOM)
 
@@ -158,7 +161,7 @@ class View:
                 self.loginWindow.grab_release()
                 self.loginWindow.destroy()
                 self.mainwin.lift()
-                pub.sendMessage("request_setAuthToken", tok = val)
+                pub.sendMessage("request_setAuthToken", tok=val)
                 pub.sendMessage("request_allSchools")
                 pub.sendMessage("request_allSubjects")
                 self.layout()
@@ -192,7 +195,7 @@ class View:
         FYPTitleFrame.pack(pady=20)
 
         FYPTitle = ttk.Label(FYPTitleFrame, text="Academic Advising", anchor=CENTER,
-                                  font=('Helvetica', 19))
+                             font=('Helvetica', 19))
         FYPTitle.pack(side=TOP)
 
         # ============================ Student Name and ID ============================
@@ -272,7 +275,8 @@ class View:
 
         self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable()
         self.policies = policies  # Copying policies for other functions
-        self.progTableLength = len(courseHist) # Storing the amount of semesters to make that many treeviews in createTable
+        self.progTableLength = len(
+            courseHist)  # Storing the amount of semesters to make that many treeviews in createTable
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
         self.majorFrames = []  # Holds frames major for tabs
@@ -293,7 +297,7 @@ class View:
         self.progLabel.clear()
 
         # CLearing any tabs that might exist before displaying student
-        while (self.tab_parent.index("end") != 1): # Removes the tabs but leaves Progress Report tab
+        while (self.tab_parent.index("end") != 1):  # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
         # Treeviews are re-created for Progress Report tab with number of semesters student has taken
@@ -322,7 +326,7 @@ class View:
         iid = 0
         for course in winCourse:
             self.winSumTable[0].insert(parent='', index='end', iid=iid,
-                                            values=(course[0] + " " + course[1], course[2], course[3]))
+                                       values=(course[0] + " " + course[1], course[2], course[3]))
             iid += 1
 
         iid = 0
@@ -335,7 +339,8 @@ class View:
             self.majorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.majorsTable.append([])  # Creates 2d array each array is a major containing each treeview for a tab
             self.majorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
-            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i], 8)  # Function to populate these arrays
+            self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i],
+                             8)  # Function to populate these arrays
             self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
 
         for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
@@ -343,7 +348,8 @@ class View:
             self.minorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
             self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
-            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i], self.minorsTable[i])  # Function to populate these arrays
+            self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i],
+                                  self.minorsTable[i])  # Function to populate these arrays
             self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
 
         majorIndex = 0
@@ -443,25 +449,25 @@ class View:
     def FYP_reset(self):
         self.FYPnameEntry.delete(0, END)
         self.id2Entry.delete(0, END)
-        self.policyMemoEntry.config(state = NORMAL)
+        self.policyMemoEntry.config(state=NORMAL)
         self.policyMemoEntry.delete('1.0', 'end')
         self.FYPnameEntry.config(state=NORMAL)
         self.id2Entry.config(state=NORMAL)
-        for sem in self.progTable: # Clear courses in treeviews under Progress Report tab
+        for sem in self.progTable:  # Clear courses in treeviews under Progress Report tab
             for course in sem.get_children():
                 sem.delete(course)
 
         if self.winSumTable:
-            for sem in self.winSumTable: # Clear winter/summer courses in treeviews under Progress Report tab
+            for sem in self.winSumTable:  # Clear winter/summer courses in treeviews under Progress Report tab
                 for course in sem.get_children():
                     sem.delete(course)
 
         if self.winSumTable:
-            for sem in self.winSumTable: # Clear treeviews in Progress Report tab
+            for sem in self.winSumTable:  # Clear treeviews in Progress Report tab
                 sem.destroy()
 
-        for sem in self.winSumLabel: # Clear treeviews in Progress Report tab
-                sem.destroy()
+        for sem in self.winSumLabel:  # Clear treeviews in Progress Report tab
+            sem.destroy()
 
         for i in self.progTable:
             i.destroy()
@@ -478,12 +484,12 @@ class View:
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
         if self.majorsTable:
-            for majors in self.majorsTable: # Clear treeviews for each major tab
+            for majors in self.majorsTable:  # Clear treeviews for each major tab
                 for sem in majors:
                     for course in sem.get_children():
                         sem.delete(course)
         if self.minorsTable:
-            for minors in self.minorsTable: # Clear treeviews for each minor tab
+            for minors in self.minorsTable:  # Clear treeviews for each minor tab
                 for sem in minors:
                     for course in sem.get_children():
                         sem.delete(course)
@@ -497,7 +503,7 @@ class View:
         self.winSumTable.clear()
         self.winSumLabel.clear()
 
-        while (self.tab_parent.index("end") != 1): # Removes the tabs but leaves Progress Report tab
+        while (self.tab_parent.index("end") != 1):  # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
     def FYP_addCourseButton(self):
@@ -526,7 +532,7 @@ class View:
 
         # adds searched course into the treeview
         def addCourse():
-            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children())+1), text="",
+            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children()) + 1), text="",
                                     values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
                                             self.addCourseSearchResult[2]))
 
@@ -594,11 +600,11 @@ class View:
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
 
-            if i < math.floor(length/2):
+            if i < math.floor(length / 2):
                 labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
 
         # grid labels
-        for i in range(math.floor(length/2)):
+        for i in range(math.floor(length / 2)):
             labels[i].grid(column=0, row=2 * i, columnspan=2, sticky=W, padx=5)
 
         # grid treeviews
@@ -612,7 +618,7 @@ class View:
         for i in range(2):
             frame.columnconfigure(i, weight=1)
         # define treeviews and labels
-        for i in range(self.sizeOfMinor): # Looping through the amount of minors
+        for i in range(self.sizeOfMinor):  # Looping through the amount of minors
             tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True))
 
             tables[i]['columns'] = ("course#", "title", "cred")
@@ -630,14 +636,14 @@ class View:
             if i < len(tables):
                 labels.append(Label(frame, font=('Helvetica', 14)))
 
-        # grid labels
+            # grid labels
             row = 0
             for i in range(len(tables)):
                 if i % 2 == 0:
-                    tables[i].grid(column=0, row=row+1)
+                    tables[i].grid(column=0, row=row + 1)
                     labels[i].grid(column=0, row=row, columnspan=2, sticky=W, padx=20)
                 else:
-                    tables[i].grid(column=1, row=row+1)
+                    tables[i].grid(column=1, row=row + 1)
                     labels[i].grid(column=1, row=row, columnspan=2, sticky=W, padx=20)
                     row += 2
 
@@ -663,15 +669,14 @@ class View:
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
 
-
         labels.append(Label(frame, text="Winter Courses", font=('Helvetica', 15)))
         labels.append(Label(frame, text="Summer Courses", font=('Helvetica', 15)))
 
         labels[0].grid(column=0, row=length, columnspan=2, sticky=W, padx=5)
-        tables[0].grid(column=0, row=length+1)
+        tables[0].grid(column=0, row=length + 1)
 
         labels[1].grid(column=1, row=length, columnspan=2, sticky=W, padx=5)
-        tables[1].grid(column=1, row=length+1)
+        tables[1].grid(column=1, row=length + 1)
 
     def planningWorksheet_layout(self):
         self.rightFrame = Frame(self.PPWFrame)
@@ -879,7 +884,7 @@ class View:
             if response == 'yes':
                 self.selected_major_Box.delete(i)
                 majorRemoveButton["state"] = DISABLED
-                #self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
+                # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
 
         # insert selected minor into separate listbox
         def minorSelection(e):
@@ -893,7 +898,6 @@ class View:
             if response == 'yes':
                 self.selected_minor_Box.delete(i)
                 minorRemoveButton["state"] = DISABLED
-
 
         def confirmSelection():
             self.setMajor_treeview()
@@ -924,7 +928,6 @@ class View:
                                           height=4)
         self.selected_major_Box.pack(side=TOP)
         self.selected_major_Box.bind("<<ListboxSelect>>", enableMajorRemoveBtn)
-
 
         self.selected_minor_Box = Listbox(minorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
                                           height=4)
@@ -971,7 +974,7 @@ class View:
         for id in self.minorTree.get_children():
             minor = self.minorTree.item(id)['text']
             self.selected_minor_Box.insert(END, minor)
-        
+
         comfirmButton = ttk.Button(t, text="Save", command=confirmSelection)
         comfirmButton.pack(side=BOTTOM, pady=10)
 
@@ -1309,7 +1312,6 @@ class View:
         self.schedule.add_command(label='Export', command=self.exportSchedule)
         self.schedule.add_command(label='Print', command=self.printSchedule)
 
-
     def printHelp(self):
 
         # Create pop up window on top level of application
@@ -1318,8 +1320,8 @@ class View:
         t.geometry("1000x600")
         t.attributes('-topmost', 'true')
 
-        top = Frame(t)      # Top frame for title and buttons
-        bottom = Frame(t)   # Bottom frame for list box containing help menu
+        top = Frame(t)  # Top frame for title and buttons
+        bottom = Frame(t)  # Bottom frame for list box containing help menu
         top.pack(side=TOP)
         bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
 
@@ -1352,19 +1354,19 @@ class View:
             for i in file:
                 helpmenu.insert(END, str(i))
 
-        menu_option()   # Starts on first page of help menu
-        head = Label(top, text="Help Menu", font=125)   # Title
+        menu_option()  # Starts on first page of help menu
+        head = Label(top, text="Help Menu", font=125)  # Title
         head.pack()
-        button1 = Button(top, text="Menu Options", width=15, height=1, command=menu_option)     # Button for menu options
+        button1 = Button(top, text="Menu Options", width=15, height=1, command=menu_option)  # Button for menu options
         button1.pack(in_=top, side=LEFT)
-        button2 = Button(top, text="Four Year Plan", width=15, height=1, command=four_option)   # Button for four year options
+        button2 = Button(top, text="Four Year Plan", width=15, height=1,
+                         command=four_option)  # Button for four year options
         button2.pack(in_=top, side=LEFT)
-        button3 = Button(top, text="Program Planning", width=15, height=1, command=program_option)  # Button for program planning options
+        button3 = Button(top, text="Program Planning", width=15, height=1,
+                         command=program_option)  # Button for program planning options
         button3.pack(in_=top, side=LEFT)
 
-        scrollbar.config(command=helpmenu.yview)    # Set scroll bar to effect Y axis view of list box
-
-
+        scrollbar.config(command=helpmenu.yview)  # Set scroll bar to effect Y axis view of list box
 
     def newSchedule(self):
         self.planningWorksheet_reset()
@@ -1373,7 +1375,6 @@ class View:
         # Removes buttons when student information is not present
         self.addProgRepoBtn.grid_forget()
         self.removeProgRepoBtn.grid_forget()
-
 
     def openSchedule(self):
         pub.sendMessage("requestStudents")
@@ -1410,7 +1411,6 @@ class View:
                     self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
                     self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
 
-
         def filtr(e):
             chars1 = fname.get()
             chars2 = lname.get()
@@ -1435,6 +1435,7 @@ class View:
         def close(e):
             self.schedule.entryconfigure(1, state=NORMAL)
             t.destroy()
+
         t.bind('<Destroy>', close)
         self.schedule.entryconfigure(1, state=DISABLED)
 
@@ -1472,7 +1473,7 @@ class View:
         studentFrame.pack(side=TOP, anchor=CENTER)
 
         self.studentBox = Listbox(studentFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
-                                          listvariable=self.studentsVar, height=10, width=3500, font=('Helvetica', 12))
+                                  listvariable=self.studentsVar, height=10, width=3500, font=('Helvetica', 12))
         self.studentBox.pack(side=TOP)
         self.studentBox.delete(0, END)
         self.students = []
@@ -1536,139 +1537,220 @@ class View:
     def openCSV(self):
         pub.sendMessage("request_CSV")
 
+    def close(self, window):
+        window.destroy()
+
+    def openMajorButton(self, major):
+        if self.majorBox.get(self.majorBox.curselection()) != "":
+            self.close(self.addEditMajorWindow)
+            pub.sendMessage("request_MajorsFYP", major=major)
+            self.schedule.entryconfigure(1, state=NORMAL)
+
+            self.editMajorWindow = Toplevel(self.mainwin)
+            self.editMajorWindow.geometry("1150x800")
+            self.editMajorWindow.wm_title("Edit Major")
+            self.editMajorWindow.resizable(width=0, height=0)
+            self.editMajorWindow.attributes('-topmost', 'true')
+        else:
+            return
+
+        editMajorFrame = Frame(self.editMajorWindow)
+        editMajorFrame.pack(fill=BOTH, expand=True)
+
+        edtMjLbls = []
+        edtMjTbls = []
+
+        # Treeviews are created
+        self.createTable(editMajorFrame, edtMjLbls, edtMjTbls, 8)
+
+        # Filling semesters for major
+        semsIndex = 0
+        for sem in self.majorsFYP:
+            edtMjTbls_iid = 0
+            for course in sem:
+                edtMjTbls[semsIndex].insert(parent='', index='end',
+                                                              iid=edtMjTbls_iid,
+                                                              values=(course[1] + course[2], course[3], course[4]))
+                edtMjTbls_iid += 1
+            semsIndex += 1
+
+
     # Add Major Button from Update DB
-    def addMajor(self):
-        t = Toplevel(self.mainwin)
-        t.wm_title("Add Major")
-        t.geometry("550x150")
-        t.resizable(width=0, height=0)
-        t.attributes('-topmost', 'true')
-        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+    def addEditMajor(self):
+        self.addEditMajorWindow = Toplevel(self.mainwin)
+        self.addEditMajorWindow.wm_title("Edit/Add Major")
+        self.addEditMajorWindow.geometry("300x310")
+        self.addEditMajorWindow.resizable(width=0, height=0)
+        self.addEditMajorWindow.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(self.addEditMajorWindow)} center')
+        pub.sendMessage("request_Majors")  # Retrieves list of majors from database
+        self.majors.sort()
 
-        def close(e):
-            self.DB.entryconfigure(2, state=NORMAL)
-            t.destroy()
+        def filtr(e):
+            chars = majorEntry.get()
 
-        t.bind('<Destroy>', close)
-        self.DB.entryconfigure(2, state=DISABLED)
+            index = 0
+            if chars != "":
+                fltrdStu1 = [x for x in self.majors if chars in x]
+                self.majorBox.delete(0, END)
+                fltrdStu = list(fltrdStu1)
 
-        def addMajorButton():       # Adds the major and School to database
-            maj = major.get()
-            program = prog.get()
-            school = scl.get()
-            Fschool = sclF.get()
-            if maj != "" and program != "" and school != "" and Fschool != "":
-                pub.sendMessage("request_AddMajor", major=maj, program=program, school=school, FullSchool=Fschool)
-                self.DB.entryconfigure(2, state=NORMAL)
-                t.destroy()
+                for i in fltrdStu:
+                    self.majorBox.insert(END, fltrdStu[index])
+                    index += 1
+            else:
+                self.majorBox.delete(0, END)
+                for i in self.majors:
+                    self.majorBox.insert(END, self.majors[index])
+                    index += 1
 
+        majorFrame = Frame(self.addEditMajorWindow)
+        majorFrame.pack(padx=50, pady=10)
 
-        mainFrame = Frame(t)
-        mainFrame.grid(row=0, column=0)
+        majorBoxFrame = Frame(self.addEditMajorWindow)
+        majorBoxFrame.pack(ipady=10)
 
-        label2 = Label(mainFrame, text='Major Abbrev:').grid(column=0, row=0, padx=10, pady=10)     # Top left entry for Major
-        major = ttk.Entry(mainFrame, width=15)
-        major.grid(column=1, row=0, padx=10, pady=10)
+        btnFrame = Frame(self.addEditMajorWindow)
+        btnFrame.pack()
 
-        label3 = Label(mainFrame, text='Acad Program:').grid(column=2, row=0, padx=10, pady=10)     # Top right entry for Academic program
-        prog = ttk.Entry(mainFrame, width=15)
-        prog.grid(column=3, row=0, padx=10, pady=10)
+        majorEntryLbl = Label(majorFrame, text='Major:')
+        majorEntryLbl.pack(side=LEFT)
+        majorEntry = ttk.Entry(majorFrame, width=200)
+        majorEntry.pack(side=LEFT)
+        majorEntry.bind("<KeyRelease>", filtr)
 
-        label4 = Label(mainFrame, text='School Name:').grid(column=0, row=1, padx=10, pady=10)      # Bottom left entry for short school name
-        scl = ttk.Entry(mainFrame, width=15)
-        scl.grid(column=1, row=1, padx=10, pady=10)
+        self.majorBox = Listbox(majorBoxFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                listvariable=self.majors, height=10, width=30, font=('Helvetica', 12))
+        self.majorBox.pack(side=TOP)
+        self.majorBox.delete(0, END)
 
+        index = 0
+        for i in self.majors:
+            self.majorBox.insert(END, self.majors[index])
+            index += 1
 
-        sclF = ttk.Entry(mainFrame, width=15)
-        sclF.grid(column=3, row=1, padx=10, pady=10)
-        label5 = Label(mainFrame, text='School Full Name:').grid(column=2, row=1, padx=10, pady=10) # Bottom Right entry for full school title
+        searchB = Button(btnFrame, text='Open', command=lambda: self.openMajorButton(self.majorBox.get(self.majorBox.curselection())))
+        searchB.pack()
+        """
+        self.frame.bind("<Return>",
+                        lambda event, a=10, b=20, c=30:
+                        self.rand_func(a, b, c))
+        """
+    def openMinorButton(self):
+        if self.minorBox.get(self.minorBox.curselection()) != "":
+            self.close(self.addEditMinorWindow)
+            #pub.sendMessage("request_PPW", name=name, id=int(id))
+            self.schedule.entryconfigure(1, state=NORMAL)
 
-        searchB = Button(mainFrame, text='Add', command=addMajorButton)
-        searchB.grid(row=2, column=1, columnspan=2)
+            editMinorWindow = Toplevel(self.mainwin)
+            editMinorWindow.wm_title("Edit Minor")
+            editMinorWindow.geometry("1150x800")
+            editMinorWindow.resizable(width=0, height=0)
+            editMinorWindow.attributes('-topmost', 'true')
+        else:
+            return
+
+        editMinorFrame = Frame(editMinorWindow)
+        editMinorFrame.pack(fill=BOTH, expand=True)
+
+        edtMiLbls = []
+        edtMiTbls = []
+
+        # Treeviews are created
+        self.createTable(editMinorFrame, edtMiLbls, edtMiTbls, 8)
 
     # Add minor button in Update DB
-    def addMinor(self):
-        t = Toplevel(self.mainwin)
-        t.wm_title("Add Minor")
-        t.geometry("550x150")
-        t.resizable(width=0, height=0)
-        t.attributes('-topmost', 'true')
-        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+    def addEditMinor(self):
+        self.addEditMinorWindow = Toplevel(self.mainwin)
+        self.addEditMinorWindow.wm_title("Edit/Add Minor")
+        self.addEditMinorWindow.geometry("300x310")
+        self.addEditMinorWindow.resizable(width=0, height=0)
+        self.addEditMinorWindow.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(self.addEditMinorWindow)} center')
+        pub.sendMessage("request_Minors")  # Retrieves list of majors from database
+        self.minors.sort()
 
-        def close(e):
-            self.DB.entryconfigure(3, state=NORMAL)
-            t.destroy()
+        def filtr(e):
+            chars = minorEntry.get()
 
-        t.bind('<Destroy>', close)
-        self.DB.entryconfigure(3, state=DISABLED)
+            index = 0
+            if chars != "":
+                fltrdStu1 = [x for x in self.minors if chars in x]
+                self.minorBox.delete(0, END)
+                fltrdStu = list(fltrdStu1)
 
-        def addMinorButton():   # Adds new minor to database
-            min = minor.get()
-            program = prog.get()
-            school = scl.get()
-            Fschool = sclF.get()
-            if min != "" and program != "" and school != "" and Fschool != "":
-                pub.sendMessage("request_AddMinor", minor=min, program=program, school=school, FullSchool=Fschool)
-                self.DB.entryconfigure(3, state=NORMAL)
-                t.destroy()
+                for i in fltrdStu:
+                    self.minorBox.insert(END, fltrdStu[index])
+                    index += 1
+            else:
+                self.minorBox.delete(0, END)
+                for i in self.minors:
+                    self.minorBox.insert(END, self.minors[index])
+                    index += 1
 
-        mainFrame = Frame(t)
-        mainFrame.grid(row=0, column=0)
+        minorFrame = Frame(self.addEditMinorWindow)
+        minorFrame.pack(padx=50, pady=10)
 
-        label2 = Label(mainFrame, text='Major Abbrev:').grid(column=0, row=0, padx=10, pady=10)
-        minor = ttk.Entry(mainFrame, width=15)
-        minor.grid(column=1, row=0, padx=10, pady=10)
+        minorBoxFrame = Frame(self.addEditMinorWindow)
+        minorBoxFrame.pack(ipady=10)
 
-        label3 = Label(mainFrame, text='Acad Program:').grid(column=2, row=0, padx=10, pady=10)
-        prog = ttk.Entry(mainFrame, width=15)
-        prog.grid(column=3, row=0, padx=10, pady=10)
+        btnFrame = Frame(self.addEditMinorWindow)
+        btnFrame.pack()
 
-        label4 = Label(mainFrame, text='School Name:').grid(column=0, row=1, padx=10, pady=10)
-        scl = ttk.Entry(mainFrame, width=15)
-        scl.grid(column=1, row=1, padx=10, pady=10)
+        minorEntryLbl = Label(minorFrame, text='Major:')
+        minorEntryLbl.pack(side=LEFT)
+        minorEntry = ttk.Entry(minorFrame, width=200)
+        minorEntry.pack(side=LEFT)
+        minorEntry.bind("<KeyRelease>", filtr)
 
-        sclF = ttk.Entry(mainFrame, width=15)
-        sclF.grid(column=3, row=1, padx=10, pady=10)
-        label5 = Label(mainFrame, text='School Full Name:').grid(column=2, row=1, padx=10, pady=10)
+        self.minorBox = Listbox(minorBoxFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                listvariable=self.minors, height=10, width=30, font=('Helvetica', 12))
+        self.minorBox.pack(side=TOP)
+        self.minorBox.delete(0, END)
 
-        searchB = Button(mainFrame, text='Add', command=addMinorButton)
-        searchB.grid(row=2, column=1, columnspan=2)
+        index = 0
+        for i in self.minors:
+            self.minorBox.insert(END, self.minors[index])
+            index += 1
+
+        searchB = Button(btnFrame, text='Open', command=self.openMinorButton)
+        searchB.pack()
 
     # Delete major in Update DB
     def delMajor(self):
-            t = Toplevel(self.mainwin)
-            t.wm_title("Delete Major")
-            t.geometry("350x125")
-            t.resizable(width=0, height=0)
-            t.attributes('-topmost', 'true')
-            self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        t = Toplevel(self.mainwin)
+        t.wm_title("Delete Major")
+        t.geometry("350x125")
+        t.resizable(width=0, height=0)
+        t.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
-            def close(e):
+        def close(e):
+            self.DB.entryconfigure(5, state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.DB.entryconfigure(5, state=DISABLED)
+
+        def deleteMajorButton():  # Delete the major from database
+            name = fnameE.get()
+            if name != "" and id != "":
+                pub.sendMessage("request_DelMajor", acad=name)
                 self.DB.entryconfigure(5, state=NORMAL)
                 t.destroy()
 
-            t.bind('<Destroy>', close)
-            self.DB.entryconfigure(5, state=DISABLED)
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
 
-            def deleteMajorButton():    # Delete the major from database
-                name = fnameE.get()
-                if name != "" and id != "":
-                    pub.sendMessage("request_DelMajor", acad=name)
-                    self.DB.entryconfigure(5, state=NORMAL)
-                    t.destroy()
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
-            nameFrame = Frame(t)
-            nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+        label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
+        fnameE = ttk.Entry(nameFrame, width=15)
+        fnameE.pack(side=LEFT)
 
-            butFrame = Frame(t)
-            butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
-
-            label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
-            fnameE = ttk.Entry(nameFrame, width=15)
-            fnameE.pack(side=LEFT)
-
-            searchB = Button(butFrame, text='Delete', command=deleteMajorButton)
-            searchB.pack()
+        searchB = Button(butFrame, text='Delete', command=deleteMajorButton)
+        searchB.pack()
 
     # Delete Minor in Update DB
     def delMinor(self):
@@ -1686,7 +1768,7 @@ class View:
         t.bind('<Destroy>', close)
         self.DB.entryconfigure(6, state=DISABLED)
 
-        def deleteMinorButton():    # Delete the minor from database
+        def deleteMinorButton():  # Delete the minor from database
             name = fnameE.get()
             if name != "" and id != "":
                 pub.sendMessage("request_DelMinor", acad=name)
@@ -1710,8 +1792,8 @@ class View:
     def DataBaseMenu(self):
         self.DB.add_command(label='Current Semester Course', command=self.openCSV)
         self.DB.add_separator()
-        self.DB.add_command(label='Add a Major/School', command=self.addMajor)
-        self.DB.add_command(label='Add a minor/School', command=self.addMinor)
+        self.DB.add_command(label='Edit/Add Major', command=self.addEditMajor)
+        self.DB.add_command(label='Edit/Add Minor', command=self.addEditMinor)
         self.DB.add_separator()
-        self.DB.add_command(label='Remove a Major', command=self.delMajor)
-        self.DB.add_command(label='Remove a Minor', command=self.delMinor)
+        self.DB.add_command(label='Delete Major', command=self.delMajor)
+        self.DB.add_command(label='Delete Minor', command=self.delMinor)
