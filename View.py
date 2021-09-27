@@ -243,8 +243,8 @@ class View:
         self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
 
         # Creating buttons for Progress Report placing with .grid() in FYP_addCourseButton
-        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=self.FYP_addCourseButton)
-        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=self.FYP_delCourseButton)
+        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=lambda: self.FYP_addCourseButton(self.mainwin))
+        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=lambda: self.FYP_delCourseButton(self.mainwin))
 
         # ============================ Add Semester Table Button ============================
         """
@@ -506,8 +506,8 @@ class View:
         while (self.tab_parent.index("end") != 1):  # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
-    def FYP_addCourseButton(self):
-        t = Toplevel(self.mainwin)
+    def FYP_addCourseButton(self, parentWindow):
+        t = Toplevel(parentWindow)
         t.wm_title("Search for Course")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
@@ -515,7 +515,7 @@ class View:
         t.transient(self.mainwin)
         selectedTreeView = self.mainwin.focus_get()
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
-        t.grab_set()
+        t.attributes('-topmost', 'true')
 
         def courseSearch(e):
             course = entry.get()
@@ -555,11 +555,13 @@ class View:
         addButton = Button(resultFrame, text="Add", command=addCourse)
         addButton.pack(side=BOTTOM, pady=5)
 
-    def FYP_delCourseButton(self):
+    def FYP_delCourseButton(self, parentWindow):
         selectedTreeView = self.mainwin.focus_get()
+
         for course in selectedTreeView.selection():
             msg = "Do you want to remove the selected course? (" + selectedTreeView.item(course)['values'][0] + ")"
             response = messagebox.askquestion("askquestion", msg)
+            parentWindow.lower()
             if response == 'yes':
                 selectedTreeView.delete(course)
 
@@ -1562,8 +1564,8 @@ class View:
         edtMjLbls = []
         edtMjTbls = []
 
-        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command= self.FYP_addCourseButton)
-        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=self.FYP_delCourseButton)
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.FYP_addCourseButton(self.editMajorWindow))
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.FYP_delCourseButton(self.editMajorWindow))
         addCourseBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=RIGHT)
 
