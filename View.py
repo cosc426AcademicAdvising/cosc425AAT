@@ -1016,7 +1016,7 @@ class View:
     def planningWorksheet_addCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Course")
-        t.geometry("450x125")
+        t.geometry("1080x720")
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
@@ -1028,58 +1028,153 @@ class View:
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
 
-        def courseSearch(e):
-            course = entry.get()
-            if len(course) > 7:
-                if len(course.split()[1]) == 3:
-                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
-                    self.resultVar.set(
-                        self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
-                        self.addCourseSearchResult[2] + " " * 3 +
-                        self.addCourseSearchResult[3])
-                else:
-                    self.resultVar.set("")
-            else:
-                self.resultVar.set("")
+        def check_course(event):
+            subject_type = self.subject_entry.get().upper()
+            catalog_type = self.catalog_entry.get()
+            title_type = self.title_entry.get().upper()
+            credit_type = self.credit_entry.get()
 
-        # adds searched course into the treeview
+            query = {'subject': subject_type, 'catalog': catalog_type, 'title': title_type, 'credit': credit_type}
+            response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
+            obj = response.json()
+
+            update_course_list(obj)
+
+        def update_course_list(data):
+            for i in self.course_tree.get_children():
+                self.course_tree.delete(i)
+
+            #self.course_tree.tag_configure('evenrow', background="grey")
+            #self.course_tree.tag_configure('oddrow', background="white")
+
+            for item in data:
+                self.course_tree.insert('', 'end',
+                                   values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
+
+        def fillout_fields(event):
+            self.subject_entry.delete(0, END)
+            self.catalog_entry.delete(0, END)
+            self.title_entry.delete(0, END)
+            self.credit_entry.delete(0, END)
+
+            course = self.course_tree.focus()
+            course_info = self.course_tree.item(course)['values']
+
+            self.subject_entry.insert(0, course_info[0])
+            self.catalog_entry.insert(0, course_info[1])
+            self.title_entry.insert(0, course_info[2])
+            self.credit_entry.insert(0, course_info[3])
+
+        def check_course(event):
+            subject_type = self.subject_entry.get().upper()
+            catalog_type = self.catalog_entry.get()
+            title_type = self.title_entry.get().upper()
+            credit_type = self.credit_entry.get()
+
+            query = {'subject': subject_type, 'catalog': catalog_type, 'title': title_type, 'credit': credit_type}
+            response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
+            obj = response.json()
+
+            update_course_list(obj)
+
         def addCourse():
+            subject_type = self.subject_entry.get().upper()
+            catalog_type = self.catalog_entry.get()
+            title_type = self.title_entry.get().upper()
+            credit_type = self.credit_entry.get()
             self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                   values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
-                                           self.addCourseSearchResult[2],
-                                           int(float(self.addCourseSearchResult[3])),
-                                           genEntry.get()))
+                                   values=(subject_type + " " + catalog_type,
+                                           title_type,
+                                           credit_type,
+                                           "Major"))
             self.courseTree_counter += 1
-            genEntry.delete(0, END)
 
             prevcred = self.enrollCredVar.get()
-            self.enrollCredVar.set(prevcred + int(float(self.addCourseSearchResult[3])))
+            self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
-        courseEntryFrame = Frame(t)
-        courseEntryFrame.pack(anchor=CENTER)
+        self.subject_frame = Frame(t, borderwidth=2)
+        self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
 
-        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
-        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
-        entry.pack(side=LEFT)
+        self.subject_label = Label(self.subject_frame, text="Enter a Subject",
+                              font=("Helvetica", 14), fg="black")
+        self.subject_label.pack(pady=15, anchor='n')
 
-        entry.bind('<KeyRelease>', courseSearch)  # for auto search
+        self.subject_example = Label(self.subject_frame, text="ex. COSC, cosc, C, Co, cos",
+                                font=("Helvetica", 10), fg="grey")
+        self.subject_example.pack(pady=0, anchor='n')
 
-        resultFrame = Frame(t)
-        resultFrame.pack(anchor=CENTER)
+        self.subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 14))
+        self.subject_entry.pack(pady=20, anchor='n')
 
-        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
-        resultEntry.pack(side=TOP)
+        self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
+                              font=("Helvetica", 14), fg="black")
+        self.catalog_label.pack(pady=15, anchor='n')
 
-        genedFrame = Frame(t)
-        genedFrame.pack(anchor=CENTER)
+        self.catalog_example = Label(self.subject_frame, text="ex. 123, 12, 1",
+                                font=("Helvetica", 10), fg="grey")
+        self.catalog_example.pack(pady=0, anchor='n')
 
-        l2 = Label(genedFrame, text="gen ed/elect:").pack(side=LEFT, anchor=NW)
+        self. catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 14))
+        self.catalog_entry.pack(pady=20, anchor='n')
 
-        genEntry = ttk.Entry(genedFrame)
-        genEntry.pack(side=TOP)
+        self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
+                            font=("Helvetica", 14), fg="black")
+        self.title_frame.pack(pady=15, anchor='n')
 
-        addButton = Button(genedFrame, text="Add", command=addCourse)
-        addButton.pack(side=TOP)
+        self.title_example = Label(self.subject_frame, text="ex. Computer Science I, computer sci",
+                              font=("Helvetica", 10), fg="grey")
+        self.title_example.pack(pady=0, anchor='n')
+
+        self.title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 14))
+        self.title_entry.pack(pady=20, anchor='n')
+
+        self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
+                             font=("Helvetica", 14), fg="black")
+        self.credit_frame.pack(pady=15, anchor='n')
+
+        self.credit_example = Label(self.subject_frame, text="ex. 4, 3.0, 2.00",
+                               font=("Helvetica", 10), fg="grey")
+        self.credit_example.pack(pady=0, anchor='n')
+
+        self.credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 14))
+        self.credit_entry.pack(pady=20, anchor='n')
+
+        self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
+        self.addButton.pack(side=TOP)
+
+        self.course_frame = Frame(t, borderwidth=2)
+        self.course_frame.pack(side=RIGHT, anchor='n', padx=10)
+
+        self.course_tree_scroll = Scrollbar(self.course_frame)
+        self.course_tree_scroll.pack(side=RIGHT, fill=Y)
+
+        self.course_tree = ttk.Treeview(self.course_frame, yscrollcommand=self.course_tree_scroll.set,
+                                   column=('sub', 'cat', 'title', 'cred'), show=['headings'], height=300)
+        self.course_tree.column('# 1', anchor=CENTER, width=80)
+        self.course_tree.heading('# 1', text="Subject")
+        self.course_tree.column('# 2', anchor=CENTER, width=80)
+        self.course_tree.heading('# 2', text="Catalog")
+        self.course_tree.column('# 3', anchor=CENTER, width=500)
+        self.course_tree.heading('# 3', text="Title")
+        self.course_tree.column('# 4', anchor=CENTER, width=80)
+        self.course_tree.heading('# 4', text="Credits")
+
+        self.course_tree.pack(pady=0)
+
+        self.course_tree_scroll.config(command=self.course_tree.yview)
+
+        query = {'subject': "", 'catalog': "", 'title': "", 'credit': ""}
+        response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
+        obj = response.json()
+        update_course_list(obj)
+
+        self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
+
+        self.subject_entry.bind("<KeyRelease>", check_course)
+        self.catalog_entry.bind("<KeyRelease>", check_course)
+        self.title_entry.bind("<KeyRelease>", check_course)
+        self.credit_entry.bind("<KeyRelease>", check_course)
+
 
     def planningWorksheet_delCourseButton(self):
         for course in self.courseTree.selection():
