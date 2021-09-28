@@ -55,7 +55,6 @@ class Model:
 
         return name_id
 
-
     def getAllStudentIds(self):
         id = []
         myCol = db.get_collection("Student")
@@ -137,11 +136,10 @@ class Model:
         return obj
 
     def mkPdf(self, id, path):
-        db = client['COSC425AAT']
-        stud = db["Student"]
-        fyp = db["FourYear"]
-        query = {"s_id": id}
-        curs = stud.find(query)
+        url = "https://cosc426restapi.herokuapp.com/api/Student/"
+        url = url + str(id)
+        response = requests.get(url, headers={'auth-token': token})
+        curs = response.json()
         data = []
         canvas = Canvas(path, pagesize=(612.0, 792.0))
         major = ''
@@ -322,6 +320,7 @@ class Model:
         for i in range(len(obj['major'])):
             majorFourList.append(self.getFourYear(majList[i]))
             policies.append(self.getPolicies(majList[i]))
+
         for i in range(len(obj['minor'])):
             minorFourList.append(self.getMinorPlanCourse(minList[i]))
             minorReqList.append(self.getMinorPlanReq(minList[i]))

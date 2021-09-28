@@ -53,6 +53,8 @@ class Controller:
         # Requesting the courses for a majors FYP
         pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
 
+        pub.subscribe(self.setPolicy, "request_Policy_to_Display")
+
     def getMajors(self):
         self.view.majors = self.model.listAllMajors().copy()
 
@@ -104,6 +106,17 @@ class Controller:
 
     def exportSchedule(self, id, fname):
         self.model.mkPdf(id, fname)
+
+    def setPolicy(self, policy):
+        if policy == []:
+            self.view.policy_to_display = "No University Policies Found For Selected Major"
+        else:
+            try:
+                policy[0]['policies']
+                self.view.policy_to_display = policy[0]['policies']
+            except:
+                policy[0]
+                self.view.policy_to_display = policy[0]
 
 if __name__=="__main__":
     root = Tk()

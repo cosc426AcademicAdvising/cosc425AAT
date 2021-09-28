@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import *
 from tkinter import ttk
+
 # import tkinter as tk
 # from ttkthemes import ThemedTk
 from pubsub import pub  # pip install PyPubSub
@@ -48,6 +49,8 @@ class View:
 
         self.winSumTable = []
         self.winSumLabel = []
+
+        self.policy_to_display = []
 
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
@@ -215,12 +218,8 @@ class View:
         idLabel = Label(nameIDFrame, text='ID Number:')
         idLabel.pack(side=RIGHT, expand=1)
 
-        # ============================ Policy Memo ============================
-        policyFrame = ttk.LabelFrame(self.innerLeftFrame, height=200, width=self.left_width, text='University Policy:')
-        policyFrame.pack(pady=30)
-
-        self.policyMemoEntry = Text(policyFrame, width=90, height=10)
-        self.policyMemoEntry.pack()
+        policy_button = Button(self.innerLeftFrame, text="University Policy", command=lambda: self.univ_policy_box())
+        policy_button.pack(pady=30)
 
         # ============================ Progress Report ============================
         # Creation of ttk.Notebook to add tabs to Academic Advising screen
@@ -256,6 +255,8 @@ class View:
         self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
                                                                         self.semLabel, self.semesterFrame, self.temp)
         """
+
+
 
     def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses,
                           courseHist, fourYear, minorFourYear, minorReqList, policies,
@@ -449,8 +450,8 @@ class View:
     def FYP_reset(self):
         self.FYPnameEntry.delete(0, END)
         self.id2Entry.delete(0, END)
-        self.policyMemoEntry.config(state=NORMAL)
-        self.policyMemoEntry.delete('1.0', 'end')
+        #self.policyMemoEntry.config(state=NORMAL)
+        #self.policyMemoEntry.delete('1.0', 'end')
         self.FYPnameEntry.config(state=NORMAL)
         self.id2Entry.config(state=NORMAL)
         for sem in self.progTable:  # Clear courses in treeviews under Progress Report tab
@@ -573,10 +574,7 @@ class View:
         if tab_text == "Progress Report":
             pass
         else:
-            self.policyMemoEntry.config(state=NORMAL)
-            self.policyMemoEntry.delete('1.0', 'end')
-            self.policyMemoEntry.insert('1.0', self.policies[tab_index - 1])
-            self.policyMemoEntry.config(state=DISABLED)
+            pub.sendMessage('request_Policy_to_Display', policy=self.policies[tab_index - 1])
 
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
@@ -1242,6 +1240,25 @@ class View:
             self.backupCourseTree_counter += 1
 
         self.courseTakenList_fill()
+
+    def univ_policy_box(self):
+        self.pop = Toplevel(self.innerLeftFrame)
+        self.pop.title("University Policies")
+        self.pop.geometry("720x360")
+        self.pop.config(bg="white")
+
+        # ============================ Policy Memo ============================
+        policyFrame = ttk.LabelFrame(self.pop, height=200, width=self.left_width,
+                                     text='University Policy:')
+        policyFrame.pack(pady=30)
+
+        self.policyMemoEntry = Text(policyFrame, width=90, height=10)
+        self.policyMemoEntry.pack()
+
+        self.policyMemoEntry.config(state=NORMAL)
+        self.policyMemoEntry.delete('1.0', 'end')
+        self.policyMemoEntry.insert('1.0', self.policy_to_display)
+        self.policyMemoEntry.config(state=DISABLED)
 
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
