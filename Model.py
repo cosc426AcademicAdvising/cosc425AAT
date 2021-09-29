@@ -618,22 +618,22 @@ class Model:
                 'maj': obj['major'][i]
             }
             requests.post(update_url, headers={'auth-token': token}, json=val)
+        if len(obj['major']) < Majtotal:
+            for i in range(len(obj['major']), Majtotal):
+                field1 = 'major.' + str(i) + ".title"
+                val = {
+                    'query': field1,
+                    's_id': obj['s_id'],
+                    'maj': 'null'
+                }
+                requests.post(update_url, headers={'auth-token': token}, json=val)
 
-        for i in range(len(obj['major']), Majtotal):
-            field1 = 'major.' + str(i) + ".title"
-            val = {
-                'query': field1,
-                's_id': obj['s_id'],
-                'maj': 'null'
-            }
-            requests.post(update_url, headers={'auth-token': token}, json=val)
-
-        pull_url = "https://cosc426restapi.herokuapp.com/api/Update/MajorPull"
-        for i in range(len(obj['major']), Majtotal):
-            val = {
-                's_id': obj['s_id']
-            }
-            requests.post(pull_url, headers={'auth-token': token}, json=val)
+            pull_url = "https://cosc426restapi.herokuapp.com/api/Update/MajorPull"
+            for i in range(len(obj['major']), Majtotal):
+                val = {
+                    's_id': obj['s_id']
+                }
+                requests.post(pull_url, headers={'auth-token': token}, json=val)
 
         update_url = "https://cosc426restapi.herokuapp.com/api/Update/MinorSet"
         for i in range(len(obj['minor'])):
@@ -671,10 +671,14 @@ class Model:
 
         update_url = "https://cosc426restapi.herokuapp.com/api/Update/CourseSet"
 
+        print(len(obj['taking_course']))
+
         # Iterate through each course a student plans to take and update the fields in the database
         for i in range(len(obj['taking_course'])):
 
             subcat = obj['taking_course'][i][0].split()
+            print(subcat[0])
+            print(subcat[1])
             field1 = "taking_course." + str(i) + ".subject"
             field2 = "taking_course." + str(i) + ".catalog"
             field3 = "taking_course." + str(i) + ".title"
