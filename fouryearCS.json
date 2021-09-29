@@ -1,0 +1,226 @@
+{
+  "name": "",
+  "email": "",
+  "id": "",
+  "date": "",
+  "policies": "• Refer to the SU catalog for approved prerequisites and General Education courses.\n• All graduates must have a minimum of 120 credits.\n• All graduates must have a minimum of 30 credits of 300/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n• Students must have a minimum cumulative GPA of 2.0 for graduation.\n• Students must complete at least 30 credit hours by direct classroom instruction and/or laboratory experience.\n• Students must take 30 of the last 37 credit hours at SU.\n• Bold courses are foundation courses and are required for courses later in the sequence.",
+  "four_year": [
+    {
+      "semester": "Year 1 Semester 1",
+      "subject": "COSC",
+      "catalog": "117",
+      "title": "Programming Fundamentals",
+      "cred": 4
+    },
+    {
+      "semester": "Year One Semester 1",
+      "subject": "MATH",
+      "catalog": "201",
+      "title": "Calulus I",
+      "cred": 4
+    },
+    {
+      "semester": "Year 1 Semester 1",
+      "subject": "ENGL",
+      "catalog": "103",
+      "title": "Composition and Reasearch",
+      "cred": 4
+    },
+    {
+      "semester": "Year 1 Semester 1",
+      "subject": "HIST",
+      "catalog": "10X",
+      "title": "GEN ED.IIA(HIST 101, 102, 103)",
+      "cred": 4
+    },
+    {
+      "semester": "Year 1 Semester 2",
+      "subject": "COSC",
+      "catalog": "120",
+      "title": "Computer Science I",
+      "cred": 4
+    },
+    {
+      "semester": "Year 1 Semester 2",
+      "subject": "MATH",
+      "catalog": "202",
+      "title": "Calulus II",
+      "cred": 4
+    },
+    {
+      "semester": "Year 1 Semester 2",
+      "subject": "ENGL",
+      "catalog": "XXX",
+      "title": "GEN ED. IB Literature Course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 1 Semester 2",
+      "subject": "HIST",
+      "catalog": "XXX",
+      "title": "GEN ED.IIB History Course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 1",
+      "subject": "COSC",
+      "catalog": "220",
+      "title": "Computer Science II",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 1",
+      "subject": "MATH",
+      "catalog": "210",
+      "title": "Introduction to Discrete Mathematics",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 1",
+      "subject": "IIIA",
+      "catalog": "",
+      "title": "GEN ED Humanities Course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 1",
+      "subject": "IVA",
+      "catalog": "",
+      "title": "GEN ED Lab Science Course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 2",
+      "subject": "COSC",
+      "catalog": "250",
+      "title": "MicroComputer Organization",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 2",
+      "subject": "COSC",
+      "catalog": "320",
+      "title": "Adv. Data Structures and Alg. Analysis",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 2",
+      "subject": "COSC",
+      "catalog": "362",
+      "title": "Theory of Computation",
+      "cred": 4
+    },
+    {
+      "semester": "Year 2 Semester 2",
+      "subject": "FTWL",
+      "catalog": "106",
+      "title": "Lifelong Fitness and Wellness",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 1",
+      "subject": "COSC",
+      "catalog": "386",
+      "title": "Database Design and Implementation",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 1",
+      "subject": "MATH",
+      "catalog": "306",
+      "title": "Linear Algebra",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 1",
+      "subject": "IVA",
+      "catalog": "",
+      "title": "GEN ED. Lab Science Course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 1",
+      "subject": "COSC",
+      "catalog": "XXX",
+      "title": "Upper Level COSC Elective",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 2",
+      "subject": "IIIB",
+      "catalog": "",
+      "title": "GEN ED. Social Science Course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 2",
+      "subject": "IIIC",
+      "catalog": "",
+      "title": "GEN ED. Social Science/Humanities course",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 2",
+      "subject": "COSC",
+      "catalog": "XXX",
+      "title": "Upper Level COSC elective*(2 of 3)",
+      "cred": 4
+    },
+    {
+      "semester": "Year 3 Semester 2",
+      "subject": "COSC",
+      "catalog": "XXX",
+      "title": "Upper Level COSC elective*(3 of 3)",
+      "cred": 4
+    },
+        {
+      "semester": "Year 4 Semester 1",
+      "subject": "COSC",
+      "catalog": "425",
+      "title": "Software Engineering",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 1",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 1",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "COSC",
+      "catalog": "426",
+      "title": "Software Engineering II",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "COSC",
+      "catalog": "450",
+      "title": "Operating Systems",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    },
+    {
+      "semester": "Year 4 Semester 2",
+      "subject": "Elective",
+      "catalog": "",
+      "title": "Needed for 120 Credits",
+      "cred": 4
+    }
+  ]
+}
