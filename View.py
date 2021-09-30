@@ -51,6 +51,7 @@ class View:
         self.winSumLabel = []
 
         self.policy_to_display = []
+        self.memo_to_display = ""
 
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
@@ -695,11 +696,18 @@ class View:
         # ============================ title ============================
         ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
-        ProgPlanTitle.grid(row=0, column=0, columnspan=4, pady=20)
+        ProgPlanTitle.grid(row=1, column=0, columnspan=4, pady=10, sticky='nesw')
+
+        # ====================== memo ========================
+
+        memo_frame = Frame(self.rightFrame)
+        memo_frame.grid(row=0, column=0, sticky='w', padx=3, pady=2)
+        memoButton = Button(memo_frame, text="Memo", command=lambda: self.memoBoxOpen())
+        memoButton.pack()
 
         # ============================ student name ============================
         nameFrame = Frame(self.rightFrame)
-        nameFrame.grid(row=2, column=0, columnspan=2, pady=pad)
+        nameFrame.grid(row=2, column=0, columnspan=2, pady=pad, padx=50, sticky='w')
 
         nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
@@ -709,7 +717,7 @@ class View:
 
         # ============================ student id ============================
         idFrame = Frame(self.rightFrame)
-        idFrame.grid(row=2, column=2, columnspan=2, pady=pad)
+        idFrame.grid(row=2, column=2, columnspan=2, pady=pad, padx=80, sticky='e')
 
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
@@ -719,7 +727,7 @@ class View:
 
         # ============================ season ============================
         seasonFrame = Frame(self.rightFrame)
-        seasonFrame.grid(row=4, column=0, columnspan=4, pady=pad)
+        seasonFrame.grid(row=3, column=0, columnspan=4, pady=pad, padx=65, sticky='nesw')
 
         self.seasonVar = StringVar()
 
@@ -737,11 +745,11 @@ class View:
 
         # ============================ major & minor ============================
         careerFrame = Frame(self.rightFrame)
-        careerFrame.grid(row=6, column=0, columnspan=4, pady=pad)
+        careerFrame.grid(row=4, column=0, columnspan=4, pady=pad)
 
         self.majorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
         self.majorTree.pack(side=LEFT, padx=30)
-        self.majorTree.column("#0", width=150)
+        self.majorTree.column("#0", width=150, anchor=CENTER)
         self.majorTree.heading("#0", text="Majors")
 
         self.editCareerButton = ttk.Button(careerFrame, text="Add/Remove", command=self.editMajorMinor)
@@ -749,12 +757,12 @@ class View:
 
         self.minorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
         self.minorTree.pack(side=RIGHT, padx=30)
-        self.minorTree.column("#0", width=150)
+        self.minorTree.column("#0", width=150, anchor=CENTER)
         self.minorTree.heading("#0", text="Minors")
 
         # ============================ credits ============================
         credFrame = Frame(self.rightFrame)
-        credFrame.grid(row=8, column=0, columnspan=4, pady=pad)
+        credFrame.grid(row=5, column=0, columnspan=4, pady=pad, padx=90, sticky='nesw')
 
         credFrameL = Frame(credFrame)
         credFrameL.pack(side=LEFT, padx=15)
@@ -781,7 +789,7 @@ class View:
 
         # ====================== Enrollment Date ========================
         enrlDateFrame = ttk.Frame(self.rightFrame)
-        enrlDateFrame.grid(row=10, column=0, columnspan=4, pady=pad)
+        enrlDateFrame.grid(row=6, column=0, columnspan=4, pady=pad, padx=200, sticky='nesw')
 
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
@@ -791,7 +799,7 @@ class View:
 
         # ============================ Course table ============================
         courseTableFrame = Frame(self.rightFrame)
-        courseTableFrame.grid(row=12, column=0, columnspan=4, pady=pad)
+        courseTableFrame.grid(row=7, column=0, columnspan=4, pady=pad, sticky='nesw')
 
         self.courseTree = ttk.Treeview(courseTableFrame, height=7, style="mystyle.Treeview")
         # height is number of rows
@@ -801,18 +809,18 @@ class View:
 
         self.courseTree.column("#0", width=0, stretch=NO)  # important
         self.courseTree.column("course#", anchor=CENTER, width=90)  # anchor for the data in the column
-        self.courseTree.column("title", anchor=CENTER, width=295)
-        self.courseTree.column("cred", anchor=CENTER, width=35)
-        self.courseTree.column("gen/elect", anchor=CENTER, width=100)
+        self.courseTree.column("title", anchor=CENTER, width=250)
+        self.courseTree.column("cred", anchor=CENTER, width=40)
+        self.courseTree.column("gen/elect", anchor=CENTER, width=90)
 
         self.courseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.courseTree.heading("title", text='Title', anchor=CENTER)
         self.courseTree.heading("cred", text='CR', anchor=CENTER)
-        self.courseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
+        self.courseTree.heading("gen/elect", text='REQ', anchor=CENTER)
 
         # ===================== backup course ===================
         backupCourseFrame = Frame(self.rightFrame)
-        backupCourseFrame.grid(row=14, column=0, columnspan=4, pady=pad)
+        backupCourseFrame.grid(row=9, column=0, columnspan=4, pady=pad, sticky='nesw')
 
         backuplabel = Label(backupCourseFrame, text="Back-up Courses").pack(anchor=CENTER)
 
@@ -823,25 +831,21 @@ class View:
 
         self.backupCourseTree.column("#0", width=0, stretch=NO)
         self.backupCourseTree.column("course#", anchor=CENTER, width=90)
-        self.backupCourseTree.column("title", anchor=CENTER, width=295)
-        self.backupCourseTree.column("cred", anchor=CENTER, width=35)
-        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=100)
+        self.backupCourseTree.column("title", anchor=CENTER, width=250)
+        self.backupCourseTree.column("cred", anchor=CENTER, width=40)
+        self.backupCourseTree.column("gen/elect", anchor=CENTER, width=90)
 
         self.backupCourseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
         self.backupCourseTree.heading("title", text='Title', anchor=CENTER)
         self.backupCourseTree.heading("cred", text='CR', anchor=CENTER)
         self.backupCourseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
-        # ====================== memo ========================
-        memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
-        memoFrame.grid(row=16, column=0, columnspan=4, pady=pad)
 
-        self.memoEntry = Text(memoFrame, width=50, height=5)
-        self.memoEntry.pack()
+
 
         # ===================== add remove course ==================
         coursebuttonFrame = Frame(self.rightFrame)
-        coursebuttonFrame.grid(row=13, column=0, columnspan=4)
+        coursebuttonFrame.grid(row=8, column=0, columnspan=4)
 
         self.addCourseButton = ttk.Button(coursebuttonFrame, text="Add", command=self.planningWorksheet_addCourseButton)
         self.addCourseButton.pack(side=LEFT)
@@ -851,7 +855,7 @@ class View:
 
         # backup course
         bcoursebuttonFrame = Frame(self.rightFrame)
-        bcoursebuttonFrame.grid(row=15, column=0, columnspan=4)
+        bcoursebuttonFrame.grid(row=10, column=0, columnspan=4)
 
         self.addBackupButton = ttk.Button(bcoursebuttonFrame, text="Add",
                                           command=self.planningWorksheet_addBackupCourseButton)
@@ -1373,7 +1377,6 @@ class View:
         self.earnCredEntry['state'] = 'readonly'
 
         self.enrlDateEntry.delete(0, END)
-        self.memoEntry.delete('1.0', 'end')
 
         for course in self.courseTree.get_children():
             self.courseTree.delete(course)
@@ -1412,7 +1415,7 @@ class View:
         self.enrollCredVar.set(tcred)
 
         self.enrlDateEntry.insert(END, obj['enrll'])
-        self.memoEntry.insert('1.0', obj['memo'])
+        pub.sendMessage("request_Memo_to_Display", memo=obj['memo'])
 
         for c in courses:
             self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
@@ -1425,6 +1428,21 @@ class View:
             self.backupCourseTree_counter += 1
 
         self.courseTakenList_fill()
+
+    def memoBoxOpen(self):
+        self.pop = Toplevel(self.rightFrame)
+        self.pop.title("Student Memo")
+        self.pop.geometry("490x150")
+        self.pop.config(bg="white")
+
+        memoFrame = ttk.LabelFrame(self.pop, text='Memo:')
+        memoFrame.grid(row=16, column=0, columnspan=4, pady=10)
+
+        self.memoEntry = Text(memoFrame, width=60, height=7)
+        self.memoEntry.pack()
+
+        self.memoEntry.delete('1.0', 'end')
+        self.memoEntry.insert('1.0', self.memo_to_display)
 
     def univ_policy_box(self):
         self.pop = Toplevel(self.innerLeftFrame)
