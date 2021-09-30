@@ -54,7 +54,6 @@ class Controller:
         pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
 
         pub.subscribe(self.setPolicy, "request_Policy_to_Display")
-        pub.subscribe(self.setMemo, "request_Memo_to_Display")
 
     def getMajors(self):
         self.view.majors = self.model.listAllMajors().copy()
@@ -118,12 +117,6 @@ class Controller:
             except:
                 policy[0]
                 self.view.policy_to_display = policy[0]
-
-    def setMemo(self, memo):
-        if memo == "":
-            self.view.memo_to_display = "No memo from student"
-        else:
-            self.view.memo_to_display = memo
 
 if __name__=="__main__":
     root = Tk()
