@@ -50,7 +50,10 @@ class View:
         self.winSumTable = []
         self.winSumLabel = []
 
+        self.backup_course_regex_list = {}
+        self.course_regex_list = {}
         self.policy_to_display = []
+        # self.memo_to_display = ""
 
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
@@ -453,8 +456,6 @@ class View:
     def FYP_reset(self):
         self.FYPnameEntry.delete(0, END)
         self.id2Entry.delete(0, END)
-        #self.policyMemoEntry.config(state=NORMAL)
-        #self.policyMemoEntry.delete('1.0', 'end')
         self.FYPnameEntry.config(state=NORMAL)
         self.id2Entry.config(state=NORMAL)
         for sem in self.progTable:  # Clear courses in treeviews under Progress Report tab
@@ -839,6 +840,11 @@ class View:
         self.memoEntry = Text(memoFrame, width=50, height=5)
         self.memoEntry.pack()
 
+        # memo_frame = Frame(self.rightFrame)
+        # memo_frame.grid(row=0, column=0, sticky='w', padx=3, pady=2)
+        # memoButton = Button(memo_frame, text="Memo", command=lambda: self.memoBoxOpen())
+        # memoButton.pack()
+
         # ===================== add remove course ==================
         coursebuttonFrame = Frame(self.rightFrame)
         coursebuttonFrame.grid(row=13, column=0, columnspan=4)
@@ -1032,18 +1038,6 @@ class View:
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
 
-        def check_course(event):
-            subject_type = self.subject_entry.get().upper()
-            catalog_type = self.catalog_entry.get()
-            title_type = self.title_entry.get().upper()
-            credit_type = self.credit_entry.get()
-
-            query = {'subject': subject_type, 'catalog': catalog_type, 'title': title_type, 'credit': credit_type}
-            response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
-            obj = response.json()
-
-            update_course_list(obj)
-
         def update_course_list(data):
             for i in self.course_tree.get_children():
                 self.course_tree.delete(i)
@@ -1056,37 +1050,34 @@ class View:
                                    values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
 
         def fillout_fields(event):
-            self.subject_entry.delete(0, END)
-            self.catalog_entry.delete(0, END)
-            self.title_entry.delete(0, END)
-            self.credit_entry.delete(0, END)
+            subject_entry.delete(0, END)
+            catalog_entry.delete(0, END)
+            title_entry.delete(0, END)
+            credit_entry.delete(0, END)
 
             course = self.course_tree.focus()
             course_info = self.course_tree.item(course)['values']
 
-            self.subject_entry.insert(0, course_info[0])
-            self.catalog_entry.insert(0, course_info[1])
-            self.title_entry.insert(0, course_info[2])
-            self.credit_entry.insert(0, course_info[3])
+            subject_entry.insert(0, course_info[0])
+            catalog_entry.insert(0, course_info[1])
+            title_entry.insert(0, course_info[2])
+            credit_entry.insert(0, course_info[3])
 
         def check_course(event):
-            subject_type = self.subject_entry.get().upper()
-            catalog_type = self.catalog_entry.get()
-            title_type = self.title_entry.get().upper()
-            credit_type = self.credit_entry.get()
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
 
-            query = {'subject': subject_type, 'catalog': catalog_type, 'title': title_type, 'credit': credit_type}
-            response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
-            obj = response.json()
-
-            update_course_list(obj)
+            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type, cred=credit_type)
+            update_course_list(self.course_regex_list)
 
         # adds searched course into the treeview
         def addCourse():
-            subject_type = self.subject_entry.get().upper()
-            catalog_type = self.catalog_entry.get()
-            title_type = self.title_entry.get().upper()
-            credit_type = self.credit_entry.get()
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
             self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
                                    values=(subject_type + " " + catalog_type,
                                            title_type,
@@ -1108,8 +1099,8 @@ class View:
                                      font=("Helvetica", 8), fg="grey")
         self.subject_example.pack(pady=0, anchor='n')
 
-        self.subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.subject_entry.pack(pady=10, anchor='n')
+        subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        subject_entry.pack(pady=10, anchor='n')
 
         self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
                                    font=("Helvetica", 8), fg="black")
@@ -1119,8 +1110,8 @@ class View:
                                      font=("Helvetica", 8), fg="grey")
         self.catalog_example.pack(pady=0, anchor='n')
 
-        self.catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.catalog_entry.pack(pady=10, anchor='n')
+        catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        catalog_entry.pack(pady=10, anchor='n')
 
         self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
                                  font=("Helvetica", 10), fg="black")
@@ -1130,8 +1121,8 @@ class View:
                                    font=("Helvetica", 8), fg="grey")
         self.title_example.pack(pady=0, anchor='n')
 
-        self.title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.title_entry.pack(pady=10, anchor='n')
+        title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        title_entry.pack(pady=10, anchor='n')
 
         self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
                                   font=("Helvetica", 10), fg="black")
@@ -1141,8 +1132,8 @@ class View:
                                     font=("Helvetica", 8), fg="grey")
         self.credit_example.pack(pady=0, anchor='n')
 
-        self.credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.credit_entry.pack(pady=10, anchor='n')
+        credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        credit_entry.pack(pady=10, anchor='n')
 
 
         self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
@@ -1169,16 +1160,14 @@ class View:
         self.course_tree.pack(pady=0)
         self.course_tree_scroll.config(command=self.course_tree.yview)
 
-        query = {'subject': "", 'catalog': "", 'title': "", 'credit': ""}
-        response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
-        obj = response.json()
-        update_course_list(obj)
+        pub.sendMessage("request_Course_by_Regex", sub="", cat="", title="", cred="")
+        update_course_list(self.course_regex_list)
 
         self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
-        self.subject_entry.bind("<KeyRelease>", check_course)
-        self.catalog_entry.bind("<KeyRelease>", check_course)
-        self.title_entry.bind("<KeyRelease>", check_course)
-        self.credit_entry.bind("<KeyRelease>", check_course)
+        subject_entry.bind("<KeyRelease>", check_course)
+        catalog_entry.bind("<KeyRelease>", check_course)
+        title_entry.bind("<KeyRelease>", check_course)
+        credit_entry.bind("<KeyRelease>", check_course)
 
 
     def planningWorksheet_delCourseButton(self):
@@ -1220,37 +1209,36 @@ class View:
                                         item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
 
         def fillout_fields(event):
-            self.subject_entry.delete(0, END)
-            self.catalog_entry.delete(0, END)
-            self.title_entry.delete(0, END)
-            self.credit_entry.delete(0, END)
+            subject_entry.delete(0, END)
+            catalog_entry.delete(0, END)
+            title_entry.delete(0, END)
+            credit_entry.delete(0, END)
 
             course = self.backup_addCourseTree.focus()
             course_info = self.backup_addCourseTree.item(course)['values']
 
-            self.subject_entry.insert(0, course_info[0])
-            self.catalog_entry.insert(0, course_info[1])
-            self.title_entry.insert(0, course_info[2])
-            self.credit_entry.insert(0, course_info[3])
+            subject_entry.insert(0, course_info[0])
+            catalog_entry.insert(0, course_info[1])
+            title_entry.insert(0, course_info[2])
+            credit_entry.insert(0, course_info[3])
 
         def check_course(event):
-            subject_type = self.subject_entry.get().upper()
-            catalog_type = self.catalog_entry.get()
-            title_type = self.title_entry.get().upper()
-            credit_type = self.credit_entry.get()
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
 
-            query = {'subject': subject_type, 'catalog': catalog_type, 'title': title_type, 'credit': credit_type}
-            response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
-            obj = response.json()
+            pub.sendMessage("request_Backup_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type,
+                            cred=credit_type)
 
-            backup_update_course_list(obj)
+            backup_update_course_list(self.backup_course_regex_list)
 
         # adds searched course into the treeview
         def backup_addCourse():
-            subject_type = self.subject_entry.get().upper()
-            catalog_type = self.catalog_entry.get()
-            title_type = self.title_entry.get().upper()
-            credit_type = self.credit_entry.get()
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
             print(subject_type)
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
                                    values=(subject_type + " " + catalog_type,
@@ -1273,8 +1261,8 @@ class View:
                                      font=("Helvetica", 8), fg="grey")
         self.subject_example.pack(pady=0, anchor='n')
 
-        self.subject_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.subject_entry.pack(pady=10, anchor='n')
+        subject_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        subject_entry.pack(pady=10, anchor='n')
 
         self.catalog_label = Label(self.backup_subject_frame, text="Enter a Catalog Number",
                                    font=("Helvetica", 8), fg="black")
@@ -1284,8 +1272,8 @@ class View:
                                      font=("Helvetica", 8), fg="grey")
         self.catalog_example.pack(pady=0, anchor='n')
 
-        self.catalog_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.catalog_entry.pack(pady=10, anchor='n')
+        catalog_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        catalog_entry.pack(pady=10, anchor='n')
 
         self.title_frame = Label(self.backup_subject_frame, text="Enter a Course Title",
                                  font=("Helvetica", 10), fg="black")
@@ -1295,8 +1283,8 @@ class View:
                                    font=("Helvetica", 8), fg="grey")
         self.title_example.pack(pady=0, anchor='n')
 
-        self.title_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.title_entry.pack(pady=10, anchor='n')
+        title_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        title_entry.pack(pady=10, anchor='n')
 
         self.credit_frame = Label(self.backup_subject_frame, text="Enter a Credit Amount",
                                   font=("Helvetica", 10), fg="black")
@@ -1306,8 +1294,8 @@ class View:
                                     font=("Helvetica", 8), fg="grey")
         self.credit_example.pack(pady=0, anchor='n')
 
-        self.credit_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        self.credit_entry.pack(pady=10, anchor='n')
+        credit_entry = Entry(self.backup_subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        credit_entry.pack(pady=10, anchor='n')
 
         self.addButton = Button(self.backup_subject_frame, text="Add", command=backup_addCourse)
         self.addButton.pack(side=TOP)
@@ -1332,16 +1320,15 @@ class View:
         self.backup_addCourseTree.pack(pady=0)
         self.backup_course_tree_scroll.config(command=self.backup_addCourseTree.yview)
 
-        query = {'subject': "", 'catalog': "", 'title': "", 'credit': ""}
-        response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex", json=query)
-        obj = response.json()
-        backup_update_course_list(obj)
+        pub.sendMessage("request_Backup_Course_by_Regex", sub="", cat="", title="",
+                        cred="")
+        backup_update_course_list(self.backup_course_regex_list)
 
         self.backup_addCourseTree.bind("<ButtonRelease-1>", fillout_fields)
-        self.subject_entry.bind("<KeyRelease>", check_course)
-        self.catalog_entry.bind("<KeyRelease>", check_course)
-        self.title_entry.bind("<KeyRelease>", check_course)
-        self.credit_entry.bind("<KeyRelease>", check_course)
+        subject_entry.bind("<KeyRelease>", check_course)
+        catalog_entry.bind("<KeyRelease>", check_course)
+        title_entry.bind("<KeyRelease>", check_course)
+        credit_entry.bind("<KeyRelease>", check_course)
 
     def planningWorksheet_delBackupCourseButton(self):
         for course in self.backupCourseTree.selection():
@@ -1425,6 +1412,21 @@ class View:
             self.backupCourseTree_counter += 1
 
         self.courseTakenList_fill()
+
+    # def memoBoxOpen(self):
+    #     self.pop = Toplevel(self.rightFrame)
+    #     self.pop.title("Student Memo")
+    #     self.pop.geometry("490x150")
+    #     self.pop.config(bg="white")
+    #
+    #     memoFrame = ttk.LabelFrame(self.pop, text='Memo:')
+    #     memoFrame.grid(row=16, column=0, columnspan=4, pady=10)
+    #
+    #     self.memoEntry = Text(memoFrame, width=60, height=7)
+    #     self.memoEntry.pack()
+    #
+    #     self.memoEntry.delete('1.0', 'end')
+    #     self.memoEntry.insert('1.0', self.memo_to_display)
 
     def univ_policy_box(self):
         self.pop = Toplevel(self.innerLeftFrame)

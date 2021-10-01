@@ -53,7 +53,10 @@ class Controller:
         # Requesting the courses for a majors FYP
         pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
 
+        # pub.subscribe(self.setMemo, "request_Memo_to_Display")
         pub.subscribe(self.setPolicy, "request_Policy_to_Display")
+        pub.subscribe(self.getCourseListbyRegex, "request_Course_by_Regex")
+        pub.subscribe(self.getBackupCourseListbyRegex, "request_Backup_Course_by_Regex")
 
     def getMajors(self):
         self.view.majors = self.model.listAllMajors().copy()
@@ -106,6 +109,18 @@ class Controller:
 
     def exportSchedule(self, id, fname):
         self.model.mkPdf(id, fname)
+
+    def getCourseListbyRegex(self, sub, cat, title, cred):
+        self.view.course_regex_list = self.model.getCoursebyRegex(sub, cat, title, cred)
+
+    def getBackupCourseListbyRegex(self, sub, cat, title, cred):
+        self.view.backup_course_regex_list = self.model.getCoursebyRegex(sub, cat, title, cred)
+
+    # def setMemo(self, memo):
+    #     if memo == "":
+    #         self.view.memo_to_display = "No memo from student"
+    #     else:
+    #         self.view.memo_to_display = memo
 
     def setPolicy(self, policy):
         if policy == []:

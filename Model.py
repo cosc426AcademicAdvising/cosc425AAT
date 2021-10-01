@@ -55,6 +55,13 @@ class Model:
 
         return name_id
 
+    def getCoursebyRegex(self, sub, cat, title, cred):
+        query = {'subject': sub, 'catalog': cat, 'title': title, 'credit': cred}
+        response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex",
+                                 headers={'auth-token': token}, json=query)
+        obj = response.json()
+        return obj
+
     def getAllStudentIds(self):
         id = []
         myCol = db.get_collection("Student")
