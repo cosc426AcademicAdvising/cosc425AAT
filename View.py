@@ -357,7 +357,7 @@ class View:
             self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
             policy_button = Button(self.minorFrames[i], text="University Policy",
                                    command=lambda: self.univ_policy_box())
-            policy_button.grid(column=0, row=0, sticky=E, padx=10)
+            policy_button.grid(column=0, row=0, columnspan=2, sticky=W, padx=305)
 
         majorIndex = 0
         for majors in fourYear:  # Filling semesters for each major tab
@@ -640,17 +640,17 @@ class View:
             tables[i].heading("cred", text='CR', anchor=CENTER)
 
             if i < len(tables):
-                labels.append(Label(frame, font=('Helvetica', 14)))
+                labels.append(Label(frame, font=('Helvetica', 12)))
 
             # grid labels
             row = 0
             for i in range(len(tables)):
                 if i % 2 == 0:
-                    tables[i].grid(column=0, row=row + 1)
-                    labels[i].grid(column=0, row=row, columnspan=2, sticky=W, padx=5)
+                    tables[i].grid(column=0, row=row + 2)
+                    labels[i].grid(column=0, row=row + 1, columnspan=2, sticky=W, padx=5)
                 else:
-                    tables[i].grid(column=1, row=row + 1)
-                    labels[i].grid(column=1, row=row, columnspan=2, sticky=E, padx=5)
+                    tables[i].grid(column=1, row=row + 2)
+                    labels[i].grid(column=1, row=row + 1, columnspan=2, sticky=E, padx=5)
                     row += 2
 
     # Creates a table of treeviews for tabs in Academic Advising
