@@ -1084,6 +1084,7 @@ class View:
             for each in tree_values:
                 if title_type == self.courseTree.item(each)['values'][1]:
                     inTree = TRUE
+                    messagebox.showinfo(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
 
             if not inTree:
                 self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
@@ -1092,9 +1093,9 @@ class View:
                                                credit_type,
                                                "Major"))
 
-            prevcred = self.enrollCredVar.get()
-            self.courseTree_counter += 1
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+                prevcred = self.enrollCredVar.get()
+                self.courseTree_counter += 1
+                self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.subject_frame = Frame(t, borderwidth=2)
         self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1265,11 +1266,11 @@ class View:
             credit_type = credit_entry.get()
 
             inTree = FALSE
-            tree_values = self.courseTree.get_children()
+            tree_values = self.backupCourseTree.get_children()
             for each in tree_values:
-                if title_type == self.courseTree.item(each)['values'][1]:
+                if title_type == self.backupCourseTree.item(each)['values'][1]:
                     inTree = TRUE
-
+                    messagebox.showinfo(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
             if not inTree:
                 self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
                                        values=(subject_type + " " + catalog_type,
@@ -1277,9 +1278,9 @@ class View:
                                                credit_type,
                                                "Major"))
 
-            prevcred = self.enrollCredVar.get()
-            self.backupCourseTree_counter += 1
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+                prevcred = self.enrollCredVar.get()
+                self.backupCourseTree_counter += 1
+                self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.backup_subject_frame = Frame(t, borderwidth=2)
         self.backup_subject_frame.pack(side=LEFT, anchor='n', padx=10)
