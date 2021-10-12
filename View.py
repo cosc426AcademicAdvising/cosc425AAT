@@ -1084,7 +1084,7 @@ class View:
             for each in tree_values:
                 if title_type == self.courseTree.item(each)['values'][1]:
                     inTree = TRUE
-                    messagebox.showinfo(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                    messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
 
             if not inTree:
                 self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
@@ -1270,7 +1270,7 @@ class View:
             for each in tree_values:
                 if title_type == self.backupCourseTree.item(each)['values'][1]:
                     inTree = TRUE
-                    messagebox.showinfo(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                    messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
             if not inTree:
                 self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
                                        values=(subject_type + " " + catalog_type,
