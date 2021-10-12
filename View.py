@@ -1078,11 +1078,19 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                   values=(subject_type + " " + catalog_type,
-                                           title_type,
-                                           credit_type,
-                                           "Major"))
+
+            inTree = FALSE
+            tree_values = self.courseTree.get_children()
+            for each in tree_values:
+                if title_type == self.courseTree.item(each)['values'][1]:
+                    inTree = TRUE
+
+            if not inTree:
+                self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                       values=(subject_type + " " + catalog_type,
+                                               title_type,
+                                               credit_type,
+                                               "Major"))
 
             prevcred = self.enrollCredVar.get()
             self.courseTree_counter += 1
@@ -1171,15 +1179,31 @@ class View:
 
 
     def planningWorksheet_delCourseButton(self):
-        for course in self.courseTree.selection():
-            msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
+        if len(self.courseTree.selection()) == 1:
+            for course in self.courseTree.selection():
+                msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
+                response = messagebox.askquestion("askquestion", msg)
+                if response == 'yes':
+                    prevcred = self.enrollCredVar.get()
+                    self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
+
+                    self.courseTree.delete(course)
+                    self.courseTree_counter -= 1
+
+        elif len(self.courseTree.selection()) > 1:
+            courses = []
+            msg = "Do you want to remove the selected course? ("
+            for course in self.courseTree.selection():
+                msg = msg + self.courseTree.item(course)['values'][0] + " ,"
+            msg = msg + ")"
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
-                prevcred = self.enrollCredVar.get()
-                self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
+                for course in self.courseTree.selection():
+                    prevcred = self.enrollCredVar.get()
+                    self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
 
-                self.courseTree.delete(course)
-                self.courseTree_counter -= 1
+                    self.courseTree.delete(course)
+                    self.courseTree_counter -= 1
 
     def planningWorksheet_addBackupCourseButton(self):
         t = Toplevel(self.mainwin)
@@ -1239,12 +1263,19 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            print(subject_type)
-            self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
-                                   values=(subject_type + " " + catalog_type,
-                                           title_type,
-                                           credit_type,
-                                           "Major"))
+
+            inTree = FALSE
+            tree_values = self.courseTree.get_children()
+            for each in tree_values:
+                if title_type == self.courseTree.item(each)['values'][1]:
+                    inTree = TRUE
+
+            if not inTree:
+                self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
+                                       values=(subject_type + " " + catalog_type,
+                                               title_type,
+                                               credit_type,
+                                               "Major"))
 
             prevcred = self.enrollCredVar.get()
             self.backupCourseTree_counter += 1
@@ -1331,13 +1362,31 @@ class View:
         credit_entry.bind("<KeyRelease>", check_course)
 
     def planningWorksheet_delBackupCourseButton(self):
-        for course in self.backupCourseTree.selection():
-            msg = "Do you want to remove the selected backup course? (" + self.backupCourseTree.item(course)['values'][
-                0] + ")"
+        if len(self.backupCourseTree.selection()) == 1:
+            for course in self.backupCourseTree.selection():
+                msg = "Do you want to remove the selected course? (" + self.backupCourseTree.item(course)['values'][0] + ")"
+                response = messagebox.askquestion("askquestion", msg)
+                if response == 'yes':
+                    prevcred = self.enrollCredVar.get()
+                    self.enrollCredVar.set(prevcred - int(float(self.backupCourseTree.item(course)['values'][2])))
+
+                    self.backupCourseTree.delete(course)
+                    self.backupCourseTree_counter -= 1
+
+        elif len(self.backupCourseTree.selection()) > 1:
+            courses = []
+            msg = "Do you want to remove the selected course? ("
+            for course in self.backupCourseTree.selection():
+                msg = msg + self.backupCourseTree.item(course)['values'][0] + " ,"
+            msg = msg + ")"
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
-                self.backupCourseTree.delete(course)
-                self.backupCourseTree_counter -= 1
+                for course in self.backupCourseTree.selection():
+                    prevcred = self.enrollCredVar.get()
+                    self.enrollCredVar.set(prevcred - int(float(self.backupCourseTree.item(course)['values'][2])))
+
+                    self.backupCourseTree.delete(course)
+                    self.backupCourseTree_counter -= 1
 
     # clears every widget
     def planningWorksheet_reset(self):
