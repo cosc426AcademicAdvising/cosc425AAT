@@ -1641,10 +1641,12 @@ class View:
         t.geometry("440x350")
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
+        t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def openScheduleSearchButton(e):
-            if self.studentBox.curselection() != "":
+            try:
+                self.studentBox.curselection()
                 selectedStudent = self.studentBox.get(self.studentBox.curselection())
                 selectedStudentSplit = selectedStudent.split()
 
@@ -1668,6 +1670,8 @@ class View:
                     self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
                     self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
 
+            except (TclError):
+                messagebox.showinfo(parent=t, title="Invalid Input", message="Error: Unable to Search for Blank Fields")
 
         def filtr(e):
             chars1 = fname.get()
