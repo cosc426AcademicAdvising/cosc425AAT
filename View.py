@@ -1671,7 +1671,21 @@ class View:
                     self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
 
             except (TclError):
-                messagebox.showinfo(parent=t, title="Invalid Input", message="Error: Unable to Search for Blank Fields")
+                w = Toplevel(t)
+                w.wm_title("Invalid Input")
+                w.geometry("330x120")
+                w.resizable(width=0, height=0)
+                w.attributes('-topmost', 'true')
+                self.mainwin.eval(f'tk::PlaceWindow {str(w)} center')
+                w.grab_set()
+                top = Frame(w, bg='White')
+                top.pack(side="top", expand=TRUE, fill=BOTH)
+                msg = Label(top, text="Error: Search Fields Cannot Be Blank", bg="White", font=('Helvetica', 9))
+                msg.pack(anchor='n', pady=20)
+                bottom = Frame(w)
+                bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
+                btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
+                btn.pack(side=RIGHT, ipadx=20, padx=15)
 
         def filtr(e):
             chars1 = fname.get()
