@@ -885,30 +885,50 @@ class View:
 
         # insert selected major into separate listbox
         def majorSelection(e):
-            i = self.majorBox.curselection()
-            self.selected_major_Box.insert(END, self.majorBox.get(i))
+            maj = self.majorBox.curselection()
+            maj_txt = self.majorBox.get(maj)
+            inTree = FALSE
+            for i, entry in enumerate(self.selected_major_Box.get(0, END)):
+                if str(maj_txt) == entry:
+                    inTree = TRUE
+                    messagebox.showwarning(title="Duplicate Major Error", message="Error: Unable to Add Duplicate Major to Table")
+            if not inTree:
+                self.selected_major_Box.insert(END, self.majorBox.get(maj))
 
         def removeMajor():
-            i = self.selected_major_Box.curselection()
-            msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
-            response = messagebox.askquestion("askquestion", msg, parent=t)
-            if response == 'yes':
-                self.selected_major_Box.delete(i)
-                majorRemoveButton["state"] = DISABLED
-                # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
+            try:
+                i = self.selected_major_Box.curselection()
+                msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
+                response = messagebox.askquestion("askquestion", msg, parent=t)
+                if response == 'yes':
+                    self.selected_major_Box.delete(i)
+                    majorRemoveButton["state"] = DISABLED
+                    # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
+            except(TclError):
+                messagebox.showwarning(title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
 
         # insert selected minor into separate listbox
         def minorSelection(e):
-            i = self.minorBox.curselection()
-            self.selected_minor_Box.insert(END, self.minorBox.get(i))
+            min = self.minorBox.curselection()
+            min_txt = self.minorBox.get(min)
+            inTree = FALSE
+            for i, entry in enumerate(self.selected_minor_Box.get(0, END)):
+                if str(min_txt) == entry:
+                    inTree = TRUE
+                    messagebox.showwarning(title="Duplicate Major Error", message="Error: Unable to Add Duplicate Minor to Table")
+            if not inTree:
+                self.selected_minor_Box.insert(END, self.minorBox.get(min))
 
         def removeMinor():
-            i = self.selected_minor_Box.curselection()
-            msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
-            response = messagebox.askquestion("askquestion", msg, parent=t)
-            if response == 'yes':
-                self.selected_minor_Box.delete(i)
-                minorRemoveButton["state"] = DISABLED
+            try:
+                i = self.selected_minor_Box.curselection()
+                msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
+                response = messagebox.askquestion("askquestion", msg, parent=t)
+                if response == 'yes':
+                    self.selected_minor_Box.delete(i)
+                    minorRemoveButton["state"] = DISABLED
+            except(TclError):
+                messagebox.showwarning(title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
 
         def confirmSelection():
             self.setMajor_treeview()
@@ -1079,23 +1099,26 @@ class View:
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
 
-            inTree = FALSE
-            tree_values = self.courseTree.get_children()
-            for each in tree_values:
-                if title_type == self.courseTree.item(each)['values'][1]:
-                    inTree = TRUE
-                    messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = FALSE
+                tree_values = self.courseTree.get_children()
+                for each in tree_values:
+                    if title_type == self.courseTree.item(each)['values'][1]:
+                        inTree = TRUE
+                        messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
 
-            if not inTree:
-                self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                       values=(subject_type + " " + catalog_type,
-                                               title_type,
-                                               credit_type,
-                                               "Major"))
+                if not inTree:
+                    self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                           values=(subject_type + " " + catalog_type,
+                                                   title_type,
+                                                   credit_type,
+                                                   "Major"))
 
-                prevcred = self.enrollCredVar.get()
-                self.courseTree_counter += 1
-                self.enrollCredVar.set(prevcred + int(float(credit_type)))
+                    prevcred = self.enrollCredVar.get()
+                    self.courseTree_counter += 1
+                    self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.subject_frame = Frame(t, borderwidth=2)
         self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1180,7 +1203,10 @@ class View:
 
 
     def planningWorksheet_delCourseButton(self):
-        if len(self.courseTree.selection()) == 1:
+        if len(self.courseTree.selection()) == 0:
+            messagebox.showinfo(title="Invalid Selection", message="Error: Unable to Delete, No Course Selected From Table")
+
+        elif len(self.courseTree.selection()) == 1:
             for course in self.courseTree.selection():
                 msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
                 response = messagebox.askquestion("askquestion", msg)
@@ -1265,22 +1291,25 @@ class View:
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
 
-            inTree = FALSE
-            tree_values = self.backupCourseTree.get_children()
-            for each in tree_values:
-                if title_type == self.backupCourseTree.item(each)['values'][1]:
-                    inTree = TRUE
-                    messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
-            if not inTree:
-                self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
-                                       values=(subject_type + " " + catalog_type,
-                                               title_type,
-                                               credit_type,
-                                               "Major"))
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = FALSE
+                tree_values = self.backupCourseTree.get_children()
+                for each in tree_values:
+                    if title_type == self.backupCourseTree.item(each)['values'][1]:
+                        inTree = TRUE
+                        messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                if not inTree:
+                    self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
+                                           values=(subject_type + " " + catalog_type,
+                                                   title_type,
+                                                   credit_type,
+                                                   "Major"))
 
-                prevcred = self.enrollCredVar.get()
-                self.backupCourseTree_counter += 1
-                self.enrollCredVar.set(prevcred + int(float(credit_type)))
+                    prevcred = self.enrollCredVar.get()
+                    self.backupCourseTree_counter += 1
+                    self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.backup_subject_frame = Frame(t, borderwidth=2)
         self.backup_subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1363,6 +1392,9 @@ class View:
         credit_entry.bind("<KeyRelease>", check_course)
 
     def planningWorksheet_delBackupCourseButton(self):
+        if len(self.courseTree.selection()) == 0:
+            messagebox.showinfo(title="Invalid Selection", message="Error: Unable to Delete, No Course Selected From Table")
+
         if len(self.backupCourseTree.selection()) == 1:
             for course in self.backupCourseTree.selection():
                 msg = "Do you want to remove the selected course? (" + self.backupCourseTree.item(course)['values'][0] + ")"
@@ -1645,32 +1677,7 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def openScheduleSearchButton(e):
-            try:
-                self.studentBox.curselection()
-                selectedStudent = self.studentBox.get(self.studentBox.curselection())
-                selectedStudentSplit = selectedStudent.split()
-
-                fname.delete(0, END)
-                lname.delete(0, END)
-                idE.delete(0, END)
-
-                fname.insert(0, selectedStudentSplit[0])
-                lname.insert(0, selectedStudentSplit[1])
-                idE.insert(0, selectedStudentSplit[2])
-
-                name = fname.get() + " " + lname.get()
-                id = idE.get()
-
-                if name != "" and id != "":
-                    self.studentBox.delete(0, END)
-                    pub.sendMessage("request_PPW", name=name, id=int(id))
-                    self.schedule.entryconfigure(1, state=NORMAL)
-                    t.destroy()
-                    # Shows buttons for Progress Report when student information is present
-                    self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                    self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
-
-            except (TclError):
+            if fname.get() == "" or lname.get() == "" or idE.get() == "":
                 w = Toplevel(t)
                 w.wm_title("Invalid Input")
                 w.geometry("330x120")
@@ -1680,12 +1687,57 @@ class View:
                 w.grab_set()
                 top = Frame(w, bg='White')
                 top.pack(side="top", expand=TRUE, fill=BOTH)
+
                 msg = Label(top, text="Error: Search Fields Cannot Be Blank", bg="White", font=('Helvetica', 9))
                 msg.pack(anchor='n', pady=20)
                 bottom = Frame(w)
                 bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
                 btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
                 btn.pack(side=RIGHT, ipadx=20, padx=15)
+            else:
+                try:
+                    self.studentBox.curselection()
+                    selectedStudent = self.studentBox.get(self.studentBox.curselection())
+                    selectedStudentSplit = selectedStudent.split()
+
+                    fname.delete(0, END)
+                    lname.delete(0, END)
+                    idE.delete(0, END)
+
+                    fname.insert(0, selectedStudentSplit[0])
+                    lname.insert(0, selectedStudentSplit[1])
+                    idE.insert(0, selectedStudentSplit[2])
+
+                    name = fname.get() + " " + lname.get()
+                    id = idE.get()
+
+
+                    if name != "" and id != "":
+                        self.studentBox.delete(0, END)
+                        pub.sendMessage("request_PPW", name=name, id=int(id))
+                        self.schedule.entryconfigure(1, state=NORMAL)
+                        t.destroy()
+                        # Shows buttons for Progress Report when student information is present
+                        self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                        self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+                except (TclError):
+                    w = Toplevel(t)
+                    w.wm_title("Invalid Input")
+                    w.geometry("330x120")
+                    w.resizable(width=0, height=0)
+                    w.attributes('-topmost', 'true')
+                    self.mainwin.eval(f'tk::PlaceWindow {str(w)} center')
+                    w.grab_set()
+                    top = Frame(w, bg='White')
+                    top.pack(side="top", expand=TRUE, fill=BOTH)
+
+                    msg = Label(top, text="Error: Result Not Found, Check Search Fields are Correct", bg="White", font=('Helvetica', 9))
+                    msg.pack(anchor='n', pady=20)
+                    bottom = Frame(w)
+                    bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
+                    btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
+                    btn.pack(side=RIGHT, ipadx=20, padx=15)
 
         def filtr(e):
             chars1 = fname.get()
