@@ -4,6 +4,8 @@ from tkinter import ttk
 
 # import tkinter as tk
 # from ttkthemes import ThemedTk
+from tkinter.messagebox import showinfo
+
 from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
 import math
@@ -64,6 +66,7 @@ class View:
         self.majors = []
         self.minors = []
         self.majorsFYP = []
+        self.selectedSemester = 0
 
         self.loginPage()
         self.menuBar()
@@ -238,11 +241,12 @@ class View:
 
         # Treeviews are created for Progress Report tab
         self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, 8)
+
         # Adds the progress report tab ttk.Notebook
         self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
 
         # Creating buttons for Progress Report placing with .grid() in FYP_addCourseButton
-        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=lambda: self.FYP_addCourseButton(self.mainwin))
+        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=lambda: self.FYP_addCourseButton())
         self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=lambda: self.FYP_delCourseButton(self.mainwin))
 
         # ============================ Add Semester Table Button ============================
@@ -276,8 +280,13 @@ class View:
 
         self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable()
         self.policies = policies  # Copying policies for other functions
-        self.progTableLength = len(
-            courseHist)  # Storing the amount of semesters to make that many treeviews in createTable
+        self.courseHist = courseHist
+        if len(courseHist) % 2 == 0:
+            self.progTableLength = len(
+                courseHist) + 2  # Storing the amount of semesters to make that many treeviews in createTable
+        else:
+            self.progTableLength = len(
+                courseHist) + 1  # Storing the amount of semesters to make that many treeviews in createTable
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
         self.majorFrames = []  # Holds frames major for tabs
@@ -302,7 +311,7 @@ class View:
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
         # Treeviews are re-created for Progress Report tab with number of semesters student has taken
-        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength + 1)
+        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength)
 
         # Filling winter and summer courses
         self.winSumTable = []
@@ -345,7 +354,7 @@ class View:
             self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
             policy_button = Button(self.majorFrames[i], text="University Policy",
                                    command=lambda: self.univ_policy_box())
-            policy_button.grid(column=0, row=0, sticky=E, padx=10)
+            policy_button.grid(column=0, row=0, columnspan=1, sticky=E, padx=150)
 
         for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
             self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
@@ -357,7 +366,7 @@ class View:
             self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
             policy_button = Button(self.minorFrames[i], text="University Policy",
                                    command=lambda: self.univ_policy_box())
-            policy_button.grid(column=0, row=0, columnspan=2, sticky=W, padx=305)
+            policy_button.grid(column=0, row=0, columnspan=1, sticky=E, padx=150)
 
         majorIndex = 0
         for majors in fourYear:  # Filling semesters for each major tab
@@ -511,17 +520,17 @@ class View:
         while (self.tab_parent.index("end") != 1):  # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
-    def FYP_addCourseButton(self, parentWindow):
+    def FYP_addCourseButton2(self, parentWindow):
         t = Toplevel(parentWindow)
         t.wm_title("Search for Course")
         t.geometry("450x125")
         t.resizable(width=FALSE, height=FALSE)
         # t.attributes('-topmost', 'true')
         t.transient(self.mainwin)
-        selectedTreeView = self.mainwin.focus_get()
+
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
         t.attributes('-topmost', 'true')
-
+        selectedTreeView = self.mainwin.focus_get()
         def courseSearch(e):
             course = entry.get()
             if len(course) > 7:
@@ -592,7 +601,8 @@ class View:
 
         # define treeviews and labels
         for i in range(length):
-            tables.append(ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="browse"))
+            tables.append(
+                ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="none"))
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
@@ -647,10 +657,10 @@ class View:
             for i in range(len(tables)):
                 if i % 2 == 0:
                     tables[i].grid(column=0, row=row + 2)
-                    labels[i].grid(column=0, row=row + 1, columnspan=2, sticky=W, padx=5)
+                    labels[i].grid(column=0, row=row + 1, columnspan=1, sticky=W, padx=5)
                 else:
                     tables[i].grid(column=1, row=row + 2)
-                    labels[i].grid(column=1, row=row + 1, columnspan=2, sticky=E, padx=5)
+                    labels[i].grid(column=1, row=row + 1, columnspan=1, sticky=W, padx=5)
                     row += 2
 
     # Creates a table of treeviews for tabs in Academic Advising
@@ -665,10 +675,10 @@ class View:
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
-            tables[i].column("course#", anchor=CENTER, width=75)
+            tables[i].column("course#", anchor=CENTER, width=90)
             w = int((self.left_width - 300) / 2)
             tables[i].column("title", anchor=W, width=w)
-            tables[i].column("cred", anchor=CENTER, width=25)
+            tables[i].column("cred", anchor=CENTER, width=35)
             # tables[i].column("taken", anchor=CENTER, width=30)
 
             tables[i].heading("course#", text='Course #', anchor=CENTER)
@@ -678,11 +688,177 @@ class View:
         labels.append(Label(frame, text="Winter Courses", font=('Helvetica', 15)))
         labels.append(Label(frame, text="Summer Courses", font=('Helvetica', 15)))
 
-        labels[0].grid(column=0, row=length, columnspan=2, sticky=W, padx=5)
-        tables[0].grid(column=0, row=length + 1)
+        labels[0].grid(column=0, row=length + 1, columnspan=2, sticky=W, padx=5)
+        tables[0].grid(column=0, row=length + 2)
 
-        labels[1].grid(column=1, row=length, columnspan=2, sticky=W, padx=5)
-        tables[1].grid(column=1, row=length + 1)
+        labels[1].grid(column=1, row=length + 1, columnspan=2, sticky=W, padx=5)
+        tables[1].grid(column=1, row=length + 2)
+
+    def FYP_addCourseButton(self):
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Course")
+        t.geometry("700x500")
+        t.resizable(width=FALSE, height=FALSE)
+        t.transient(self.mainwin)
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.addCourseButton.configure(state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.addCourseButton.configure(state=DISABLED)
+
+        def update_course_list(data):
+            for i in self.course_tree.get_children():
+                self.course_tree.delete(i)
+
+            #self.course_tree.tag_configure('evenrow', background="grey")
+            #self.course_tree.tag_configure('oddrow', background="white")
+
+            for item in data:
+                self.course_tree.insert('', 'end',
+                                   values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
+
+        def fillout_fields(event):
+            subject_entry.delete(0, END)
+            catalog_entry.delete(0, END)
+            title_entry.delete(0, END)
+            credit_entry.delete(0, END)
+
+            course = self.course_tree.focus()
+            course_info = self.course_tree.item(course)['values']
+
+            subject_entry.insert(0, course_info[0])
+            catalog_entry.insert(0, course_info[1])
+            title_entry.insert(0, course_info[2])
+            credit_entry.insert(0, course_info[3])
+
+        def check_course(event):
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+
+            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type, cred=credit_type)
+            update_course_list(self.course_regex_list)
+
+        # adds searched course into the treeview
+        def addCourse():
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+            self.progTable[self.selectedSemester-1].insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                   values=(subject_type + " " + catalog_type,
+                                           title_type,
+                                           credit_type,
+                                           "Major"))
+
+            prevcred = self.enrollCredVar.get()
+            self.courseTree_counter += 1
+            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+
+        dropDefault = StringVar()
+        dropDefault.set("Select a semester")
+        semesters = []
+
+        for i in range(len(self.courseHist), self.progTableLength, 1):
+            if i % 2 == 0:
+                semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
+            else:
+                semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
+
+        def semesterChanged(event):
+            comboboxString = self.progRepoDrop.get().split()
+            if comboboxString[3] == '1':
+                self.selectedSemester = (int(comboboxString[1]))*2-1
+            else:
+                self.selectedSemester = (int(comboboxString[1]))*2
+
+        self.subject_frame = Frame(t, borderwidth=2)
+        self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
+        selectedSemester = ''
+        self.progRepoDrop = ttk.Combobox(self.subject_frame, value=semesters, exportselection=0, width=18)
+        self.progRepoDrop.pack(pady=5, anchor='n')
+        self.progRepoDrop['state'] = 'readonly'
+        self.progRepoDrop.bind('<<ComboboxSelected>>', semesterChanged)
+
+        self.subject_label = Label(self.subject_frame, text="Enter a Subject",
+                                   font=("Helvetica", 10), fg="black")
+        self.subject_label.pack(pady=5, anchor='n')
+
+        self.subject_example = Label(self.subject_frame, text="ex. COSC, cos",
+                                     font=("Helvetica", 8), fg="grey")
+        self.subject_example.pack(pady=0, anchor='n')
+
+        subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        subject_entry.pack(pady=10, anchor='n')
+
+        self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
+                                   font=("Helvetica", 8), fg="black")
+        self.catalog_label.pack(pady=5, anchor='n')
+
+        self.catalog_example = Label(self.subject_frame, text="ex. 123, 12, 1",
+                                     font=("Helvetica", 8), fg="grey")
+        self.catalog_example.pack(pady=0, anchor='n')
+
+        catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        catalog_entry.pack(pady=10, anchor='n')
+
+        self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
+                                 font=("Helvetica", 10), fg="black")
+        self.title_frame.pack(pady=5, anchor='n')
+
+        self.title_example = Label(self.subject_frame, text="ex. Computer Science I, computer sci",
+                                   font=("Helvetica", 8), fg="grey")
+        self.title_example.pack(pady=0, anchor='n')
+
+        title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        title_entry.pack(pady=10, anchor='n')
+
+        self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
+                                  font=("Helvetica", 10), fg="black")
+        self.credit_frame.pack(pady=5, anchor='n')
+
+        self.credit_example = Label(self.subject_frame, text="ex. 4, 3.0, 2.00",
+                                    font=("Helvetica", 8), fg="grey")
+        self.credit_example.pack(pady=0, anchor='n')
+
+        credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        credit_entry.pack(pady=10, anchor='n')
+
+        self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
+        self.addButton.pack(side=TOP)
+
+        self.course_frame = Frame(t, borderwidth=2)
+        self.course_frame.pack(side=RIGHT, anchor='n', padx=10)
+
+        self.course_tree_scroll = Scrollbar(self.course_frame)
+        self.course_tree_scroll.pack(side=RIGHT, fill=Y)
+
+        self.course_tree = ttk.Treeview(self.course_frame, yscrollcommand=self.course_tree_scroll.set,
+                                        column=('sub', 'cat', 'title', 'cred'), show=['headings'], height=300)
+        self.course_tree.column('# 1', anchor=CENTER, width=50)
+        self.course_tree.heading('# 1', text="Subject")
+        self.course_tree.column('# 2', anchor=CENTER, width=50)
+        self.course_tree.heading('# 2', text="Catalog")
+        self.course_tree.column('# 3', anchor=CENTER, width=280)
+        self.course_tree.heading('# 3', text="Title")
+        self.course_tree.column('# 4', anchor=CENTER, width=50)
+        self.course_tree.heading('# 4', text="Credits")
+
+        self.course_tree.pack(pady=0)
+        self.course_tree_scroll.config(command=self.course_tree.yview)
+
+        pub.sendMessage("request_Course_by_Regex", sub="", cat="", title="", cred="")
+        update_course_list(self.course_regex_list)
+
+        self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
+        subject_entry.bind("<KeyRelease>", check_course)
+        catalog_entry.bind("<KeyRelease>", check_course)
+        title_entry.bind("<KeyRelease>", check_course)
+        credit_entry.bind("<KeyRelease>", check_course)
 
     def planningWorksheet_layout(self):
         self.rightFrame = Frame(self.PPWFrame)
@@ -885,50 +1061,30 @@ class View:
 
         # insert selected major into separate listbox
         def majorSelection(e):
-            maj = self.majorBox.curselection()
-            maj_txt = self.majorBox.get(maj)
-            inTree = FALSE
-            for i, entry in enumerate(self.selected_major_Box.get(0, END)):
-                if str(maj_txt) == entry:
-                    inTree = TRUE
-                    messagebox.showwarning(title="Duplicate Major Error", message="Error: Unable to Add Duplicate Major to Table")
-            if not inTree:
-                self.selected_major_Box.insert(END, self.majorBox.get(maj))
+            i = self.majorBox.curselection()
+            self.selected_major_Box.insert(END, self.majorBox.get(i))
 
         def removeMajor():
-            try:
-                i = self.selected_major_Box.curselection()
-                msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
-                response = messagebox.askquestion("askquestion", msg, parent=t)
-                if response == 'yes':
-                    self.selected_major_Box.delete(i)
-                    majorRemoveButton["state"] = DISABLED
-                    # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
-            except(TclError):
-                messagebox.showwarning(title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
+            i = self.selected_major_Box.curselection()
+            msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
+            response = messagebox.askquestion("askquestion", msg, parent=t)
+            if response == 'yes':
+                self.selected_major_Box.delete(i)
+                majorRemoveButton["state"] = DISABLED
+                # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
 
         # insert selected minor into separate listbox
         def minorSelection(e):
-            min = self.minorBox.curselection()
-            min_txt = self.minorBox.get(min)
-            inTree = FALSE
-            for i, entry in enumerate(self.selected_minor_Box.get(0, END)):
-                if str(min_txt) == entry:
-                    inTree = TRUE
-                    messagebox.showwarning(title="Duplicate Major Error", message="Error: Unable to Add Duplicate Minor to Table")
-            if not inTree:
-                self.selected_minor_Box.insert(END, self.minorBox.get(min))
+            i = self.minorBox.curselection()
+            self.selected_minor_Box.insert(END, self.minorBox.get(i))
 
         def removeMinor():
-            try:
-                i = self.selected_minor_Box.curselection()
-                msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
-                response = messagebox.askquestion("askquestion", msg, parent=t)
-                if response == 'yes':
-                    self.selected_minor_Box.delete(i)
-                    minorRemoveButton["state"] = DISABLED
-            except(TclError):
-                messagebox.showwarning(title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
+            i = self.selected_minor_Box.curselection()
+            msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
+            response = messagebox.askquestion("askquestion", msg, parent=t)
+            if response == 'yes':
+                self.selected_minor_Box.delete(i)
+                minorRemoveButton["state"] = DISABLED
 
         def confirmSelection():
             self.setMajor_treeview()
@@ -1098,27 +1254,15 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
+            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                   values=(subject_type + " " + catalog_type,
+                                           title_type,
+                                           credit_type,
+                                           "Major"))
 
-            if subject_type == "" or catalog_type == "" or title_type == "":
-                messagebox.showwarning(title="Invalid Input", message="Error: No Fields Can Be Left Blank")
-            else:
-                inTree = FALSE
-                tree_values = self.courseTree.get_children()
-                for each in tree_values:
-                    if title_type == self.courseTree.item(each)['values'][1]:
-                        inTree = TRUE
-                        messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
-
-                if not inTree:
-                    self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                           values=(subject_type + " " + catalog_type,
-                                                   title_type,
-                                                   credit_type,
-                                                   "Major"))
-
-                    prevcred = self.enrollCredVar.get()
-                    self.courseTree_counter += 1
-                    self.enrollCredVar.set(prevcred + int(float(credit_type)))
+            prevcred = self.enrollCredVar.get()
+            self.courseTree_counter += 1
+            self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.subject_frame = Frame(t, borderwidth=2)
         self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1203,34 +1347,15 @@ class View:
 
 
     def planningWorksheet_delCourseButton(self):
-        if len(self.courseTree.selection()) == 0:
-            messagebox.showinfo(title="Invalid Selection", message="Error: Unable to Delete, No Course Selected From Table")
-
-        elif len(self.courseTree.selection()) == 1:
-            for course in self.courseTree.selection():
-                msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
-                response = messagebox.askquestion("askquestion", msg)
-                if response == 'yes':
-                    prevcred = self.enrollCredVar.get()
-                    self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
-
-                    self.courseTree.delete(course)
-                    self.courseTree_counter -= 1
-
-        elif len(self.courseTree.selection()) > 1:
-            courses = []
-            msg = "Do you want to remove the selected course? ("
-            for course in self.courseTree.selection():
-                msg = msg + self.courseTree.item(course)['values'][0] + " ,"
-            msg = msg + ")"
+        for course in self.courseTree.selection():
+            msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
-                for course in self.courseTree.selection():
-                    prevcred = self.enrollCredVar.get()
-                    self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
+                prevcred = self.enrollCredVar.get()
+                self.enrollCredVar.set(prevcred - int(float(self.courseTree.item(course)['values'][2])))
 
-                    self.courseTree.delete(course)
-                    self.courseTree_counter -= 1
+                self.courseTree.delete(course)
+                self.courseTree_counter -= 1
 
     def planningWorksheet_addBackupCourseButton(self):
         t = Toplevel(self.mainwin)
@@ -1290,26 +1415,16 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
+            print(subject_type)
+            self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
+                                   values=(subject_type + " " + catalog_type,
+                                           title_type,
+                                           credit_type,
+                                           "Major"))
 
-            if subject_type == "" or catalog_type == "" or title_type == "":
-                messagebox.showwarning(title="Invalid Input", message="Error: No Fields Can Be Left Blank")
-            else:
-                inTree = FALSE
-                tree_values = self.backupCourseTree.get_children()
-                for each in tree_values:
-                    if title_type == self.backupCourseTree.item(each)['values'][1]:
-                        inTree = TRUE
-                        messagebox.showwarning(title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
-                if not inTree:
-                    self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
-                                           values=(subject_type + " " + catalog_type,
-                                                   title_type,
-                                                   credit_type,
-                                                   "Major"))
-
-                    prevcred = self.enrollCredVar.get()
-                    self.backupCourseTree_counter += 1
-                    self.enrollCredVar.set(prevcred + int(float(credit_type)))
+            prevcred = self.enrollCredVar.get()
+            self.backupCourseTree_counter += 1
+            self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.backup_subject_frame = Frame(t, borderwidth=2)
         self.backup_subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1392,34 +1507,13 @@ class View:
         credit_entry.bind("<KeyRelease>", check_course)
 
     def planningWorksheet_delBackupCourseButton(self):
-        if len(self.courseTree.selection()) == 0:
-            messagebox.showinfo(title="Invalid Selection", message="Error: Unable to Delete, No Course Selected From Table")
-
-        if len(self.backupCourseTree.selection()) == 1:
-            for course in self.backupCourseTree.selection():
-                msg = "Do you want to remove the selected course? (" + self.backupCourseTree.item(course)['values'][0] + ")"
-                response = messagebox.askquestion("askquestion", msg)
-                if response == 'yes':
-                    prevcred = self.enrollCredVar.get()
-                    self.enrollCredVar.set(prevcred - int(float(self.backupCourseTree.item(course)['values'][2])))
-
-                    self.backupCourseTree.delete(course)
-                    self.backupCourseTree_counter -= 1
-
-        elif len(self.backupCourseTree.selection()) > 1:
-            courses = []
-            msg = "Do you want to remove the selected course? ("
-            for course in self.backupCourseTree.selection():
-                msg = msg + self.backupCourseTree.item(course)['values'][0] + " ,"
-            msg = msg + ")"
+        for course in self.backupCourseTree.selection():
+            msg = "Do you want to remove the selected backup course? (" + self.backupCourseTree.item(course)['values'][
+                0] + ")"
             response = messagebox.askquestion("askquestion", msg)
             if response == 'yes':
-                for course in self.backupCourseTree.selection():
-                    prevcred = self.enrollCredVar.get()
-                    self.enrollCredVar.set(prevcred - int(float(self.backupCourseTree.item(course)['values'][2])))
-
-                    self.backupCourseTree.delete(course)
-                    self.backupCourseTree_counter -= 1
+                self.backupCourseTree.delete(course)
+                self.backupCourseTree_counter -= 1
 
     # clears every widget
     def planningWorksheet_reset(self):
@@ -1673,71 +1767,33 @@ class View:
         t.geometry("440x350")
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
-        t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def openScheduleSearchButton(e):
-            if fname.get() == "" or lname.get() == "" or idE.get() == "":
-                w = Toplevel(t)
-                w.wm_title("Invalid Input")
-                w.geometry("330x120")
-                w.resizable(width=0, height=0)
-                w.attributes('-topmost', 'true')
-                self.mainwin.eval(f'tk::PlaceWindow {str(w)} center')
-                w.grab_set()
-                top = Frame(w, bg='White')
-                top.pack(side="top", expand=TRUE, fill=BOTH)
+            if self.studentBox.curselection() != "":
+                selectedStudent = self.studentBox.get(self.studentBox.curselection())
+                selectedStudentSplit = selectedStudent.split()
 
-                msg = Label(top, text="Error: Search Fields Cannot Be Blank", bg="White", font=('Helvetica', 9))
-                msg.pack(anchor='n', pady=20)
-                bottom = Frame(w)
-                bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
-                btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
-                btn.pack(side=RIGHT, ipadx=20, padx=15)
-            else:
-                try:
-                    self.studentBox.curselection()
-                    selectedStudent = self.studentBox.get(self.studentBox.curselection())
-                    selectedStudentSplit = selectedStudent.split()
+                fname.delete(0, END)
+                lname.delete(0, END)
+                idE.delete(0, END)
 
-                    fname.delete(0, END)
-                    lname.delete(0, END)
-                    idE.delete(0, END)
+                fname.insert(0, selectedStudentSplit[0])
+                lname.insert(0, selectedStudentSplit[1])
+                idE.insert(0, selectedStudentSplit[2])
 
-                    fname.insert(0, selectedStudentSplit[0])
-                    lname.insert(0, selectedStudentSplit[1])
-                    idE.insert(0, selectedStudentSplit[2])
+                name = fname.get() + " " + lname.get()
+                id = idE.get()
 
-                    name = fname.get() + " " + lname.get()
-                    id = idE.get()
+                if name != "" and id != "":
+                    self.studentBox.delete(0, END)
+                    pub.sendMessage("request_PPW", name=name, id=int(id))
+                    self.schedule.entryconfigure(1, state=NORMAL)
+                    t.destroy()
+                    # Shows buttons for Progress Report when student information is present
+                    self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                    self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
 
-
-                    if name != "" and id != "":
-                        self.studentBox.delete(0, END)
-                        pub.sendMessage("request_PPW", name=name, id=int(id))
-                        self.schedule.entryconfigure(1, state=NORMAL)
-                        t.destroy()
-                        # Shows buttons for Progress Report when student information is present
-                        self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                        self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
-
-                except (TclError):
-                    w = Toplevel(t)
-                    w.wm_title("Invalid Input")
-                    w.geometry("330x120")
-                    w.resizable(width=0, height=0)
-                    w.attributes('-topmost', 'true')
-                    self.mainwin.eval(f'tk::PlaceWindow {str(w)} center')
-                    w.grab_set()
-                    top = Frame(w, bg='White')
-                    top.pack(side="top", expand=TRUE, fill=BOTH)
-
-                    msg = Label(top, text="Error: Result Not Found, Check Search Fields are Correct", bg="White", font=('Helvetica', 9))
-                    msg.pack(anchor='n', pady=20)
-                    bottom = Frame(w)
-                    bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
-                    btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
-                    btn.pack(side=RIGHT, ipadx=20, padx=15)
 
         def filtr(e):
             chars1 = fname.get()
