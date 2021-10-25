@@ -1061,30 +1061,50 @@ class View:
 
         # insert selected major into separate listbox
         def majorSelection(e):
-            i = self.majorBox.curselection()
-            self.selected_major_Box.insert(END, self.majorBox.get(i))
+            maj = self.majorBox.curselection()
+            maj_txt = self.majorBox.get(maj)
+            inTree = FALSE
+            for i, entry in enumerate(self.selected_major_Box.get(0, END)):
+                if str(maj_txt) == entry:
+                    inTree = TRUE
+                    messagebox.showwarning(parent=t, title="Duplicate Major Error", message="Error: Unable to Add Duplicate Major to Table")
+            if not inTree:
+                self.selected_major_Box.insert(END, self.majorBox.get(maj))
 
         def removeMajor():
-            i = self.selected_major_Box.curselection()
-            msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
-            response = messagebox.askquestion("askquestion", msg, parent=t)
-            if response == 'yes':
-                self.selected_major_Box.delete(i)
-                majorRemoveButton["state"] = DISABLED
-                # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
+            try:
+                i = self.selected_major_Box.curselection()
+                msg = "Do you want to remove selected major? (" + self.selected_major_Box.get(i) + ")"
+                response = messagebox.askquestion("askquestion", msg, parent=t)
+                if response == 'yes':
+                    self.selected_major_Box.delete(i)
+                    majorRemoveButton["state"] = DISABLED
+                    # self.selected_major_Box.bind('<FocusOut>', lambda e: self.selected_major_Box.selection_clear(0, END))
+            except(TclError):
+                messagebox.showwarning(parent=t, title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
 
         # insert selected minor into separate listbox
         def minorSelection(e):
-            i = self.minorBox.curselection()
-            self.selected_minor_Box.insert(END, self.minorBox.get(i))
+            min = self.minorBox.curselection()
+            min_txt = self.minorBox.get(min)
+            inTree = FALSE
+            for i, entry in enumerate(self.selected_minor_Box.get(0, END)):
+                if str(min_txt) == entry:
+                    inTree = TRUE
+                    messagebox.showwarning(parent=t, title="Duplicate Major Error", message="Error: Unable to Add Duplicate Minor to Table")
+            if not inTree:
+                self.selected_minor_Box.insert(END, self.minorBox.get(min))
 
         def removeMinor():
-            i = self.selected_minor_Box.curselection()
-            msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
-            response = messagebox.askquestion("askquestion", msg, parent=t)
-            if response == 'yes':
-                self.selected_minor_Box.delete(i)
-                minorRemoveButton["state"] = DISABLED
+            try:
+                i = self.selected_minor_Box.curselection()
+                msg = "Do you want to remove selected minor? (" + self.selected_minor_Box.get(i) + ")"
+                response = messagebox.askquestion("askquestion", msg, parent=t)
+                if response == 'yes':
+                    self.selected_minor_Box.delete(i)
+                    minorRemoveButton["state"] = DISABLED
+            except(TclError):
+                messagebox.showwarning(parent=t, title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
 
         def confirmSelection():
             self.setMajor_treeview()
@@ -1260,9 +1280,29 @@ class View:
                                            credit_type,
                                            "Major"))
 
-            prevcred = self.enrollCredVar.get()
-            self.courseTree_counter += 1
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+            print(self.courseTree_counter)
+
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = FALSE
+                tree_values = self.courseTree.get_children()
+                for each in tree_values:
+                    if title_type == self.courseTree.item(each)['values'][1]:
+                        inTree = TRUE
+                        messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+
+                if not inTree:
+                    self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                           values=(subject_type + " " + catalog_type,
+                                                   title_type,
+                                                   credit_type,
+                                                   "Major"))
+
+                    prevcred = self.enrollCredVar.get()
+                    self.courseTree_counter += 1
+                    self.enrollCredVar.set(prevcred + int(float(credit_type)))
+
 
         self.subject_frame = Frame(t, borderwidth=2)
         self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1422,9 +1462,25 @@ class View:
                                            credit_type,
                                            "Major"))
 
-            prevcred = self.enrollCredVar.get()
-            self.backupCourseTree_counter += 1
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = FALSE
+                tree_values = self.backupCourseTree.get_children()
+                for each in tree_values:
+                    if title_type == self.backupCourseTree.item(each)['values'][1]:
+                        inTree = TRUE
+                        messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                if not inTree:
+                    self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
+                                           values=(subject_type + " " + catalog_type,
+                                                   title_type,
+                                                   credit_type,
+                                                   "Major"))
+
+                    prevcred = self.enrollCredVar.get()
+                    self.backupCourseTree_counter += 1
+                    self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.backup_subject_frame = Frame(t, borderwidth=2)
         self.backup_subject_frame.pack(side=LEFT, anchor='n', padx=10)
@@ -1940,6 +1996,170 @@ class View:
     def close(self, window):
         window.destroy()
 
+    def planningWorksheet_editMajor_addCourseButton(self, parentWindow):
+        t = Toplevel(parentWindow)
+        t.wm_title("Search for Course")
+        t.geometry("700x500")
+        t.resizable(width=FALSE, height=FALSE)
+        t.transient(self.mainwin)
+        t.attributes('-topmost', 'true')
+        selectedTreeView = self.mainwin.focus_get()
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.addCourseButton.configure(state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.addCourseButton.configure(state=DISABLED)
+
+        def update_course_list(data):
+            for i in self.course_tree.get_children():
+                self.course_tree.delete(i)
+
+            #self.course_tree.tag_configure('evenrow', background="grey")
+            #self.course_tree.tag_configure('oddrow', background="white")
+
+            for item in data:
+                self.course_tree.insert('', 'end',
+                                   values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
+
+        def fillout_fields(event):
+            subject_entry.delete(0, END)
+            catalog_entry.delete(0, END)
+            title_entry.delete(0, END)
+            credit_entry.delete(0, END)
+
+            course = self.course_tree.focus()
+            course_info = self.course_tree.item(course)['values']
+
+            subject_entry.insert(0, course_info[0])
+            catalog_entry.insert(0, course_info[1])
+            title_entry.insert(0, course_info[2])
+            credit_entry.insert(0, course_info[3])
+
+        def check_course(event):
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+
+            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type, cred=credit_type)
+            update_course_list(self.course_regex_list)
+        # adds searched course into the treeview
+        def addCourse():
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+            ind = self.clicked.get()
+            int_ind = int(ind) - 1
+            cnt = len(self.edtMjTbls[int_ind].get_children())
+            print(cnt)
+            print(self.edtMjTbls_iid)
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = FALSE
+                for num in range(cnt):
+                    if title_type == self.edtMjTbls[int_ind].item(num):
+                        inTree = TRUE
+                        messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                if not inTree:
+                    self.edtMjTbls[int_ind].insert(parent='', index='end',
+                                                     values=(subject_type + catalog_type, title_type, credit_type))
+                    self.edtMjTbls_iid += 1
+
+
+        self.subject_frame = Frame(t, borderwidth=2)
+        self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
+
+        self.subject_label = Label(self.subject_frame, text="Enter a Subject",
+                                   font=("Helvetica", 10), fg="black")
+        self.subject_label.pack(pady=5, anchor='n')
+
+        self.subject_example = Label(self.subject_frame, text="ex. COSC, cos",
+                                     font=("Helvetica", 8), fg="grey")
+        self.subject_example.pack(pady=0, anchor='n')
+
+        subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        subject_entry.pack(pady=10, anchor='n')
+
+        self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
+                                   font=("Helvetica", 8), fg="black")
+        self.catalog_label.pack(pady=5, anchor='n')
+
+        self.catalog_example = Label(self.subject_frame, text="ex. 123, 12, 1",
+                                     font=("Helvetica", 8), fg="grey")
+        self.catalog_example.pack(pady=0, anchor='n')
+
+        catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        catalog_entry.pack(pady=10, anchor='n')
+
+        self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
+                                 font=("Helvetica", 10), fg="black")
+        self.title_frame.pack(pady=5, anchor='n')
+
+        self.title_example = Label(self.subject_frame, text="ex. Computer Science I, computer sci",
+                                   font=("Helvetica", 8), fg="grey")
+        self.title_example.pack(pady=0, anchor='n')
+
+        title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        title_entry.pack(pady=10, anchor='n')
+
+        self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
+                                  font=("Helvetica", 10), fg="black")
+        self.credit_frame.pack(pady=5, anchor='n')
+
+        self.credit_example = Label(self.subject_frame, text="ex. 4, 3.0, 2.00",
+                                    font=("Helvetica", 8), fg="grey")
+        self.credit_example.pack(pady=0, anchor='n')
+
+        credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        credit_entry.pack(pady=10, anchor='n')
+
+        self.semester_frame = Label(self.subject_frame, text="Choose the Semester to add Course",
+                                  font=("Helvetica", 10), fg="black")
+        self.semester_frame.pack(pady=5, anchor='n')
+
+        self.clicked = StringVar()
+        options = [1, 2, 3, 4, 5, 6, 7, 8]
+        drop = OptionMenu(self.subject_frame, self.clicked, *options)
+        drop.pack(pady=5, anchor='n')
+
+        self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
+        self.addButton.pack(side=TOP)
+
+        self.course_frame = Frame(t, borderwidth=2)
+        self.course_frame.pack(side=RIGHT, anchor='n', padx=10)
+
+        self.course_tree_scroll = Scrollbar(self.course_frame)
+        self.course_tree_scroll.pack(side=RIGHT, fill=Y)
+
+
+        self.course_tree = ttk.Treeview(self.course_frame, yscrollcommand=self.course_tree_scroll.set,
+                                        column=('sub', 'cat', 'title', 'cred'), show=['headings'], height=300)
+        self.course_tree.column('# 1', anchor=CENTER, width=50)
+        self.course_tree.heading('# 1', text="Subject")
+        self.course_tree.column('# 2', anchor=CENTER, width=50)
+        self.course_tree.heading('# 2', text="Catalog")
+        self.course_tree.column('# 3', anchor=CENTER, width=280)
+        self.course_tree.heading('# 3', text="Title")
+        self.course_tree.column('# 4', anchor=CENTER, width=50)
+        self.course_tree.heading('# 4', text="Credits")
+
+        self.course_tree.pack(pady=0)
+        self.course_tree_scroll.config(command=self.course_tree.yview)
+
+        pub.sendMessage("request_Course_by_Regex", sub="", cat="", title="", cred="")
+        update_course_list(self.course_regex_list)
+
+        self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
+        subject_entry.bind("<KeyRelease>", check_course)
+        catalog_entry.bind("<KeyRelease>", check_course)
+        title_entry.bind("<KeyRelease>", check_course)
+        credit_entry.bind("<KeyRelease>", check_course)
+
     def openMajorButton(self, major):
         if self.majorBox.get(self.majorBox.curselection()) != "":
             self.close(self.addEditMajorWindow)
@@ -1958,27 +2178,28 @@ class View:
         addCrsBtnFrame = Frame(self.editMajorWindow)
         addCrsBtnFrame.pack()
 
-        edtMjLbls = []
-        edtMjTbls = []
+        self.edtMjLbls = []
+        self.edtMjTbls = []
 
-        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.FYP_addCourseButton(self.editMajorWindow))
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow))
         rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.FYP_delCourseButton(self.editMajorWindow))
         addCourseBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=RIGHT)
 
         # Treeviews are created
-        self.createTable(treeviewFrame, edtMjLbls, edtMjTbls, 8)
+        self.createTable(treeviewFrame, self.edtMjLbls, self.edtMjTbls, 8)
 
         # Filling semesters for major
         semsIndex = 0
         for sem in self.majorsFYP:
-            edtMjTbls_iid = 0
+            self.edtMjTbls_iid = 0
             for course in sem:
-                edtMjTbls[semsIndex].insert(parent='', index='end',
-                                                              iid=edtMjTbls_iid,
+                self.edtMjTbls[semsIndex].insert(parent='', index='end',
+                                                              iid=self.edtMjTbls_iid,
                                                               values=(course[1] + course[2], course[3], course[4]))
-                edtMjTbls_iid += 1
+                self.edtMjTbls_iid += 1
             semsIndex += 1
+
         # ============================ Add Semester Table Button ============================
         """
         self.addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
@@ -1989,7 +2210,6 @@ class View:
         self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
                                                                         self.semLabel, self.semesterFrame, self.temp)
         """
-
 
     # Add Major Button from Update DB
     def addEditMajor(self):
@@ -2052,6 +2272,7 @@ class View:
                         lambda event, a=10, b=20, c=30:
                         self.rand_func(a, b, c))
         """
+
     def openMinorButton(self):
         if self.minorBox.get(self.minorBox.curselection()) != "":
             self.close(self.addEditMinorWindow)
