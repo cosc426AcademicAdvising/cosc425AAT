@@ -602,7 +602,7 @@ class View:
         # define treeviews and labels
         for i in range(length):
             tables.append(
-                ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="none"))
+                ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="extended"))
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
@@ -1455,7 +1455,6 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            print(subject_type)
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
                                    values=(subject_type + " " + catalog_type,
                                            title_type,
@@ -1826,29 +1825,66 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def openScheduleSearchButton(e):
-            if self.studentBox.curselection() != "":
-                selectedStudent = self.studentBox.get(self.studentBox.curselection())
-                selectedStudentSplit = selectedStudent.split()
+            if fname.get() == "" or lname.get() == "" or idE.get() == "":
+                w = Toplevel(t)
+                w.wm_title("Invalid Input")
+                w.geometry("330x120")
 
-                fname.delete(0, END)
-                lname.delete(0, END)
-                idE.delete(0, END)
+                w.grab_set()
+                top = Frame(w, bg='White')
+                top.pack(side="top", expand=TRUE, fill=BOTH)
 
-                fname.insert(0, selectedStudentSplit[0])
-                lname.insert(0, selectedStudentSplit[1])
-                idE.insert(0, selectedStudentSplit[2])
+                msg = Label(top, text="Error: Search Fields Cannot Be Blank", bg="White", font=('Helvetica', 9))
+                msg.pack(anchor='n', pady=20)
+                bottom = Frame(w)
+                bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
+                btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
+                btn.pack(side=RIGHT, ipadx=20, padx=15)
 
-                name = fname.get() + " " + lname.get()
-                id = idE.get()
+            else:
+                try:
+                    self.studentBox.curselection()
+                    selectedStudent = self.studentBox.get(self.studentBox.curselection())
+                    selectedStudentSplit = selectedStudent.split()
 
-                if name != "" and id != "":
-                    self.studentBox.delete(0, END)
-                    pub.sendMessage("request_PPW", name=name, id=int(id))
-                    self.schedule.entryconfigure(1, state=NORMAL)
-                    t.destroy()
-                    # Shows buttons for Progress Report when student information is present
-                    self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                    self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+                    fname.delete(0, END)
+                    lname.delete(0, END)
+                    idE.delete(0, END)
+
+                    fname.insert(0, selectedStudentSplit[0])
+                    lname.insert(0, selectedStudentSplit[1])
+                    idE.insert(0, selectedStudentSplit[2])
+
+                    name = fname.get() + " " + lname.get()
+                    id = idE.get()
+
+                    if name != "" and id != "":
+                        self.studentBox.delete(0, END)
+                        pub.sendMessage("request_PPW", name=name, id=int(id))
+                        self.schedule.entryconfigure(1, state=NORMAL)
+                        t.destroy()
+                        # Shows buttons for Progress Report when student information is present
+                        self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
+                        self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+
+                except (TclError):
+                    w = Toplevel(t)
+                    w.wm_title("Invalid Input")
+                    w.geometry("330x120")
+                    w.resizable(width=0, height=0)
+                    w.attributes('-topmost', 'true')
+                    self.mainwin.eval(f'tk::PlaceWindow {str(w)} center')
+                    w.grab_set()
+                    top = Frame(w, bg='White')
+                    top.pack(side="top", expand=TRUE, fill=BOTH)
+
+                    msg = Label(top, text="Error: Result Not Found, Check Search Fields are Correct", bg="White",
+                                font=('Helvetica', 9))
+                    msg.pack(anchor='n', pady=20)
+                    bottom = Frame(w)
+                    bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
+                    btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
+                    btn.pack(side=RIGHT, ipadx=20, padx=15)
 
 
         def filtr(e):
@@ -1996,7 +2032,7 @@ class View:
     def close(self, window):
         window.destroy()
 
-    def planningWorksheet_editMajor_addCourseButton(self, parentWindow):
+    def openMajor_editMajor_addCourseButton(self, parentWindow):
         t = Toplevel(parentWindow)
         t.wm_title("Search for Course")
         t.geometry("700x500")
@@ -2054,19 +2090,20 @@ class View:
             credit_type = credit_entry.get()
             ind = self.clicked.get()
             int_ind = int(ind) - 1
-            cnt = len(self.edtMjTbls[int_ind].get_children())
-            print(cnt)
-            print(self.edtMjTbls_iid)
             if subject_type == "" or catalog_type == "" or title_type == "":
                 messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
             else:
-                inTree = FALSE
-                for num in range(cnt):
-                    if title_type == self.edtMjTbls[int_ind].item(num):
-                        inTree = TRUE
-                        messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                inTree = False
+                for i in range(0, 8):
+                    cnt = len(self.edtMjTbls[i].get_children())
+                    for num in range(cnt):
+                        if title_type == self.edtMjTbls[i].item(num)['values'][1] or subject_type + catalog_type == self.edtMjTbls[i].item(num)['values'][0]:
+                            inTree = True
+                            messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                   message="Error: Course Already Exists in Plan")
                 if not inTree:
-                    self.edtMjTbls[int_ind].insert(parent='', index='end',
+                    cnt = len(self.edtMjTbls[int_ind].get_children())
+                    self.edtMjTbls[int_ind].insert(parent='', index='end', iid=cnt,
                                                      values=(subject_type + catalog_type, title_type, credit_type))
                     self.edtMjTbls_iid += 1
 
@@ -2160,6 +2197,33 @@ class View:
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
 
+    def openMajor_editMajor_delCourseButton(self):
+        msg = "Do you want to remove the selected backup course? ("
+        cnt = 0
+        index = {}
+        for i in range(0, 8):
+            for course in self.edtMjTbls[i].selection():
+                index[cnt] = [i, course]
+                cnt+=1
+        print(index)
+        if len(index) == 1:
+            msg = "Do you want to remove the selected course? (" + self.edtMjTbls[index[0][0]].item(index[0][1])['values'][0] + ")"
+        else:
+            msg = "Do you want to remove the selected course? ("
+            for i in range(len(index)):
+                msg = msg + self.edtMjTbls[index[i][0]].item(index[i][1])['values'][0]
+                if i+1 != len(index):
+                    msg+=", "
+            msg = msg + ")"
+        response = messagebox.askquestion("askquestion", msg)
+        for i in range(len(index)):
+            if response == 'yes':
+                self.edtMjTbls[index[i][0]].delete(index[i][1])
+                self.edtMjTbls_iid -= 1
+
+
+
+
     def openMajorButton(self, major):
         if self.majorBox.get(self.majorBox.curselection()) != "":
             self.close(self.addEditMajorWindow)
@@ -2181,8 +2245,8 @@ class View:
         self.edtMjLbls = []
         self.edtMjTbls = []
 
-        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow))
-        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.FYP_delCourseButton(self.editMajorWindow))
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.openMajor_editMajor_addCourseButton(self.editMajorWindow))
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.openMajor_editMajor_delCourseButton())
         addCourseBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=RIGHT)
 
@@ -2199,6 +2263,8 @@ class View:
                                                               values=(course[1] + course[2], course[3], course[4]))
                 self.edtMjTbls_iid += 1
             semsIndex += 1
+
+
 
         # ============================ Add Semester Table Button ============================
         """
