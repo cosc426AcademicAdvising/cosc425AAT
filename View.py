@@ -10,6 +10,8 @@ from pubsub import pub  # pip install PyPubSub
 import tkinter.font as TkFont
 import math
 import requests
+from ttkbootstrap import Style, Colors
+
 import json
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
@@ -72,7 +74,14 @@ class View:
         self.menuBar()
         self.loginWindow.protocol("WM_DELETE_WINDOW",
                                   self.login_closing)  # If user closes login window application closes
-
+        '''
+        style = Style(theme='darkly')
+        #style.theme_use('darkly')
+    
+        for color_label in Colors.label_iter():
+            color = Colors.get(color_label)
+            print(color_label, color)
+        '''
     # prompt message before closing program,
     # also closes all TopLevel functions
 
@@ -246,21 +255,13 @@ class View:
         self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
 
         # Creating buttons for Progress Report placing with .grid() in FYP_addCourseButton
-        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add", command=lambda: self.FYP_addCourseButton())
-        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove", command=lambda: self.FYP_delCourseButton(self.mainwin))
+        self.addProgRepoBtn = Button(self.progressRepoFrame, text="Add Course", command=lambda: self.FYP_addCourseButton())
+        self.removeProgRepoBtn = Button(self.progressRepoFrame, text="Remove Course", command=lambda: self.FYP_delCourseButton(self.mainwin))
 
         # ============================ Add Semester Table Button ============================
-        """
-        self.addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
-        self.addSemesterBtn.pack()
-        self.addSemesterBtn.place(x=120, y=950)
-        self.temp = semesterCounter
-        self.tempY = yPos
-        self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
-                                                                        self.semLabel, self.semesterFrame, self.temp)
-        """
 
-
+        self.addSemesterBtn = Button(self.progressRepoFrame, text="Add Semester")
+        self.addSemesterBtn['command'] = lambda:  self.addSemester(self.progressRepoFrame, self.progLabel, self.progTable)
 
     def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses,
                           courseHist, fourYear, minorFourYear, minorReqList, policies,
@@ -278,15 +279,12 @@ class View:
         self.FYPnameEntry.config(state=DISABLED)
         self.id2Entry.config(state=DISABLED)
 
+        self.coursesNeeded = []
+
         self.minorReqList = minorReqList  # Copying minor requirements to use as labels for creatTable()
         self.policies = policies  # Copying policies for other functions
         self.courseHist = courseHist
-        if len(courseHist) % 2 == 0:
-            self.progTableLength = len(
-                courseHist) + 2  # Storing the amount of semesters to make that many treeviews in createTable
-        else:
-            self.progTableLength = len(
-                courseHist) + 1  # Storing the amount of semesters to make that many treeviews in createTable
+        self.progTableLength = len(courseHist)  # Storing the amount of semesters to make that many treeviews in createTable
         self.majorsTable = []  # Holds arrays filled with treeviews
         self.minorsTable = []  # Holds arrays filled with treeviews
         self.majorFrames = []  # Holds frames major for tabs
@@ -311,13 +309,13 @@ class View:
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
         # Treeviews are re-created for Progress Report tab with number of semesters student has taken
-        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength)
+        self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, self.progTableLength + 1)
 
         # Filling winter and summer courses
         self.winSumTable = []
         self.winSumLabel = []
 
-        self.createWinSumTable(self.progressRepoFrame, self.winSumLabel, self.winSumTable, self.progTableLength + 1)
+        self.createWinSumTable(self.progressRepoFrame, self.winSumLabel, self.winSumTable, self.progTableLength + 2)
 
         # Updates canvas to get correct scrollbar size
         self.canvas.update()
@@ -378,6 +376,7 @@ class View:
                                                                   iid=self.majorsTableTree_iid,
                                                                   values=(str(course[1] + " " + course[2]), course[3],
                                                                           course[4]))
+                    self.coursesNeeded.append(str(course[1] + " " + course[2]))
                     self.majorsTableTree_iid += 1
                 semIndex += 1
             majorIndex += 1
@@ -392,9 +391,27 @@ class View:
                                                                   iid=self.minorTableTree_iid,
                                                                   values=(str(course[1] + " " + course[2]), course[3],
                                                                           course[4]))
+                    self.coursesNeeded.append(str(course[1] + " " + course[2]))
                     self.minorTableTree_iid += 1
                 semIndex += 1
             minorIndex += 1
+
+        # Autofill last semester in treeview
+        self.coursesNextSemester = []
+        semIndex = 0
+        for sem in courseHist:  # Filling the Progress Report treeviews with students course history from database
+            for course in sem:
+                if len(self.coursesNextSemester) != 4:
+                    if str(course[1] + " " + course[2]) in self.coursesNeeded:
+                        self.coursesNextSemester.append(course)
+            semIndex += 1
+
+        semIndex = self.progTableLength
+        self.progTableTree_iid = 0
+        for course in self.coursesNextSemester:
+            self.progTable[semIndex].insert(parent='', index='end', iid=self.progTableTree_iid,
+                                            values=(course[1] + " " + course[2], course[3], course[4]))
+            self.progTableTree_iid += 1
 
         for minors in range(len(self.minorReqList)):
             for labels in range(len(self.minorReqList[minors])):
@@ -467,6 +484,9 @@ class View:
         self.id2Entry.delete(0, END)
         self.FYPnameEntry.config(state=NORMAL)
         self.id2Entry.config(state=NORMAL)
+
+        self.addSemesterBtn.forget()
+
         for sem in self.progTable:  # Clear courses in treeviews under Progress Report tab
             for course in sem.get_children():
                 sem.delete(course)
@@ -516,6 +536,13 @@ class View:
         self.minorFrames.clear()
         self.winSumTable.clear()
         self.winSumLabel.clear()
+
+        self.FYPnameEntry.delete(0, END)
+        self.id2Entry.delete(0, END)
+        self.FYPnameEntry.config(state=NORMAL)
+        self.id2Entry.config(state=NORMAL)
+
+        self.addSemesterBtn.grid_remove()
 
         while (self.tab_parent.index("end") != 1):  # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
@@ -570,14 +597,195 @@ class View:
         addButton.pack(side=BOTTOM, pady=5)
 
     def FYP_delCourseButton(self, parentWindow):
-        selectedTreeView = self.mainwin.focus_get()
+        t = Toplevel(self.mainwin)
+        t.wm_title("Search for Course")
+        t.geometry("700x500")
+        t.resizable(width=FALSE, height=FALSE)
+        t.transient(self.mainwin)
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        self.selectedSemester = ''
+        self.addSemesterBtn["state"] = DISABLED
 
-        for course in selectedTreeView.selection():
-            msg = "Do you want to remove the selected course? (" + selectedTreeView.item(course)['values'][0] + ")"
-            response = messagebox.askquestion("askquestion", msg)
-            parentWindow.lower()
-            if response == 'yes':
-                selectedTreeView.delete(course)
+        def close(e):
+            self.addCourseButton.configure(state=NORMAL)
+            self.addSemesterBtn["state"] = NORMAL
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.addCourseButton.configure(state=DISABLED)
+
+        def update_course_list(data):
+            for i in self.course_tree.get_children():
+                self.course_tree.delete(i)
+
+            # self.course_tree.tag_configure('evenrow', background="grey")
+            # self.course_tree.tag_configure('oddrow', background="white")
+
+            for item in data:
+                self.course_tree.insert('', 'end',
+                                        values=(
+                                        item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
+
+        def fillout_fields(event):
+            subject_entry.delete(0, END)
+            catalog_entry.delete(0, END)
+            title_entry.delete(0, END)
+            credit_entry.delete(0, END)
+
+            course = self.course_tree.focus()
+            course_info = self.course_tree.item(course)['values']
+
+            subject_entry.insert(0, course_info[0])
+            catalog_entry.insert(0, course_info[1])
+            title_entry.insert(0, course_info[2])
+            credit_entry.insert(0, course_info[3])
+
+        def check_course(event):
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+
+            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type,
+                            cred=credit_type)
+            update_course_list(self.course_regex_list)
+
+        # adds searched course into the treeview
+        def addCourse():
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+            self.selectedSemester.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                         values=(subject_type + " " + catalog_type,
+                                                 title_type,
+                                                 credit_type,
+                                                 "Major"))
+
+            prevcred = self.enrollCredVar.get()
+            self.courseTree_counter += 1
+            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+
+        self.semDropVar = StringVar()
+        self.semDropVar.set("Select a Semester")
+        self.semesters = []
+        self.courses = []
+        self.courseDropDefault = StringVar()
+        self.courseDropDefault.set("Select a Course")
+
+        for i in range(0, self.progTableLength + 1, 1):
+            if i % 2 == 0:
+                self.semesters.append("Year " + str(math.ceil(i / 2) + 1) + " Semester " + str(1))
+            else:
+                self.semesters.append("Year " + str(math.ceil(i / 2)) + " Semester " + str(2))
+        self.semesters.append('Winter')
+        self.semesters.append('Summer')
+
+        def semesterChanged(event):
+            comboboxString = self.removBtnSemDrop.get().split()
+            if comboboxString[0] == 'Winter':
+                self.selectedSemester = self.winSumTable[0]
+            elif comboboxString[0] == 'Summer':
+                self.selectedSemester = self.winSumTable[1]
+            elif comboboxString[3] == '1':
+                for i in self.progTable[(int(comboboxString[1])) * 2 - 2].get_children():
+                    # self.courses.append(str())
+                    self.courses.append(self.progTable[(int(comboboxString[1])) * 2 - 2].item(i)["values"])
+            else:
+                for i in self.progTable[(int(comboboxString[1])) * 2 - 1].get_children():
+                    self.courses.append(self.progTable[(int(comboboxString[1])) * 2 - 1].item(i)["values"])
+
+        def courseChanged(event):
+            comboString = self.removBtnCrsDrop.get()
+
+        self.subject_frame = Frame(t, borderwidth=2)
+        self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
+        selectedSemester = ''
+        self.removBtnSemDrop = ttk.Combobox(self.subject_frame, value=self.semesters, exportselection=0, width=18)
+        self.removBtnSemDrop.pack(pady=5, anchor='n')
+        self.removBtnSemDrop['state'] = 'readonly'
+        self.removBtnSemDrop.bind('<<ComboboxSelected>>', semesterChanged)
+
+        self.removBtnCrsDrop = ttk.Combobox(self.subject_frame, value=self.courses, exportselection=0, width=18)
+        self.removBtnCrsDrop.pack(pady=5, anchor='n')
+        self.removBtnCrsDrop['state'] = 'readonly'
+        self.removBtnCrsDrop.bind('<<ComboboxSelected>>', courseChanged)
+
+        self.subject_label = Label(self.subject_frame, text="Enter a Subject",
+                                   font=("Helvetica", 10), fg="black")
+        self.subject_label.pack(pady=5, anchor='n')
+
+        self.subject_example = Label(self.subject_frame, text="ex. COSC, cos",
+                                     font=("Helvetica", 8), fg="grey")
+        self.subject_example.pack(pady=0, anchor='n')
+
+        subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        subject_entry.pack(pady=10, anchor='n')
+
+        self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
+                                   font=("Helvetica", 8), fg="black")
+        self.catalog_label.pack(pady=5, anchor='n')
+
+        self.catalog_example = Label(self.subject_frame, text="ex. 123, 12, 1",
+                                     font=("Helvetica", 8), fg="grey")
+        self.catalog_example.pack(pady=0, anchor='n')
+
+        catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        catalog_entry.pack(pady=10, anchor='n')
+
+        self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
+                                 font=("Helvetica", 10), fg="black")
+        self.title_frame.pack(pady=5, anchor='n')
+
+        self.title_example = Label(self.subject_frame, text="ex. Computer Science I, computer sci",
+                                   font=("Helvetica", 8), fg="grey")
+        self.title_example.pack(pady=0, anchor='n')
+
+        title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        title_entry.pack(pady=10, anchor='n')
+
+        self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
+                                  font=("Helvetica", 10), fg="black")
+        self.credit_frame.pack(pady=5, anchor='n')
+
+        self.credit_example = Label(self.subject_frame, text="ex. 4, 3.0, 2.00",
+                                    font=("Helvetica", 8), fg="grey")
+        self.credit_example.pack(pady=0, anchor='n')
+
+        credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        credit_entry.pack(pady=10, anchor='n')
+
+        self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
+        self.addButton.pack(side=TOP)
+
+        self.course_frame = Frame(t, borderwidth=2)
+        self.course_frame.pack(side=RIGHT, anchor='n', padx=10)
+
+        self.course_tree_scroll = Scrollbar(self.course_frame)
+        self.course_tree_scroll.pack(side=RIGHT, fill=Y)
+
+        self.course_tree = ttk.Treeview(self.course_frame, yscrollcommand=self.course_tree_scroll.set,
+                                        column=('sub', 'cat', 'title', 'cred'), show=['headings'], height=300)
+        self.course_tree.column('# 1', anchor=CENTER, width=50)
+        self.course_tree.heading('# 1', text="Subject")
+        self.course_tree.column('# 2', anchor=CENTER, width=50)
+        self.course_tree.heading('# 2', text="Catalog")
+        self.course_tree.column('# 3', anchor=CENTER, width=280)
+        self.course_tree.heading('# 3', text="Title")
+        self.course_tree.column('# 4', anchor=CENTER, width=50)
+        self.course_tree.heading('# 4', text="Credits")
+
+        self.course_tree.pack(pady=0)
+        self.course_tree_scroll.config(command=self.course_tree.yview)
+
+        pub.sendMessage("request_Course_by_Regex", sub="", cat="", title="", cred="")
+        update_course_list(self.course_regex_list)
+
+        self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
+        subject_entry.bind("<KeyRelease>", check_course)
+        catalog_entry.bind("<KeyRelease>", check_course)
+        title_entry.bind("<KeyRelease>", check_course)
+        credit_entry.bind("<KeyRelease>", check_course)
 
     # Function for event handler to change policy memo via clicking a tab
     def updatePolicy(self, event):
@@ -602,7 +810,7 @@ class View:
         # define treeviews and labels
         for i in range(length):
             tables.append(
-                ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="extended"))
+                ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="none"))
 
             tables[i]['columns'] = ("course#", "title", "cred")
             tables[i].column("#0", width=0, stretch=NO)
@@ -616,19 +824,94 @@ class View:
             tables[i].heading("title", text='Title', anchor=CENTER)
             tables[i].heading("cred", text='CR', anchor=CENTER)
 
-            if i < math.floor(length / 2):
+            if i < math.ceil(length / 2):
                 labels.append(Label(frame, text="Year " + str(i + 1), font=('Helvetica', 15)))
 
         # grid labels
-        for i in range(math.floor(length / 2)):
+        for i in range(math.ceil(length / 2)):
             labels[i].grid(column=0, row=2 * i, columnspan=2, sticky=W, padx=5)
 
         # grid treeviews
-        for i in range(0, length - 1, 2):
-            tables[i].grid(column=0, row=i + 1)
-            tables[i + 1].grid(column=1, row=i + 1)
+        if length % 2 == 0:
+            for i in range(0, length, 2):
+                tables[i].grid(column=0, row=i + 1)
+                tables[i + 1].grid(column=1, row=i + 1)
+        else:
+            for i in range(0, length, 2):
+                if i == length-1:
+                    tables[i].grid(column=0, row=i + 1)
+                else:
+                    tables[i].grid(column=0, row=i + 1)
+                    tables[i + 1].grid(column=1, row=i + 1)
 
-    # Creates a table of treeviews for minor tabs
+    # Creates a table of treeviews for progress report tab
+    def addSemester(self, frame, labels, tables):
+
+        # column configure
+        for i in range(2):
+            frame.columnconfigure(i, weight=1)
+        # define treeviews and labels
+        tables.append(
+            ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="none"))
+
+        self.prevProgTableLength = len(self.progTable) - 1
+        tables[len(tables)-1]['columns'] = ("course#", "title", "cred")
+        tables[len(tables)-1].column("#0", width=0, stretch=NO)
+        tables[len(tables)-1].column("course#", anchor=CENTER, width=90)
+        w = int((self.left_width - 300) / 2)
+        tables[len(tables)-1].column("title", anchor=W, width=w)
+        tables[len(tables)-1].column("cred", anchor=CENTER, width=35)
+
+        tables[len(tables)-1].heading("course#", text='Course #', anchor=CENTER)
+        tables[len(tables)-1].heading("title", text='Title', anchor=CENTER)
+        tables[len(tables)-1].heading("cred", text='CR', anchor=CENTER)
+
+        '''
+        Position button in correct place
+        if on new row add label
+        then position button in a empty spot on new row
+        
+        if not position button in empty spot
+        
+        then
+        when button is clicked add a semester where the button was
+        
+        repeat previous if statement
+        '''
+
+        
+        if self.prevProgTableLength % 2 == 0:
+            tables[len(tables) - 1].grid(column=0, row=self.prevProgTableLength + 1)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1)
+
+        else:
+            tables[len(tables) - 1].grid(column=1, row=self.prevProgTableLength)
+            labels.append(
+                Label(frame, text="Year " + str(math.ceil(self.prevProgTableLength / 2) + 1), font=('Helvetica', 15)))
+            labels[len(labels) - 1].grid(column=0, row=self.prevProgTableLength + 1, columnspan=2, sticky=W, padx=5)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0)
+
+            self.winSumLabel[0].grid(column=0, row=self.prevProgTableLength + 4)
+            self.winSumTable[0].grid(column=0, row=self.prevProgTableLength + 5, columnspan=2, sticky=W, padx=5)
+            self.winSumLabel[1].grid(column=1, row=self.prevProgTableLength + 4)
+            self.winSumTable[1].grid(column=1, row=self.prevProgTableLength + 5, columnspan=2, sticky=W, padx=5)
+
+        self.canvas.update()
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        self.progTableLength += 1
+        ''' 
+        # grid labels
+        if position % 2 == 0:
+            labels.append(Label(frame, text="Year " + str(position), font=('Helvetica', 15)))
+            labels[len(labels)-1].grid(column=0, row=position, columnspan=2, sticky=W, padx=5)
+
+        # grid treeviews
+        if position % 2 == 0:
+                tables[len(tables)-1].grid(column=0, row=4)
+        else:
+                tables[len(tables)-1].grid(column=1, row=4)
+        '''
+
     def createMinorTable(self, frame, labels, tables):
         # column configure
         for i in range(2):
@@ -688,11 +971,11 @@ class View:
         labels.append(Label(frame, text="Winter Courses", font=('Helvetica', 15)))
         labels.append(Label(frame, text="Summer Courses", font=('Helvetica', 15)))
 
-        labels[0].grid(column=0, row=length + 1, columnspan=2, sticky=W, padx=5)
-        tables[0].grid(column=0, row=length + 2)
+        labels[0].grid(column=0, row=length + 2, columnspan=2, sticky=W, padx=5)
+        tables[0].grid(column=0, row=length + 3)
 
-        labels[1].grid(column=1, row=length + 1, columnspan=2, sticky=W, padx=5)
-        tables[1].grid(column=1, row=length + 2)
+        labels[1].grid(column=1, row=length + 2, columnspan=2, sticky=W, padx=5)
+        tables[1].grid(column=1, row=length + 3)
 
     def FYP_addCourseButton(self):
         t = Toplevel(self.mainwin)
@@ -701,9 +984,12 @@ class View:
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        self.selectedSemester = ''
+        self.addSemesterBtn["state"] = DISABLED
 
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
+            self.addSemesterBtn["state"] = NORMAL
             t.destroy()
 
         t.bind('<Destroy>', close)
@@ -749,7 +1035,7 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            self.progTable[self.selectedSemester-1].insert(parent='', index='end', iid=self.courseTree_counter, text="",
+            self.selectedSemester.insert(parent='', index='end', iid=self.courseTree_counter, text="",
                                    values=(subject_type + " " + catalog_type,
                                            title_type,
                                            credit_type,
@@ -759,27 +1045,33 @@ class View:
             self.courseTree_counter += 1
             self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
-        dropDefault = StringVar()
-        dropDefault.set("Select a semester")
-        semesters = []
+        self.dropDefault = StringVar()
+        self.dropDefault.set("Select a semester")
+        self.semesters = []
 
-        for i in range(len(self.courseHist), self.progTableLength, 1):
+        for i in range(len(self.courseHist) + 1, self.progTableLength + 1, 1):
             if i % 2 == 0:
-                semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
+                self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
             else:
-                semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
+                self.semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
+        self.semesters.append('Winter')
+        self.semesters.append('Summer')
 
         def semesterChanged(event):
             comboboxString = self.progRepoDrop.get().split()
-            if comboboxString[3] == '1':
-                self.selectedSemester = (int(comboboxString[1]))*2-1
+            if comboboxString[0] == 'Winter':
+                self.selectedSemester = self.winSumTable[0]
+            elif comboboxString[0] == 'Summer':
+                self.selectedSemester = self.winSumTable[1]
+            elif comboboxString[3] == '1':
+                self.selectedSemester = self.progTable[(int(comboboxString[1]))*2 - 2]
             else:
-                self.selectedSemester = (int(comboboxString[1]))*2
+                self.selectedSemester = self.progTable[(int(comboboxString[1]))*2 - 1]
 
         self.subject_frame = Frame(t, borderwidth=2)
         self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
         selectedSemester = ''
-        self.progRepoDrop = ttk.Combobox(self.subject_frame, value=semesters, exportselection=0, width=18)
+        self.progRepoDrop = ttk.Combobox(self.subject_frame, value=self.semesters, exportselection=0, width=18)
         self.progRepoDrop.pack(pady=5, anchor='n')
         self.progRepoDrop['state'] = 'readonly'
         self.progRepoDrop.bind('<<ComboboxSelected>>', semesterChanged)
@@ -1280,8 +1572,6 @@ class View:
                                            credit_type,
                                            "Major"))
 
-            print(self.courseTree_counter)
-
             if subject_type == "" or catalog_type == "" or title_type == "":
                 messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
             else:
@@ -1455,6 +1745,7 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
+            print(subject_type)
             self.backupCourseTree.insert(parent='', index='end', iid=self.backupCourseTree_counter, text="",
                                    values=(subject_type + " " + catalog_type,
                                            title_type,
@@ -1825,66 +2116,35 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def openScheduleSearchButton(e):
-            if fname.get() == "" or lname.get() == "" or idE.get() == "":
-                w = Toplevel(t)
-                w.wm_title("Invalid Input")
-                w.geometry("330x120")
+            if self.studentBox.curselection() != "":
+                selectedStudent = self.studentBox.get(self.studentBox.curselection())
+                selectedStudentSplit = selectedStudent.split()
 
-                w.grab_set()
-                top = Frame(w, bg='White')
-                top.pack(side="top", expand=TRUE, fill=BOTH)
+                fname.delete(0, END)
+                lname.delete(0, END)
+                idE.delete(0, END)
 
-                msg = Label(top, text="Error: Search Fields Cannot Be Blank", bg="White", font=('Helvetica', 9))
-                msg.pack(anchor='n', pady=20)
-                bottom = Frame(w)
-                bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
-                btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
-                btn.pack(side=RIGHT, ipadx=20, padx=15)
+                fname.insert(0, selectedStudentSplit[0])
+                lname.insert(0, selectedStudentSplit[1])
+                idE.insert(0, selectedStudentSplit[2])
 
-            else:
-                try:
-                    self.studentBox.curselection()
-                    selectedStudent = self.studentBox.get(self.studentBox.curselection())
-                    selectedStudentSplit = selectedStudent.split()
+                name = fname.get() + " " + lname.get()
+                id = idE.get()
 
-                    fname.delete(0, END)
-                    lname.delete(0, END)
-                    idE.delete(0, END)
-
-                    fname.insert(0, selectedStudentSplit[0])
-                    lname.insert(0, selectedStudentSplit[1])
-                    idE.insert(0, selectedStudentSplit[2])
-
-                    name = fname.get() + " " + lname.get()
-                    id = idE.get()
-
-                    if name != "" and id != "":
-                        self.studentBox.delete(0, END)
-                        pub.sendMessage("request_PPW", name=name, id=int(id))
-                        self.schedule.entryconfigure(1, state=NORMAL)
-                        t.destroy()
-                        # Shows buttons for Progress Report when student information is present
-                        self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                        self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
-
-                except (TclError):
-                    w = Toplevel(t)
-                    w.wm_title("Invalid Input")
-                    w.geometry("330x120")
-                    w.resizable(width=0, height=0)
-                    w.attributes('-topmost', 'true')
-                    self.mainwin.eval(f'tk::PlaceWindow {str(w)} center')
-                    w.grab_set()
-                    top = Frame(w, bg='White')
-                    top.pack(side="top", expand=TRUE, fill=BOTH)
-
-                    msg = Label(top, text="Error: Result Not Found, Check Search Fields are Correct", bg="White",
-                                font=('Helvetica', 9))
-                    msg.pack(anchor='n', pady=20)
-                    bottom = Frame(w)
-                    bottom.pack(side="bottom", fill=Y, anchor='e', ipady=10)
-                    btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
-                    btn.pack(side=RIGHT, ipadx=20, padx=15)
+                if name != "" and id != "":
+                    self.studentBox.delete(0, END)
+                    pub.sendMessage("request_PPW", name=name, id=int(id))
+                    self.schedule.entryconfigure(1, state=NORMAL)
+                    t.destroy()
+                    # Shows buttons for Progress Report when student information is present
+                    self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=150)
+                    self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=10)
+                    if self.progTableLength % 2 == 0:
+                        self.addSemesterBtn.grid(row=self.progTableLength + 1, column=1)
+                    else:
+                        self.addSemesterBtn.grid(row=self.progTableLength + 2, column=0)
+                        self.progLabel.append(Label(self.progressRepoFrame, text="Year " + str(math.ceil(self.progTableLength/2) + 1), font=('Helvetica', 15)))
+                        self.progLabel[len(self.progLabel) - 1].grid(column=0, row=self.progTableLength + 1, columnspan=2, sticky=W, padx=5)
 
 
         def filtr(e):
@@ -2032,7 +2292,7 @@ class View:
     def close(self, window):
         window.destroy()
 
-    def openMajor_editMajor_addCourseButton(self, parentWindow):
+    def planningWorksheet_editMajor_addCourseButton(self, parentWindow):
         t = Toplevel(parentWindow)
         t.wm_title("Search for Course")
         t.geometry("700x500")
@@ -2090,20 +2350,19 @@ class View:
             credit_type = credit_entry.get()
             ind = self.clicked.get()
             int_ind = int(ind) - 1
+            cnt = len(self.edtMjTbls[int_ind].get_children())
+            print(cnt)
+            print(self.edtMjTbls_iid)
             if subject_type == "" or catalog_type == "" or title_type == "":
                 messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
             else:
-                inTree = False
-                for i in range(0, 8):
-                    cnt = len(self.edtMjTbls[i].get_children())
-                    for num in range(cnt):
-                        if title_type == self.edtMjTbls[i].item(num)['values'][1] or subject_type + catalog_type == self.edtMjTbls[i].item(num)['values'][0]:
-                            inTree = True
-                            messagebox.showinfo(parent=t, title="Duplicate Course Error",
-                                                   message="Error: Course Already Exists in Plan")
+                inTree = FALSE
+                for num in range(cnt):
+                    if title_type == self.edtMjTbls[int_ind].item(num):
+                        inTree = TRUE
+                        messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
                 if not inTree:
-                    cnt = len(self.edtMjTbls[int_ind].get_children())
-                    self.edtMjTbls[int_ind].insert(parent='', index='end', iid=cnt,
+                    self.edtMjTbls[int_ind].insert(parent='', index='end',
                                                      values=(subject_type + catalog_type, title_type, credit_type))
                     self.edtMjTbls_iid += 1
 
@@ -2197,33 +2456,6 @@ class View:
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
 
-    def openMajor_editMajor_delCourseButton(self):
-        msg = "Do you want to remove the selected backup course? ("
-        cnt = 0
-        index = {}
-        for i in range(0, 8):
-            for course in self.edtMjTbls[i].selection():
-                index[cnt] = [i, course]
-                cnt+=1
-        print(index)
-        if len(index) == 1:
-            msg = "Do you want to remove the selected course? (" + self.edtMjTbls[index[0][0]].item(index[0][1])['values'][0] + ")"
-        else:
-            msg = "Do you want to remove the selected course? ("
-            for i in range(len(index)):
-                msg = msg + self.edtMjTbls[index[i][0]].item(index[i][1])['values'][0]
-                if i+1 != len(index):
-                    msg+=", "
-            msg = msg + ")"
-        response = messagebox.askquestion("askquestion", msg)
-        for i in range(len(index)):
-            if response == 'yes':
-                self.edtMjTbls[index[i][0]].delete(index[i][1])
-                self.edtMjTbls_iid -= 1
-
-
-
-
     def openMajorButton(self, major):
         if self.majorBox.get(self.majorBox.curselection()) != "":
             self.close(self.addEditMajorWindow)
@@ -2245,8 +2477,8 @@ class View:
         self.edtMjLbls = []
         self.edtMjTbls = []
 
-        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.openMajor_editMajor_addCourseButton(self.editMajorWindow))
-        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.openMajor_editMajor_delCourseButton())
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow))
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.FYP_delCourseButton(self.editMajorWindow))
         addCourseBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=RIGHT)
 
@@ -2263,19 +2495,6 @@ class View:
                                                               values=(course[1] + course[2], course[3], course[4]))
                 self.edtMjTbls_iid += 1
             semsIndex += 1
-
-
-
-        # ============================ Add Semester Table Button ============================
-        """
-        self.addSemesterBtn = Button(self.semesterFrame, text="Add a semester")
-        self.addSemesterBtn.pack()
-        self.addSemesterBtn.place(x=120, y=950)
-        self.temp = semesterCounter
-        self.tempY = yPos
-        self.addSemesterBtn['command'] = lambda: self.createSemesterBtn("Extra Semester", self.tempY, self.semTable,
-                                                                        self.semLabel, self.semesterFrame, self.temp)
-        """
 
     # Add Major Button from Update DB
     def addEditMajor(self):

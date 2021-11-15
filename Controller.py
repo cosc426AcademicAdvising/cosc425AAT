@@ -1,3 +1,5 @@
+from ttkbootstrap import Style
+
 from View import View
 from Model import Model
 from tkinter import *
