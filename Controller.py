@@ -37,6 +37,8 @@ class Controller:
 
         # for saving info from program planning sheet
         pub.subscribe(self.saveSchedule, "save_schedule")
+        pub.subscribe(self.saveMajorPlan, "save_maj_plan")
+
 
         pub.subscribe(self.openPPW, "request_CSV")
         pub.subscribe(self.exportSchedule, "export_schedule")
@@ -51,6 +53,7 @@ class Controller:
         # Requesting a list of all majors and minors when trying to edit/add a major or minor
         pub.subscribe(self.getMajors, "request_Majors")
         pub.subscribe(self.getMinors, "request_Minors")
+        pub.subscribe(self.getMajorPlans, "request_Major_Plan")
 
         # Requesting the courses for a majors FYP
         pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
@@ -65,6 +68,9 @@ class Controller:
 
     def getMinors(self):
         self.view.minors = self.model.listAllMinors().copy()
+
+    def getMajorPlans(self):
+        self.view.majors = self.model.listAllMajorPlan().copy()
 
     def getMajorsFYP(self, major):
         self.view.majorsFYP = self.model.getFourYear(major).copy()
@@ -105,6 +111,9 @@ class Controller:
 
     def saveSchedule(self, obj):
         self.model.updateStudent(obj)
+
+    def saveMajorPlan(self, obj):
+        self.model.updateMajPlan(obj)
 
     def openPPW(self):
         self.model.openCSV()

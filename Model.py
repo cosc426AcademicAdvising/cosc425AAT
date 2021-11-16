@@ -84,6 +84,14 @@ class Model:
             minors.append(i['Acad Plan'])
         return minors
 
+    def listAllMajorPlan(self):
+        response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MajorPlans", headers={'auth-token': token})
+        obj = response.json()
+        majors = []
+        for i in obj:
+            majors.append(i['major'])
+        return majors
+
     def getMinorSchools(self):
         response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MinorSchool", headers={'auth-token': token})
         return response.json()
@@ -769,6 +777,11 @@ class Model:
             requests.post(pull_url, headers={'auth-token': token}, json=val)
 
         messagebox.showinfo("Save", "Student's data successfully saved!")
+
+    def updateMajPlan(self, obj):
+        url = "http://localhost:5000/api/Update/MajorPlan"
+        print(obj)
+        print(requests.post(url, json=obj))
 
     def insertCSV(self, path):
         myCol = db.get_collection("Crs Test")
