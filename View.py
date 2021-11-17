@@ -668,18 +668,18 @@ class View:
 
         self.semDropVar = StringVar()
         self.semDropVar.set("Select a Semester")
-        self.semesters = []
+        self.addCrsBtnSemesters = []
         self.courses = []
         self.courseDropDefault = StringVar()
         self.courseDropDefault.set("Select a Course")
 
-        for i in range(0, self.progTableLength + 1, 1):
+        for i in range(0, self.progTableLength, 1):
             if i % 2 == 0:
-                self.semesters.append("Year " + str(math.ceil(i / 2) + 1) + " Semester " + str(1))
+                self.addCrsBtnSemesters.append("Year " + str(math.ceil(i / 2) + 1) + " Semester " + str(1))
             else:
-                self.semesters.append("Year " + str(math.ceil(i / 2)) + " Semester " + str(2))
-        self.semesters.append('Winter')
-        self.semesters.append('Summer')
+                self.addCrsBtnSemesters.append("Year " + str(math.ceil(i / 2)) + " Semester " + str(2))
+        self.addCrsBtnSemesters.append('Winter')
+        self.addCrsBtnSemesters.append('Summer')
 
         def semesterChanged(event):
             comboboxString = self.removBtnSemDrop.get().split()
@@ -690,10 +690,16 @@ class View:
             elif comboboxString[3] == '1':
                 for i in self.progTable[(int(comboboxString[1])) * 2 - 2].get_children():
                     # self.courses.append(str())
-                    self.courses.append(self.progTable[(int(comboboxString[1])) * 2 - 2].item(i)["values"])
+                    print(str(self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][1]))
+                    self.courses.append(str(self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][0] +
+                                        self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][1] +
+                                        self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][2]))
             else:
                 for i in self.progTable[(int(comboboxString[1])) * 2 - 1].get_children():
-                    self.courses.append(self.progTable[(int(comboboxString[1])) * 2 - 1].item(i)["values"])
+                    #print(str(self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][1]))
+                    self.courses.append(str(self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][0] +
+                                        self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][1] +
+                                        self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][2]))
 
         def courseChanged(event):
             comboString = self.removBtnCrsDrop.get()
@@ -701,7 +707,7 @@ class View:
         self.subject_frame = Frame(t, borderwidth=2)
         self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
         selectedSemester = ''
-        self.removBtnSemDrop = ttk.Combobox(self.subject_frame, value=self.semesters, exportselection=0, width=18)
+        self.removBtnSemDrop = ttk.Combobox(self.subject_frame, value=self.addCrsBtnSemesters, exportselection=0, width=18)
         self.removBtnSemDrop.pack(pady=5, anchor='n')
         self.removBtnSemDrop['state'] = 'readonly'
         self.removBtnSemDrop.bind('<<ComboboxSelected>>', semesterChanged)
@@ -1031,6 +1037,7 @@ class View:
 
         # adds searched course into the treeview
         def addCourse():
+            self.courseTree_counter += 1
             subject_type = subject_entry.get().upper()
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
@@ -1042,14 +1049,13 @@ class View:
                                            "Major"))
 
             prevcred = self.enrollCredVar.get()
-            self.courseTree_counter += 1
             self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.dropDefault = StringVar()
         self.dropDefault.set("Select a semester")
         self.semesters = []
 
-        for i in range(len(self.courseHist) + 1, self.progTableLength + 1, 1):
+        for i in range(len(self.courseHist) - 1, self.progTableLength, 1):
             if i % 2 == 0:
                 self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
             else:
