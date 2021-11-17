@@ -2154,8 +2154,17 @@ class View:
                         self.schedule.entryconfigure(1, state=NORMAL)
                         t.destroy()
                         # Shows buttons for Progress Report when student information is present
-                        self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=120)
-                        self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=25)
+                        self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=150)
+                        self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=10)
+                        if self.progTableLength % 2 == 0:
+                            self.addSemesterBtn.grid(row=self.progTableLength + 1, column=1)
+                        else:
+                            self.addSemesterBtn.grid(row=self.progTableLength + 2, column=0)
+                            self.progLabel.append(Label(self.progressRepoFrame,
+                                                        text="Year " + str(math.ceil(self.progTableLength / 2) + 1),
+                                                        font=('Helvetica', 15)))
+                            self.progLabel[len(self.progLabel) - 1].grid(column=0, row=self.progTableLength + 1,
+                                                                         columnspan=2, sticky=W, padx=5)
 
                 except (TclError):
                     w = Toplevel(t)
