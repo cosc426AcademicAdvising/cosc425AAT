@@ -68,6 +68,8 @@ class View:
         self.majors = []
         self.minors = []
         self.majorsFYP = []
+        self.minorsFYP = []
+        self.minorsReqs = []
         self.selectedSemester = 0
 
         self.loginPage()
@@ -2337,7 +2339,7 @@ class View:
     def close(self, window):
         window.destroy()
 
-    def planningWorksheet_editMajor_addCourseButton(self, parentWindow):
+    def planningWorksheet_editMajor_addCourseButton(self, parentWindow, type):
         t = Toplevel(parentWindow)
         t.wm_title("Search for Course")
         t.geometry("700x500")
@@ -2346,6 +2348,15 @@ class View:
         t.attributes('-topmost', 'true')
         selectedTreeView = self.mainwin.focus_get()
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        tbl = ""
+        maxRng = 0
+        if type == 1:
+            tbl = self.edtMiTbls
+            maxRng = len(self.minorsFYP)
+        else:
+            tbl = self.edtMjTbls
+            maxRng = len(self.majorsFYP)
 
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
@@ -2401,12 +2412,12 @@ class View:
                 messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
             else:
                 inTree = False
-                for i in range(0, 8):
-                    cnt = len(self.edtMjTbls[i].get_children())
+                for i in range(0, maxRng):
+                    cnt = len(tbl[i].get_children())
                     for num in range(cnt):
                         try:    # Checks if a course was previously removed from a table before proceeding
-                            self.edtMjTbls[i].item(num)
-                            if title_type == self.edtMjTbls[i].item(num)['values'][1] or subject_type + catalog_type == self.edtMjTbls[i].item(num)['values'][0]:
+                            tbl[i].item(num)
+                            if title_type == tbl[i].item(num)['values'][1] or subject_type + catalog_type == tbl[i].item(num)['values'][0]:
                                 inTree = True
                                 messagebox.showinfo(parent=t, title="Duplicate Course Error",
                                                     message="Error: Course Already Exists in Plan")
@@ -2418,11 +2429,14 @@ class View:
                     if blank == True:       # If theres a blank
                         cnt = blank_ind     # Use the blank index as the IID
                     else:                   # Else use the end IID
-                        cnt = len(self.edtMjTbls[int_ind].get_children())
-                    self.edtMjTbls[int_ind].insert(parent='', index='end', iid=cnt,
+                        cnt = len(tbl[int_ind].get_children())
+                    tbl[int_ind].insert(parent='', index='end', iid=cnt,
                                                    values=(
                                                    subject_type + catalog_type, title_type, credit_type))
-                    self.edtMjTbls_iid += 1
+                    if type == 1:
+                        self.edtMiTbls_iid += 1
+                    else:
+                        self.edtMjTbls_iid += 1
 
 
         self.subject_frame = Frame(t, borderwidth=2)
@@ -2514,23 +2528,31 @@ class View:
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
 
-    def openMajor_editMajor_delCourseButton(self):
+    def openMajor_editMajor_delCourseButton(self, type):
         msg = "Do you want to remove the selected backup course? ("
         cnt = 0
         index = {}
+        tbl = ""
+        maxRng = 0
+        if type == 1:
+            tbl = self.edtMiTbls
+            maxRng = len(self.minorsFYP)
+        else:
+            tbl = self.edtMjTbls
+            maxRng = len(self.majorsFYP)
         # Loops thru each of selected tree view values and pushes the index into a list
-        for i in range(0, 8):
-            for course in self.edtMjTbls[i].selection():
+        for i in range(0, maxRng):
+            for course in tbl[i].selection():
                 index[cnt] = [i, course]
                 cnt+=1
         # If only one course selected
         if len(index) == 1:
-            msg = "Do you want to remove the selected course? (" + self.edtMjTbls[index[0][0]].item(index[0][1])['values'][0] + ")"
+            msg = "Do you want to remove the selected course? (" + tbl[index[0][0]].item(index[0][1])['values'][0] + ")"
         # Else create msg prompt for batch delete courses
         else:
             msg = "Do you want to remove the selected course? ("
             for i in range(len(index)):
-                msg = msg + self.edtMjTbls[index[i][0]].item(index[i][1])['values'][0]
+                msg = msg + tbl[index[i][0]].item(index[i][1])['values'][0]
                 if i+1 != len(index):
                     msg+=", "
             msg = msg + ")"
@@ -2538,8 +2560,11 @@ class View:
         response = messagebox.askquestion("askquestion", msg)
         for i in range(len(index)):
             if response == 'yes':
-                self.edtMjTbls[index[i][0]].delete(index[i][1])
-                self.edtMjTbls_iid -= 1
+                tbl[index[i][0]].delete(index[i][1])
+                if type == 1:
+                    self.edtMiTbls_iid -= 1
+                else:
+                    self.edtMjTbls_iid -= 1
 
 
     def openMajor_editMajor_saveMajor(self, major):
@@ -2547,38 +2572,75 @@ class View:
         j = 0
         plan.append({'major': major})
         for i in range(0, 8):
-            for course in self.edtMjTbls[i].get_children():
-                sub = ""
-                cat = ""
-                subcat = self.edtMjTbls[i].item(course)['values'][0].split()
-                print(subcat)
+            cnt = len(self.edtMjTbls[i].get_children())
+            print(str(i) + " " + str(cnt))
+            for course in range(cnt):
                 try:
-                    cat = subcat[1]
-                    sub = subcat[0]
-                except IndexError as b:
-                    sub = subcat[0]
+                    self.edtMjTbls[i].item(course)
+                    sub = ""
                     cat = ""
-                plan.append([{ 'semester': i+1}, {"course" : {
-                    'subject': sub,
-                    'catalog': cat,
-                    'title': self.edtMjTbls[i].item(course)['values'][1],
-                    'credit': self.edtMjTbls[i].item(course)['values'][2]
-                }} ])
-                j+=1
+                    subcat = self.edtMjTbls[i].item(course)['values'][0].split()
+                    print(subcat)
+                    try:
+                        cat = subcat[1]
+                        sub = subcat[0]
+                    except IndexError as b:
+                        sub = subcat[0]
+                        cat = ""
+                    plan.append([{ 'semester': i+1}, {"course" : {
+                        'subject': sub,
+                        'catalog': cat,
+                        'title': self.edtMjTbls[i].item(course)['values'][1],
+                        'credit': self.edtMjTbls[i].item(course)['values'][2]
+                    }} ])
+                    j+=1
+                except TclError as b:
+                    print('a ')
         pub.sendMessage("save_maj_plan", obj=plan)
 
-    def openMajorButton(self, major):
-        if self.majorBox.get(self.majorBox.curselection()) != "":
-            self.close(self.addEditMajorWindow)
-            pub.sendMessage("request_MajorsFYP", major=major)
-            self.schedule.entryconfigure(1, state=NORMAL)
+    def newMajorButton(self):
+        self.newMajorWindow = Toplevel(self.mainwin)
+        self.newMajorWindow.wm_title("New Major")
+        self.newMajorWindow.geometry("350x150")
+        self.newMajorWindow.resizable(width=0, height=0)
+        self.newMajorWindow.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(self.newMajorWindow)} center')
 
+        newMajorFrame = Frame(self.newMajorWindow)
+        newMajorFrame.pack(padx=50, pady=10)
+
+        buttonFrame = Frame(self.newMajorWindow)
+        buttonFrame.pack(padx=50, pady=10)
+
+        newMajorEntryLbl = Label(newMajorFrame, text='Major:')
+        newMajorEntryLbl.pack(side=LEFT)
+        newMajorEntry = ttk.Entry(newMajorFrame, width=200)
+        newMajorEntry.pack(side=LEFT)
+
+        newB = Button(buttonFrame, text='Create',
+                         command=lambda: self.openMajorButton(newMajorEntry.get(), True))
+        newB.pack()
+
+    def openMajorButton(self, major, new):
+        if new == False:
+            if self.majorBox.get(self.majorBox.curselection()) != "":
+                self.close(self.addEditMajorWindow)
+                pub.sendMessage("request_MajorsFYP", major=major)
+                self.schedule.entryconfigure(1, state=NORMAL)
+
+                self.editMajorWindow = Toplevel(self.mainwin)
+                self.editMajorWindow.geometry("1150x850")
+                self.editMajorWindow.wm_title("Edit Major")
+                self.editMajorWindow.attributes('-topmost', 'true')
+            else:
+                return
+        else:
+            self.close(self.addEditMajorWindow)
+            self.schedule.entryconfigure(1, state=NORMAL)
             self.editMajorWindow = Toplevel(self.mainwin)
             self.editMajorWindow.geometry("1150x850")
             self.editMajorWindow.wm_title("Edit Major")
             self.editMajorWindow.attributes('-topmost', 'true')
-        else:
-            return
 
         treeviewFrame = Frame(self.editMajorWindow)
         treeviewFrame.pack(fill=BOTH, expand=True)
@@ -2588,8 +2650,8 @@ class View:
         self.edtMjLbls = []
         self.edtMjTbls = []
 
-        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow))
-        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.openMajor_editMajor_delCourseButton())
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow, 0))
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.openMajor_editMajor_delCourseButton(0))
         savePlanBtn = Button(addCrsBtnFrame, text="Save Plan", command=lambda: self.openMajor_editMajor_saveMajor(major))
 
         addCourseBtn.pack(side=LEFT, padx=10)
@@ -2621,6 +2683,7 @@ class View:
         pub.sendMessage("request_Major_Plan")  # Retrieves list of majors from database
         self.majors.sort()
 
+
         def filtr(e):
             chars = majorEntry.get()
 
@@ -2648,6 +2711,10 @@ class View:
         btnFrame = Frame(self.addEditMajorWindow)
         btnFrame.pack()
 
+        searchB = Button(btnFrame, text='New',
+                         command=lambda: self.newMajorButton())
+        searchB.pack()
+
         majorEntryLbl = Label(majorFrame, text='Major:')
         majorEntryLbl.pack(side=LEFT)
         majorEntry = ttk.Entry(majorFrame, width=200)
@@ -2664,7 +2731,8 @@ class View:
             self.majorBox.insert(END, self.majors[index])
             index += 1
 
-        searchB = Button(btnFrame, text='Open', command=lambda: self.openMajorButton(self.majorBox.get(self.majorBox.curselection())))
+
+        searchB = Button(btnFrame, text='Open', command=lambda: self.openMajorButton(self.majorBox.get(self.majorBox.curselection()), False))
         searchB.pack()
         """
         self.frame.bind("<Return>",
@@ -2672,10 +2740,10 @@ class View:
                         self.rand_func(a, b, c))
         """
 
-    def openMinorButton(self):
+    def openMinorButton(self, minor):
         if self.minorBox.get(self.minorBox.curselection()) != "":
             self.close(self.addEditMinorWindow)
-            #pub.sendMessage("request_PPW", name=name, id=int(id))
+            pub.sendMessage("request_MinorAddEdit", minor=minor)
             self.schedule.entryconfigure(1, state=NORMAL)
 
             editMinorWindow = Toplevel(self.mainwin)
@@ -2689,11 +2757,37 @@ class View:
         editMinorFrame = Frame(editMinorWindow)
         editMinorFrame.pack(fill=BOTH, expand=True)
 
-        edtMiLbls = []
-        edtMiTbls = []
+        addCrsBtnFrame = Frame(editMinorWindow)
+        addCrsBtnFrame.pack()
+
+        self.edtMiLbls = []
+        self.edtMiTbls = []
+
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course",
+                              command=lambda: self.planningWorksheet_editMajor_addCourseButton(editMinorWindow, 1))
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course",
+                              command=lambda: self.openMajor_editMajor_delCourseButton(1))
+        savePlanBtn = Button(addCrsBtnFrame, text="Save Plan",
+                             command=lambda: self.openMajor_editMajor_saveMajor(minor))
+
+        addCourseBtn.pack(side=LEFT, padx=10)
+        rmvCourseBtn.pack(side=LEFT, padx=10)
+        savePlanBtn.pack(side=RIGHT, padx=10)
 
         # Treeviews are created
-        self.createTable(editMinorFrame, edtMiLbls, edtMiTbls, 8)
+        cnt = len(self.minorsFYP)
+        self.createTable(editMinorFrame, self.edtMiLbls, self.edtMiTbls, cnt)
+
+        # Filling semesters for major
+        semsIndex = 0
+        for sem in self.minorsFYP:
+            self.edtMiTbls_iid = 0
+            for course in sem:
+                self.edtMiTbls[semsIndex].insert(parent='', index='end',
+                                                 iid=self.edtMiTbls_iid,
+                                                 values=(course[1] + " " + course[2], course[3], course[4]))
+                self.edtMiTbls_iid += 1
+            semsIndex += 1
 
     # Add minor button in Update DB
     def addEditMinor(self):
@@ -2749,7 +2843,7 @@ class View:
             self.minorBox.insert(END, self.minors[index])
             index += 1
 
-        searchB = Button(btnFrame, text='Open', command=self.openMinorButton)
+        searchB = Button(btnFrame, text='Open', command=lambda: self.openMinorButton(self.minorBox.get(self.minorBox.curselection())))
         searchB.pack()
 
     # Delete major in Update DB

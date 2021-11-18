@@ -534,6 +534,9 @@ class Model:
                     courseList.append(resl)  # Appends that string to a course list
                 except IndexError as c:
                     ctotal = ctotal  # Last none index error course number is stored
+                except KeyError as b:
+                    ctotal = ctotal
+
             # print(ctotal)
             fourList.append(courseList)
         return fourList
