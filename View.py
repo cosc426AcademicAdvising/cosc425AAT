@@ -71,6 +71,7 @@ class View:
         self.minorsFYP = []
         self.minorsReqs = []
         self.selectedSemester = 0
+        self.tot_Removed = 0;
 
         self.loginPage()
         self.menuBar()
@@ -2432,7 +2433,7 @@ class View:
                         cnt = len(tbl[int_ind].get_children())
                     tbl[int_ind].insert(parent='', index='end', iid=cnt,
                                                    values=(
-                                                   subject_type + catalog_type, title_type, credit_type))
+                                                       (subject_type + " " + catalog_type), title_type, credit_type))
                     if type == 1:
                         self.edtMiTbls_iid += 1
                     else:
@@ -2559,6 +2560,7 @@ class View:
         # If answer yes then proceed with course deletion
         response = messagebox.askquestion("askquestion", msg)
         for i in range(len(index)):
+            self.tot_Removed += 1
             if response == 'yes':
                 tbl[index[i][0]].delete(index[i][1])
                 if type == 1:
@@ -2574,7 +2576,7 @@ class View:
         for i in range(0, 8):
             cnt = len(self.edtMjTbls[i].get_children())
             print(str(i) + " " + str(cnt))
-            for course in range(cnt):
+            for course in range(cnt+self.tot_Removed):
                 try:
                     self.edtMjTbls[i].item(course)
                     sub = ""

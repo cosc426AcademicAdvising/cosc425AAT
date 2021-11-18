@@ -782,7 +782,7 @@ class Model:
         messagebox.showinfo("Save", "Student's data successfully saved!")
 
     def updateMajPlan(self, obj):
-        url = "http://localhost:5000/api/Update/MajorPlan"
+        url = "https://://cosc426restapi.herokuapp.com/api/Update/MajorPlan"
         print(obj)
         print(requests.post(url, json=obj))
 
