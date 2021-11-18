@@ -2395,6 +2395,8 @@ class View:
             credit_type = credit_entry.get()
             ind = self.clicked.get()
             int_ind = int(ind) - 1
+            blank = False
+            blank_ind = 0
             if subject_type == "" or catalog_type == "" or title_type == "":
                 messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
             else:
@@ -2402,12 +2404,21 @@ class View:
                 for i in range(0, 8):
                     cnt = len(self.edtMjTbls[i].get_children())
                     for num in range(cnt):
-                        if title_type == self.edtMjTbls[i].item(num)['values'][1] or subject_type + catalog_type == self.edtMjTbls[i].item(num)['values'][0]:
-                            inTree = True
-                            messagebox.showinfo(parent=t, title="Duplicate Course Error",
-                                                message="Error: Course Already Exists in Plan")
+                        try:    # Checks if a course was previously removed from a table before proceeding
+                            self.edtMjTbls[i].item(num)
+                            if title_type == self.edtMjTbls[i].item(num)['values'][1] or subject_type + catalog_type == self.edtMjTbls[i].item(num)['values'][0]:
+                                inTree = True
+                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                    message="Error: Course Already Exists in Plan")
+                        except TclError as err: # If a course has been removed and causes a index error
+                            if i == int_ind:    # If that index error occurs in the same treeview that user attempts to insert
+                                blank = True    # Indicate there is a blank
+                                blank_ind = num # Store the index to be used in insertion
                 if not inTree:
-                    cnt = len(self.edtMjTbls[int_ind].get_children())
+                    if blank == True:       # If theres a blank
+                        cnt = blank_ind     # Use the blank index as the IID
+                    else:                   # Else use the end IID
+                        cnt = len(self.edtMjTbls[int_ind].get_children())
                     self.edtMjTbls[int_ind].insert(parent='', index='end', iid=cnt,
                                                    values=(
                                                    subject_type + catalog_type, title_type, credit_type))
@@ -2526,11 +2537,9 @@ class View:
         # If answer yes then proceed with course deletion
         response = messagebox.askquestion("askquestion", msg)
         for i in range(len(index)):
-            print(self.edtMjTbls_iid)
             if response == 'yes':
                 self.edtMjTbls[index[i][0]].delete(index[i][1])
                 self.edtMjTbls_iid -= 1
-            print(self.edtMjTbls_iid)
 
 
     def openMajor_editMajor_saveMajor(self, major):
