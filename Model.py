@@ -782,9 +782,9 @@ class Model:
         messagebox.showinfo("Save", "Student's data successfully saved!")
 
     def updateMajPlan(self, obj):
-        url = "https://://cosc426restapi.herokuapp.com/api/Update/MajorPlan"
-        print(obj)
-        print(requests.post(url, json=obj))
+        url = "https://cosc426restapi.herokuapp.com/api/Update/MajorPlan"
+        requests.post(url, headers={'auth-token': token}, json=obj)
+        messagebox.showinfo("Save", "Major's data successfully saved!")
 
     def insertCSV(self, path):
         myCol = db.get_collection("Crs Test")

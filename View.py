@@ -2575,14 +2575,12 @@ class View:
         plan.append({'major': major})
         for i in range(0, 8):
             cnt = len(self.edtMjTbls[i].get_children())
-            print(str(i) + " " + str(cnt))
             for course in range(cnt+self.tot_Removed):
                 try:
                     self.edtMjTbls[i].item(course)
                     sub = ""
                     cat = ""
                     subcat = self.edtMjTbls[i].item(course)['values'][0].split()
-                    print(subcat)
                     try:
                         cat = subcat[1]
                         sub = subcat[0]
@@ -2597,7 +2595,7 @@ class View:
                     }} ])
                     j+=1
                 except TclError as b:
-                    print('a ')
+                    continue
         pub.sendMessage("save_maj_plan", obj=plan)
 
     def newMajorButton(self):
