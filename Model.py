@@ -534,9 +534,6 @@ class Model:
                     courseList.append(resl)  # Appends that string to a course list
                 except IndexError as c:
                     ctotal = ctotal  # Last none index error course number is stored
-                except KeyError as b:
-                    ctotal = ctotal
-
             # print(ctotal)
             fourList.append(courseList)
         return fourList
@@ -782,9 +779,9 @@ class Model:
         messagebox.showinfo("Save", "Student's data successfully saved!")
 
     def updateMajPlan(self, obj):
-        url = "https://cosc426restapi.herokuapp.com/api/Update/MajorPlan"
-        requests.post(url, headers={'auth-token': token}, json=obj)
-        messagebox.showinfo("Save", "Major's data successfully saved!")
+        url = "http://localhost:5000/api/Update/MajorPlan"
+        print(obj)
+        print(requests.post(url, json=obj))
 
     def insertCSV(self, path):
         myCol = db.get_collection("Crs Test")

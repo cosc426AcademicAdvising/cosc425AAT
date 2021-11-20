@@ -57,7 +57,6 @@ class Controller:
 
         # Requesting the courses for a majors FYP
         pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
-        pub.subscribe(self.getMinorAddEdit, "request_MinorAddEdit")
 
         # pub.subscribe(self.setMemo, "request_Memo_to_Display")
         pub.subscribe(self.setPolicy, "request_Policy_to_Display")
@@ -75,10 +74,6 @@ class Controller:
 
     def getMajorsFYP(self, major):
         self.view.majorsFYP = self.model.getFourYear(major).copy()
-
-    def getMinorAddEdit(self, minor):
-        self.view.minorsFYP = self.model.getMinorPlanCourse(minor).copy()
-        self.view.minorsReqs = self.model.getMinorPlanReq(minor).copy()
 
     def newSchedule(self):
         self.schedule = Toplevel()
