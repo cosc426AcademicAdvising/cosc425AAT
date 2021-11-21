@@ -11,7 +11,6 @@ import tkinter.font as TkFont
 import math
 import requests
 from ttkbootstrap import Style, Colors
-
 import json
 # from PIL import ImageTk, Image  # pip install pillow
 from tkinter import messagebox
@@ -33,7 +32,7 @@ class View:
         self.defaultFont = TkFont.nametofont("TkDefaultFont")
         self.defaultFont.configure(family='Helvetica', size=10)
 
-        self.TVstyle = ttk.Style()
+        self.TVstyle = Style()
         self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 10))
         self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 10))
 
@@ -71,20 +70,15 @@ class View:
         self.minorsFYP = []
         self.minorsReqs = []
         self.selectedSemester = 0
-        self.tot_Removed = 0;
+        self.tot_Removed = 0
 
         self.loginPage()
         self.menuBar()
         self.loginWindow.protocol("WM_DELETE_WINDOW",
                                   self.login_closing)  # If user closes login window application closes
-        '''
-        style = Style(theme='darkly')
-        #style.theme_use('darkly')
-    
-        for color_label in Colors.label_iter():
-            color = Colors.get(color_label)
-            print(color_label, color)
-        '''
+        style = Style()
+        style.theme_use("united")
+
     # prompt message before closing program,
     # also closes all TopLevel functions
 
@@ -108,19 +102,19 @@ class View:
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
 
-        self.mainFrame = ttk.Frame(self.mainwin)
+        self.mainFrame = Frame(self.mainwin)
         self.mainFrame.pack(fill=BOTH, padx=10, pady=10, expand=1, ipadx=10)
 
         # four year plan
-        self.leftFrame = ttk.Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
+        self.leftFrame = Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
         self.leftFrame.pack(side=LEFT, fill=Y, padx=5)
 
         # program planning worksheet
-        self.PPWFrame = ttk.Frame(self.mainFrame, width=self.right_width, borderwidth=2, relief=GROOVE)
+        self.PPWFrame = Frame(self.mainFrame, width=self.right_width, borderwidth=2, relief=GROOVE)
         self.PPWFrame.pack(side=RIGHT, fill=Y)
         self.PPWFrame.pack_propagate(0)
 
-        self.courseTakenListFrame = ttk.Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
+        self.courseTakenListFrame = Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
         self.courseTakenListFrame.pack(side=LEFT, fill=Y, padx=5)
         # self.courseTakenListFrame.pack_propagate(0)
         self.courseTakenListFrame.pack_forget()  # hide frame
@@ -200,7 +194,7 @@ class View:
         self.canvas = Canvas(self.leftFrame, width=self.left_width)  # Creating Canvas for scrollbar
         self.canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
-        self.scrollbar = ttk.Scrollbar(self.leftFrame, orient=VERTICAL, command=self.canvas.yview)
+        self.scrollbar = Scrollbar(self.leftFrame, orient=VERTICAL, command=self.canvas.yview)
         self.scrollbar.pack(side=RIGHT, fill=Y)
 
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
@@ -215,7 +209,7 @@ class View:
         FYPTitleFrame = Frame(self.innerLeftFrame, width=self.left_width, height=50)
         FYPTitleFrame.pack(pady=20)
 
-        FYPTitle = ttk.Label(FYPTitleFrame, text="Academic Advising", anchor=CENTER,
+        FYPTitle = Label(FYPTitleFrame, text="Academic Advising", anchor=CENTER,
                              font=('Helvetica', 19))
         FYPTitle.pack(side=TOP)
 
@@ -227,17 +221,17 @@ class View:
         nameLabel = Label(nameIDFrame, text='Name:')
         nameLabel.pack(side=LEFT, expand=1)
 
-        self.FYPnameEntry = ttk.Entry(nameIDFrame)
+        self.FYPnameEntry = Entry(nameIDFrame)
         self.FYPnameEntry.pack(side=LEFT, expand=1)
 
-        self.id2Entry = ttk.Entry(nameIDFrame, width=8)
+        self.id2Entry = Entry(nameIDFrame, width=8)
         self.id2Entry.pack(side=RIGHT, expand=1)
 
         idLabel = Label(nameIDFrame, text='ID Number:')
         idLabel.pack(side=RIGHT, expand=1)
 
         # ============================ Progress Report ============================
-        # Creation of ttk.Notebook to add tabs to Academic Advising screen
+        # Creation of Notebook to add tabs to Academic Advising screen
         self.tab_parent = ttk.Notebook(self.innerLeftFrame)
 
         # Frame for Progress Report tab
@@ -254,7 +248,7 @@ class View:
         # Treeviews are created for Progress Report tab
         self.createTable(self.progressRepoFrame, self.progLabel, self.progTable, 8)
 
-        # Adds the progress report tab ttk.Notebook
+        # Adds the progress report tab Notebook
         self.tab_parent.add(self.progressRepoFrame, text="Progress Report")
 
         # Creating buttons for Progress Report placing with .grid() in FYP_addCourseButton
@@ -352,7 +346,7 @@ class View:
             self.majorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
             self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i],
                              8)  # Function to populate these arrays
-            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
+            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the Notebook to display tab
             policy_button = Button(self.majorFrames[i], text="University Policy",
                                    command=lambda: self.univ_policy_box())
             policy_button.grid(column=0, row=0, columnspan=1, sticky=E, padx=150)
@@ -364,7 +358,7 @@ class View:
             self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
             self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i],
                                   self.minorsTable[i])  # Function to populate these arrays
-            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
+            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the Notebook to display tab
             policy_button = Button(self.minorFrames[i], text="University Policy",
                                    command=lambda: self.univ_policy_box())
             policy_button.grid(column=0, row=0, columnspan=1, sticky=E, padx=150)
@@ -439,7 +433,7 @@ class View:
             self.majorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
             self.createTable(self.majorFrames[i], self.majorsLabelArray[i], self.majorsTable[i],
                              8)  # Function to populate these arrays
-            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the ttk.Notebook to display tab
+            self.tab_parent.add(self.majorFrames[i], text=major[i])  # Each frame to the Notebook to display tab
 
         for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
             self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
@@ -448,7 +442,7 @@ class View:
             self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
             self.createMinorTable(self.minorFrames[i], self.minorsLabelArray[i],
                                   self.minorsTable[i])  # Function to populate these arrays
-            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the ttk.Notebook to display tab
+            self.tab_parent.add(self.minorFrames[i], text=minor[i])  # Each frame to the Notebook to display tab
 
         majorIndex = 0
         for majors in FourYear:  # Filling semesters for each major
@@ -585,7 +579,7 @@ class View:
         courseEntryFrame.pack(anchor=CENTER)
 
         l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
-        entry = ttk.Entry(courseEntryFrame, width=10, justify=CENTER)
+        entry = Entry(courseEntryFrame, width=10, justify=CENTER)
         entry.pack(side=RIGHT)
 
         entry.bind('<KeyRelease>', courseSearch)  # for auto search
@@ -593,208 +587,47 @@ class View:
         resultFrame = Frame(t)
         resultFrame.pack(anchor=CENTER)
 
-        resultEntry = ttk.Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
+        resultEntry = Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
         resultEntry.pack(pady=10)
 
         addButton = Button(resultFrame, text="Add", command=addCourse)
         addButton.pack(side=BOTTOM, pady=5)
 
     def FYP_delCourseButton(self, parentWindow):
-        t = Toplevel(self.mainwin)
-        t.wm_title("Search for Course")
-        t.geometry("700x500")
-        t.resizable(width=FALSE, height=FALSE)
-        t.transient(self.mainwin)
-        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
-        self.selectedSemester = ''
-        self.addSemesterBtn["state"] = DISABLED
+        msg = "Do you want to remove the selected course? ("
+        cnt = 0
+        index = {}
+        tbl = ""
+        maxRng = 0
+        tbl = self.progTable
+        maxRng = len(self.progTable)
 
-        def close(e):
-            self.addCourseButton.configure(state=NORMAL)
-            self.addSemesterBtn["state"] = NORMAL
-            t.destroy()
-
-        t.bind('<Destroy>', close)
-        self.addCourseButton.configure(state=DISABLED)
-
-        def update_course_list(data):
-            for i in self.course_tree.get_children():
-                self.course_tree.delete(i)
-
-            # self.course_tree.tag_configure('evenrow', background="grey")
-            # self.course_tree.tag_configure('oddrow', background="white")
-
-            for item in data:
-                self.course_tree.insert('', 'end',
-                                        values=(
-                                        item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
-
-        def fillout_fields(event):
-            subject_entry.delete(0, END)
-            catalog_entry.delete(0, END)
-            title_entry.delete(0, END)
-            credit_entry.delete(0, END)
-
-            course = self.course_tree.focus()
-            course_info = self.course_tree.item(course)['values']
-
-            subject_entry.insert(0, course_info[0])
-            catalog_entry.insert(0, course_info[1])
-            title_entry.insert(0, course_info[2])
-            credit_entry.insert(0, course_info[3])
-
-        def check_course(event):
-            subject_type = subject_entry.get().upper()
-            catalog_type = catalog_entry.get()
-            title_type = title_entry.get().upper()
-            credit_type = credit_entry.get()
-
-            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type,
-                            cred=credit_type)
-            update_course_list(self.course_regex_list)
-
-        # adds searched course into the treeview
-        def addCourse():
-            subject_type = subject_entry.get().upper()
-            catalog_type = catalog_entry.get()
-            title_type = title_entry.get().upper()
-            credit_type = credit_entry.get()
-            self.selectedSemester.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                         values=(subject_type + " " + catalog_type,
-                                                 title_type,
-                                                 credit_type,
-                                                 "Major"))
-
-            prevcred = self.enrollCredVar.get()
-            self.courseTree_counter += 1
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
-
-        self.semDropVar = StringVar()
-        self.semDropVar.set("Select a Semester")
-        self.addCrsBtnSemesters = []
-        self.courses = []
-        self.courseDropDefault = StringVar()
-        self.courseDropDefault.set("Select a Course")
-
-        for i in range(0, self.progTableLength, 1):
-            if i % 2 == 0:
-                self.addCrsBtnSemesters.append("Year " + str(math.ceil(i / 2) + 1) + " Semester " + str(1))
-            else:
-                self.addCrsBtnSemesters.append("Year " + str(math.ceil(i / 2)) + " Semester " + str(2))
-        self.addCrsBtnSemesters.append('Winter')
-        self.addCrsBtnSemesters.append('Summer')
-
-        def semesterChanged(event):
-            comboboxString = self.removBtnSemDrop.get().split()
-            if comboboxString[0] == 'Winter':
-                self.selectedSemester = self.winSumTable[0]
-            elif comboboxString[0] == 'Summer':
-                self.selectedSemester = self.winSumTable[1]
-            elif comboboxString[3] == '1':
-                for i in self.progTable[(int(comboboxString[1])) * 2 - 2].get_children():
-                    # self.courses.append(str())
-                    print(str(self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][1]))
-                    self.courses.append(str(self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][0] +
-                                        self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][1] +
-                                        self.progTable[(comboboxString[1]) * 2 - 2].item(i)["values"][2]))
-            else:
-                for i in self.progTable[(int(comboboxString[1])) * 2 - 1].get_children():
-                    #print(str(self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][1]))
-                    self.courses.append(str(self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][0] +
-                                        self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][1] +
-                                        self.progTable[(comboboxString[1]) * 2 - 1].item(i)["values"][2]))
-
-        def courseChanged(event):
-            comboString = self.removBtnCrsDrop.get()
-
-        self.subject_frame = Frame(t, borderwidth=2)
-        self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
-        selectedSemester = ''
-        self.removBtnSemDrop = ttk.Combobox(self.subject_frame, value=self.addCrsBtnSemesters, exportselection=0, width=18)
-        self.removBtnSemDrop.pack(pady=5, anchor='n')
-        self.removBtnSemDrop['state'] = 'readonly'
-        self.removBtnSemDrop.bind('<<ComboboxSelected>>', semesterChanged)
-
-        self.removBtnCrsDrop = ttk.Combobox(self.subject_frame, value=self.courses, exportselection=0, width=18)
-        self.removBtnCrsDrop.pack(pady=5, anchor='n')
-        self.removBtnCrsDrop['state'] = 'readonly'
-        self.removBtnCrsDrop.bind('<<ComboboxSelected>>', courseChanged)
-
-        self.subject_label = Label(self.subject_frame, text="Enter a Subject",
-                                   font=("Helvetica", 10), fg="black")
-        self.subject_label.pack(pady=5, anchor='n')
-
-        self.subject_example = Label(self.subject_frame, text="ex. COSC, cos",
-                                     font=("Helvetica", 8), fg="grey")
-        self.subject_example.pack(pady=0, anchor='n')
-
-        subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        subject_entry.pack(pady=10, anchor='n')
-
-        self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
-                                   font=("Helvetica", 8), fg="black")
-        self.catalog_label.pack(pady=5, anchor='n')
-
-        self.catalog_example = Label(self.subject_frame, text="ex. 123, 12, 1",
-                                     font=("Helvetica", 8), fg="grey")
-        self.catalog_example.pack(pady=0, anchor='n')
-
-        catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        catalog_entry.pack(pady=10, anchor='n')
-
-        self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
-                                 font=("Helvetica", 10), fg="black")
-        self.title_frame.pack(pady=5, anchor='n')
-
-        self.title_example = Label(self.subject_frame, text="ex. Computer Science I, computer sci",
-                                   font=("Helvetica", 8), fg="grey")
-        self.title_example.pack(pady=0, anchor='n')
-
-        title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        title_entry.pack(pady=10, anchor='n')
-
-        self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
-                                  font=("Helvetica", 10), fg="black")
-        self.credit_frame.pack(pady=5, anchor='n')
-
-        self.credit_example = Label(self.subject_frame, text="ex. 4, 3.0, 2.00",
-                                    font=("Helvetica", 8), fg="grey")
-        self.credit_example.pack(pady=0, anchor='n')
-
-        credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
-        credit_entry.pack(pady=10, anchor='n')
-
-        self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
-        self.addButton.pack(side=TOP)
-
-        self.course_frame = Frame(t, borderwidth=2)
-        self.course_frame.pack(side=RIGHT, anchor='n', padx=10)
-
-        self.course_tree_scroll = Scrollbar(self.course_frame)
-        self.course_tree_scroll.pack(side=RIGHT, fill=Y)
-
-        self.course_tree = ttk.Treeview(self.course_frame, yscrollcommand=self.course_tree_scroll.set,
-                                        column=('sub', 'cat', 'title', 'cred'), show=['headings'], height=300)
-        self.course_tree.column('# 1', anchor=CENTER, width=50)
-        self.course_tree.heading('# 1', text="Subject")
-        self.course_tree.column('# 2', anchor=CENTER, width=50)
-        self.course_tree.heading('# 2', text="Catalog")
-        self.course_tree.column('# 3', anchor=CENTER, width=280)
-        self.course_tree.heading('# 3', text="Title")
-        self.course_tree.column('# 4', anchor=CENTER, width=50)
-        self.course_tree.heading('# 4', text="Credits")
-
-        self.course_tree.pack(pady=0)
-        self.course_tree_scroll.config(command=self.course_tree.yview)
-
-        pub.sendMessage("request_Course_by_Regex", sub="", cat="", title="", cred="")
-        update_course_list(self.course_regex_list)
-
-        self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
-        subject_entry.bind("<KeyRelease>", check_course)
-        catalog_entry.bind("<KeyRelease>", check_course)
-        title_entry.bind("<KeyRelease>", check_course)
-        credit_entry.bind("<KeyRelease>", check_course)
+        # Loops thru each of selected tree view values and pushes the index into a list
+        for i in range(0, maxRng):
+            for course in tbl[i].selection():
+                index[cnt] = [i, course]
+                cnt += 1
+        # If only one course selected
+        if len(index) == 1:
+            msg = "Do you want to remove the selected course? (" + tbl[index[0][0]].item(index[0][1])['values'][0] + ")"
+        # Else create msg prompt for batch delete courses
+        else:
+            msg = "Do you want to remove the selected course? ("
+            for i in range(len(index)):
+                msg = msg + tbl[index[i][0]].item(index[i][1])['values'][0]
+                if i + 1 != len(index):
+                    msg += ", "
+            msg = msg + ")"
+        # If answer yes then proceed with course deletion
+        response = messagebox.askquestion("askquestion", msg)
+        for i in range(len(index)):
+            self.tot_Removed += 1
+            if response == 'yes':
+                tbl[index[i][0]].delete(index[i][1])
+                if type == 1:
+                    self.progTableTree_iid -= 1
+                else:
+                    self.progTableTree_iid -= 1
 
     # Function for event handler to change policy memo via clicking a tab
     def updatePolicy(self, event):
@@ -946,14 +779,18 @@ class View:
 
             # grid labels
             row = 0
-            for i in range(len(tables)):
-                if i % 2 == 0:
-                    tables[i].grid(column=0, row=row + 2)
-                    labels[i].grid(column=0, row=row + 1, columnspan=1, sticky=W, padx=5)
-                else:
-                    tables[i].grid(column=1, row=row + 2)
-                    labels[i].grid(column=1, row=row + 1, columnspan=1, sticky=W, padx=5)
-                    row += 2
+            if len(tables) == 1:
+                tables[i].grid(column=0, row=row + 2)
+                labels[i].grid(column=0, row=row + 1, columnspan=1, sticky=W, padx=150)
+            else:
+                for i in range(len(tables)):
+                    if i % 2 == 0:
+                        tables[i].grid(column=0, row=row + 2)
+                        labels[i].grid(column=0, row=row + 1, columnspan=1, sticky=W, padx=5)
+                    else:
+                        tables[i].grid(column=1, row=row + 2)
+                        labels[i].grid(column=1, row=row + 1, columnspan=1, sticky=W, padx=5)
+                        row += 2
 
     # Creates a table of treeviews for tabs in Academic Advising
     def createWinSumTable(self, frame, labels, tables, length):
@@ -1171,7 +1008,7 @@ class View:
         pad = 10  # pady value for most frames below
 
         # ============================ title ============================
-        ProgPlanTitle = ttk.Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
+        ProgPlanTitle = Label(self.rightFrame, text="Program Planning Worksheet", anchor=CENTER,
                                   font=('Helvetica', 19))
         ProgPlanTitle.grid(row=0, column=0, columnspan=4, pady=20)
 
@@ -1182,7 +1019,7 @@ class View:
         nameLabel = Label(nameFrame, text='Name:')
         nameLabel.pack(side=LEFT)
 
-        self.nameEntry = ttk.Entry(nameFrame)
+        self.nameEntry = Entry(nameFrame)
         self.nameEntry.pack()
 
         # ============================ student id ============================
@@ -1192,7 +1029,7 @@ class View:
         idLabel = Label(idFrame, text='ID Number:')
         idLabel.pack(side=LEFT)
 
-        self.idEntry = ttk.Entry(idFrame, width=8, justify=CENTER)
+        self.idEntry = Entry(idFrame, width=8, justify=CENTER)
         self.idEntry.pack()
 
         # ============================ season ============================
@@ -1202,10 +1039,10 @@ class View:
         self.seasonVar = StringVar()
 
         seasonLabel = Label(seasonFrame, text='Registering for:')
-        fallRadioBtn = ttk.Radiobutton(seasonFrame, text='Fall', variable=self.seasonVar, value='Fall')
-        summerRadioBtn = ttk.Radiobutton(seasonFrame, text='Summer', variable=self.seasonVar, value='Summer')
-        springRadioBtn = ttk.Radiobutton(seasonFrame, text='Spring', variable=self.seasonVar, value='Spring')
-        winterRadioBtn = ttk.Radiobutton(seasonFrame, text='Winter', variable=self.seasonVar, value='Winter')
+        fallRadioBtn = Radiobutton(seasonFrame, text='Fall', variable=self.seasonVar, value='Fall')
+        summerRadioBtn = Radiobutton(seasonFrame, text='Summer', variable=self.seasonVar, value='Summer')
+        springRadioBtn = Radiobutton(seasonFrame, text='Spring', variable=self.seasonVar, value='Spring')
+        winterRadioBtn = Radiobutton(seasonFrame, text='Winter', variable=self.seasonVar, value='Winter')
 
         seasonLabel.grid(row=0, column=0, padx=10)
         fallRadioBtn.grid(row=0, column=1, padx=10)
@@ -1222,7 +1059,7 @@ class View:
         self.majorTree.column("#0", width=150)
         self.majorTree.heading("#0", text="Majors")
 
-        self.editCareerButton = ttk.Button(careerFrame, text="Add/Remove", command=self.editMajorMinor)
+        self.editCareerButton = Button(careerFrame, text="Add/Remove", command=self.editMajorMinor)
         self.editCareerButton.pack(side=LEFT)
 
         self.minorTree = ttk.Treeview(careerFrame, height=3, style="mystyle.Treeview", selectmode='none')
@@ -1241,7 +1078,7 @@ class View:
         credFrameR.pack(side=RIGHT, padx=15)
 
         credLabel1 = Label(credFrameL, text='Earned:')
-        self.earnCredEntry = ttk.Entry(credFrameL, width=3, justify=CENTER, state=DISABLED)
+        self.earnCredEntry = Entry(credFrameL, width=3, justify=CENTER, state=DISABLED)
         credLabel2 = Label(credFrameL, text='credits.')
 
         credLabel1.grid(row=0, column=0)
@@ -1250,7 +1087,7 @@ class View:
 
         credLabel3 = Label(credFrameR, text='Currently Enrolled in.')
         self.enrollCredVar = IntVar()
-        self.enrollCredEntry = ttk.Entry(credFrameR, width=3, textvariable=self.enrollCredVar, justify=CENTER)
+        self.enrollCredEntry = Entry(credFrameR, width=3, textvariable=self.enrollCredVar, justify=CENTER)
         credLabel4 = Label(credFrameR, text='Credits')
 
         credLabel4.grid(row=0, column=0)
@@ -1258,13 +1095,13 @@ class View:
         credLabel3.grid(row=0, column=2)
 
         # ====================== Enrollment Date ========================
-        enrlDateFrame = ttk.Frame(self.rightFrame)
+        enrlDateFrame = Frame(self.rightFrame)
         enrlDateFrame.grid(row=10, column=0, columnspan=4, pady=pad)
 
         enrlDate = Label(enrlDateFrame, text='Enrollment Date:')
         enrlDate.pack(side=LEFT)
 
-        self.enrlDateEntry = ttk.Entry(enrlDateFrame, width=8, justify=CENTER)
+        self.enrlDateEntry = Entry(enrlDateFrame, width=8, justify=CENTER)
         self.enrlDateEntry.pack()
 
         # ============================ Course table ============================
@@ -1311,7 +1148,7 @@ class View:
         self.backupCourseTree.heading("gen/elect", text='Gen ed/Elect', anchor=CENTER)
 
         # ====================== memo ========================
-        memoFrame = ttk.LabelFrame(self.rightFrame, text='Memo:')
+        memoFrame = LabelFrame(self.rightFrame, text='Memo:')
         memoFrame.grid(row=16, column=0, columnspan=4, pady=pad)
 
         self.memoEntry = Text(memoFrame, width=50, height=5)
@@ -1326,21 +1163,21 @@ class View:
         coursebuttonFrame = Frame(self.rightFrame)
         coursebuttonFrame.grid(row=13, column=0, columnspan=4)
 
-        self.addCourseButton = ttk.Button(coursebuttonFrame, text="Add", command=self.planningWorksheet_addCourseButton)
+        self.addCourseButton = Button(coursebuttonFrame, text="Add", command=self.planningWorksheet_addCourseButton)
         self.addCourseButton.pack(side=LEFT)
 
-        rmCourseButton = ttk.Button(coursebuttonFrame, text="Remove", command=self.planningWorksheet_delCourseButton)
+        rmCourseButton = Button(coursebuttonFrame, text="Remove", command=self.planningWorksheet_delCourseButton)
         rmCourseButton.pack(side=RIGHT)
 
         # backup course
         bcoursebuttonFrame = Frame(self.rightFrame)
         bcoursebuttonFrame.grid(row=15, column=0, columnspan=4)
 
-        self.addBackupButton = ttk.Button(bcoursebuttonFrame, text="Add",
+        self.addBackupButton = Button(bcoursebuttonFrame, text="Add",
                                           command=self.planningWorksheet_addBackupCourseButton)
         self.addBackupButton.pack(side=LEFT)
 
-        rmBackupButton = ttk.Button(bcoursebuttonFrame, text="Remove",
+        rmBackupButton = Button(bcoursebuttonFrame, text="Remove",
                                     command=self.planningWorksheet_delBackupCourseButton)
         rmBackupButton.pack(side=RIGHT)
 
@@ -1426,10 +1263,10 @@ class View:
         mainframe = Frame(t)
         mainframe.pack(fill=X, ipadx=1, padx=10)
 
-        majorframe = ttk.LabelFrame(mainframe, text="Current Major(s)")
+        majorframe = LabelFrame(mainframe, text="Current Major(s)")
         majorframe.pack(side=LEFT, pady=5)
 
-        minorframe = ttk.LabelFrame(mainframe, text="Current Minor(s)")
+        minorframe = LabelFrame(mainframe, text="Current Minor(s)")
         minorframe.pack(side=RIGHT, pady=5)
 
         self.selected_major_Box = Listbox(majorframe, selectmode=SINGLE, justify=CENTER, exportselection=False,
@@ -1442,10 +1279,10 @@ class View:
         self.selected_minor_Box.pack(side=TOP)
         self.selected_minor_Box.bind("<<ListboxSelect>>", enableMinorRemoveBtn)
 
-        majorRemoveButton = ttk.Button(majorframe, text="Remove", command=removeMajor, state=DISABLED)
+        majorRemoveButton = Button(majorframe, text="Remove", command=removeMajor, state=DISABLED)
         majorRemoveButton.pack()
 
-        minorRemoveButton = ttk.Button(minorframe, text="Remove", command=removeMinor, state=DISABLED)
+        minorRemoveButton = Button(minorframe, text="Remove", command=removeMinor, state=DISABLED)
         minorRemoveButton.pack()
 
         label3 = Label(majorframe, text="Major(s)")
@@ -1483,7 +1320,7 @@ class View:
             minor = self.minorTree.item(id)['text']
             self.selected_minor_Box.insert(END, minor)
 
-        comfirmButton = ttk.Button(t, text="Save", command=confirmSelection)
+        comfirmButton = Button(t, text="Save", command=confirmSelection)
         comfirmButton.pack(side=BOTTOM, pady=10)
 
     # end goal: return array of major under specified school
@@ -1950,7 +1787,7 @@ class View:
     #     self.pop.geometry("490x150")
     #     self.pop.config(bg="white")
     #
-    #     memoFrame = ttk.LabelFrame(self.pop, text='Memo:')
+    #     memoFrame = LabelFrame(self.pop, text='Memo:')
     #     memoFrame.grid(row=16, column=0, columnspan=4, pady=10)
     #
     #     self.memoEntry = Text(memoFrame, width=60, height=7)
@@ -1966,7 +1803,7 @@ class View:
         self.pop.config(bg="white")
 
         # ============================ Policy Memo ============================
-        policyFrame = ttk.LabelFrame(self.pop, height=200, width=self.left_width,
+        policyFrame = LabelFrame(self.pop, height=200, width=self.left_width,
                                      text='University Policy:')
         policyFrame.pack(pady=30)
 
@@ -2246,17 +2083,17 @@ class View:
         butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
         label2 = Label(nameFrame, text='First name:').pack(side=LEFT)
-        fname = ttk.Entry(nameFrame, width=10)
+        fname = Entry(nameFrame, width=10)
         fname.pack(side=LEFT)
         fname.bind("<KeyRelease>", filtr)
 
-        lname = ttk.Entry(nameFrame, width=15)
+        lname = Entry(nameFrame, width=15)
         lname.pack(side=RIGHT)
         label3 = Label(nameFrame, text='Last name:').pack(side=RIGHT)
         lname.bind("<KeyRelease>", filtr)
 
         label3 = Label(idFrame, text='Student Id:').pack(side=LEFT)
-        idE = ttk.Entry(idFrame, width=10)
+        idE = Entry(idFrame, width=10)
         idE.pack(side=LEFT)
         idE.bind("<KeyRelease>", filtr)
 
@@ -2267,7 +2104,7 @@ class View:
         mainframe = Frame(t)
         mainframe.pack(fill=X, ipadx=1, padx=100, pady=10)
 
-        studentFrame = ttk.LabelFrame(mainframe, text="Students")
+        studentFrame = LabelFrame(mainframe, text="Students")
         studentFrame.pack(side=TOP, anchor=CENTER)
 
         self.studentBox = Listbox(studentFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
@@ -2614,7 +2451,7 @@ class View:
 
         newMajorEntryLbl = Label(newMajorFrame, text='Major:')
         newMajorEntryLbl.pack(side=LEFT)
-        newMajorEntry = ttk.Entry(newMajorFrame, width=200)
+        newMajorEntry = Entry(newMajorFrame, width=200)
         newMajorEntry.pack(side=LEFT)
 
         newB = Button(buttonFrame, text='Create',
@@ -2717,7 +2554,7 @@ class View:
 
         majorEntryLbl = Label(majorFrame, text='Major:')
         majorEntryLbl.pack(side=LEFT)
-        majorEntry = ttk.Entry(majorFrame, width=200)
+        majorEntry = Entry(majorFrame, width=200)
         majorEntry.pack(side=LEFT)
         majorEntry.bind("<KeyRelease>", filtr)
 
@@ -2829,7 +2666,7 @@ class View:
 
         minorEntryLbl = Label(minorFrame, text='Major:')
         minorEntryLbl.pack(side=LEFT)
-        minorEntry = ttk.Entry(minorFrame, width=200)
+        minorEntry = Entry(minorFrame, width=200)
         minorEntry.pack(side=LEFT)
         minorEntry.bind("<KeyRelease>", filtr)
 
@@ -2876,7 +2713,7 @@ class View:
         butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
         label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
-        fnameE = ttk.Entry(nameFrame, width=15)
+        fnameE = Entry(nameFrame, width=15)
         fnameE.pack(side=LEFT)
 
         searchB = Button(butFrame, text='Delete', command=deleteMajorButton)
@@ -2912,7 +2749,7 @@ class View:
         butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
         label2 = Label(nameFrame, text='Minor Abbreviation:').pack(side=LEFT)
-        fnameE = ttk.Entry(nameFrame, width=10)
+        fnameE = Entry(nameFrame, width=10)
         fnameE.pack(side=LEFT)
 
         searchB = Button(butFrame, text='Delete', command=deleteMinorButton)

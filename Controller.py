@@ -1,9 +1,10 @@
-from ttkbootstrap import Style
 
+
+import tk as tk
+import tkinter as tk
 from View import View
 from Model import Model
 from tkinter import *
-# from tkinter import ttk
 from pubsub import pub
 
 class Controller:
@@ -150,7 +151,7 @@ class Controller:
                 self.view.policy_to_display = policy[0]
 
 if __name__=="__main__":
-    root = Tk()
+    root = tk.Tk()
     app = Controller(root)
     root.mainloop()
 
