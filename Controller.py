@@ -1,6 +1,6 @@
 
 
-import tk as tk
+# import tk as tk
 import tkinter as tk
 from View import View
 from Model import Model

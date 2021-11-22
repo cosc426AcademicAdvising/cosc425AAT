@@ -882,14 +882,52 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            self.selectedSemester.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                   values=(subject_type + " " + catalog_type,
-                                           title_type,
-                                           credit_type,
-                                           "Major"))
+            blank = False
+            blank_ind = 0
+            self.int_ind = 0
+            self.seasonal = False
+            self.cnter = 0
 
-            prevcred = self.enrollCredVar.get()
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = False
+                for i in range(0, 2):
+                    cnt = len(self.winSumTable[i].get_children())
+                    for num in range(cnt):
+                        try:  # Checks if a course was previously removed from a table before proceeding
+                            self.winSumTabl[i].item(num)
+                            if title_type == self.winSumTable[i].item(num)['values'][
+                                1] or subject_type + "  " + catalog_type == self.winSumTable[i].item(num)['values'][0]:
+                                inTree = True
+                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                    message="Error: Course Already Exists in Plan")
+                        except TclError as err:  # If a course has been removed and causes a index error
+                            if i == self.int_ind and self.seasonal == True:  # If that index error occurs in the same treeview that user attempts to insert
+                                blank = True  # Indicate there is a blank
+                                blank_ind = num  # Store the index to be used in insertion
+                for i in range(0, self.progTableLength):
+                    cnt = len(self.progTable[i].get_children())
+                    for num in range(cnt):
+                        try:  # Checks if a course was previously removed from a table before proceeding
+                            self.progTable[i].item(num)
+                            if title_type == self.progTable[i].item(num)['values'][
+                                1] or subject_type + " " + catalog_type == self.progTable[i].item(num)['values'][0]:
+                                inTree = True
+                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                    message="Error: Course Already Exists in Plan")
+                        except TclError as err:  # If a course has been removed and causes a index error
+                            if i == self.int_ind and self.seasonal == False:  # If that index error occurs in the same treeview that user attempts to insert
+                                blank = True  # Indicate there is a blank
+                                blank_ind = num  # Store the index to be used in insertion
+                if not inTree:
+                    if blank == True:  # If theres a blank
+                        self.cnter = blank_ind  # Use the blank index as the IID
+                    else:
+                        self.cnter = len(self.selectedSemester.get_children())
+                    self.selectedSemester.insert(parent='', index='end', iid=self.cnter,
+                                                 values=(
+                                                     subject_type + " " + catalog_type, title_type, credit_type))
 
         self.dropDefault = StringVar()
         self.dropDefault.set("Select a semester")
@@ -2577,6 +2615,37 @@ class View:
                         self.rand_func(a, b, c))
         """
 
+    def editCourseReqs(self, window):
+        self.editCourseReqsWindow = Toplevel(window)
+        self.editCourseReqsWindow.wm_title("Edit Minor Course Reqs")
+        self.editCourseReqsWindow.geometry("500x400")
+        self.editCourseReqsWindow.resizable(width=0, height=0)
+        self.editCourseReqsWindow.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(self.editCourseReqsWindow)} center')
+        print(self.minorsReqs)
+        ttk.Label(self.editCourseReqsWindow, text="Edit Course Group Requirements",).grid(row=0, column=1)
+
+        # label
+        ttk.Label(self.editCourseReqsWindow, text="Select the Course Group :",).grid(column=0, row=5, padx=10, pady=25)
+
+        # Combobox creation
+        n = StringVar()
+        monthchoosen = ttk.Combobox(self.editCourseReqsWindow, width=27, textvariable=n)
+
+        group = []
+        vals = []
+        for i in range(len(self.minorsReqs)):
+            group.append(self.minorsReqs[i][0])
+            vals.append(self.minorsReqs[i][1])
+        print(group)
+        print(vals)
+
+        # Adding combobox drop down list
+        monthchoosen['values'] = group
+
+        monthchoosen.grid(column=1, row=5)
+        monthchoosen.current()
+
     def openMinorButton(self, minor):
         if self.minorBox.get(self.minorBox.curselection()) != "":
             self.close(self.addEditMinorWindow)
@@ -2602,12 +2671,15 @@ class View:
 
         addCourseBtn = Button(addCrsBtnFrame, text="Add course",
                               command=lambda: self.planningWorksheet_editMajor_addCourseButton(editMinorWindow, 1))
+        editCourseReqBtn = Button(addCrsBtnFrame, text="Edit Reqs",
+                                  command=lambda: self.editCourseReqs(editMinorWindow))
         rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course",
                               command=lambda: self.openMajor_editMajor_delCourseButton(1))
         savePlanBtn = Button(addCrsBtnFrame, text="Save Plan",
                              command=lambda: self.openMajor_editMajor_saveMajor(minor))
 
         addCourseBtn.pack(side=LEFT, padx=10)
+        editCourseReqBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=LEFT, padx=10)
         savePlanBtn.pack(side=RIGHT, padx=10)
 
