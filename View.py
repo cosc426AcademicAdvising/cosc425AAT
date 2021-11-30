@@ -77,7 +77,7 @@ class View:
         self.loginWindow.protocol("WM_DELETE_WINDOW",
                                   self.login_closing)  # If user closes login window application closes
         style = Style()
-        style.theme_use("united")
+        style.theme_use("sutheme")
 
     # prompt message before closing program,
     # also closes all TopLevel functions
@@ -393,23 +393,6 @@ class View:
                 semIndex += 1
             minorIndex += 1
 
-        # Autofill last semester in treeview
-        self.coursesNextSemester = []
-        semIndex = 0
-        for sem in courseHist:  # Filling the Progress Report treeviews with students course history from database
-            for course in sem:
-                if len(self.coursesNextSemester) != 4:
-                    if str(course[1] + " " + course[2]) in self.coursesNeeded:
-                        self.coursesNextSemester.append(course)
-            semIndex += 1
-
-        semIndex = self.progTableLength
-        self.progTableTree_iid = 0
-        for course in self.coursesNextSemester:
-            self.progTable[semIndex].insert(parent='', index='end', iid=self.progTableTree_iid,
-                                            values=(course[1] + " " + course[2], course[3], course[4]))
-            self.progTableTree_iid += 1
-
         for minors in range(len(self.minorReqList)):
             for labels in range(len(self.minorReqList[minors])):
                 self.minorsLabelArray[minors][labels]['text'] = self.minorReqList[minors][labels][1]
@@ -697,6 +680,7 @@ class View:
             ttk.Treeview(frame, height=7, style="mystyle.Treeview", takefocus=True, selectmode="none"))
 
         self.prevProgTableLength = len(self.progTable) - 1
+
         tables[len(tables)-1]['columns'] = ("course#", "title", "cred")
         tables[len(tables)-1].column("#0", width=0, stretch=NO)
         tables[len(tables)-1].column("course#", anchor=CENTER, width=90)
@@ -708,20 +692,8 @@ class View:
         tables[len(tables)-1].heading("title", text='Title', anchor=CENTER)
         tables[len(tables)-1].heading("cred", text='CR', anchor=CENTER)
 
-        '''
-        Position button in correct place
-        if on new row add label
-        then position button in a empty spot on new row
-        
-        if not position button in empty spot
-        
-        then
-        when button is clicked add a semester where the button was
-        
-        repeat previous if statement
-        '''
-
-        
+        # Identifies if the progress reports has an even or odd number of semesters
+        # Then adds the the label, table, and add semester button to correct locations
         if self.prevProgTableLength % 2 == 0:
             tables[len(tables) - 1].grid(column=0, row=self.prevProgTableLength + 1)
             self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1)
@@ -741,18 +713,6 @@ class View:
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
         self.progTableLength += 1
-        ''' 
-        # grid labels
-        if position % 2 == 0:
-            labels.append(Label(frame, text="Year " + str(position), font=('Helvetica', 15)))
-            labels[len(labels)-1].grid(column=0, row=position, columnspan=2, sticky=W, padx=5)
-
-        # grid treeviews
-        if position % 2 == 0:
-                tables[len(tables)-1].grid(column=0, row=4)
-        else:
-                tables[len(tables)-1].grid(column=1, row=4)
-        '''
 
     def createMinorTable(self, frame, labels, tables):
         # column configure
@@ -882,58 +842,20 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            blank = False
-            blank_ind = 0
-            self.int_ind = 0
-            self.seasonal = False
-            self.cnter = 0
+            self.selectedSemester.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+                                   values=(subject_type + " " + catalog_type,
+                                           title_type,
+                                           credit_type,
+                                           "Major"))
 
-            if subject_type == "" or catalog_type == "" or title_type == "":
-                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
-            else:
-                inTree = False
-                for i in range(0, 2):
-                    cnt = len(self.winSumTable[i].get_children())
-                    for num in range(cnt):
-                        try:  # Checks if a course was previously removed from a table before proceeding
-                            self.winSumTabl[i].item(num)
-                            if title_type == self.winSumTable[i].item(num)['values'][
-                                1] or subject_type + "  " + catalog_type == self.winSumTable[i].item(num)['values'][0]:
-                                inTree = True
-                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
-                                                    message="Error: Course Already Exists in Plan")
-                        except TclError as err:  # If a course has been removed and causes a index error
-                            if i == self.int_ind and self.seasonal == True:  # If that index error occurs in the same treeview that user attempts to insert
-                                blank = True  # Indicate there is a blank
-                                blank_ind = num  # Store the index to be used in insertion
-                for i in range(0, self.progTableLength):
-                    cnt = len(self.progTable[i].get_children())
-                    for num in range(cnt):
-                        try:  # Checks if a course was previously removed from a table before proceeding
-                            self.progTable[i].item(num)
-                            if title_type == self.progTable[i].item(num)['values'][
-                                1] or subject_type + " " + catalog_type == self.progTable[i].item(num)['values'][0]:
-                                inTree = True
-                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
-                                                    message="Error: Course Already Exists in Plan")
-                        except TclError as err:  # If a course has been removed and causes a index error
-                            if i == self.int_ind and self.seasonal == False:  # If that index error occurs in the same treeview that user attempts to insert
-                                blank = True  # Indicate there is a blank
-                                blank_ind = num  # Store the index to be used in insertion
-                if not inTree:
-                    if blank == True:  # If theres a blank
-                        self.cnter = blank_ind  # Use the blank index as the IID
-                    else:
-                        self.cnter = len(self.selectedSemester.get_children())
-                    self.selectedSemester.insert(parent='', index='end', iid=self.cnter,
-                                                 values=(
-                                                     subject_type + " " + catalog_type, title_type, credit_type))
+            prevcred = self.enrollCredVar.get()
+            self.enrollCredVar.set(prevcred + int(float(credit_type)))
 
         self.dropDefault = StringVar()
         self.dropDefault.set("Select a semester")
         self.semesters = []
 
-        for i in range(len(self.courseHist) - 1, self.progTableLength, 1):
+        for i in range(0, self.progTableLength, 1):
             if i % 2 == 0:
                 self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
             else:
@@ -2040,6 +1962,7 @@ class View:
                         # Shows buttons for Progress Report when student information is present
                         self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=150)
                         self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=10)
+                        self.progLabel[len(self.progLabel) - 1]['text'] = 'Current Semester'
                         if self.progTableLength % 2 == 0:
                             self.addSemesterBtn.grid(row=self.progTableLength + 1, column=1)
                         else:
@@ -2049,6 +1972,7 @@ class View:
                                                         font=('Helvetica', 15)))
                             self.progLabel[len(self.progLabel) - 1].grid(column=0, row=self.progTableLength + 1,
                                                                          columnspan=2, sticky=W, padx=5)
+
 
                 except (TclError):
                     w = Toplevel(t)
@@ -2615,37 +2539,6 @@ class View:
                         self.rand_func(a, b, c))
         """
 
-    def editCourseReqs(self, window):
-        self.editCourseReqsWindow = Toplevel(window)
-        self.editCourseReqsWindow.wm_title("Edit Minor Course Reqs")
-        self.editCourseReqsWindow.geometry("500x400")
-        self.editCourseReqsWindow.resizable(width=0, height=0)
-        self.editCourseReqsWindow.attributes('-topmost', 'true')
-        self.mainwin.eval(f'tk::PlaceWindow {str(self.editCourseReqsWindow)} center')
-        print(self.minorsReqs)
-        ttk.Label(self.editCourseReqsWindow, text="Edit Course Group Requirements",).grid(row=0, column=1)
-
-        # label
-        ttk.Label(self.editCourseReqsWindow, text="Select the Course Group :",).grid(column=0, row=5, padx=10, pady=25)
-
-        # Combobox creation
-        n = StringVar()
-        monthchoosen = ttk.Combobox(self.editCourseReqsWindow, width=27, textvariable=n)
-
-        group = []
-        vals = []
-        for i in range(len(self.minorsReqs)):
-            group.append(self.minorsReqs[i][0])
-            vals.append(self.minorsReqs[i][1])
-        print(group)
-        print(vals)
-
-        # Adding combobox drop down list
-        monthchoosen['values'] = group
-
-        monthchoosen.grid(column=1, row=5)
-        monthchoosen.current()
-
     def openMinorButton(self, minor):
         if self.minorBox.get(self.minorBox.curselection()) != "":
             self.close(self.addEditMinorWindow)
@@ -2671,15 +2564,12 @@ class View:
 
         addCourseBtn = Button(addCrsBtnFrame, text="Add course",
                               command=lambda: self.planningWorksheet_editMajor_addCourseButton(editMinorWindow, 1))
-        editCourseReqBtn = Button(addCrsBtnFrame, text="Edit Reqs",
-                                  command=lambda: self.editCourseReqs(editMinorWindow))
         rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course",
                               command=lambda: self.openMajor_editMajor_delCourseButton(1))
         savePlanBtn = Button(addCrsBtnFrame, text="Save Plan",
                              command=lambda: self.openMajor_editMajor_saveMajor(minor))
 
         addCourseBtn.pack(side=LEFT, padx=10)
-        editCourseReqBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=LEFT, padx=10)
         savePlanBtn.pack(side=RIGHT, padx=10)
 
@@ -2759,10 +2649,37 @@ class View:
     def delMajor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Delete Major")
-        t.geometry("350x125")
+        t.geometry("400x325")
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        pub.sendMessage("request_ListMajors")
+
+        def filtr(e):
+            chars1 = fnameE.get()
+            index = 0
+            if chars1 != "":
+                fltrdStu1 = [x for x in self.majors if chars1.lower() in x.lower()]
+                self.majorsBox.delete(0, END)
+                fltrdStu = list(fltrdStu1)
+
+                for i in fltrdStu:
+                    self.majorsBox.insert(END, fltrdStu[index])
+                    index += 1
+            else:
+                self.majorsBox.delete(0, END)
+                for i in self.majors:
+                    self.majorsBox.insert(END, self.majors[index])
+                    index += 1
+
+        def fillEntry(e):
+            if self.majorsBox.curselection() != "":
+                selectedMajor = self.majorsBox.get(self.majorsBox.curselection())
+                selectedMajorSplit = selectedMajor.split()
+
+                fnameE.delete(0, END)
+
+                fnameE.insert(0, selectedMajorSplit[0])
 
         def close(e):
             self.DB.entryconfigure(5, state=NORMAL)
@@ -2781,13 +2698,32 @@ class View:
         nameFrame = Frame(t)
         nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
 
-        butFrame = Frame(t)
-        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
-
         label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
         fnameE = Entry(nameFrame, width=15)
-        fnameE.pack(side=LEFT)
+        fnameE.pack(side=TOP)
+        fnameE.bind("<KeyRelease>", filtr)
 
+        majorsFrame = LabelFrame(t, text="Students")
+        majorsFrame.pack(side=TOP, anchor=CENTER)
+
+        self.majorsVar = self.majors
+
+        self.majorsBox = Listbox(majorsFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                 listvariable=self.majorsVar, height=10, width=3500, font=('Helvetica', 12))
+        self.majorsBox.pack(side=TOP)
+        # self.studentBox.bind("<Double-Button-1>", openScheduleSearchButton)
+
+        self.majorsBox.bind("<<ListboxSelect>>", fillEntry)
+        self.majorsBox.delete(0, END)
+
+        self.majors.sort()
+        index = 0
+        for i in self.majors:
+            self.majorsBox.insert(END, self.majors[index])
+            index += 1
+
+        butFrame = Frame(t)
+        butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
         searchB = Button(butFrame, text='Delete', command=deleteMajorButton)
         searchB.pack()
 
@@ -2795,10 +2731,37 @@ class View:
     def delMinor(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Delete Minor")
-        t.geometry("300x125")
+        t.geometry("400x325")
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        pub.sendMessage("request_ListMinors")
+
+        def filtr(e):
+            chars1 = fnameE.get()
+            index = 0
+            if chars1 != "":
+                fltrdStu1 = [x for x in self.minors if chars1.lower() in x.lower()]
+                self.minorsBox.delete(0, END)
+                fltrdStu = list(fltrdStu1)
+
+                for i in fltrdStu:
+                    self.minorsBox.insert(END, fltrdStu[index])
+                    index += 1
+            else:
+                self.minorsBox.delete(0, END)
+                for i in self.minors:
+                    self.minorsBox.insert(END, self.minors[index])
+                    index += 1
+
+        def fillEntry(e):
+            if self.minorsBox.curselection() != "":
+                selectedMinor = self.minorsBox.get(self.minorsBox.curselection())
+                selectedMinorSplit = selectedMinor.split()
+
+                fnameE.delete(0, END)
+
+                fnameE.insert(0, selectedMinorSplit[0])
 
         def close(e):
             self.DB.entryconfigure(6, state=NORMAL)
@@ -2817,12 +2780,32 @@ class View:
         nameFrame = Frame(t)
         nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
 
+        label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
+        fnameE = Entry(nameFrame, width=15)
+        fnameE.pack(side=TOP)
+        fnameE.bind("<KeyRelease>", filtr)
+
+        minorsFrame = LabelFrame(t, text="Students")
+        minorsFrame.pack(side=TOP, anchor=CENTER)
+
+        self.minorsVar = self.majors
+
+        self.minorsBox = Listbox(minorsFrame, selectmode=SINGLE, justify=CENTER, exportselection=False,
+                                 listvariable=self.minorsVar, height=10, width=3500, font=('Helvetica', 12))
+        self.minorsBox.pack(side=TOP)
+        # self.studentBox.bind("<Double-Button-1>", openScheduleSearchButton)
+
+        self.minorsBox.bind("<<ListboxSelect>>", fillEntry)
+        self.minorsBox.delete(0, END)
+
+        self.minors.sort()
+        index = 0
+        for i in self.minors:
+            self.minorsBox.insert(END, self.minors[index])
+            index += 1
+
         butFrame = Frame(t)
         butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
-
-        label2 = Label(nameFrame, text='Minor Abbreviation:').pack(side=LEFT)
-        fnameE = Entry(nameFrame, width=10)
-        fnameE.pack(side=LEFT)
 
         searchB = Button(butFrame, text='Delete', command=deleteMinorButton)
         searchB.pack()

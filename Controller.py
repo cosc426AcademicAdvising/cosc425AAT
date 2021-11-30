@@ -1,6 +1,6 @@
 
 
-# import tk as tk
+import tk as tk
 import tkinter as tk
 from View import View
 from Model import Model
@@ -64,6 +64,9 @@ class Controller:
         pub.subscribe(self.setPolicy, "request_Policy_to_Display")
         pub.subscribe(self.getCourseListbyRegex, "request_Course_by_Regex")
         pub.subscribe(self.getBackupCourseListbyRegex, "request_Backup_Course_by_Regex")
+
+        pub.subscribe(self.getMajors, "request_ListMajors")
+        pub.subscribe(self.getMinors, "request_ListMinors")
 
     def getMajors(self):
         self.view.majors = self.model.listAllMajors().copy()

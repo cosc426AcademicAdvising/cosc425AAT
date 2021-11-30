@@ -8,7 +8,9 @@ import re
 import threading
 import requests
 from tkinter import messagebox
-# from reportlab.pdfgen.canvas import Canvas
+from reportlab.pdfgen.canvas import Canvas
+
+#from searchFuncs import stud
 
 client = pymongo.MongoClient(
     "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tls=True, tlsAllowInvalidCertificates=True)
@@ -54,7 +56,7 @@ class Model:
             j = j + 1
 
         return name_id
-    # feeds dub, cat, title, and cred into a regex and returns matching courses from the DB
+
     def getCoursebyRegex(self, sub, cat, title, cred):
         query = {'subject': sub, 'catalog': cat, 'title': title, 'credit': cred}
         response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex",
@@ -149,7 +151,7 @@ class Model:
         response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         return obj
-    # pulls all student info based on the given ID and writes it to a pdf file specified by path
+
     def mkPdf(self, id, path):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(id)
@@ -159,16 +161,16 @@ class Model:
         canvas = Canvas(path, pagesize=(612.0, 792.0))
         major = ''
         multiMaj = 0
-        for i in curs:  # loops through all fields in the JSON response
+        for i in curs:
             data.append(i['name'])
             data.append(i['s_id'])
-            try:        # if student has one major it prints the major, otherwise prints a generic response
+            try:
                 data.append('major(s): ' + str(i['major']))
                 data.append(i['dept'] + ' school')
             except (TypeError, KeyError):
                 data.append("Double major")
                 multiMaj = 1
-            try:        # if student has one minor it prints the given minor, otherwise gives a generic response
+            try:
                 data.append('minor(s): ' + str(i['minor']))
             except TypeError:
                 data.append("Double minor")
@@ -184,20 +186,18 @@ class Model:
         data.append("-----------------------------------------")
         data.append("Current courses:")
         obj = stud.find_one({'s_id': id})
-        for x in obj['taking_course']:  #prints all courses the student has currently enrolled in
+        for x in obj['taking_course']:
             data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
                 x['cred']) + ' credits')
 
         data.append("-----------------------------------------")
         data.append("Backup courses:")
-        for x in obj['backup_course']:  #prints backup courses
+        for x in obj['backup_course']:
             data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
                 x['cred']) + ' credits')
 
         x = 72
         y = 725
-        # writes data to the pdf file
-        # if the data would go off the page, creates a new page and resets y to the top of the new page
         for z in range(len(data)):
             canvas.drawString(x, y, str(data[z]))
             y -= 20
@@ -206,7 +206,7 @@ class Model:
                 y = 725
 
         canvas.save()
-    # queries the API for all info attached to the given student id and dumps it into a JSON file specified by fname
+
     def pullStud(self, id, fname):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(id)
@@ -407,7 +407,7 @@ class Model:
             return "no matches found, deleted 0 entries"
         else:
             return str(info.deleted_count) + " entries deleted"
-    # adds a major to the database
+
     def addMajor(self, major, program, school, FullSchool):
         url = "https://cosc426restapi.herokuapp.com/api/Department/Major/Add"
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MajorIn/"
@@ -421,7 +421,7 @@ class Model:
             print("Already in")
 
 
-    # adds a minor to the database
+
     def addMinor(self, minor, program, school, FullSchool):
         url = "https://cosc426restapi.herokuapp.com/api/Department/Minor/Add"
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MinorIn/"
@@ -434,7 +434,7 @@ class Model:
             obj = response.json()
         else:
             print("Already in")
-    # removes a major from the DB
+
     def delMajor(self, acad):
         major = acad
         url = "https://cosc426restapi.herokuapp.com/api/Department/Major/Delete/"
@@ -447,7 +447,7 @@ class Model:
             obj = response.json()
         else:
             print("Not Already in")
-    # removes a minor from the DB
+
     def delMinor(self, acad):
         minor = acad
         url = "https://cosc426restapi.herokuapp.com/api/Department/Minor/Delete/"
@@ -460,7 +460,7 @@ class Model:
             obj = response.json()
         else:
             print("Not Already in")
-    # pulls a four year major plan from the DB and dumps it into a json file
+
     def getFourYearJson(self, maj):
         url = "https://cosc426restapi.herokuapp.com/api/FourYear/MajorPlan/ARTBA"
         print(maj)
@@ -542,7 +542,7 @@ class Model:
             # print(ctotal)
             fourList.append(courseList)
         return fourList
-    # pulls the generic minor requirements from the matching DB entry
+
     def getMinorUnivReq(self, minor):
         reqList = []
         url = "https://cosc426restapi.herokuapp.com/api/MinPlan/Plan/"
