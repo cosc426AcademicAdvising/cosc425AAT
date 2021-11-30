@@ -193,7 +193,7 @@ class Model:
             data.append("-----------------------------------------")
             data.append("Backup courses:")
             for x in curs['backup_course']:
-                data.append("       " + x.get('subject') + " " + str(x.get('catlog')) + " " + x.get('title') + " | " + str(
+                data.append("       " + x.get('subject') + " " + str(x.get('catalog')) + " " + x.get('title') + " | " + str(
                     x.get('cred')) + ' credits')
         except ValueError:
             data.append("JSON value error, possibly an empty schedule?");
