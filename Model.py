@@ -152,50 +152,52 @@ class Model:
         obj = response.json()
         return obj
 
-    def mkPdf(self, id, path):
+        def mkPdf(self, id, path):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(id)
         response = requests.get(url, headers={'auth-token': token})
-        curs = response.json()
-        data = []
+        data = [];
         canvas = Canvas(path, pagesize=(612.0, 792.0))
-        major = ''
-        multiMaj = 0
-        for i in curs:
-            data.append(i['name'])
-            data.append(i['s_id'])
-            try:
-                data.append('major(s): ' + str(i['major']))
-                data.append(i['dept'] + ' school')
-            except (TypeError, KeyError):
-                data.append("Double major")
-                multiMaj = 1
-            try:
-                data.append('minor(s): ' + str(i['minor']))
-            except TypeError:
-                data.append("Double minor")
-            data.append(i['status'])
-            data.append(i['year'])
-            data.append('current credits: ' + str(i['credits']))
-            data.append(i['sem_id'])
-            data.append('Registering for ' + i['registering_for'] + ' semester')
-            data.append(i['enrll'])
-            data.append(i['advisor_mail'])
-            major = i['major']
+        try:
+            curs = response.json()
+            major = ''
+            multiMaj = 0
+            for i in curs:
+                data.append(i['name'])
+                data.append(i['s_id'])
+                try:
+                    data.append('major(s): ' + str(i['major']))
+                    data.append(i['dept'] + ' school')
+                except (TypeError, KeyError):
+                    data.append("Double major")
+                    multiMaj = 1
+                try:
+                    data.append('minor(s): ' + str(i['minor']))
+                except TypeError:
+                    data.append("Double minor")
+                data.append(i['status'])
+                data.append(i['year'])
+                data.append('current credits: ' + str(i['credits']))
+                data.append(i['sem_id'])
+                data.append('Registering for ' + i['registering_for'] + ' semester')
+                data.append(i['enrll'])
+                data.append(i['advisor_mail'])
+                major = i['major']
 
-        data.append("-----------------------------------------")
-        data.append("Current courses:")
-        obj = stud.find_one({'s_id': id})
-        for x in obj['taking_course']:
-            data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
-                x['cred']) + ' credits')
+            data.append("-----------------------------------------")
+            data.append("Current courses:")
+            obj = stud.find_one({'s_id': id})
+            for x in obj['taking_course']:
+                data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
+                    x['cred']) + ' credits')
 
-        data.append("-----------------------------------------")
-        data.append("Backup courses:")
-        for x in obj['backup_course']:
-            data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
-                x['cred']) + ' credits')
-
+            data.append("-----------------------------------------")
+            data.append("Backup courses:")
+            for x in obj['backup_course']:
+                data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
+                    x['cred']) + ' credits')
+        except ValueError:
+            data.append("JSON decode error, possibly an empty schedule?");
         x = 72
         y = 725
         for z in range(len(data)):
@@ -206,7 +208,7 @@ class Model:
                 y = 725
 
         canvas.save()
-
+        
     def pullStud(self, id, fname):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(id)
