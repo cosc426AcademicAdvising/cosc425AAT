@@ -2206,6 +2206,7 @@ class View:
             credit_type = credit_entry.get()
             ind = self.clicked.get()
             int_ind = int(ind) - 1
+
             blank = False
             blank_ind = 0
             if subject_type == "" or catalog_type == "" or title_type == "":
@@ -2539,6 +2540,263 @@ class View:
                         self.rand_func(a, b, c))
         """
 
+    def openMinor_saveMinor(self, minor, crs, req):
+        plan = []
+        reqs = []
+        j = 0
+        rng = len(crs)
+        plan.append({'minor': minor})
+        for i in range(0, rng):
+            cnt = len(self.edtMiTbls[i].get_children())
+            for course in range(cnt+self.tot_Removed):
+                try:
+                    self.edtMiTbls[i].item(course)
+                    sub = ""
+                    cat = ""
+                    subcat = self.edtMiTbls[i].item(course)['values'][0].split()
+                    try:
+                        cat = subcat[1]
+                        sub = subcat[0]
+                    except IndexError as b:
+                        sub = subcat[0]
+                        cat = ""
+                    plan.append([{ 'semester': i+1}, {"course" : {
+                        'subject': sub,
+                        'catalog': cat,
+                        'title': self.edtMiTbls[i].item(course)['values'][1],
+                        'credit': self.edtMiTbls[i].item(course)['values'][2]
+                    }} ])
+                    j+=1
+                except TclError as b:
+                    continue
+
+        for i in range(len(self.minorsReqs)):
+            reqs.append([{'semester': i}, {'req': self.minorsReqs[i][1]}])
+
+
+
+        pub.sendMessage("save_min_plan", obj=plan, req=reqs)
+
+    def addEditMinor_addCourseButton(self, parentWindow, tbl):
+        t = Toplevel(parentWindow)
+        t.wm_title("Search for Course")
+        t.geometry("700x400")
+        t.resizable(width=FALSE, height=FALSE)
+        t.transient(parentWindow)
+        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+
+        def close(e):
+            self.addCourseButton.configure(state=NORMAL)
+            t.destroy()
+
+        t.bind('<Destroy>', close)
+        self.addCourseButton.configure(state=DISABLED)
+
+        def update_course_list(data):
+            for i in self.course_tree.get_children():
+                self.course_tree.delete(i)
+
+            #self.course_tree.tag_configure('evenrow', background="grey")
+            #self.course_tree.tag_configure('oddrow', background="white")
+
+            for item in data:
+                self.course_tree.insert('', 'end',
+                                   values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
+
+        def fillout_fields(event):
+            subject_entry.delete(0, END)
+            catalog_entry.delete(0, END)
+            title_entry.delete(0, END)
+            credit_entry.delete(0, END)
+
+            course = self.course_tree.focus()
+            course_info = self.course_tree.item(course)['values']
+
+            subject_entry.insert(0, course_info[0])
+            catalog_entry.insert(0, course_info[1])
+            title_entry.insert(0, course_info[2])
+            credit_entry.insert(0, course_info[3])
+
+        def check_course(event):
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+
+            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type, cred=credit_type)
+            update_course_list(self.course_regex_list)
+
+        # adds searched course into the treeview
+        def addCourse():
+            subject_type = subject_entry.get().upper()
+            catalog_type = catalog_entry.get()
+            title_type = title_entry.get().upper()
+            credit_type = credit_entry.get()
+            blank = False
+            blank_ind = 0
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = False
+                cnter = len(tbl.get_children())
+                for num in range(cnter):
+                    try:  # Checks if a course was previously removed from a table before proceeding
+                        tbl.item(num)
+                        if title_type == tbl.item(num)['values'][1] or subject_type + catalog_type == \
+                                tbl.item(num)['values'][0]:
+                            inTree = True
+                            messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                message="Error: Course Already Exists in Plan")
+                    except TclError as err:  # If a course has been removed and causes a index error
+                        blank = True  # Indicate there is a blank
+                        blank_ind = num  # Store the index to be used in insertion
+                if not inTree:
+                    if blank == True:  # If theres a blank
+                        cnt = blank_ind  # Use the blank index as the IID
+                    else:  # Else use the end IID
+                        cnt = cnter
+                    tbl.insert(parent='', index='end', iid=cnt,
+                                        values=(
+                                            (subject_type + " " + catalog_type), title_type, credit_type))
+
+
+
+        self.subject_frame = Frame(t, borderwidth=2)
+        self.subject_frame.pack(side=LEFT, anchor='n', padx=10)
+
+        self.subject_label = Label(self.subject_frame, text="Enter a Subject",
+                                   font=("Helvetica", 10), fg="black")
+        self.subject_label.pack(pady=5, anchor='n')
+
+        self.subject_example = Label(self.subject_frame, text="ex. COSC, cos",
+                                     font=("Helvetica", 8), fg="grey")
+        self.subject_example.pack(pady=0, anchor='n')
+
+        subject_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        subject_entry.pack(pady=10, anchor='n')
+
+        self.catalog_label = Label(self.subject_frame, text="Enter a Catalog Number",
+                                   font=("Helvetica", 8), fg="black")
+        self.catalog_label.pack(pady=5, anchor='n')
+
+        self.catalog_example = Label(self.subject_frame, text="ex. 123, 12, 1",
+                                     font=("Helvetica", 8), fg="grey")
+        self.catalog_example.pack(pady=0, anchor='n')
+
+        catalog_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        catalog_entry.pack(pady=10, anchor='n')
+
+        self.title_frame = Label(self.subject_frame, text="Enter a Course Title",
+                                 font=("Helvetica", 10), fg="black")
+        self.title_frame.pack(pady=5, anchor='n')
+
+        self.title_example = Label(self.subject_frame, text="ex. Computer Science I, computer sci",
+                                   font=("Helvetica", 8), fg="grey")
+        self.title_example.pack(pady=0, anchor='n')
+
+        title_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        title_entry.pack(pady=10, anchor='n')
+
+        self.credit_frame = Label(self.subject_frame, text="Enter a Credit Amount",
+                                  font=("Helvetica", 10), fg="black")
+        self.credit_frame.pack(pady=5, anchor='n')
+
+        self.credit_example = Label(self.subject_frame, text="ex. 4, 3.0, 2.00",
+                                    font=("Helvetica", 8), fg="grey")
+        self.credit_example.pack(pady=0, anchor='n')
+
+        credit_entry = Entry(self.subject_frame, width=25, justify=CENTER, font=("Helvetica", 10))
+        credit_entry.pack(pady=10, anchor='n')
+
+
+        self.addButton = Button(self.subject_frame, text="Add", command=addCourse)
+        self.addButton.pack(side=TOP)
+
+        self.course_frame = Frame(t, borderwidth=2)
+        self.course_frame.pack(side=RIGHT, anchor='n', padx=10)
+
+        self.course_tree_scroll = Scrollbar(self.course_frame)
+        self.course_tree_scroll.pack(side=RIGHT, fill=Y)
+
+
+        self.course_tree = ttk.Treeview(self.course_frame, yscrollcommand=self.course_tree_scroll.set,
+                                        column=('sub', 'cat', 'title', 'cred'), show=['headings'], height=300)
+        self.course_tree.column('# 1', anchor=CENTER, width=50)
+        self.course_tree.heading('# 1', text="Subject")
+        self.course_tree.column('# 2', anchor=CENTER, width=50)
+        self.course_tree.heading('# 2', text="Catalog")
+        self.course_tree.column('# 3', anchor=CENTER, width=280)
+        self.course_tree.heading('# 3', text="Title")
+        self.course_tree.column('# 4', anchor=CENTER, width=50)
+        self.course_tree.heading('# 4', text="Credits")
+
+        self.course_tree.pack(pady=0)
+        self.course_tree_scroll.config(command=self.course_tree.yview)
+
+        pub.sendMessage("request_Course_by_Regex", sub="", cat="", title="", cred="")
+        update_course_list(self.course_regex_list)
+
+        self.course_tree.bind("<ButtonRelease-1>", fillout_fields)
+        subject_entry.bind("<KeyRelease>", check_course)
+        catalog_entry.bind("<KeyRelease>", check_course)
+        title_entry.bind("<KeyRelease>", check_course)
+        credit_entry.bind("<KeyRelease>", check_course)
+
+    def addEditMinor_delCourseButton(self, tbl):
+        msg = "Do you want to remove the selected backup course? ("
+        cnt = 0
+        index = {}
+        # Loops thru each of selected tree view values and pushes the index into a list
+        for course in tbl.selection():
+            index[cnt] = course
+            cnt+=1
+        # If only one course selected
+        if len(index) == 1:
+            msg = "Do you want to remove the selected course? (" + tbl.item(index[0])['values'][0] + " " + tbl.item(index[0])['values'][1] + ")"
+        # Else create msg prompt for batch delete courses
+        else:
+            msg = "Do you want to remove the selected course? ("
+            for i in range(len(index)):
+                msg = msg + str(tbl.item(index[i])['values'][0]) + " " + str(tbl.item(index[0])['values'][1])
+                if i+1 != len(index):
+                    msg+=", "
+            msg = msg + ")"
+        # If answer yes then proceed with course deletion
+        response = messagebox.askquestion("askquestion", msg)
+        for i in range(len(index)):
+            self.tot_Removed += 1
+            if response == 'yes':
+                tbl.delete(index[i])
+    def addEditMajor_saveGroup(self, min, tbl, req, grp):
+        plan = []
+        j = 0
+        grp_ind = int(grp)
+        cnt = len(tbl.get_children())
+        plan.append([{'minor': min, 'group': grp_ind, 'req': req}])
+        for course in range(cnt + self.tot_Removed):
+            try:
+                tbl.item(course)
+                sub = ""
+                cat = ""
+                subcat = tbl.item(course)['values'][0].split()
+                try:
+                    cat = subcat[1]
+                    sub = subcat[0]
+                except IndexError as b:
+                    sub = subcat[0]
+                    cat = ""
+                plan.append({"course": {
+                    'subject': sub,
+                    'catalog': cat,
+                    'title': tbl.item(course)['values'][1],
+                    'credit': tbl.item(course)['values'][2]
+                }})
+                j += 1
+            except TclError as b:
+                continue
+        print(plan)
+        pub.sendMessage("save_min_plan", obj=plan)
+
     def openMinorButton(self, minor):
         if self.minorBox.get(self.minorBox.curselection()) != "":
             self.close(self.addEditMinorWindow)
@@ -2547,14 +2805,57 @@ class View:
 
             editMinorWindow = Toplevel(self.mainwin)
             editMinorWindow.wm_title("Edit Minor")
-            editMinorWindow.geometry("1150x800")
+            editMinorWindow.geometry("650x600")
             editMinorWindow.resizable(width=0, height=0)
             editMinorWindow.attributes('-topmost', 'true')
         else:
             return
 
+        minors = self.minorsFYP
+        def cb_select(self):
+            req_entry.delete('1.0', END)
+            for c in courseTree.get_children():
+                courseTree.delete(c)
+            cnter = 0
+            if (monthchosen.get() != ""):
+                req_entry.insert(END, vals[int(monthchosen.get())-1])
+                cnt = len(minors[int(monthchosen.get())-1])
+                for c in minors[int(monthchosen.get())-1]:
+                    courseTree.insert(parent='', index='end', iid=cnter, text="",
+                                           values=(c[1] + " " + c[2], c[3], c[4]))
+                    cnter += 1
+
+        def save_Req():
+            group = monthchosen.get()
+            req = req_entry.get('1.0', END)
+            self.minorsReqs[group][1] = req
+
         editMinorFrame = Frame(editMinorWindow)
         editMinorFrame.pack(fill=BOTH, expand=True)
+
+        # label
+        ttk.Label(editMinorFrame, text="Select the Course Group :",).pack(side=TOP, padx=10, pady=25)
+        # Combobox creation
+        n = StringVar()
+        monthchosen = ttk.Combobox(editMinorFrame, width=27, textvariable=n)
+        group = []
+        vals = []
+        for i in range(len(self.minorsReqs)):
+            group.append(self.minorsReqs[i][0]+1)
+            vals.append(self.minorsReqs[i][1])
+
+        # Adding combobox drop down list
+        monthchosen['values'] = group
+
+        monthchosen.pack(side=TOP)
+        monthchosen.current(0)
+
+        monthchosen.bind('<<ComboboxSelected>>', cb_select)
+
+        ttk.Label(editMinorFrame, text="Edit Course Group Requirements", ).pack(side=TOP)
+
+        req_entry = Text(editMinorFrame, height=5)
+        req_entry.pack(side=TOP, padx=55, pady=8)
 
         addCrsBtnFrame = Frame(editMinorWindow)
         addCrsBtnFrame.pack()
@@ -2563,30 +2864,34 @@ class View:
         self.edtMiTbls = []
 
         addCourseBtn = Button(addCrsBtnFrame, text="Add course",
-                              command=lambda: self.planningWorksheet_editMajor_addCourseButton(editMinorWindow, 1))
+                              command=lambda: self.addEditMinor_addCourseButton(editMinorWindow, courseTree))
         rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course",
-                              command=lambda: self.openMajor_editMajor_delCourseButton(1))
-        savePlanBtn = Button(addCrsBtnFrame, text="Save Plan",
-                             command=lambda: self.openMajor_editMajor_saveMajor(minor))
+                              command=lambda: self.addEditMinor_delCourseButton(courseTree))
+        savePlanBtn = Button(addCrsBtnFrame, text="Save Group",
+                             command=lambda: self.addEditMajor_saveGroup(minor, courseTree, req_entry.get('1.0', END), monthchosen.get()))
+
+        courseTableFrame = Frame(editMinorFrame)
+        courseTableFrame.pack(fill=BOTH, expand=True, pady=5)
+
+        courseTree = ttk.Treeview(courseTableFrame, height=12, style="mystyle.Treeview")
+        # height is number of rows
+        courseTree.pack()
+
+        courseTree['columns'] = ("course#", "title", "cred")
+
+        courseTree.column("#0", width=0, stretch=NO)  # important
+        courseTree.column("course#", anchor=CENTER, width=140)  # anchor for the data in the column
+        courseTree.column("title", anchor=CENTER, width=330)
+        courseTree.column("cred", anchor=CENTER, width=70)
+
+        courseTree.heading("course#", text='Course #', anchor=CENTER)  # anchor for the title of the column
+        courseTree.heading("title", text='Title', anchor=CENTER)
+        courseTree.heading("cred", text='CR', anchor=CENTER)
 
         addCourseBtn.pack(side=LEFT, padx=10)
         rmvCourseBtn.pack(side=LEFT, padx=10)
         savePlanBtn.pack(side=RIGHT, padx=10)
 
-        # Treeviews are created
-        cnt = len(self.minorsFYP)
-        self.createTable(editMinorFrame, self.edtMiLbls, self.edtMiTbls, cnt)
-
-        # Filling semesters for major
-        semsIndex = 0
-        for sem in self.minorsFYP:
-            self.edtMiTbls_iid = 0
-            for course in sem:
-                self.edtMiTbls[semsIndex].insert(parent='', index='end',
-                                                 iid=self.edtMiTbls_iid,
-                                                 values=(course[1] + " " + course[2], course[3], course[4]))
-                self.edtMiTbls_iid += 1
-            semsIndex += 1
 
     # Add minor button in Update DB
     def addEditMinor(self):
@@ -2596,7 +2901,7 @@ class View:
         self.addEditMinorWindow.resizable(width=0, height=0)
         self.addEditMinorWindow.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(self.addEditMinorWindow)} center')
-        pub.sendMessage("request_Minors")  # Retrieves list of majors from database
+        pub.sendMessage("request_Minor_Plan")  # Retrieves list of majors from database
         self.minors.sort()
 
         def filtr(e):
@@ -2681,22 +2986,25 @@ class View:
 
                 fnameE.insert(0, selectedMajorSplit[0])
 
-        def close(e):
-            self.DB.entryconfigure(5, state=NORMAL)
-            t.destroy()
 
-        t.bind('<Destroy>', close)
-        self.DB.entryconfigure(5, state=DISABLED)
+        self.deleteMajorWindow = Toplevel(self.mainwin)
+        self.deleteMajorWindow.wm_title("Edit/Add Major")
+        self.deleteMajorWindow.geometry("300x310")
+        self.deleteMajorWindow.resizable(width=0, height=0)
+        self.deleteMajorWindow.attributes('-topmost', 'true')
+        self.mainwin.eval(f'tk::PlaceWindow {str(self.deleteMajorWindow)} center')
+        pub.sendMessage("request_Major_Plan")  # Retrieves list of majors from database
+        self.majors.sort()
 
         def deleteMajorButton():  # Delete the major from database
-            name = fnameE.get()
+            name = majorEntry.get()
             if name != "" and id != "":
                 pub.sendMessage("request_DelMajor", acad=name)
                 self.DB.entryconfigure(5, state=NORMAL)
-                t.destroy()
+                self.deleteMajorWindow.destroy()
 
-        nameFrame = Frame(t)
-        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+        def filtr(e):
+            chars = majorEntry.get()
 
         label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
         fnameE = Entry(nameFrame, width=15)
@@ -2726,6 +3034,7 @@ class View:
         butFrame.pack(side=BOTTOM, anchor=CENTER, pady=10)
         searchB = Button(butFrame, text='Delete', command=deleteMajorButton)
         searchB.pack()
+
 
     # Delete Minor in Update DB
     def delMinor(self):
