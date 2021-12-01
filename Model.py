@@ -10,23 +10,44 @@ import requests
 from tkinter import messagebox
 from reportlab.pdfgen.canvas import Canvas
 
+#from searchFuncs import stud
+
+client = pymongo.MongoClient(
+    "mongodb+srv://COSC425AAT:ucciEcY4ItzL6BRN@cluster0.qmhln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", tls=True, tlsAllowInvalidCertificates=True)
+db = client['COSC425AAT']
+
 token = ""
 
 class Model:
     def __init__(self):
         return
 
-    # Initialize paseto token for API access
     def setAuthToken(self, tok):
         global token
         token = tok
 
-    # Requests a list of all students in database from the api
     def getAllStudents(self):
+        stud = db["Student"]
         name_id = {}
-        response = requests.get("https://cosc426restapi.herokuapp.com/api/Student/all/students",
-                                headers={'auth-token': token})
-        obj = response.json()
+        obj = stud.aggregate([
+            {
+                # Groups all unique name and id combinations in the student collection
+                "$group": {
+                    "_id": {
+                        "s_id": "$s_id",
+                        "name": "$name"
+                    }
+                }
+            },
+            {
+                # Projects each of those unique values into a list to be assigned to 'obj'
+                "$project": {
+                    "_id": 0,
+                    "s_id": "$_id.s_id",
+                    "name": "$_id.name"
+                }
+            }
+        ])
 
         # Loops through each value in the object and assigns them to a 2D list
         j = 0
@@ -36,28 +57,19 @@ class Model:
 
         return name_id
 
-    # Requests a list of all Courses that match the specified fields
     def getCoursebyRegex(self, sub, cat, title, cred):
-        # Place fields in an object to be packed in body of request
         query = {'subject': sub, 'catalog': cat, 'title': title, 'credit': cred}
-        # Make a post request to the API through route /api/Course/Regex
-        # Specify the paseto token in the 'auth-token' header
-        # json=query is packing the object in the body of the request with a format of json
         response = requests.post("https://cosc426restapi.herokuapp.com/api/Course/Regex",
                                  headers={'auth-token': token}, json=query)
-        # List of courses is the returned value if successful
-        # Convert returned values into json
         obj = response.json()
         return obj
 
-    # Returns a list of all student ID's
     def getAllStudentIds(self):
-        response = requests.get("https://cosc426restapi.herokuapp.com/api/Student/all/studentsIds",
-                                headers={'auth-token': token})
-        id = response.json()
+        id = []
+        myCol = db.get_collection("Student")
+        id = myCol.distinct('s_id')
         return id
 
-    # Requests a list of all majors in database
     def listAllMajors(self):
         response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/Major", headers={'auth-token': token})
         obj = response.json()
@@ -66,7 +78,6 @@ class Model:
             majors.append(i['Acad Plan'])
         return majors
 
-    # Requests a list of all minors in dataabase
     def listAllMinors(self):
         response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/Minor", headers={'auth-token': token})
         obj = response.json()
@@ -75,7 +86,6 @@ class Model:
             minors.append(i['Acad Plan'])
         return minors
 
-    # Requests a list of all majors with Four Year plans
     def listAllMajorPlan(self):
         response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MajorPlans", headers={'auth-token': token})
         obj = response.json()
@@ -84,22 +94,10 @@ class Model:
             majors.append(i['major'])
         return majors
 
-    # Requests a list of all minors with Four Year plans
-    def listAllMinorPlan(self):
-        response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MinorPlans",
-                                headers={'auth-token': token})
-        obj = response.json()
-        minors = []
-        for i in obj:
-            minors.append(i['minor'])
-        return minors
-
-    # Requests a list of all schools under a specified minor
     def getMinorSchools(self):
         response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MinorSchool", headers={'auth-token': token})
         return response.json()
 
-    # Requests a list all schools under a specified major
     def getMajorSchools(self):
         response = requests.get("https://cosc426restapi.herokuapp.com/api/Department/MajorSchool", headers={'auth-token': token})
         return response.json()
@@ -148,59 +146,56 @@ class Model:
         print(obj['RQ Descr(Descrlong)'])
         return obj
 
-    # Requests a list of all unique subjects
     def getSubjects(self):
         url = "https://cosc426restapi.herokuapp.com/api/Course/Subject/"
         response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
         return obj
 
-
     def mkPdf(self, id, path):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(id)
         response = requests.get(url, headers={'auth-token': token})
+        curs = response.json()
         data = []
         canvas = Canvas(path, pagesize=(612.0, 792.0))
-        try:
-            curs = response.json()
-            major = ''
-            multiMaj = 0
-            data.append(curs.get('name'))
-            data.append(curs.get('s_id'))
+        major = ''
+        multiMaj = 0
+        for i in curs:
+            data.append(i['name'])
+            data.append(i['s_id'])
             try:
-                data.append('major(s): ' + (curs.get('major')))
-                data.append(curs.get('s_id') + ' school')
+                data.append('major(s): ' + str(i['major']))
+                data.append(i['dept'] + ' school')
             except (TypeError, KeyError):
                 data.append("Double major")
                 multiMaj = 1
             try:
-                data.append('minor(s): ' + curs.get('minor'))
+                data.append('minor(s): ' + str(i['minor']))
             except TypeError:
                 data.append("Double minor")
-            data.append(curs.get('status'))
-            data.append(curs.get('year'))
-            data.append('current credits: ' + str(curs.get('credits')))
-            data.append(curs.get('sem_id'))
-            data.append('Registering for ' + curs.get('registering_for') + ' semester')
-            data.append(curs.get('enrll'))
-            data.append(curs.get('advisor_mail'))
-            major = (curs.get('major'))
+            data.append(i['status'])
+            data.append(i['year'])
+            data.append('current credits: ' + str(i['credits']))
+            data.append(i['sem_id'])
+            data.append('Registering for ' + i['registering_for'] + ' semester')
+            data.append(i['enrll'])
+            data.append(i['advisor_mail'])
+            major = i['major']
 
-            data.append("-----------------------------------------")
-            data.append("Current courses:")
-            #obj = stud.find_one({'s_id': id})
-            for x in curs['taking_course']:
-                data.append("       " + x.get('subject') + " " + str(x.get('catalog')) + " " + x.get('title') + " | " + str(
-                    x.get('cred')) + ' credits')
+        data.append("-----------------------------------------")
+        data.append("Current courses:")
+        obj = stud.find_one({'s_id': id})
+        for x in obj['taking_course']:
+            data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
+                x['cred']) + ' credits')
 
-            data.append("-----------------------------------------")
-            data.append("Backup courses:")
-            for x in curs['backup_course']:
-                data.append("       " + x.get('subject') + " " + str(x.get('catalog')) + " " + x.get('title') + " | " + str(
-                    x.get('cred')) + ' credits')
-        except ValueError:
-            data.append("JSON value error, possibly an empty schedule?");
+        data.append("-----------------------------------------")
+        data.append("Backup courses:")
+        for x in obj['backup_course']:
+            data.append("       " + x['subject'] + " " + str(x['catalog']) + " " + x['title'] + " | " + str(
+                x['cred']) + ' credits')
+
         x = 72
         y = 725
         for z in range(len(data)):
@@ -209,9 +204,9 @@ class Model:
             if (y <= 75):
                 canvas.showPage()
                 y = 725
+
         canvas.save()
 
-    # Requests a student with specified id and name
     def pullStud(self, id, fname):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(id)
@@ -239,7 +234,6 @@ class Model:
             with open(fname, 'w+') as f:
                 json.dump(data, f, indent=4)
 
-    # Requests a student with specified id and name
     def getStudent(self, sname, sid):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(sid)
@@ -381,21 +375,44 @@ class Model:
 
         pub.sendMessage("FYP_refresh_info", major=majors, minor=minors, FourYear=fouryear, minorFourYear=minorfouryear, minorReqList=minorReqList, policies=policies)
 
-    # Requests a list of all policies within a Four Year plan for a specified major
+
     def getPolicies(self, major):
         url = "https://cosc426restapi.herokuapp.com/api/FourYear/Policy/"
         url = url + major
         response = requests.get(url, headers={'auth-token': token})
         return response.json()
 
-    # Requests to add a new major to the database
-    # Needs the major abbrev, program/title, school name (short), and school name (long)
+    def delStud(self, id):
+        stud = db["Student"]
+        query = {"s_id": int(id)}
+        info = stud.delete_many(query)
+        if info.deleted_count == 1:
+            return "one entry deleted"
+        elif info.deleted_count == 0:
+            return "no matches found, deleted 0 entries"
+        else:
+            return str(info.deleted_count) + " entries deleted"
+
+    def delCrs(self, sub, num):
+        crs = db["Course"]
+        query = {"Subject": sub, "Catalog": Regex(u".*{0}.*".format(num), "i")}
+        # this ".*string.*" regex searches for entries containing the given string
+        # when searching for a given catalog num normally, the entire string must match
+        # a portion of the entries in the db have spaces at the beginning of the catalog num string
+        # this regex ignores that space and is true if the field contains the given number anywhere in the string
+        info = crs.delete_many(query)
+        if info.deleted_count == 1:
+            return "one entry deleted"
+        elif info.deleted_count == 0:
+            return "no matches found, deleted 0 entries"
+        else:
+            return str(info.deleted_count) + " entries deleted"
+
     def addMajor(self, major, program, school, FullSchool):
         url = "https://cosc426restapi.herokuapp.com/api/Department/Major/Add"
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MajorIn/"
         check_url = check_url + major
         check_response = requests.get(check_url)
-        # First checks to see if major already exists, if not then proceed with insert
         if(check_response.json() == 0):
             val = {'Acad_Plan': major, 'Plan_Type': 'Major', 'Acad_Prog': program, 'School': school, 'School_Full_Name': FullSchool}
             response = requests.post(url, headers={'auth-token': token}, json=val)
@@ -404,8 +421,7 @@ class Model:
             print("Already in")
 
 
-    # Requests to add a new minor to the database
-    # Needs the minor abbrev, program/title, school name (short), and school name (long)
+
     def addMinor(self, minor, program, school, FullSchool):
         url = "https://cosc426restapi.herokuapp.com/api/Department/Minor/Add"
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MinorIn/"
@@ -419,7 +435,6 @@ class Model:
         else:
             print("Already in")
 
-    # Requests to remove a major from the database by the specified major abbrev
     def delMajor(self, acad):
         major = acad
         url = "https://cosc426restapi.herokuapp.com/api/Department/Major/Delete/"
@@ -427,16 +442,12 @@ class Model:
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MajorIn/"
         check_url = check_url + major
         check_response = requests.get(check_url)
-        # First checks if major exists, if so proceed with delete
-        print(check_response)
-
         if (check_response.json() == 1):
             response = requests.post(url, headers={'auth-token': token})
             obj = response.json()
         else:
             print("Not Already in")
 
-    # Requests to remove a minor from the database with the specified minor abbrev
     def delMinor(self, acad):
         minor = acad
         url = "https://cosc426restapi.herokuapp.com/api/Department/Minor/Delete/"
@@ -450,14 +461,15 @@ class Model:
         else:
             print("Not Already in")
 
-    # Requests a Four Year plan by the specified major abbrev
     def getFourYearJson(self, maj):
         url = "https://cosc426restapi.herokuapp.com/api/FourYear/MajorPlan/ARTBA"
+        print(maj)
         url_temp = url + maj
         response = requests.get(url, headers={'auth-token': token})
         obj = response.json()
+        print(response.json())
 
-    # Requests a Four Year plan by the specified major abbrev
+
     def getFourYear(self, major):
         courseList = []  # course list
         fourList = []  # four year plan list (return value)
@@ -474,27 +486,28 @@ class Model:
 
         response = requests.get(check_url, headers={'auth-token': token})
 
-        # First checks if major already exists in database,
         if response.json() == 1:
             response = requests.get(url_temp, headers={'auth-token': token})
             obj = response.json()
             i = obj
-        # if not then perform a regex search to find one that is closely associated
         else:
             check_url = "https://cosc426restapi.herokuapp.com/api/FourYear/FourYearInRegex/"
             spl = major.split(" ")
             regx = "^" + spl[0]
             check_url = check_url + regx
             response = requests.get(check_url, headers={'auth-token': token})
-            # Checks again that a plan could be found through regex search
             if response.json() == 1:
                 url_alt = url + "Regex/" + regx
                 response = requests.get(url_alt, headers={'auth-token': token})
                 obj1 = response.json()
                 i = obj1
-            # If not then no plan exists for that major
             else:
                 i = ""
+                # No four year plan exists for major
+
+    
+
+        # fourList.append(i['policies'])
 
         # Gets total number of semesters through error handling
         for j in range(15):  # Max of 15 possible semesters taken
@@ -530,7 +543,6 @@ class Model:
             fourList.append(courseList)
         return fourList
 
-    # Requests the university requirements from a minor plan for a specified minor
     def getMinorUnivReq(self, minor):
         reqList = []
         url = "https://cosc426restapi.herokuapp.com/api/MinPlan/Plan/"
@@ -541,7 +553,6 @@ class Model:
         reqList.append(policy)
         return reqList
 
-    # Requests the course group requirements for a minor plan for a specified minor
     def getMinorPlanReq(self, minor):
         reqList = []  # req list
         sem = "1"  # Keeps track of which semester in database
@@ -566,7 +577,6 @@ class Model:
             sem = str(int(sem) + 1)
         return reqList
 
-    # Requests the courses in a minor plan for a specified minor
     def getMinorPlanCourse(self, minor):
         courseList = []  # course list
         minList = []  # four year plan list (return value)
@@ -596,7 +606,7 @@ class Model:
             stri = stri + str(k + 1)
             # Gets total number of courses through error handling
             courseList = []
-            for l in range(15):  # Max of 15 possible courses recommended during any given semester
+            for l in range(8):  # Max of 8 possible courses taken during any given semester
 
                 try:  # Checks for Array index error
                     (i[stri][l])
@@ -609,7 +619,6 @@ class Model:
             minList.append(courseList)
         return minList
 
-    # Updates student information whenever user requests to save a student
     def updateStudent(self, obj):
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(obj['s_id'])
@@ -774,26 +783,16 @@ class Model:
 
         messagebox.showinfo("Save", "Student's data successfully saved!")
 
-    # Requests to post an update to a four year plan for a specified major
-    # Object contains all the course information for a Four Year plan
     def updateMajPlan(self, obj):
         url = "https://cosc426restapi.herokuapp.com/api/Update/MajorPlan"
         requests.post(url, headers={'auth-token': token}, json=obj)
         messagebox.showinfo("Save", "Major's data successfully saved!")
 
-    # Requests to post an update to a Minor track plan for a specified minor
-    # Object contains all the course information for each course group
-    # Req contains all the requirement information for each of the course groups
-    def updateMinPlan(self, obj):
-        url = "https://cosc426restapi.herokuapp.com/api/Update/MinorPlan"
-        requests.post(url, headers={'auth-token': token}, json=obj)
-        messagebox.showinfo("Save", "Major's data successfully saved!")
-
-    # Update the course database collection through a file upload
-    # Accepts csv files from excel and must follow the header specified below
-    # Should occur once a semester to refresh the courses that will be offered in the upcoming semester
     def insertCSV(self, path):
+        myCol = db.get_collection("Crs Test")
+        myCol.drop()
         finalOut = []
+        myCol = db.get_collection("Crs Test")
         header = ["Course ID", "Eff Date", "Status", "Catalog Descr", "Equiv Crs", "Allowd Unt", "Allow Comp", "Long Title", "Descr", "Offer Nbr", "Acad Group",
                   "Subject", "Catalog", "Acad Org", "CIP Code", "HEGIS Code", "Component", "Equiv Crs", "Course ID", "CRSE ID Descr", "Crse Attr", "CrsAtr Val",
                   "RQ Designation", "RQ Designation Descr", "RQ Designation Formal Descr", "Rq Group", "RQ GRP Descr", "RQ GRP ShortDescr", "Rq Group", "RQ Usage",
@@ -806,11 +805,8 @@ class Model:
                 for field in header:
                     row[field] = each[field]
                 finalOut.append(row)
+        myCol.insert_many(finalOut)
 
-        # url = "http://localhost:5000/api/Course/insertCSV"
-        # requests.post(url, headers={'auth-token': token}, json=finalOut)
-
-    # Function to open a csv file, used to insert CSV
     def openCSV(self):
         path = askopenfilename(
             initialdir="./",

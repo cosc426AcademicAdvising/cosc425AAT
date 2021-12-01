@@ -1,0 +1,61 @@
+[
+  {
+    "minor": "MENGMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete at least 18 ENGR credits with grades of C or better.\n\u2022 To satisfy prerequisites for ENGR courses, PHYS 221, PHYS 225, MATH 201, MATH 202 and\nleast one of the following courses: MATH 310, MATH 311 or PHYS 309 are required.\n\u2022 ENGR courses completed for fulfillment of the engineering physics track may not be used to\nfulfill requirements for the mechanical engineering minor, with the exception of ENGR 110.",
+    "req_1": "Complete the following:",
+    "course_1": [
+      {
+        "subject": "ENGR",
+        "catalog": "110",
+        "title": "Statics",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGR",
+        "catalog": "220",
+        "title": "Mechanics of Materials",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGR",
+        "catalog": "221",
+        "title": "Dynamics",
+        "credits": "3"
+      }
+    ],
+    "req_2": "Complete at least 9 additional credits from the following (3 courses) (circle course(s) taken):",
+    "course_2": [
+      {
+        "subject": "ENGR",
+        "catalog": "232",
+        "title": "Thermodynamics",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGR",
+        "catalog": "331",
+        "title": "Fluid Mechanics",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGR",
+        "catalog": "332",
+        "title": "Heat Transfer",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGR",
+        "catalog": "361",
+        "title": "Vibrations, Control and Optimization",
+        "credits": "3"
+      },
+      {
+        "subject": "ENGR",
+        "catalog": "409",
+        "title": "Acoustics",
+        "credits": "3"
+      }
+    ]
+  }
+]

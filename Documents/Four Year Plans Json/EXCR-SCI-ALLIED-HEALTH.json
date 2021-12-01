@@ -1,0 +1,211 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "EXSCBS EXALLH",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 \u24b7 indicates the recommended minimum grade; although a C meets the requirement, SU history shows that students who graduate with this major earned this grade or higher for this course.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "ENGL",
+        "catalog": "103B",
+        "title": "Composition and Research",
+        "cred": "4"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities Course",
+        "cred": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106B",
+        "title": "Lifelong Fitness and Wellness",
+        "cred": "3"
+      },
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Allied Health Elective (1 of 6)",
+        "cred": "4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "EXSC",
+        "catalog": "213B",
+        "title": "Injury Prevention and Emergency Management",
+        "cred": "4"
+      },
+      {
+        "subject": "PSYC",
+        "catalog": "101",
+        "title": "Introduction to Psychology",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "cred": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "155",
+        "title": "Statistics",
+        "cred": "3"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "EXSC",
+        "catalog": "240",
+        "title": "Fitness Testing",
+        "cred": "4"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "250",
+        "title": "Strength Training Techniques and Program Desig",
+        "cred": "n4"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Humanities\/Social Science Course",
+        "cred": "3-4"
+      },
+      {
+        "subject": "BIOL",
+        "catalog": "215B",
+        "title": "Human Anatomy and Physiology I",
+        "cred": "4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Allied Health Elective (2 of 6)",
+        "cred": "4"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "295",
+        "title": "Fitness Instruction",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History Course",
+        "cred": "4"
+      },
+      {
+        "subject": "BIOL",
+        "catalog": "216B",
+        "title": "Human Anatomy and Physiology II",
+        "cred": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "EXSC",
+        "catalog": "300",
+        "title": "Health-Fitness Programs and Professions",
+        "cred": "4"
+      },
+      {
+        "subject": "ESXC",
+        "catalog": "317",
+        "title": "Nutrition, Health and Human Performance",
+        "cred": "4"
+      },
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Allied Health Elective (3 of 6)",
+        "cred": "4"
+      },
+      {
+        "subject": "CHEM",
+        "catalog": "121",
+        "title": "General Chemistry I",
+        "cred": "4"
+      },
+      {
+        "subject": "PHYS",
+        "catalog": "121",
+        "title": "General Physics I",
+        "cred": "4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "EXSC",
+        "catalog": "333",
+        "title": "Kinesiology",
+        "cred": "4"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "344",
+        "title": "Exercise Physiology",
+        "cred": "4"
+      },
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Allied Health Elective (4 of 6)",
+        "cred": "4"
+      },
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Allied Health Elective (5 of 6)",
+        "cred": "3-4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "XXXX",
+        "catalog": "XXX",
+        "title": "Allied Health Elective (6 of 6)",
+        "cred": "3-4"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "462",
+        "title": "Clinical Exercise Physiology",
+        "cred": "4"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "472",
+        "title": "Stress Testing and Exercise Prescription",
+        "cred": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature Course",
+        "cred": "4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "EXSC",
+        "catalog": "479",
+        "title": "Internship in Exercise Science",
+        "cred": "10"
+      },
+      {
+        "subject": "EXSC",
+        "catalog": "480",
+        "title": "Exercise Science Seminar",
+        "cred": "2"
+      }
+    ]
+  }
+]

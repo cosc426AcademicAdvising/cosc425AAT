@@ -1,0 +1,223 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "HISTBA HISCED",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "HIST",
+        "catalog": "101\/102\/1",
+        "title": "03  World Civilizations",
+        "cred": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "cred": "4"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities course (Language 101 requirement)",
+        "cred": "4"
+      },
+      {
+        "subject": "Minor",
+        "catalog": "",
+        "title": "Minor Elective recommended",
+        "cred": "3-4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "HIST",
+        "catalog": "201\/202",
+        "title": "History of the US I\/II",
+        "cred": "4"
+      },
+      {
+        "subject": "IVC",
+        "catalog": "",
+        "title": "Gen Ed Math course",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Minor",
+        "catalog": "",
+        "title": "Minor Elective recommended",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Language",
+        "catalog": "",
+        "title": "Language 102 requirement (if needed)",
+        "cred": "4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "HIST",
+        "catalog": "330",
+        "title": "Proseminar in History (C or better)",
+        "cred": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "cred": "4"
+      },
+      {
+        "subject": "",
+        "catalog": "",
+        "title": "(BIOL 101,CHEM 107, PHYS108 recommended)",
+        "cred": "4"
+      },
+      {
+        "subject": "Minor",
+        "catalog": "",
+        "title": "Minor Elective recommended",
+        "cred": "3-4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "History Elective (1 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "3XX\/4XX",
+        "title": "History Elective (2 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "",
+        "catalog": "",
+        "title": "(GEOL 103 recommended)",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3-4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Non-US\/Non-European Course (1 of 2)",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "3XX\/4XX",
+        "title": "History Elective (3 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course (GEOG 105 recommended)",
+        "cred": "4"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "cred": "3"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "History Elective (4 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "",
+        "catalog": "",
+        "title": "(GEOG 100, 101, 102 recommended)",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Minor",
+        "catalog": "",
+        "title": "Minor Elective recommended",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Minor",
+        "catalog": "",
+        "title": "Minor Elective recommended",
+        "cred": "3-4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "HIST",
+        "catalog": "430",
+        "title": "Research Seminar Capstone (C or better)",
+        "cred": "4"
+      },
+      {
+        "subject": "If",
+        "catalog": "taking HIST",
+        "title": "430 for the Non-US\/Non-European Course, you must take",
+        "cred": "an"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "If needed for 120 credits",
+        "cred": "3-4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "HIST",
+        "catalog": "3XX\/4XX",
+        "title": "Non-US\/Non-European Course (2 of 2)",
+        "cred": "4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "If needed for 120 credits",
+        "cred": "3-4"
+      }
+    ]
+  }
+]

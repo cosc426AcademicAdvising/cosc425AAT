@@ -1,0 +1,253 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "HISTBA HISCED",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 \u24b6\u24b7 indicates the recommended minimum grade; although a C meets the requirement, SU history shows that students who graduate with this major earned this grade or higher for this course\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "HIST",
+        "catalog": "101\/102  W",
+        "title": "orld Civilizations",
+        "cred": "4"
+      },
+      {
+        "subject": "Secondary",
+        "catalog": "Educa",
+        "title": "tion students are encouraged to take both HIST 101 & 1",
+        "cred": "02"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "cred": "4"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities course (Language 101 requirement)",
+        "cred": "4"
+      },
+      {
+        "subject": "IVA",
+        "catalog": "",
+        "title": "Gen Ed Lab Science course (GEOG 105 recommended)",
+        "cred": "4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "HIST",
+        "catalog": "201\/202",
+        "title": "History of the US I\/II",
+        "cred": "4"
+      },
+      {
+        "subject": "EDFN",
+        "catalog": "210A",
+        "title": "School in a Diverse Society",
+        "cred": "3"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "cred": "4"
+      },
+      {
+        "subject": "IVC",
+        "catalog": "",
+        "title": "Gen Ed Math course (MATH 105 recommended)",
+        "cred": "3-4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "HIST",
+        "catalog": "330",
+        "title": "Proseminar in History (C or better)",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "History Elective (1 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "POSC",
+        "catalog": "101",
+        "title": "Introduction to Politics and Government",
+        "cred": "4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Non-US\/Non-European Course (1 of 2)",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "3XX\/4XX",
+        "title": "History Elective (2 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "ECON",
+        "catalog": "150",
+        "title": "Principles of Economics",
+        "cred": "3"
+      },
+      {
+        "subject": "ECON",
+        "catalog": "211",
+        "title": "Principles of Microeconomics",
+        "cred": "3"
+      },
+      {
+        "subject": "SCED300B",
+        "catalog": "",
+        "title": "Development, Learning and Assessment",
+        "cred": "3"
+      },
+      {
+        "subject": "Language",
+        "catalog": "",
+        "title": "Language 102 requirement (if needed)",
+        "cred": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "HIST",
+        "catalog": "3XX\/4XX",
+        "title": "History Elective (3 of 4)",
+        "cred": "4"
+      },
+      {
+        "subject": "ECON",
+        "catalog": "212",
+        "title": "Principles of Macroeconomics (if ECON 211 previously)",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "101",
+        "title": "World Geography: Europe and Asia",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "102",
+        "title": "World Geography: African and America",
+        "cred": "3"
+      },
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "cred": "3"
+      },
+      {
+        "subject": "IVB",
+        "catalog": "Gen. Ed. Non-Lab Science or Math course",
+        "title": "(GEOL 103 recommended)",
+        "cred": "3-4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "HIST",
+        "catalog": "430",
+        "title": "Research Seminar Capstone (C or better)",
+        "cred": "4",
+        "key_4": ""
+      },
+      {
+        "subject": "If",
+        "catalog": "taking HIST",
+        "title": "430 for the Non-US\/Non-European Course, you must take",
+        "cred": "an",
+        "key_4": ""
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "History Elective (4 of 4)",
+        "cred": "4",
+        "key_4": ""
+      },
+      {
+        "subject": "(must",
+        "catalog": "be at the",
+        "title": "300\/400 level if a 200-level Non-US\/Non-European Course is t",
+        "cred": "aken",
+        "key_4": ")"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "438",
+        "title": "Teaching Literacy in the Content Areas I",
+        "cred": "3",
+        "key_4": ""
+      },
+      {
+        "subject": "SCED",
+        "catalog": "372",
+        "title": "Teaching Social Studies in Grades 7-12 Part I",
+        "cred": "4",
+        "key_4": ""
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "HIST",
+        "catalog": "3XX\/4XX",
+        "title": "Non-US\/Non-European Course (2 of 2)",
+        "cred": "4"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "367",
+        "title": "Inclusive Instruction for Secondary Teachers",
+        "cred": "3"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "434",
+        "title": "Classroom Management",
+        "cred": "3"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "472",
+        "title": "Teaching Social Studies in Grades 7-12 Part II",
+        "cred": "4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "SCED",
+        "catalog": "426",
+        "title": "Internship in Middle\/High Schools",
+        "cred": "6"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "428",
+        "title": "Internship in Middle\/High Schools",
+        "cred": "6"
+      },
+      {
+        "subject": "SCED",
+        "catalog": "433",
+        "title": "Reflection and Inquiry in Teaching Practice",
+        "cred": "2"
+      }
+    ]
+  }
+]

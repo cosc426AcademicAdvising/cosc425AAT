@@ -1,0 +1,95 @@
+[
+  {
+    "minor": "MUSCMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Earn grades of C or better in all courses taken for the minor.\n\u2022 The minor requires the completion of 24 credits; of those, only 1 course may be used to\nsatisfy General Education requirements, and at least 9 hours must be credits earned at\nSalisbury University.",
+    "req_1": "CORE REQUIREMENTS (7-8 credits) Complete 1 of the following (circle course taken):",
+    "course_1": [
+      {
+        "subject": "MUSC",
+        "catalog": "201",
+        "title": "Introduction to Music Theory",
+        "credits": "4"
+      },
+      {
+        "subject": "MUSC",
+        "catalog": "203",
+        "title": "Theory I",
+        "credits": "3"
+      }
+    ],
+    "req_2": "Complete the following:",
+    "course_2": [
+      {
+        "subject": "MUSC",
+        "catalog": "114",
+        "title": "Music Appreciation",
+        "credits": "4"
+      }
+    ],
+    "req_3": "ENSEMBLE REQUIREMENTS (3 credits) Complete 3 semesters of the following ensembles:",
+    "course_3": [
+      {
+        "subject": "MUSA",
+        "catalog": "100",
+        "title": "University Chorale",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "101",
+        "title": "University Band",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "102",
+        "title": "Jazz Ensemble",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "103",
+        "title": "Chamber Ensembles",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "104",
+        "title": "Musical Theatre Workshop",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "105",
+        "title": "Orchestra",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "106",
+        "title": "Chamber Choir",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "107",
+        "title": "Concert Band",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "110",
+        "title": "Salisbury Chorale",
+        "credits": ""
+      },
+      {
+        "subject": "MUSA",
+        "catalog": "131",
+        "title": "Accompanying",
+        "credits": ""
+      }
+    ],
+    "req_4": "ADDITIONAL COURSES (13-14 credits) Complete additional MUMT, MUSA and/or MUSC courses (6 credits must be at the 300/400 level):"
+  }
+]

@@ -1,0 +1,235 @@
+[
+  {
+    "name": "",
+    "id": "",
+    "date": "",
+    "major": "GEOGBS GEMTRO",
+    "policies": "\u2022 Refer to the SU catalog for approved prerequisites and General Education courses.\n\u2022 All graduates must have a minimum of 120 credits.\n\u2022 All graduates must have a minimum of 30 credits of 300\/400-level courses with C grade or above; at least 15 of those credits must be taken at SU.\n\u2022 Students must have a minimum cumulative GPA of 2.0 for graduation.\n\u2022 Students must complete at least 30 credit hours by direct classroom instruction and\/or laboratory experience.\n\u2022 Students must take 30 of the last 37 credit hours at SU.\n\u2022 Bold courses are foundation courses and are required for courses later in the sequence.",
+    "semester_1": [
+      {
+        "subject": "GEOG",
+        "catalog": "101",
+        "title": "World Geography: Europe and Asia",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "102",
+        "title": "World Geography: Africa and the Americas",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "201",
+        "title": "Weather and Climate",
+        "cred": "4"
+      },
+      {
+        "subject": "ENGL",
+        "catalog": "103",
+        "title": "Composition and Research",
+        "cred": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "10X",
+        "title": "Gen Ed IIA (HIST 101, 102 or 103)",
+        "cred": "4"
+      }
+    ],
+    "semester_2": [
+      {
+        "subject": "ENGL",
+        "catalog": "XXX",
+        "title": "Gen Ed IB Literature course",
+        "cred": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "201",
+        "title": "Calculus I",
+        "cred": "4"
+      },
+      {
+        "subject": "PHYS",
+        "catalog": "221",
+        "title": "Physics I",
+        "cred": "4"
+      },
+      {
+        "subject": "IIIA",
+        "catalog": "",
+        "title": "Gen Ed Humanities course",
+        "cred": "4"
+      }
+    ],
+    "semester_3": [
+      {
+        "subject": "GEOG",
+        "catalog": "203",
+        "title": "Economic Geography",
+        "cred": "3"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "Gen Ed IIB History course",
+        "cred": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "202",
+        "title": "Calculus II",
+        "cred": "4"
+      },
+      {
+        "subject": "PHYS",
+        "catalog": "225",
+        "title": "Physics III",
+        "cred": "4"
+      }
+    ],
+    "semester_4": [
+      {
+        "subject": "GEOG",
+        "catalog": "219",
+        "title": "Map Interpretation and Analysis",
+        "cred": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "312",
+        "title": "Severe and Hazardous Weather",
+        "cred": "3"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "311",
+        "title": "Differential Equations",
+        "cred": "4"
+      },
+      {
+        "subject": "IIIC",
+        "catalog": "",
+        "title": "Gen Ed Social Science\/Humanities course",
+        "cred": "4"
+      }
+    ],
+    "semester_5": [
+      {
+        "subject": "GEOG",
+        "catalog": "314",
+        "title": "Tropical Meteorology",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "319",
+        "title": "Geographic Information Systems",
+        "cred": "4"
+      },
+      {
+        "subject": "GEOL",
+        "catalog": "103",
+        "title": "Introduction to Physical Geology",
+        "cred": "4"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "310",
+        "title": "Calculus III (if pursuing a Math Minor)",
+        "cred": "4"
+      }
+    ],
+    "semester_6": [
+      {
+        "subject": "GEOG",
+        "catalog": "317",
+        "title": "Atmospheric Data Analysis and Programming",
+        "cred": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "410",
+        "title": "Meteorology",
+        "cred": "3"
+      },
+      {
+        "subject": "MATH",
+        "catalog": "155",
+        "title": "Modern Statistics with Computer Analysis",
+        "cred": "3"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Track Elective",
+        "cred": "3-4"
+      }
+    ],
+    "semester_7": [
+      {
+        "subject": "GEOG",
+        "catalog": "204",
+        "title": "Statistical Problem Solving in Geography",
+        "cred": "4"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "412",
+        "title": "Weather Analysis and Forecasting",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "418",
+        "title": "Weather Analysis and Forecasting",
+        "cred": "3"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3\/4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3\/4"
+      }
+    ],
+    "semester_8": [
+      {
+        "subject": "FTWL",
+        "catalog": "106",
+        "title": "Lifelong Fitness and Wellness",
+        "cred": "3"
+      },
+      {
+        "subject": "GEOG",
+        "catalog": "414",
+        "title": "Research and Writing",
+        "cred": "3"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "Needed for 120 credits",
+        "cred": "3-4"
+      },
+      {
+        "subject": "Elective",
+        "catalog": "",
+        "title": "If needed for 120 credits",
+        "cred": "3-4"
+      }
+    ]
+  }
+]

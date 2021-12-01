@@ -1,0 +1,97 @@
+[
+  {
+    "minor": "ODEDMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "\u2022 Complete a minimum of 19 credits with grades of C or better.",
+    "req_1": "REQUIRED COURSES (5 courses)",
+    "course_1": [
+      {
+        "subject": "ODEL",
+        "catalog": "200",
+        "title": "Foundations of Outdoor",
+        "credits": "3"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "201",
+        "title": "Wilderness Emergency Care",
+        "credits": "3"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "370",
+        "title": "Camp Leadership and Management",
+        "credits": "3"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "371",
+        "title": "Outdoor Leadership Techniques",
+        "credits": "3"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "472",
+        "title": "High and Low Ropes Course Facilitation",
+        "credits": "3"
+      }
+    ],
+    "req_2": "ELECTIVES (2-3 courses) Complete at least 4 credits from the following (circle courses taken):",
+    "course_2": [
+      {
+        "subject": "ODEL",
+        "catalog": "203",
+        "title": "Lifeguard Training",
+        "credits": "1"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "205",
+        "title": "Water Safety Instructor",
+        "credits": "2"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "209",
+        "title": "Camping and Backpacking",
+        "credits": "3"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "210",
+        "title": "Scuba Diving",
+        "credits": "3"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "212",
+        "title": "Advanced Scuba",
+        "credits": "1"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "214",
+        "title": "Kayaking",
+        "credits": "2"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "216",
+        "title": "Canoeing",
+        "credits": "2"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "218",
+        "title": "Biking",
+        "credits": "2"
+      },
+      {
+        "subject": "ODEL",
+        "catalog": "221",
+        "title": "Wilderness Navigation",
+        "credits": "3"
+      }
+    ]
+  }
+]
