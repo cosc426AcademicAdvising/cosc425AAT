@@ -2139,7 +2139,7 @@ class View:
     def close(self, window):
         window.destroy()
 
-    def planningWorksheet_editMajor_addCourseButton(self, parentWindow, type):
+    def planningWorksheet_editMajor_addCourseButton(self, parentWindow):
         t = Toplevel(parentWindow)
         t.wm_title("Search for Course")
         t.geometry("700x500")
@@ -2151,12 +2151,8 @@ class View:
 
         tbl = ""
         maxRng = 0
-        if type == 1:
-            tbl = self.edtMiTbls
-            maxRng = len(self.minorsFYP)
-        else:
-            tbl = self.edtMjTbls
-            maxRng = len(self.majorsFYP)
+        tbl = self.edtMjTbls
+        maxRng = len(self.majorsFYP)
 
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
@@ -2234,10 +2230,7 @@ class View:
                     tbl[int_ind].insert(parent='', index='end', iid=cnt,
                                                    values=(
                                                        (subject_type + " " + catalog_type), title_type, credit_type))
-                    if type == 1:
-                        self.edtMiTbls_iid += 1
-                    else:
-                        self.edtMjTbls_iid += 1
+                    self.edtMjTbls_iid += 1
 
 
         self.subject_frame = Frame(t, borderwidth=2)
@@ -2329,18 +2322,14 @@ class View:
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
 
-    def openMajor_editMajor_delCourseButton(self, type):
+    def openMajor_editMajor_delCourseButton(self):
         msg = "Do you want to remove the selected backup course? ("
         cnt = 0
         index = {}
         tbl = ""
         maxRng = 0
-        if type == 1:
-            tbl = self.edtMiTbls
-            maxRng = len(self.minorsFYP)
-        else:
-            tbl = self.edtMjTbls
-            maxRng = len(self.majorsFYP)
+        tbl = self.edtMjTbls
+        maxRng = len(self.majorsFYP)
         # Loops thru each of selected tree view values and pushes the index into a list
         for i in range(0, maxRng):
             for course in tbl[i].selection():
@@ -2363,10 +2352,7 @@ class View:
             self.tot_Removed += 1
             if response == 'yes':
                 tbl[index[i][0]].delete(index[i][1])
-                if type == 1:
-                    self.edtMiTbls_iid -= 1
-                else:
-                    self.edtMjTbls_iid -= 1
+                self.edtMjTbls_iid -= 1
 
 
     def openMajor_editMajor_saveMajor(self, major):
@@ -2450,8 +2436,8 @@ class View:
         self.edtMjLbls = []
         self.edtMjTbls = []
 
-        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow, 0))
-        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.openMajor_editMajor_delCourseButton(0))
+        addCourseBtn = Button(addCrsBtnFrame, text="Add course", command=lambda: self.planningWorksheet_editMajor_addCourseButton(self.editMajorWindow))
+        rmvCourseBtn = Button(addCrsBtnFrame, text="Remove course", command=lambda: self.openMajor_editMajor_delCourseButton())
         savePlanBtn = Button(addCrsBtnFrame, text="Save Plan", command=lambda: self.openMajor_editMajor_saveMajor(major))
 
         addCourseBtn.pack(side=LEFT, padx=10)
@@ -2539,43 +2525,6 @@ class View:
                         lambda event, a=10, b=20, c=30:
                         self.rand_func(a, b, c))
         """
-
-    def openMinor_saveMinor(self, minor, crs, req):
-        plan = []
-        reqs = []
-        j = 0
-        rng = len(crs)
-        plan.append({'minor': minor})
-        for i in range(0, rng):
-            cnt = len(self.edtMiTbls[i].get_children())
-            for course in range(cnt+self.tot_Removed):
-                try:
-                    self.edtMiTbls[i].item(course)
-                    sub = ""
-                    cat = ""
-                    subcat = self.edtMiTbls[i].item(course)['values'][0].split()
-                    try:
-                        cat = subcat[1]
-                        sub = subcat[0]
-                    except IndexError as b:
-                        sub = subcat[0]
-                        cat = ""
-                    plan.append([{ 'semester': i+1}, {"course" : {
-                        'subject': sub,
-                        'catalog': cat,
-                        'title': self.edtMiTbls[i].item(course)['values'][1],
-                        'credit': self.edtMiTbls[i].item(course)['values'][2]
-                    }} ])
-                    j+=1
-                except TclError as b:
-                    continue
-
-        for i in range(len(self.minorsReqs)):
-            reqs.append([{'semester': i}, {'req': self.minorsReqs[i][1]}])
-
-
-
-        pub.sendMessage("save_min_plan", obj=plan, req=reqs)
 
     def addEditMinor_addCourseButton(self, parentWindow, tbl):
         t = Toplevel(parentWindow)
