@@ -1,0 +1,70 @@
+[
+  {
+    "minor": "HISTMIN",
+    "university_policies": "Salisbury University minors require:\n\u2022 The completion of at least 18 credits with grades of C or better.\n\u2022 At least 15 credits applied toward the minor must be coursework that is not used to\nsatisfy General Education requirements.\n\u2022 At least nine credits must be earned at SU.",
+    "minor_req": "Earn grades of C or better in all courses taken for the minor",
+    "req_1": "SURVEY COURSES (at least 2 courses) Choose at least 1 course (circle course[s] taken):",
+    "course_1": [
+      {
+        "subject": "HIST",
+        "catalog": "101",
+        "title": "World Civilizations",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "102",
+        "title": "World Civilizations",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "103",
+        "title": "FirstYear Seminar in World History",
+        "credits": "4"
+      }
+    ],
+    "req_2": "Choose at least 1 course (circle course[s] taken):",
+    "course_2": [
+      {
+        "subject": "HIST",
+        "catalog": "201",
+        "title": "History of the U.S. I",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "202",
+        "title": "History of the U.S. II",
+        "credits": "4"
+      }
+    ],
+    "req_3": "ELECTIVES (4 courses) Complete 4 additional HIST courses (2 of which must be at the 300\/400 level):",
+    "course_3": [
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "________________________",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "________________________",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "________________________",
+        "credits": "4"
+      },
+      {
+        "subject": "HIST",
+        "catalog": "XXX",
+        "title": "________________________",
+        "credits": "4"
+      }
+    ]
+  }
+]

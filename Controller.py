@@ -1,6 +1,6 @@
 
 
-# import tk as tk
+import tk as tk
 import tkinter as tk
 from View import View
 from Model import Model
@@ -39,7 +39,6 @@ class Controller:
         # for saving info from program planning sheet
         pub.subscribe(self.saveSchedule, "save_schedule")
         pub.subscribe(self.saveMajorPlan, "save_maj_plan")
-        pub.subscribe(self.saveMinorPlan, "save_min_plan")
 
 
         pub.subscribe(self.openPPW, "request_CSV")
@@ -56,7 +55,6 @@ class Controller:
         pub.subscribe(self.getMajors, "request_Majors")
         pub.subscribe(self.getMinors, "request_Minors")
         pub.subscribe(self.getMajorPlans, "request_Major_Plan")
-        pub.subscribe(self.getMinorPlans, "request_Minor_Plan")
 
         # Requesting the courses for a majors FYP
         pub.subscribe(self.getMajorsFYP, "request_MajorsFYP")
@@ -78,9 +76,6 @@ class Controller:
 
     def getMajorPlans(self):
         self.view.majors = self.model.listAllMajorPlan().copy()
-
-    def getMinorPlans(self):
-        self.view.minors = self.model.listAllMinorPlan().copy()
 
     def getMajorsFYP(self, major):
         self.view.majorsFYP = self.model.getFourYear(major).copy()
@@ -129,9 +124,6 @@ class Controller:
     def saveMajorPlan(self, obj):
         self.model.updateMajPlan(obj)
 
-    def saveMinorPlan(self, obj):
-        self.model.updateMinPlan(obj)
-
     def openPPW(self):
         self.model.openCSV()
 
@@ -164,5 +156,6 @@ class Controller:
 if __name__=="__main__":
     root = tk.Tk()
     app = Controller(root)
+    root.iconbitmap("Logo_DraftAAT.ico")
     root.mainloop()
 

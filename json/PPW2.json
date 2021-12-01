@@ -1,0 +1,31 @@
+{
+	"student":{
+		"name": "Eren Yegear",
+		"id":7654321,
+		"season":{
+			"Summer": false,
+			"Fall":false,
+			"Winter": false,
+			"Spring":true
+		},
+		"year":2016,
+		"major":["Computer Science"],
+		"minor":["Math"]
+	},
+	"courses":[
+		{
+			"dep":"COSC",
+			"numb":425,
+			"title":"Software Engineering I",
+			"credit":3,
+			"extra": "major"
+		},
+		{
+			"dep":"MATH",
+			"numb":311,
+			"title":"Differential Equations I",
+			"credit":4,
+			"extra": "elect"
+		}
+	]
+}
