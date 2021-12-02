@@ -72,12 +72,12 @@ class View:
         self.selectedSemester = 0
         self.tot_Removed = 0
 
-        self.loginPage()
-        self.menuBar()
+        self.loginPage()  # Calls login page function
+        self.menuBar()  # Calls menu bar function
         self.loginWindow.protocol("WM_DELETE_WINDOW",
                                   self.login_closing)  # If user closes login window application closes
-        style = Style()
-        style.theme_use("sutheme")
+        style = Style()  # Creates Style object
+        style.theme_use("sutheme")  # Sets the of application using the style object
 
     # prompt message before closing program,
     # also closes all TopLevel functions
@@ -89,6 +89,7 @@ class View:
                     widget.destroy()
             self.mainwin.destroy()
 
+    # Used to close login window
     def login_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?", parent=self.loginWindow):
             for widget in self.mainwin.winfo_children():
@@ -97,14 +98,16 @@ class View:
             self.loginWindow.destroy()
             self.mainwin.destroy()
 
+    # Creates the main application window for GUI
     def layout(self):
-
+        # Establishes the screenwidth for application window
         self.right_width = self.mainwin.winfo_screenwidth() * 0.4
         self.left_width = self.mainwin.winfo_screenwidth() - self.right_width
 
         self.mainFrame = Frame(self.mainwin)
         self.mainFrame.pack(fill=BOTH, padx=10, pady=10, expand=1, ipadx=10)
 
+        # Program is split into two frames leftFrame and PPWFrame
         # four year plan
         self.leftFrame = Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
         self.leftFrame.pack(side=LEFT, fill=Y, padx=5)
@@ -114,17 +117,20 @@ class View:
         self.PPWFrame.pack(side=RIGHT, fill=Y)
         self.PPWFrame.pack_propagate(0)
 
+        # Frame for course taken treeview
         self.courseTakenListFrame = Frame(self.mainFrame, width=self.left_width, borderwidth=2, relief=GROOVE)
         self.courseTakenListFrame.pack(side=LEFT, fill=Y, padx=5)
-        # self.courseTakenListFrame.pack_propagate(0)
         self.courseTakenListFrame.pack_forget()  # hide frame
 
+        # Functions for creating more GUI components
         self.FourYearPlan()
         self.planningWorksheet_layout()
         self.courseTakenList_layout()
 
     def loginPage(self):
         verify = 0
+        # Creating window for login
+        # Creating size, title for window
         self.loginWindow = Toplevel(self.mainwin)
         self.loginWindow.wm_title("Login")
         self.loginWindow.geometry("300x155")
@@ -133,12 +139,16 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(self.loginWindow)} center')
         self.loginWindow.grab_set()
 
+        # self.loginWindow.iconbitmap("Logo_DraftAAT.ico")
+        # Creating frame for widgets
         loginFrame = Frame(self.loginWindow)
         emailFrame = Frame(self.loginWindow, width=30)
         passwrdFrame = Frame(self.loginWindow, width=30)
 
+        # Creating widget objects
         loginBtn = Button(loginFrame, text="Login", font=('Helvetica', 10))
 
+        # Placing widgets on the screen
         emailLabel = Label(emailFrame, text="Email: ", font=('Helvetica', 10), padx=55)
         passwrdLabel = Label(passwrdFrame, text="Password: ", font=('Helvetica', 10), padx=55)
         wrongPassLabel = Label(loginFrame, text="No matching credentials, please try again", font=('Helvetica', 10))
@@ -158,6 +168,7 @@ class View:
         self.emailEntry.pack(side=BOTTOM)
         self.passwrdEntry.pack(side=BOTTOM)
 
+        # Using the rest API to verify credentials
         def checkLogin(e):
             url = "https://cosc426restapi.herokuapp.com/api/user/login/"
             restAPIEmail = 'testing@email.com'
@@ -189,6 +200,7 @@ class View:
 
         loginBtn.bind("<Button-1>", checkLogin)
 
+    # Creates the widgets for the fouryear plan
     def FourYearPlan(self):
         # ============================ Scroll Bar ============================
         self.canvas = Canvas(self.leftFrame, width=self.left_width)  # Creating Canvas for scrollbar
@@ -259,6 +271,10 @@ class View:
 
         self.addSemesterBtn = Button(self.progressRepoFrame, text="Add Semester")
         self.addSemesterBtn['command'] = lambda:  self.addSemester(self.progressRepoFrame, self.progLabel, self.progTable)
+
+        self.removeSemesterBtn = Button(self.progressRepoFrame, text="Remove Semester")
+        self.removeSemesterBtn['command'] = lambda: self.removeSemester(self.progressRepoFrame, self.progLabel,
+                                                                        self.progTable)
 
     def fourYearPlan_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses,
                           courseHist, fourYear, minorFourYear, minorReqList, policies,
@@ -466,6 +482,8 @@ class View:
         self.id2Entry.config(state=NORMAL)
 
         self.addSemesterBtn.forget()
+        self.removeSemesterBtn.forget()
+
 
         for sem in self.progTable:  # Clear courses in treeviews under Progress Report tab
             for course in sem.get_children():
@@ -523,59 +541,12 @@ class View:
         self.id2Entry.config(state=NORMAL)
 
         self.addSemesterBtn.grid_remove()
+        self.removeSemesterBtn.grid_remove()
 
         while (self.tab_parent.index("end") != 1):  # Removes the tabs but leaves Progress Report tab
             self.tab_parent.forget(self.tab_parent.index("end") - 1)
 
-    def FYP_addCourseButton2(self, parentWindow):
-        t = Toplevel(parentWindow)
-        t.wm_title("Search for Course")
-        t.geometry("450x125")
-        t.resizable(width=FALSE, height=FALSE)
-        # t.attributes('-topmost', 'true')
-        t.transient(self.mainwin)
-
-        self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
-        t.attributes('-topmost', 'true')
-        selectedTreeView = self.mainwin.focus_get()
-        def courseSearch(e):
-            course = entry.get()
-            if len(course) > 7:
-                if len(course.split()[1]) == 3:
-                    pub.sendMessage("request_course#", sub=course.split()[0], cat=course.split()[1])
-                    self.resultVar.set(
-                        self.addCourseSearchResult[0] + " " + self.addCourseSearchResult[1] + " " * 3 +
-                        self.addCourseSearchResult[2] + " " * 3 +
-                        self.addCourseSearchResult[3])
-                else:
-                    self.resultVar.set("")
-            else:
-                self.resultVar.set("")
-
-        # adds searched course into the treeview
-        def addCourse():
-            selectedTreeView.insert(parent='', index='end', iid=(len(selectedTreeView.get_children()) + 1), text="",
-                                    values=(self.addCourseSearchResult[0] + self.addCourseSearchResult[1],
-                                            self.addCourseSearchResult[2]))
-
-        courseEntryFrame = Frame(t)
-        courseEntryFrame.pack(anchor=CENTER)
-
-        l1 = Label(courseEntryFrame, text="Course Number:").pack(side=LEFT)
-        entry = Entry(courseEntryFrame, width=10, justify=CENTER)
-        entry.pack(side=RIGHT)
-
-        entry.bind('<KeyRelease>', courseSearch)  # for auto search
-
-        resultFrame = Frame(t)
-        resultFrame.pack(anchor=CENTER)
-
-        resultEntry = Entry(resultFrame, textvariable=self.resultVar, state=DISABLED, justify=CENTER, width=50)
-        resultEntry.pack(pady=10)
-
-        addButton = Button(resultFrame, text="Add", command=addCourse)
-        addButton.pack(side=BOTTOM, pady=5)
-
+    # Called when deleting a course using delete course button in FYP
     def FYP_delCourseButton(self, parentWindow):
         msg = "Do you want to remove the selected course? ("
         cnt = 0
@@ -669,6 +640,40 @@ class View:
                     tables[i].grid(column=0, row=i + 1)
                     tables[i + 1].grid(column=1, row=i + 1)
 
+    def removeSemester(self, frame, labels, tables):
+        # column configure
+        for i in range(2):
+            frame.columnconfigure(i, weight=1)
+
+        # define treeviews and labels
+        tables[len(tables) - 1].forget()
+        tables[len(tables) - 1].grid_remove()
+        tables.pop()
+
+        self.prevProgTableLength = len(self.progTable) - 1
+
+        # Identifies if the progress reports has an even or odd number of semesters
+        # Then adds the the label, table, and add semester button to correct locations
+        if self.prevProgTableLength % 2 == 0:
+            self.addSemesterBtn.grid(row=self.prevProgTableLength - 2, column=1)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength - 2, column=1)
+            labels[len(labels) - 1].forget()
+            labels[len(labels) - 1].grid_remove()
+            labels.pop()
+
+            self.winSumLabel[0].grid(column=0, row=self.prevProgTableLength - 4)
+            self.winSumTable[0].grid(column=0, row=self.prevProgTableLength - 5, columnspan=2, sticky=W, padx=5)
+            self.winSumLabel[1].grid(column=1, row=self.prevProgTableLength - 4)
+            self.winSumTable[1].grid(column=1, row=self.prevProgTableLength - 5, columnspan=2, sticky=W, padx=5)
+
+        else:
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=0)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 1, column=0)
+
+        self.canvas.update()
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        self.progTableLength -= 1
+
     # Creates a table of treeviews for progress report tab
     def addSemester(self, frame, labels, tables):
 
@@ -728,7 +733,6 @@ class View:
             w = int((self.left_width - 300) / 2)
             tables[i].column("title", anchor=W, width=w)
             tables[i].column("cred", anchor=CENTER, width=35)
-            # tables[i].column("taken", anchor=CENTER, width=30)
 
             tables[i].heading("course#", text='Course #', anchor=CENTER)
             tables[i].heading("title", text='Title', anchor=CENTER)
@@ -768,7 +772,6 @@ class View:
             w = int((self.left_width - 300) / 2)
             tables[i].column("title", anchor=W, width=w)
             tables[i].column("cred", anchor=CENTER, width=35)
-            # tables[i].column("taken", anchor=CENTER, width=30)
 
             tables[i].heading("course#", text='Course #', anchor=CENTER)
             tables[i].heading("title", text='Title', anchor=CENTER)
@@ -783,6 +786,7 @@ class View:
         labels[1].grid(column=1, row=length + 2, columnspan=2, sticky=W, padx=5)
         tables[1].grid(column=1, row=length + 3)
 
+    # Called when there is a course added to a treeview in FYP
     def FYP_addCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Course")
@@ -793,6 +797,7 @@ class View:
         self.selectedSemester = ''
         self.addSemesterBtn["state"] = DISABLED
 
+        # Closes window
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
             self.addSemesterBtn["state"] = NORMAL
@@ -801,17 +806,16 @@ class View:
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
 
+        # Updates list on course tree
         def update_course_list(data):
             for i in self.course_tree.get_children():
                 self.course_tree.delete(i)
-
-            #self.course_tree.tag_configure('evenrow', background="grey")
-            #self.course_tree.tag_configure('oddrow', background="white")
 
             for item in data:
                 self.course_tree.insert('', 'end',
                                    values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
 
+        # Fills out entries
         def fillout_fields(event):
             subject_entry.delete(0, END)
             catalog_entry.delete(0, END)
@@ -826,6 +830,7 @@ class View:
             title_entry.insert(0, course_info[2])
             credit_entry.insert(0, course_info[3])
 
+        # Verifying course exits
         def check_course(event):
             subject_type = subject_entry.get().upper()
             catalog_type = catalog_entry.get()
@@ -856,13 +861,19 @@ class View:
         self.semesters = []
 
         for i in range(0, self.progTableLength, 1):
-            if i % 2 == 0:
-                self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
-            else:
-                self.semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
+            print(len(self.courseHist))
+            print(self.progTableLength)
+            for i in range(0, len(self.courseHist), 1):
+                if i % 2 == 0:
+                    self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
+                elif i == len(self.courseHist):
+                    self.semesters.append("Current Semester ")
+                else:
+                    self.semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
         self.semesters.append('Winter')
         self.semesters.append('Summer')
 
+        # Changed the semester on dropdown
         def semesterChanged(event):
             comboboxString = self.progRepoDrop.get().split()
             if comboboxString[0] == 'Winter':
@@ -958,6 +969,7 @@ class View:
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
 
+    # Creates widgets for left side of program
     def planningWorksheet_layout(self):
         self.rightFrame = Frame(self.PPWFrame)
         self.rightFrame.pack(fill=BOTH)
@@ -1151,6 +1163,7 @@ class View:
         t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
+        # Closes the window
         def close(e):
             self.editCareerButton.configure(state=NORMAL)
 
@@ -1169,6 +1182,7 @@ class View:
             if not inTree:
                 self.selected_major_Box.insert(END, self.majorBox.get(maj))
 
+        # Removes a major
         def removeMajor():
             try:
                 i = self.selected_major_Box.curselection()
@@ -1193,6 +1207,7 @@ class View:
             if not inTree:
                 self.selected_minor_Box.insert(END, self.minorBox.get(min))
 
+        # Removes a minor
         def removeMinor():
             try:
                 i = self.selected_minor_Box.curselection()
@@ -1204,6 +1219,7 @@ class View:
             except(TclError):
                 messagebox.showwarning(parent=t, title="Invalid Selection", message="Error: Unable to Remove, No Minor Selected")
 
+        # Confirms selection of treeview
         def confirmSelection():
             self.setMajor_treeview()
             self.setMinor_treeview()
@@ -1214,9 +1230,11 @@ class View:
             self.FYP_refresh()
             t.destroy()
 
+        # Enables user to click button
         def enableMajorRemoveBtn(e):
             majorRemoveButton["state"] = "NORMAL"
 
+        # Enables user to click button
         def enableMinorRemoveBtn(e):
             minorRemoveButton["state"] = "NORMAL"
 
@@ -1300,6 +1318,7 @@ class View:
             word = self.selected_major_Box.get(i)
             self.majorTree.insert(parent='', index='end', iid=i, text=str(word))
 
+    # Makes sure FYP has correct values
     def FYP_refresh(self):
         majors, minors = [], []
         for id in self.majorTree.get_children():
@@ -1308,6 +1327,7 @@ class View:
             minors.append(self.minorTree.item(id)['text'])
         pub.sendMessage("refresh_fyp", majors=majors, minors=minors)
 
+    # Setting values of treeview
     def setMinor_treeview(self):
         for id in self.minorTree.get_children():
             self.minorTree.delete(id)
@@ -1317,6 +1337,7 @@ class View:
             word = self.selected_minor_Box.get(i)
             self.minorTree.insert(parent='', index='end', iid=i, text=str(word))
 
+    # Adding a course on planning worksheet side
     def planningWorksheet_addCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Course")
@@ -1325,6 +1346,7 @@ class View:
         t.transient(self.mainwin)
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
+        # Closes window
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
             t.destroy()
@@ -1332,6 +1354,7 @@ class View:
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
 
+        # Update course list for treeview
         def update_course_list(data):
             for i in self.course_tree.get_children():
                 self.course_tree.delete(i)
@@ -1342,7 +1365,7 @@ class View:
             for item in data:
                 self.course_tree.insert('', 'end',
                                    values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
-
+        # Fills out fields for entries
         def fillout_fields(event):
             subject_entry.delete(0, END)
             catalog_entry.delete(0, END)
@@ -1357,6 +1380,7 @@ class View:
             title_entry.insert(0, course_info[2])
             credit_entry.insert(0, course_info[3])
 
+        # Checks if course is available
         def check_course(event):
             subject_type = subject_entry.get().upper()
             catalog_type = catalog_entry.get()
@@ -1481,7 +1505,7 @@ class View:
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
 
-
+    # Used when deleting a course
     def planningWorksheet_delCourseButton(self):
         for course in self.courseTree.selection():
             msg = "Do you want to remove the selected course? (" + self.courseTree.item(course)['values'][0] + ")"
@@ -1492,7 +1516,7 @@ class View:
 
                 self.courseTree.delete(course)
                 self.courseTree_counter -= 1
-
+    # Adds a course to the backup course treeview
     def planningWorksheet_addBackupCourseButton(self):
         t = Toplevel(self.mainwin)
         t.wm_title("Search for Course")
@@ -1507,7 +1531,7 @@ class View:
 
         t.bind('<Destroy>', close)
         self.addBackupButton.configure(state=DISABLED)
-
+        # Updates backup course list
         def backup_update_course_list(data):
             for i in self.backup_addCourseTree.get_children():
                 self.backup_addCourseTree.delete(i)
@@ -1519,7 +1543,7 @@ class View:
                 self.backup_addCourseTree.insert('', 'end',
                                         values=(
                                         item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
-
+        # Fills out entries
         def fillout_fields(event):
             subject_entry.delete(0, END)
             catalog_entry.delete(0, END)
@@ -1533,7 +1557,7 @@ class View:
             catalog_entry.insert(0, course_info[1])
             title_entry.insert(0, course_info[2])
             credit_entry.insert(0, course_info[3])
-
+        # Checks if course is available
         def check_course(event):
             subject_type = subject_entry.get().upper()
             catalog_type = catalog_entry.get()
@@ -1657,7 +1681,7 @@ class View:
         catalog_entry.bind("<KeyRelease>", check_course)
         title_entry.bind("<KeyRelease>", check_course)
         credit_entry.bind("<KeyRelease>", check_course)
-
+    # Deletes course from the backup course treeview
     def planningWorksheet_delBackupCourseButton(self):
         for course in self.backupCourseTree.selection():
             msg = "Do you want to remove the selected backup course? (" + self.backupCourseTree.item(course)['values'][
@@ -1697,7 +1721,7 @@ class View:
         for course in self.backupCourseTree.get_children():
             self.backupCourseTree.delete(course)
         self.backupCourseTree_counter = 0
-
+    # Fills PPW with information
     def planningWorksheet_fill(self, obj, tcred, courses, numbCourse, major, minor, bcourses,
                                courseHist, fourYear, minorFourYear, minorReqList, policies,
                                sumCourse, winCourse):
@@ -1755,7 +1779,7 @@ class View:
     #
     #     self.memoEntry.delete('1.0', 'end')
     #     self.memoEntry.insert('1.0', self.memo_to_display)
-
+    # Creates University policy box
     def univ_policy_box(self):
         self.pop = Toplevel(self.innerLeftFrame)
         self.pop.title("University Policies")
@@ -1774,7 +1798,7 @@ class View:
         self.policyMemoEntry.delete('1.0', 'end')
         self.policyMemoEntry.insert('1.0', self.policy_to_display)
         self.policyMemoEntry.config(state=DISABLED)
-
+    # Course taken layout for treeview
     def courseTakenList_layout(self):
         label = Label(self.courseTakenListFrame, text="Course Taken List", font=('Helvetica', 19))
         label.pack(anchor=CENTER, side=TOP, pady=20)
@@ -1788,7 +1812,7 @@ class View:
         for subj in self.subjectsList:
             self.courseTakenListTree.insert(parent='', index='end', iid=self.courseTakenList_counter, text=str(subj))
             self.courseTakenList_counter += 1
-
+    # Course taken list restting values
     def courseTakenList_reset(self):
         self.courseTakenListTree.pack_forget()
         for subj in self.courseTakenListTree.get_children():
@@ -1815,7 +1839,7 @@ class View:
         for id in self.courseTakenListTree.get_children():
             if not self.courseTakenListTree.get_children(id):
                 self.courseTakenListTree.delete(id)
-
+    # Creating menu bar
     def menuBar(self):
         menu = Menu(self.mainwin, tearoff=0)
         self.mainwin.config(menu=menu)
@@ -1846,7 +1870,7 @@ class View:
         self.schedule.add_separator()
         self.schedule.add_command(label='Export', command=self.exportSchedule)
         self.schedule.add_command(label='Print', command=self.printSchedule)
-
+    # Help page for application
     def printHelp(self):
 
         # Create pop up window on top level of application
@@ -1902,7 +1926,7 @@ class View:
         button3.pack(in_=top, side=LEFT)
 
         scrollbar.config(command=helpmenu.yview)  # Set scroll bar to effect Y axis view of list box
-
+    # Function for when new schudule is clicked in menu
     def newSchedule(self):
         self.planningWorksheet_reset()
         self.FYP_reset()
@@ -1910,7 +1934,7 @@ class View:
         # Removes buttons when student information is not present
         self.addProgRepoBtn.grid_forget()
         self.removeProgRepoBtn.grid_forget()
-
+    # Called when clicked in the menu to bring up open schudule window
     def openSchedule(self):
         pub.sendMessage("requestStudents")
 
@@ -1920,7 +1944,7 @@ class View:
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
-
+        # Searches for the students name to open their schudule
         def openScheduleSearchButton(e):
             if fname.get() == "" or lname.get() == "" or idE.get() == "":
                 w = Toplevel(t)
@@ -1993,7 +2017,7 @@ class View:
                     btn = Button(bottom, text="OK", relief=GROOVE, font=('Helvetica', 9), command=lambda: w.destroy())
                     btn.pack(side=RIGHT, ipadx=20, padx=15)
 
-
+        # Filters the students out when typing in entry feilds
         def filtr(e):
             chars1 = fname.get()
             chars2 = lname.get()
@@ -2014,7 +2038,7 @@ class View:
                 for i in self.students:
                     self.studentBox.insert(END, self.students[index])
                     index += 1
-
+        # Automatically fills entry when clicking on student in student box
         def fillEntry(e):
             if self.studentBox.curselection() != "":
                 selectedStudent = self.studentBox.get(self.studentBox.curselection())
@@ -2027,7 +2051,7 @@ class View:
                 fname.insert(0, selectedStudentSplit[0])
                 lname.insert(0, selectedStudentSplit[1])
                 idE.insert(0, selectedStudentSplit[2])
-
+        # Closes window
         def close(e):
             self.schedule.entryconfigure(1, state=NORMAL)
             t.destroy()
@@ -2084,7 +2108,7 @@ class View:
         for i in self.students:
             self.studentBox.insert(END, self.students[index])
             index += 1
-
+    # To save the information in the widgets to the database
     def saveSchedule(self):
         majors, minors = [], []
         for id in self.majorTree.get_children():
@@ -2108,34 +2132,35 @@ class View:
             "backup_course": bcourses
         }
         pub.sendMessage("save_schedule", obj=pydict)
+    # Calls the export function for making a PDF
 
     def exportSchedule(self):
         fnameE = "{}.pdf".format(self.nameEntry.get())
         pub.sendMessage("export_schedule", id=self.idEntry.get(), fname=fnameE)
-
+    # Prints the schedule of PDF
     def printSchedule(self):
         print("Print schedule")
-
+    # Loads the menu
     def loadMenu(self, major):
         major.add_command(label='Four Year Plan', command=self.showFourYearPlan)
         major.add_command(label='Course Taken List', command=self.showCourseTakenList)
-
+    # Switching from coursetaken list to PPW and progress report
     def showFourYearPlan(self):
         self.courseTakenListFrame.pack_forget()
         self.PPWFrame.pack_forget()
         self.leftFrame.pack(side=LEFT, fill=Y, padx=5)
         self.PPWFrame.pack(side=RIGHT, fill=Y)
         self.PPWFrame.pack_propagate(0)
-
+    # Shows Course taken list
     def showCourseTakenList(self):
         self.leftFrame.pack_forget()
         self.courseTakenListFrame.pack(side=LEFT, fill=Y, padx=5)
         self.courseTakenListFrame['width'] = self.left_width
         self.courseTakenListFrame.propagate(0)
-
+    # OpensCSV calling the function from the model
     def openCSV(self):
         pub.sendMessage("request_CSV")
-
+    # Closes the window
     def close(self, window):
         window.destroy()
 
@@ -2153,14 +2178,14 @@ class View:
         maxRng = 0
         tbl = self.edtMjTbls
         maxRng = len(self.majorsFYP)
-
+        # Closes window
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
             t.destroy()
 
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
-
+        # Updates the courses for treeview
         def update_course_list(data):
             for i in self.course_tree.get_children():
                 self.course_tree.delete(i)
@@ -2171,7 +2196,7 @@ class View:
             for item in data:
                 self.course_tree.insert('', 'end',
                                    values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
-
+        # Fills out entries for fields
         def fillout_fields(event):
             subject_entry.delete(0, END)
             catalog_entry.delete(0, END)
@@ -2185,7 +2210,7 @@ class View:
             catalog_entry.insert(0, course_info[1])
             title_entry.insert(0, course_info[2])
             credit_entry.insert(0, course_info[3])
-
+        # Check if course is available to get
         def check_course(event):
             subject_type = subject_entry.get().upper()
             catalog_type = catalog_entry.get()
@@ -2354,7 +2379,7 @@ class View:
                 tbl[index[i][0]].delete(index[i][1])
                 self.edtMjTbls_iid -= 1
 
-
+    # Save major to the database
     def openMajor_editMajor_saveMajor(self, major):
         plan = []
         j = 0
@@ -2383,7 +2408,7 @@ class View:
                 except TclError as b:
                     continue
         pub.sendMessage("save_maj_plan", obj=plan)
-
+    # Creates window when user wants to make a new major from the menu
     def newMajorButton(self):
         self.newMajorWindow = Toplevel(self.mainwin)
         self.newMajorWindow.wm_title("New Major")
@@ -2406,7 +2431,7 @@ class View:
         newB = Button(buttonFrame, text='Create',
                          command=lambda: self.openMajorButton(newMajorEntry.get(), True))
         newB.pack()
-
+    # Opens a major
     def openMajorButton(self, major, new):
         if new == False:
             if self.majorBox.get(self.majorBox.curselection()) != "":
@@ -2544,9 +2569,6 @@ class View:
         def update_course_list(data):
             for i in self.course_tree.get_children():
                 self.course_tree.delete(i)
-
-            #self.course_tree.tag_configure('evenrow', background="grey")
-            #self.course_tree.tag_configure('oddrow', background="white")
 
             for item in data:
                 self.course_tree.insert('', 'end',
@@ -2946,14 +2968,15 @@ class View:
         self.majors.sort()
 
         def deleteMajorButton():  # Delete the major from database
-            name = majorEntry.get()
+            name = fnameE.get()
             if name != "" and id != "":
                 pub.sendMessage("request_DelMajor", acad=name)
                 self.DB.entryconfigure(5, state=NORMAL)
-                self.deleteMajorWindow.destroy()
+                t.destroy()
 
-        def filtr(e):
-            chars = majorEntry.get()
+        nameFrame = Frame(t)
+        nameFrame.pack(side=TOP, anchor='w', padx=20, pady=10)
+
 
         label2 = Label(nameFrame, text='Major Abbreviation:').pack(side=LEFT)
         fnameE = Entry(nameFrame, width=15)
@@ -2995,6 +3018,7 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
         pub.sendMessage("request_ListMinors")
 
+        # Filters minors
         def filtr(e):
             chars1 = fnameE.get()
             index = 0
@@ -3011,7 +3035,7 @@ class View:
                 for i in self.minors:
                     self.minorsBox.insert(END, self.minors[index])
                     index += 1
-
+        # Fills entry
         def fillEntry(e):
             if self.minorsBox.curselection() != "":
                 selectedMinor = self.minorsBox.get(self.minorsBox.curselection())
@@ -3020,14 +3044,14 @@ class View:
                 fnameE.delete(0, END)
 
                 fnameE.insert(0, selectedMinorSplit[0])
-
+        # Closes window
         def close(e):
             self.DB.entryconfigure(6, state=NORMAL)
             t.destroy()
 
         t.bind('<Destroy>', close)
         self.DB.entryconfigure(6, state=DISABLED)
-
+        # Deletes minor button
         def deleteMinorButton():  # Delete the minor from database
             name = fnameE.get()
             if name != "" and id != "":
