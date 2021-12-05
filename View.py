@@ -35,6 +35,7 @@ class View:
         self.TVstyle = Style()
         self.TVstyle.configure("mystyle.Treeview", font=('Helvetica', 10))
         self.TVstyle.configure("mystyle.Treeview.Heading", font=('Helvetica', 10))
+        master.iconbitmap("Logo_DraftAAT.ico")
 
         self.schList = []
         self.subjectsList = []
@@ -138,6 +139,7 @@ class View:
         self.loginWindow.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(self.loginWindow)} center')
         self.loginWindow.grab_set()
+        self.loginWindow.iconbitmap("Logo_DraftAAT.ico")
 
         # self.loginWindow.iconbitmap("Logo_DraftAAT.ico")
         # Creating frame for widgets
@@ -654,21 +656,30 @@ class View:
 
         # Identifies if the progress reports has an even or odd number of semesters
         # Then adds the the label, table, and add semester button to correct locations
-        if self.prevProgTableLength % 2 == 0:
-            self.addSemesterBtn.grid(row=self.prevProgTableLength - 2, column=1)
-            self.removeSemesterBtn.grid(row=self.prevProgTableLength - 2, column=1)
+
+
+        if self.prevProgTableLength == -1:
+            print(self.prevProgTableLength)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=W, padx=130)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=E, padx=130)
+
+        elif self.prevProgTableLength % 2 == 0:
+            print(self.prevProgTableLength)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1, sticky=W, padx=180)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1, sticky=E, padx=180)
             labels[len(labels) - 1].forget()
             labels[len(labels) - 1].grid_remove()
             labels.pop()
 
-            self.winSumLabel[0].grid(column=0, row=self.prevProgTableLength - 4)
-            self.winSumTable[0].grid(column=0, row=self.prevProgTableLength - 5, columnspan=2, sticky=W, padx=5)
-            self.winSumLabel[1].grid(column=1, row=self.prevProgTableLength - 4)
-            self.winSumTable[1].grid(column=1, row=self.prevProgTableLength - 5, columnspan=2, sticky=W, padx=5)
+            self.winSumLabel[0].grid(column=0, row=self.prevProgTableLength + 2)
+            self.winSumTable[0].grid(column=0, row=self.prevProgTableLength + 3, columnspan=2, sticky=W, padx=5)
+            self.winSumLabel[1].grid(column=1, row=self.prevProgTableLength + 2)
+            self.winSumTable[1].grid(column=1, row=self.prevProgTableLength + 3, columnspan=2, sticky=W, padx=5)
 
         else:
-            self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=0)
-            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 1, column=0)
+            print(self.prevProgTableLength)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=W, padx=180)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=E, padx=180)
 
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
@@ -701,14 +712,16 @@ class View:
         # Then adds the the label, table, and add semester button to correct locations
         if self.prevProgTableLength % 2 == 0:
             tables[len(tables) - 1].grid(column=0, row=self.prevProgTableLength + 1)
-            self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1, sticky=W, padx=180)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1, sticky=E, padx=180)
 
         else:
             tables[len(tables) - 1].grid(column=1, row=self.prevProgTableLength)
             labels.append(
                 Label(frame, text="Year " + str(math.ceil(self.prevProgTableLength / 2) + 1), font=('Helvetica', 15)))
             labels[len(labels) - 1].grid(column=0, row=self.prevProgTableLength + 1, columnspan=2, sticky=W, padx=5)
-            self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0)
+            self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=W, padx=180)
+            self.removeSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=E, padx=180)
 
             self.winSumLabel[0].grid(column=0, row=self.prevProgTableLength + 4)
             self.winSumTable[0].grid(column=0, row=self.prevProgTableLength + 5, columnspan=2, sticky=W, padx=5)
@@ -796,8 +809,8 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
         self.selectedSemester = ''
         self.addSemesterBtn["state"] = DISABLED
+        t.iconbitmap("Logo_DraftAAT.ico")
 
-        # Closes window
         def close(e):
             self.addCourseButton.configure(state=NORMAL)
             self.addSemesterBtn["state"] = NORMAL
@@ -806,16 +819,18 @@ class View:
         t.bind('<Destroy>', close)
         self.addCourseButton.configure(state=DISABLED)
 
-        # Updates list on course tree
         def update_course_list(data):
             for i in self.course_tree.get_children():
                 self.course_tree.delete(i)
 
+            # self.course_tree.tag_configure('evenrow', background="grey")
+            # self.course_tree.tag_configure('oddrow', background="white")
+
             for item in data:
                 self.course_tree.insert('', 'end',
-                                   values=(item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
+                                        values=(
+                                        item['Subject'], item['Catalog'], item['Long Title'], item['Allowd Unt']))
 
-        # Fills out entries
         def fillout_fields(event):
             subject_entry.delete(0, END)
             catalog_entry.delete(0, END)
@@ -830,14 +845,14 @@ class View:
             title_entry.insert(0, course_info[2])
             credit_entry.insert(0, course_info[3])
 
-        # Verifying course exits
         def check_course(event):
             subject_type = subject_entry.get().upper()
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
 
-            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type, cred=credit_type)
+            pub.sendMessage("request_Course_by_Regex", sub=subject_type, cat=catalog_type, title=title_type,
+                            cred=credit_type)
             update_course_list(self.course_regex_list)
 
         # adds searched course into the treeview
@@ -847,39 +862,77 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            self.selectedSemester.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                   values=(subject_type + " " + catalog_type,
-                                           title_type,
-                                           credit_type,
-                                           "Major"))
+            blank = False
+            blank_ind = 0
+            self.int_ind = 0
+            self.seasonal = False
+            self.cnter = 0
 
-            prevcred = self.enrollCredVar.get()
-            self.enrollCredVar.set(prevcred + int(float(credit_type)))
+            if subject_type == "" or catalog_type == "" or title_type == "":
+                messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
+            else:
+                inTree = False
+                for i in range(0, 2):
+                    cnt = len(self.winSumTable[i].get_children())
+                    for num in range(cnt):
+                        try:  # Checks if a course was previously removed from a table before proceeding
+                            self.winSumTabl[i].item(num)
+                            if title_type == self.winSumTable[i].item(num)['values'][
+                                1] or subject_type + "  " + catalog_type == self.winSumTable[i].item(num)['values'][0]:
+                                inTree = True
+                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                    message="Error: Course Already Exists in Plan")
+                        except TclError as err:  # If a course has been removed and causes a index error
+                            if i == self.int_ind and self.seasonal == True:  # If that index error occurs in the same treeview that user attempts to insert
+                                blank = True  # Indicate there is a blank
+                                blank_ind = num  # Store the index to be used in insertion
+                for i in range(0, self.progTableLength):
+                    cnt = len(self.progTable[i].get_children())
+                    for num in range(cnt):
+                        try:  # Checks if a course was previously removed from a table before proceeding
+                            self.progTable[i].item(num)
+                            if title_type == self.progTable[i].item(num)['values'][
+                                1] or subject_type + " " + catalog_type == self.progTable[i].item(num)['values'][0]:
+                                inTree = True
+                                messagebox.showinfo(parent=t, title="Duplicate Course Error",
+                                                    message="Error: Course Already Exists in Plan")
+                        except TclError as err:  # If a course has been removed and causes a index error
+                            if i == self.int_ind and self.seasonal == False:  # If that index error occurs in the same treeview that user attempts to insert
+                                blank = True  # Indicate there is a blank
+                                blank_ind = num  # Store the index to be used in insertion
+                if not inTree:
+                    if blank == True:  # If theres a blank
+                        self.cnter = blank_ind  # Use the blank index as the IID
+                    else:
+                        self.cnter = len(self.selectedSemester.get_children())
+                    self.selectedSemester.insert(parent='', index='end', iid=self.cnter,
+                                                 values=(
+                                                     subject_type + " " + catalog_type, title_type, credit_type))
 
         self.dropDefault = StringVar()
         self.dropDefault.set("Select a semester")
         self.semesters = []
 
-        for i in range(0, self.progTableLength, 1):
-            print(len(self.courseHist))
-            print(self.progTableLength)
-            for i in range(0, len(self.courseHist), 1):
-                if i % 2 == 0:
-                    self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
-                elif i == len(self.courseHist):
-                    self.semesters.append("Current Semester ")
-                else:
-                    self.semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
+        for i in range(0, len(self.progTable), 1):
+            if i == len(self.courseHist):
+                self.semesters.append("Current Semester ")
+            elif i % 2 == 0:
+                self.semesters.append("Year " + str(math.ceil(i/2)+1) + " Semester " + str(1))
+            else:
+                self.semesters.append("Year " + str(math.ceil(i/2)) + " Semester " + str(2))
         self.semesters.append('Winter')
         self.semesters.append('Summer')
 
         # Changed the semester on dropdown
         def semesterChanged(event):
             comboboxString = self.progRepoDrop.get().split()
+
             if comboboxString[0] == 'Winter':
                 self.selectedSemester = self.winSumTable[0]
             elif comboboxString[0] == 'Summer':
                 self.selectedSemester = self.winSumTable[1]
+            elif comboboxString[0] == 'Current':
+                self.selectedSemester = self.progTable[len(self.courseHist)]
             elif comboboxString[3] == '1':
                 self.selectedSemester = self.progTable[(int(comboboxString[1]))*2 - 2]
             else:
@@ -1161,6 +1214,7 @@ class View:
         t.geometry("425x450")
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
+        t.iconbitmap("Logo_DraftAAT.ico")
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         # Closes the window
@@ -1344,6 +1398,7 @@ class View:
         t.geometry("700x400")
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
+        t.iconbitmap("Logo_DraftAAT.ico")
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         # Closes window
@@ -1523,6 +1578,7 @@ class View:
         t.geometry("700x400")
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
+        t.iconbitmap("Logo_DraftAAT.ico")
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def close(e):
@@ -1878,6 +1934,7 @@ class View:
         t.wm_title("Help Menu")
         t.geometry("1000x600")
         t.attributes('-topmost', 'true')
+        t.iconbitmap("Logo_DraftAAT.ico")
 
         top = Frame(t)  # Top frame for title and buttons
         bottom = Frame(t)  # Bottom frame for list box containing help menu
@@ -1944,6 +2001,7 @@ class View:
         t.resizable(width=0, height=0)
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
+        t.iconbitmap("Logo_DraftAAT.ico")
         # Searches for the students name to open their schudule
         def openScheduleSearchButton(e):
             if fname.get() == "" or lname.get() == "" or idE.get() == "":
@@ -1986,17 +2044,18 @@ class View:
                         # Shows buttons for Progress Report when student information is present
                         self.addProgRepoBtn.grid(column=0, row=0, sticky=E, padx=150)
                         self.removeProgRepoBtn.grid(column=0, row=0, sticky=E, padx=10)
-                        self.progLabel[len(self.progLabel) - 1]['text'] = 'Current Semester'
+                        self.progLabel[len(self.progLabel) - 1]['text'] = 'Current Year'
                         if self.progTableLength % 2 == 0:
-                            self.addSemesterBtn.grid(row=self.progTableLength + 1, column=1)
+                            self.addSemesterBtn.grid(row=self.progTableLength + 1, column=1, sticky=W, padx=180)
+                            self.removeSemesterBtn.grid(row=self.progTableLength + 1, column=1, sticky=E, padx=180)
                         else:
-                            self.addSemesterBtn.grid(row=self.progTableLength + 2, column=0)
+                            self.addSemesterBtn.grid(row=self.progTableLength + 2, column=0, sticky=W,  padx=180)
+                            self.removeSemesterBtn.grid(row=self.progTableLength + 2, column=0, sticky=E, padx=180)
                             self.progLabel.append(Label(self.progressRepoFrame,
                                                         text="Year " + str(math.ceil(self.progTableLength / 2) + 1),
                                                         font=('Helvetica', 15)))
                             self.progLabel[len(self.progLabel) - 1].grid(column=0, row=self.progTableLength + 1,
                                                                          columnspan=2, sticky=W, padx=5)
-
 
                 except (TclError):
                     w = Toplevel(t)
@@ -2171,6 +2230,7 @@ class View:
         t.resizable(width=FALSE, height=FALSE)
         t.transient(self.mainwin)
         t.attributes('-topmost', 'true')
+        t.iconbitmap("Logo_DraftAAT.ico")
         selectedTreeView = self.mainwin.focus_get()
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
@@ -2443,6 +2503,7 @@ class View:
                 self.editMajorWindow.geometry("1150x850")
                 self.editMajorWindow.wm_title("Edit Major")
                 self.editMajorWindow.attributes('-topmost', 'true')
+                self.editMajorWindow.iconbitmap("Logo_DraftAAT.ico")
             else:
                 return
         else:
@@ -2490,6 +2551,7 @@ class View:
         self.addEditMajorWindow.geometry("300x310")
         self.addEditMajorWindow.resizable(width=0, height=0)
         self.addEditMajorWindow.attributes('-topmost', 'true')
+        self.addEditMajorWindow.iconbitmap("Logo_DraftAAT.ico")
         self.mainwin.eval(f'tk::PlaceWindow {str(self.addEditMajorWindow)} center')
         pub.sendMessage("request_Major_Plan")  # Retrieves list of majors from database
         self.majors.sort()
@@ -2557,6 +2619,7 @@ class View:
         t.geometry("700x400")
         t.resizable(width=FALSE, height=FALSE)
         t.transient(parentWindow)
+        t.iconbitmap("Logo_DraftAAT.ico")
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
 
         def close(e):
@@ -2779,6 +2842,7 @@ class View:
             editMinorWindow.geometry("650x600")
             editMinorWindow.resizable(width=0, height=0)
             editMinorWindow.attributes('-topmost', 'true')
+            editMinorWindow.iconbitmap("Logo_DraftAAT.ico")
         else:
             return
 
@@ -2874,6 +2938,7 @@ class View:
         self.mainwin.eval(f'tk::PlaceWindow {str(self.addEditMinorWindow)} center')
         pub.sendMessage("request_Minor_Plan")  # Retrieves list of majors from database
         self.minors.sort()
+        self.addEditMinorWindow.iconbitmap("Logo_DraftAAT.ico")
 
         def filtr(e):
             chars = minorEntry.get()
@@ -2930,6 +2995,7 @@ class View:
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
         pub.sendMessage("request_ListMajors")
+        t.iconbitmap("Logo_DraftAAT.ico")
 
         def filtr(e):
             chars1 = fnameE.get()
@@ -3017,6 +3083,7 @@ class View:
         t.attributes('-topmost', 'true')
         self.mainwin.eval(f'tk::PlaceWindow {str(t)} center')
         pub.sendMessage("request_ListMinors")
+        t.iconbitmap("Logo_DraftAAT.ico")
 
         # Filters minors
         def filtr(e):
