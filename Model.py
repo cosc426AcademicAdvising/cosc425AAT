@@ -426,9 +426,8 @@ class Model:
         url = url + major
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MajorIn/"
         check_url = check_url + major
-        check_response = requests.get(check_url)
+        check_response = requests.get(check_url, headers={'auth-token': token})
         # First checks if major exists, if so proceed with delete
-        print(check_response)
 
         if (check_response.json() == 1):
             response = requests.post(url, headers={'auth-token': token})
@@ -443,7 +442,7 @@ class Model:
         url = url + minor
         check_url = "https://cosc426restapi.herokuapp.com/api/Department/MinorIn/"
         check_url = check_url + minor
-        check_response = requests.get(check_url)
+        check_response = requests.get(check_url, headers={'auth-token': token})
         if (check_response.json() == 1):
             response = requests.post(url, headers={'auth-token': token})
             obj = response.json()

@@ -3024,15 +3024,6 @@ class View:
                 fnameE.insert(0, selectedMajorSplit[0])
 
 
-        self.deleteMajorWindow = Toplevel(self.mainwin)
-        self.deleteMajorWindow.wm_title("Edit/Add Major")
-        self.deleteMajorWindow.geometry("300x310")
-        self.deleteMajorWindow.resizable(width=0, height=0)
-        self.deleteMajorWindow.attributes('-topmost', 'true')
-        self.mainwin.eval(f'tk::PlaceWindow {str(self.deleteMajorWindow)} center')
-        pub.sendMessage("request_Major_Plan")  # Retrieves list of majors from database
-        self.majors.sort()
-
         def deleteMajorButton():  # Delete the major from database
             name = fnameE.get()
             if name != "" and id != "":
