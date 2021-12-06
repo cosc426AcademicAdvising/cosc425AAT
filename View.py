@@ -77,7 +77,7 @@ class View:
         self.menuBar()  # Calls menu bar function
         self.loginWindow.protocol("WM_DELETE_WINDOW",
                                   self.login_closing)  # If user closes login window application closes
-        style = Style()  # Creates Style object
+        style = Style()
         style.theme_use("sutheme")  # Sets the of application using the style object
 
     # prompt message before closing program,
@@ -173,12 +173,12 @@ class View:
         # Using the rest API to verify credentials
         def checkLogin(e):
             url = "https://cosc426restapi.herokuapp.com/api/user/login/"
-            restAPIEmail = 'testing@email.com'
-            restAPIpasswrd = 'test123'
+            restAPIid = 9999999
+            restAPIpasswrd = 'suadvisors'
             user = self.emailEntry.get()
             pwd = self.passwrdEntry.get()
             val = {
-                "email": restAPIEmail,
+                "id": restAPIid,
                 "password": restAPIpasswrd
             }
             response = requests.post(url, json=val)
