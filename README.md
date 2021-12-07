@@ -14,7 +14,7 @@ pip install foobar
 ```
 
 ## Features
-  Login window:
+  Login window
 
   Basic Menu:
     Student - New, Open, Save, Export
@@ -43,7 +43,8 @@ pip install foobar
 ## Dependencies
 
 ## Contributing
-Members that contributed to the devleopment of this application: 
-  Programming - Quincy, Florent, Brian, Devin
-  Client - Lacie Doyle
-  Professor - Xiaohong Wang
+  Members that contributed to the devleopment of this application:    
+    
+    Programming - Quincy Dennis, Florent DondjeuTschoufack, Brian Redderson, Devin Schmidt
+    Client - Lacie Doyle, Liza MacEntee
+    Professor - Xiaohong Wang
