@@ -82,7 +82,6 @@ class View:
 
     # prompt message before closing program,
     # also closes all TopLevel functions
-
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             for widget in self.mainwin.winfo_children():
