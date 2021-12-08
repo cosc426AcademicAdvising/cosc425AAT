@@ -658,12 +658,10 @@ class View:
 
 
         if self.prevProgTableLength == -1:
-            print(self.prevProgTableLength)
             self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=W, padx=130)
             self.removeSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=E, padx=130)
 
         elif self.prevProgTableLength % 2 == 0:
-            print(self.prevProgTableLength)
             self.addSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1, sticky=W, padx=180)
             self.removeSemesterBtn.grid(row=self.prevProgTableLength + 1, column=1, sticky=E, padx=180)
             labels[len(labels) - 1].forget()
@@ -676,7 +674,6 @@ class View:
             self.winSumTable[1].grid(column=1, row=self.prevProgTableLength + 3, columnspan=2, sticky=W, padx=5)
 
         else:
-            print(self.prevProgTableLength)
             self.addSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=W, padx=180)
             self.removeSemesterBtn.grid(row=self.prevProgTableLength + 2, column=0, sticky=E, padx=180)
 
@@ -2180,12 +2177,20 @@ class View:
         for id in self.backupCourseTree.get_children():
             bcourses.append(self.backupCourseTree.item(id)['values'])
 
+        PRcourses = []
+        for table in range(len(self.progTable)):
+            for courses in self.progTable[table].get_children():
+                PRcourses.append(self.progTable[table].item(table)['values'])
+
+        print(PRcourses)
+
         pydict = {
             "name": self.nameEntry.get(),
             "s_id": self.idEntry.get(),
             # "dept": ,
             "major": majors,
             "minor": minors,
+            "progress report": PRcourses,
             "taking_course": courses,
             "backup_course": bcourses
         }
