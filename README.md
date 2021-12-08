@@ -37,6 +37,18 @@ pip install foobar
    ![alt text](https://github.com/quincden/cosc425AAT/blob/main/Screenshots/ProgramPlanningWorksheet.PNG?raw=true)
         
 ## Future Features
+    
+    Refactor View.py for modularity and organization
+    Resolution settings
+    Transfer courses
+    Finish "Save" in menu
+    Resolution Settings
+    
+## Known Bugs
+    
+    Add button in FYP manipulates Progress Report treeview
+    
+    
 
 ## Tools Used
 
