@@ -2179,7 +2179,7 @@ class View:
 
         PRcourses = []
         for table in range(len(self.progTable)):
-            for courses in self.progTable[table].get_children():
+            for x in self.progTable[table].get_children():
                 PRcourses.append(self.progTable[table].item(table)['values'])
 
         print(PRcourses)
