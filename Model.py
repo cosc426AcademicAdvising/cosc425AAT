@@ -345,9 +345,12 @@ class Model:
             policies.append(self.getPolicies(majList[i]))
 
         for i in range(len(obj['minor'])):
-            minorFourList.append(self.getMinorPlanCourse(minList[i]))
-            minorReqList.append(self.getMinorPlanReq(minList[i]))
-            policies.append(self.getMinorUnivReq(minList[i]))
+            try:
+                minorFourList.append(self.getMinorPlanCourse(minList[i]))
+                minorReqList.append(self.getMinorPlanReq(minList[i]))
+                policies.append(self.getMinorUnivReq(minList[i]))
+            except ValueError:
+                print("json decode failed")
             # First array initializer corresponds to which semester you are viewing course for
             # Ex.  fourList[0][1]  =  The first semester and the second course the took that semester
 
@@ -504,8 +507,6 @@ class Model:
                 total = int(sem)
             except KeyError as b:
                 total = total  # Last none KeyError semester is stored
-            except TypeError as c:
-                total = total
             sem = str(int(sem) + 1)
         # print(total)
 
@@ -577,45 +578,44 @@ class Model:
 
         url = "https://cosc426restapi.herokuapp.com/api/MinPlan/Plan/"
         url = url + minor
+        print(minor)
         response = requests.get(url, headers={'auth-token': token})
+        i = response.json()
+        print(i)
+        # fourList.append(i['policies'])
 
-        try:
-            i = response.json()
-            # fourList.append(i['policies'])
+        # Gets total number of semesters through error handling
+        for j in range(15):  # Max of 15 possible semesters needed
+            stri = "crs"  # Append which semester to string
+            stri = stri + sem
+            try:  # Error checks is semester is out of range
+                (i[stri])  # Sets the total to the currently viewed semester
+                total = int(sem)
+            except KeyError as b:
+                total = total  # Last none KeyError semester is stored
+            sem = str(int(sem) + 1)
 
-            # Gets total number of semesters through error handling
-            for j in range(15):  # Max of 15 possible semesters needed
-                stri = "crs"  # Append which semester to string
-                stri = stri + sem
-                try:  # Error checks is semester is out of range
-                    (i[stri])  # Sets the total to the currently viewed semester
-                    total = int(sem)
-                except KeyError as b:
-                    total = total  # Last none KeyError semester is stored
-                sem = str(int(sem) + 1)
+        for k in range(total):  # Iterates through each semester from previously calculated value
+            stri = "crs"  # Appends which semester to a string
+            stri = stri + str(k + 1)
+            # Gets total number of courses through error handling
+            courseList = []
+            for l in range(15):  # Max of 15 possible courses recommended during any given semester
 
-            for k in range(total):  # Iterates through each semester from previously calculated value
-                stri = "crs"  # Appends which semester to a string
-                stri = stri + str(k + 1)
-                # Gets total number of courses through error handling
-                courseList = []
-                for l in range(15):  # Max of 15 possible courses recommended during any given semester
-
-                    try:  # Checks for Array index error
-                        (i[stri][l])
-                        ctotal = l + 1  # Sets total number of courses to currently viewed course
-                        resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
-                                i[stri][l]['credits']]  # Creates a string value of each objects within array
-                        courseList.append(resl)  # Appends that string to a course list
-                    except IndexError as c:
-                        ctotal = ctotal  # Last none index error course number is stored
-                minList.append(courseList)
-            return minList
-        except TypeError:
-            return
+                try:  # Checks for Array index error
+                    (i[stri][l])
+                    ctotal = l + 1  # Sets total number of courses to currently viewed course
+                    resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
+                            i[stri][l]['credits']]  # Creates a string value of each objects within array
+                    courseList.append(resl)  # Appends that string to a course list
+                except IndexError as c:
+                    ctotal = ctotal  # Last none index error course number is stored
+            minList.append(courseList)
+        return minList
 
     # Updates student information whenever user requests to save a student
     def updateStudent(self, obj):
+        #print(obj)
         url = "https://cosc426restapi.herokuapp.com/api/Student/"
         url = url + str(obj['s_id'])
         response = requests.get(url, headers={'auth-token': token})
@@ -625,11 +625,6 @@ class Model:
 
         Mintotal = len(stud['minor'])
 
-        update_url = "https://cosc426restapi.herokuapp.com/api/Update/Enrll"
-        val = {'enrll': obj['enrll'], 's_id': obj['s_id']}
-        requests.post(update_url, headers={'auth-token': token}, json=val)
-
-        
         update_url = "https://cosc426restapi.herokuapp.com/api/Update/MajorSet"
         for i in range(len(obj['major'])):
             field1 = 'major.' + str(i) + ".title"
@@ -698,8 +693,9 @@ class Model:
         for i in range(len(obj['taking_course'])):
 
             subcat = obj['taking_course'][i][0].split()
-            print(subcat[0])
-            print(subcat[1])
+            #print(obj)
+            #print(subcat[0])
+            #print(subcat[1])
             field1 = "taking_course." + str(i) + ".subject"
             field2 = "taking_course." + str(i) + ".catalog"
             field3 = "taking_course." + str(i) + ".title"
