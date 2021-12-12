@@ -477,6 +477,7 @@ class Model:
         response = requests.get(check_url, headers={'auth-token': token})
 
         # First checks if major already exists in database,
+
         if response.json() == 1:
             response = requests.get(url_temp, headers={'auth-token': token})
             obj = response.json()
@@ -497,39 +498,39 @@ class Model:
             # If not then no plan exists for that major
             else:
                 i = ""
-
-        # Gets total number of semesters through error handling
-        for j in range(15):  # Max of 15 possible semesters taken
-            stri = "semester_"  # Append which semester to string
-            stri = stri + sem
-            try:  # Error checks is semester is out of range
-                (i[stri])  # Sets the total to the currently viewed semester
-                total = int(sem)
-            except KeyError as b:
-                total = total  # Last none KeyError semester is stored
-            sem = str(int(sem) + 1)
-        # print(total)
-
-        for k in range(total):  # Iterates through each semester from previously calculated value
-            stri = "semester_"  # Appends which semester to a string
-            stri = stri + str(k + 1)
-            # Gets total number of courses through error handling
-            courseList = []
-            for l in range(8):  # Max of 8 possible courses taken during any given semester
-
-                try:  # Checks for Array index error
-                    (i[stri][l])
-                    ctotal = l + 1  # Sets total number of courses to currently viewed course
-                    resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
-                            i[stri][l]['cred']]  # Creates a string value of each objects within array
-                    courseList.append(resl)  # Appends that string to a course list
-                except IndexError as c:
-                    ctotal = ctotal  # Last none index error course number is stored
+        if(i != ""):
+            # Gets total number of semesters through error handling
+            for j in range(15):  # Max of 15 possible semesters taken
+                stri = "semester_"  # Append which semester to string
+                stri = stri + sem
+                try:  # Error checks is semester is out of range
+                    (i[stri])  # Sets the total to the currently viewed semester
+                    total = int(sem)
                 except KeyError as b:
-                    ctotal = ctotal
+                    total = total  # Last none KeyError semester is stored
+                sem = str(int(sem) + 1)
+            # print(total)
 
-            # print(ctotal)
-            fourList.append(courseList)
+            for k in range(total):  # Iterates through each semester from previously calculated value
+                stri = "semester_"  # Appends which semester to a string
+                stri = stri + str(k + 1)
+                # Gets total number of courses through error handling
+                courseList = []
+                for l in range(8):  # Max of 8 possible courses taken during any given semester
+
+                    try:  # Checks for Array index error
+                        (i[stri][l])
+                        ctotal = l + 1  # Sets total number of courses to currently viewed course
+                        resl = [k, i[stri][l]['subject'], i[stri][l]['catalog'], i[stri][l]['title'],
+                                i[stri][l]['cred']]  # Creates a string value of each objects within array
+                        courseList.append(resl)  # Appends that string to a course list
+                    except IndexError as c:
+                        ctotal = ctotal  # Last none index error course number is stored
+                    except KeyError as b:
+                        ctotal = ctotal
+
+                # print(ctotal)
+                fourList.append(courseList)
         return fourList
 
     # Requests the university requirements from a minor plan for a specified minor
