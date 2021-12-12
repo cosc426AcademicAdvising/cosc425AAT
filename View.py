@@ -369,7 +369,10 @@ class View:
             policy_button.grid(column=0, row=0, columnspan=1, sticky=E, padx=150)
 
         for i in range(len(minor)):  # Filling arrays according to amount of majors a student is doing
-            self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
+            try:
+                self.sizeOfMinor = len(self.minorReqList[i])  # Amount of tables and labels for each minor
+            except IndexError:
+                print("index error")
             self.minorsLabelArray.append([])  # Creates 2d array for each each array containing labels for a tab
             self.minorsTable.append([])  # Creates 2d array each array is a minor containing each treeview for a tab
             self.minorFrames.append(Frame(self.tab_parent))  # Holds frames for each tab
@@ -401,15 +404,12 @@ class View:
             for sem in minors:
                 self.minorTableTree_iid = 0
                 for course in sem:
-                    try:
-                        self.minorsTable[minorIndex][semIndex].insert(parent='', index='end',
-                                                                      iid=self.minorTableTree_iid,
-                                                                      values=(str(course[1] + " " + course[2]), course[3],
-                                                                              course[4]))
-                        self.coursesNeeded.append(str(course[1] + " " + course[2]))
-                        self.minorTableTree_iid += 1
-                    except IndexError:
-                        continue
+                    self.minorsTable[minorIndex][semIndex].insert(parent='', index='end',
+                                                                  iid=self.minorTableTree_iid,
+                                                                  values=(str(course[1] + " " + course[2]), course[3],
+                                                                          course[4]))
+                    self.coursesNeeded.append(str(course[1] + " " + course[2]))
+                    self.minorTableTree_iid += 1
                 semIndex += 1
             minorIndex += 1
 
@@ -595,7 +595,10 @@ class View:
         if tab_text == "Progress Report":
             pass
         else:
-            pub.sendMessage('request_Policy_to_Display', policy=self.policies[tab_index - 1])
+            try:
+                pub.sendMessage('request_Policy_to_Display', policy=self.policies[tab_index - 1])
+            except IndexError:
+                print("policy index error")
 
         self.canvas.update()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
@@ -2177,27 +2180,33 @@ class View:
         courses, bcourses = [], []
         for id in self.courseTree.get_children():
             courses.append(self.courseTree.item(id)['values'])
+            print(self.courseTree.item(id)['values'])
         for id in self.backupCourseTree.get_children():
             bcourses.append(self.backupCourseTree.item(id)['values'])
-
+        print("course test")
+        print(courses)
         PRcourses = []
         for table in range(len(self.progTable)):
             for x in self.progTable[table].get_children():
                 PRcourses.append(self.progTable[table].item(table)['values'])
 
-        print(PRcourses)
-
+        #print(PRcourses)
+        print("course test 2")
+        print(courses)
         pydict = {
             "name": self.nameEntry.get(),
             "s_id": self.idEntry.get(),
             # "dept": ,
             "major": majors,
             "minor": minors,
-            "enrll": self.enrlDateEntry.get(),
             "progress report": PRcourses,
             "taking_course": courses,
             "backup_course": bcourses
         }
+        #print("printing courses")
+        #print(courses)
+        #print("printing bcourses")
+        #print(bcourses)
         pub.sendMessage("save_schedule", obj=pydict)
     # Calls the export function for making a PDF
 
