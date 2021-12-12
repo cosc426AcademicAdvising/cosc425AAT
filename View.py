@@ -401,12 +401,15 @@ class View:
             for sem in minors:
                 self.minorTableTree_iid = 0
                 for course in sem:
-                    self.minorsTable[minorIndex][semIndex].insert(parent='', index='end',
-                                                                  iid=self.minorTableTree_iid,
-                                                                  values=(str(course[1] + " " + course[2]), course[3],
-                                                                          course[4]))
-                    self.coursesNeeded.append(str(course[1] + " " + course[2]))
-                    self.minorTableTree_iid += 1
+                    try:
+                        self.minorsTable[minorIndex][semIndex].insert(parent='', index='end',
+                                                                      iid=self.minorTableTree_iid,
+                                                                      values=(str(course[1] + " " + course[2]), course[3],
+                                                                              course[4]))
+                        self.coursesNeeded.append(str(course[1] + " " + course[2]))
+                        self.minorTableTree_iid += 1
+                    except IndexError:
+                        continue
                 semIndex += 1
             minorIndex += 1
 
@@ -2190,6 +2193,7 @@ class View:
             # "dept": ,
             "major": majors,
             "minor": minors,
+            "enrll": self.enrlDateEntry.get(),
             "progress report": PRcourses,
             "taking_course": courses,
             "backup_course": bcourses
