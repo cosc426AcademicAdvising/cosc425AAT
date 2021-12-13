@@ -1453,28 +1453,41 @@ class View:
             catalog_type = catalog_entry.get()
             title_type = title_entry.get().upper()
             credit_type = credit_entry.get()
-            self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                   values=(subject_type + " " + catalog_type,
-                                           title_type,
-                                           credit_type,
-                                           "Major"))
+
+            blank = False
+            blank_ind = 0
+            # self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
+            #                        values=(subject_type + " " + catalog_type,
+            #                                title_type,
+            #                                credit_type,
+            #                                "Major"))
 
             if subject_type == "" or catalog_type == "" or title_type == "":
                 messagebox.showwarning(parent=t, title="Invalid Input", message="Error: No Fields Can Be Left Blank")
             else:
                 inTree = FALSE
-                tree_values = self.courseTree.get_children()
-                for each in tree_values:
-                    if title_type == self.courseTree.item(each)['values'][1]:
-                        inTree = TRUE
-                        messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                tree_values = len(self.courseTree.get_children())
+                for each in range(tree_values):
+                    try:
+                        self.courseTree.item(each)
+                        if title_type == self.courseTree.item(each)['values'][1]:
+                            inTree = True
+                            messagebox.showwarning(parent=t, title="Duplicate Course Error", message="Error: Unable to add duplicate course to table")
+                    except TclError as err:  # If a course has been removed and causes a index error
+                            blank = True  # Indicate there is a blank
+                            blank_ind = each  # Store the index to be used in insertion
 
                 if not inTree:
-                    self.courseTree.insert(parent='', index='end', iid=self.courseTree_counter, text="",
-                                           values=(subject_type + " " + catalog_type,
-                                                   title_type,
-                                                   credit_type,
-                                                   "Major"))
+                    cnter = 0
+                    if blank == True:       # If theres a blank
+                        cnter = blank_ind     # Use the blank index as the IID
+                    else:
+                        cnter = len(self.courseTree.get_children())
+                    self.courseTree.insert(parent='', index='end', iid=cnter, text="",
+                                       values=(subject_type + " " + catalog_type,
+                                               title_type,
+                                               credit_type,
+                                               "Major"))
 
                     prevcred = self.enrollCredVar.get()
                     self.courseTree_counter += 1

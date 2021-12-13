@@ -625,7 +625,7 @@ class Model:
         update_url = "https://cosc426restapi.herokuapp.com/api/Update/Enrll"
         val = {'enrll': obj['enrll'], 's_id': obj['s_id']}
         requests.post(update_url, headers={'auth-token': token}, json=val)
-        
+
         Majtotal = len(stud['major'])
 
         Mintotal = len(stud['minor'])
