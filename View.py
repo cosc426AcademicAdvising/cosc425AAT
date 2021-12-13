@@ -1105,7 +1105,7 @@ class View:
         credFrameR.pack(side=RIGHT, padx=15)
 
         credLabel1 = Label(credFrameL, text='Earned:')
-        self.earnCredEntry = Entry(credFrameL, width=3, justify=CENTER, state=DISABLED)
+        self.earnCredEntry = Entry(credFrameL, width=4, justify=CENTER, state=DISABLED)
         credLabel2 = Label(credFrameL, text='credits.')
 
         credLabel1.grid(row=0, column=0)
@@ -1114,7 +1114,7 @@ class View:
 
         credLabel3 = Label(credFrameR, text='Currently Enrolled in.')
         self.enrollCredVar = IntVar()
-        self.enrollCredEntry = Entry(credFrameR, width=3, textvariable=self.enrollCredVar, justify=CENTER)
+        self.enrollCredEntry = Entry(credFrameR, width=4, textvariable=self.enrollCredVar, justify=CENTER)
         credLabel4 = Label(credFrameR, text='Credits')
 
         credLabel4.grid(row=0, column=0)
@@ -2199,6 +2199,7 @@ class View:
             # "dept": ,
             "major": majors,
             "minor": minors,
+            "enrll": self.enrlDateEntry.get(),
             "progress report": PRcourses,
             "taking_course": courses,
             "backup_course": bcourses

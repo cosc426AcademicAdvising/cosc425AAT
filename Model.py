@@ -254,7 +254,7 @@ class Model:
         for c in obj['taking_course']:
             courseID = c['subject'] + " " + c['catalog']
             courses.append((courseID, c['title'], c['cred'], c['genED']))
-            cred += c['cred']
+            cred += float(c['cred'])
 
         for c in obj['backup_course']:
             courseID = c['subject'] + " " + c['catalog']
